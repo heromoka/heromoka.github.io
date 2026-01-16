@@ -3,74 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEROMOKA | Full Collection</title>
+    <title>HEROMOKA | Huyền Thoại Lửa</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #c4973e; --dark: #010a13; --fire: #ff4500; }
-        body { margin: 0; font-family: 'Roboto', sans-serif; background-color: var(--dark); color: white; }
-        
-        /* Nav & Hero */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(0,0,0,0.95); border-bottom: 2px solid var(--gold); position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 26px; color: var(--gold); }
-        .hero { height: 60vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1a2a3a, #000); text-align: center; margin-top: 60px; }
-        .hero h1 { font-family: 'Oswald', sans-serif; font-size: 50px; color: white; text-shadow: 0 0 20px var(--fire); }
+        :root {
+            --gold: #c4973e; /* Màu vàng đặc trưng của Runeterra */
+            --dark-blue: #010a13;
+            --fire-orange: #ff4500;
+        }
 
-        /* Style Bộ sưu tập */
-        .collection-section { padding: 40px 5%; }
-        .set-title { font-family: 'Oswald', sans-serif; font-size: 28px; color: var(--gold); margin-bottom: 20px; border-left: 4px solid var(--fire); padding-left: 15px; text-transform: uppercase; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-blue);
+            color: white;
+            overflow-x: hidden;
+        }
 
-        /* MA THUẬT CẮT ẢNH Ở ĐÂY */
+        /* 1. THANH ĐIỀU HƯỚNG (NAV) */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(1, 10, 19, 0.85); /* Nền mờ */
+            border-bottom: 2px solid var(--gold);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover { color: var(--gold); }
+
+        .btn-play-small {
+            background: var(--gold);
+            color: black;
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .btn-play-small:hover {
+            background: #e0ae4a;
+            transform: scale(1.05);
+        }
+
+        /* 2. HERO BANNER (ẢNH RỰC LỬA LỚN) */
+        .hero {
+            height: 85vh; /* Chiều cao lớn, ấn tượng */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.2), var(--dark-blue)),
+                        url('./image_27.png'); /* ẢNH RỰC LỬA CỦA BẠN */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(50px, 8vw, 90px);
+            margin: 0;
+            text-transform: uppercase;
+            font-style: italic;
+            text-shadow: 0 0 30px var(--fire-orange);
+            line-height: 1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            letter-spacing: 6px;
+            color: #ffae00;
+            margin-top: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn-play-big {
+            margin-top: 40px;
+            padding: 20px 60px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.4s;
+            letter-spacing: 2px;
+        }
+
+        .btn-play-big:hover {
+            background: var(--gold);
+            color: black;
+            box-shadow: 0 0 50px rgba(196, 151, 62, 0.6);
+        }
+
+        /* 3. BỘ SƯU TẬP THẺ BÀI (CSS SPRITES) */
+        .collection-container {
+            padding: 60px 5%;
+            background: #050c16; /* Nền hơi tối để thẻ bài nổi bật */
+        }
+
+        .set-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 32px;
+            color: var(--gold);
+            margin-bottom: 25px;
+            border-left: 5px solid var(--fire-orange);
+            padding-left: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .card-item {
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0a141f;
+            transition: 0.3s;
+        }
+
+        .card-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(196, 151, 62, 0.3);
+        }
+
+        /* Ma thuật cắt ảnh từ full_set.png */
         .card-visual {
             width: 100%;
             padding-top: 140%; /* Tỉ lệ khung hình thẻ bài */
-            background-image: url('./full_set.png'); /* Dùng chung 1 tấm ảnh */
-            background-size: 500% 400%; /* Phóng to ảnh gấp 5 lần chiều ngang, 4 lần chiều dọc để khớp từng ô */
-            border-radius: 8px;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            background-image: url('./full_set.png');
+            background-size: 500% 400%; /* Phóng to ảnh gấp 5 lần chiều ngang, 4 lần chiều dọc */
         }
 
-        .card-item:hover .card-visual { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
-        .card-name { text-align: center; margin-top: 10px; font-weight: bold; color: #ccc; font-size: 14px; }
+        .card-name {
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            color: #ccc;
+            font-size: 14px;
+        }
 
-        /* Định vị tọa độ cho từng thẻ (Cắt ảnh) */
-        /* Dòng 1: IGNIS (Fire) - Y = 0% */
+        /* Tọa độ cắt ảnh */
         .ignis-1 { background-position: 0% 0%; }
         .ignis-2 { background-position: 25% 0%; }
         .ignis-3 { background-position: 50% 0%; }
         .ignis-4 { background-position: 75% 0%; }
         .ignis-5 { background-position: 100% 0%; }
-
-        /* Dòng 2: SYLVA (Nature) - Y = 33.33% */
         .sylva-1 { background-position: 0% 33.33%; }
         .sylva-2 { background-position: 25% 33.33%; }
         .sylva-3 { background-position: 50% 33.33%; }
         .sylva-4 { background-position: 75% 33.33%; }
         .sylva-5 { background-position: 100% 33.33%; }
-
-        /* Dòng 3: OMEGA (Mech) - Y = 66.66% */
         .omega-1 { background-position: 0% 66.66%; }
         .omega-2 { background-position: 25% 66.66%; }
         .omega-3 { background-position: 50% 66.66%; }
         .omega-4 { background-position: 75% 66.66%; }
         .omega-5 { background-position: 100% 66.66%; }
-
-        /* Dòng 4: ZAROK (Dark) - Y = 100% */
         .zarok-1 { background-position: 0% 100%; }
         .zarok-2 { background-position: 25% 100%; }
         .zarok-3 { background-position: 50% 100%; }
         .zarok-4 { background-position: 75% 100%; }
         .zarok-5 { background-position: 100% 100%; }
 
+        /* 4. FOOTER (CHÂN TRANG) */
+        footer {
+            padding: 40px;
+            text-align: center;
+            background: #000;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+        }
     </style>
 </head>
 <body>
 
-    <nav><div class="logo">HEROMOKA</div></nav>
-    <header class="hero"><h1>BỘ SƯU TẬP HUYỀN THOẠI</h1></header>
+    <nav>
+        <div class="logo">HEROMOKA</div>
+        <ul>
+            <li><a href="#">Trò chơi</a></li>
+            <li><a href="#">Thẻ bài</a></li>
+            <li><a href="#">Tin tức</a></li>
+        </ul>
+        <a href="#" class="btn-play-small">TẢI GAME</a>
+    </nav>
 
-    <div class="collection-section">
+    <header class="hero">
+        <div class="hero-bg"></div> <div class="hero-content">
+            <h1>IGNIS LEGENDS</h1>
+            <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
+            <button class="btn-play-big">CHƠI NGAY</button>
+        </div>
+    </header>
+
+    <section class="collection-container">
         <div class="set-title">IGNIS (HỆ LỬA)</div>
         <div class="card-grid">
             <div class="card-item"><div class="card-visual ignis-1"></div><div class="card-name">Common</div></div>
@@ -79,10 +259,8 @@
             <div class="card-item"><div class="card-visual ignis-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual ignis-5"></div><div class="card-name">Legendary</div></div>
         </div>
-    </div>
-
-    <div class="collection-section">
-        <div class="set-title">SYLVA (HỆ RỪNG)</div>
+        
+        <div class="set-title" style="margin-top: 40px;">SYLVA (HỆ RỪNG)</div>
         <div class="card-grid">
             <div class="card-item"><div class="card-visual sylva-1"></div><div class="card-name">Common</div></div>
             <div class="card-item"><div class="card-visual sylva-2"></div><div class="card-name">Uncommon</div></div>
@@ -90,10 +268,8 @@
             <div class="card-item"><div class="card-visual sylva-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual sylva-5"></div><div class="card-name">Legendary</div></div>
         </div>
-    </div>
 
-    <div class="collection-section">
-        <div class="set-title">OMEGA (CÔNG NGHỆ)</div>
+        <div class="set-title" style="margin-top: 40px;">OMEGA (CÔNG NGHỆ)</div>
         <div class="card-grid">
             <div class="card-item"><div class="card-visual omega-1"></div><div class="card-name">Common</div></div>
             <div class="card-item"><div class="card-visual omega-2"></div><div class="card-name">Uncommon</div></div>
@@ -101,10 +277,8 @@
             <div class="card-item"><div class="card-visual omega-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual omega-5"></div><div class="card-name">Legendary</div></div>
         </div>
-    </div>
 
-    <div class="collection-section">
-        <div class="set-title">ZAROK (BÓNG TỐI)</div>
+        <div class="set-title" style="margin-top: 40px;">ZAROK (BÓNG TỐI)</div>
         <div class="card-grid">
             <div class="card-item"><div class="card-visual zarok-1"></div><div class="card-name">Common</div></div>
             <div class="card-item"><div class="card-visual zarok-2"></div><div class="card-name">Uncommon</div></div>
@@ -112,7 +286,11 @@
             <div class="card-item"><div class="card-visual zarok-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual zarok-5"></div><div class="card-name">Legendary</div></div>
         </div>
-    </div>
+    </section>
+
+    <footer>
+        <p>© 2026 HEROMOKA STUDIO. TRANG WEB ĐƯỢC THIẾT KẾ DỰA TRÊN PHONG CÁCH RUNETERRA.</p>
+    </footer>
 
 </body>
 </html>
