@@ -1,10 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Trang Web Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEROMOKA | Horror Game Portal</title>
+    <style>
+        /* CSS để làm đẹp trang web */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a; /* Màu nền đen tối */
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Thanh menu điều hướng */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #ff4d4d; /* Màu đỏ kinh dị */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li { margin-left: 30px; }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover { color: #ff4d4d; }
+
+        /* Phần Hero (Hình ảnh đầu trang) */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
+                        url('https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1920&q=80'); /* Ảnh nền mẫu */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .btn-play {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background-color: #ff4d4d;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-play:hover {
+            background-color: #cc0000;
+            transform: scale(1.05);
+        }
+
+        /* Phần giới thiệu Game */
+        .content-section {
+            padding: 100px 10% ;
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-size: 40px;
+            color: #ff4d4d;
+        }
+
+        .content-section p {
+            max-width: 800px;
+            margin: 20px auto;
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        footer {
+            padding: 50px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid #333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chào mừng đến với trang web của tôi!</h1>
-    <p>Trang web này đang được xây dựng.</p>
+
+    <nav>
+        <div class="logo">HEROMOKA</div>
+        <ul>
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#">Cửa hàng</a></li>
+            <li><a href="#">Cộng đồng</a></li>
+            <li><a href="#">Hỗ trợ</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>THE BORNLESS CLONE</h1>
+        <p>Trải nghiệm kinh dị đỉnh cao ngay trên trình duyệt.</p>
+        <a href="#" class="btn-play">CHƠI NGAY</a>
+    </header>
+
+    <section class="content-section">
+        <h2>GAME LÀ GÌ?</h2>
+        <p>The Bornless là một trò chơi bắn súng kinh dị sinh tồn đầy kịch tính. Bạn phải chiến đấu với quỷ dữ, thực hiện các nghi lễ cổ xưa và sống sót qua đêm tối.</p>
+        <p>Đây là phiên bản Web Portal của Heromoka.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 HEROMOKA Studio. All rights reserved.</p>
+        <p>Theo dõi chúng tôi trên: Discord | Facebook | YouTube</p>
+    </footer>
+
 </body>
 </html>
