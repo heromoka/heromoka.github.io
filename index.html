@@ -3,193 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEROMOKA | Legends of Ignis</title>
+    <title>HEROMOKA | Ignis Legends</title>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #c4973e;
-            --dark-blue: #010a13;
-            --fire-orange: #ff4500;
+            --dark: #010a13;
+            --fire: #ff4500;
         }
 
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
             font-family: 'Roboto', sans-serif;
-            background-color: var(--dark-blue);
+            background-color: var(--dark);
             color: white;
             overflow-x: hidden;
         }
 
-        /* 1. Thanh Nav chuyên nghiệp */
+        /* 1. Header & Nav */
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            background: rgba(1, 10, 19, 0.9);
-            border-bottom: 2px solid var(--gold);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-sizing: border-box;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0,0,0,0.9);
+            border-bottom: 2px solid var(--gold); position: fixed;
+            width: 100%; top: 0; z-index: 1000; box-sizing: border-box;
         }
 
-        .logo {
-            font-family: 'Oswald', sans-serif;
-            font-size: 26px;
-            font-weight: bold;
-            color: var(--gold);
-            letter-spacing: 3px;
-        }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 26px; color: var(--gold); font-weight: bold; }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #ddd;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
-
-        nav ul li a:hover { color: var(--gold); }
-
-        .btn-nav {
-            background: var(--gold);
-            color: black;
-            padding: 10px 25px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 3px;
-            transition: 0.3s;
-        }
-
-        .btn-nav:hover { transform: scale(1.05); background: #e0ae4a; }
-
-        /* 2. Hero Section với Video Lửa */
+        /* 2. Hero Section - Sửa lỗi màn hình đen */
         .hero {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.4), var(--dark)), 
+                        url('https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?auto=format&fit=crop&w=1920&q=80'); /* Ảnh nền lửa dự phòng cực nét */
+            background-size: cover; background-position: center;
+            text-align: center; position: relative;
         }
 
-        .back-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            object-fit: cover;
-            filter: brightness(0.5) contrast(1.2);
+        /* Hiệu ứng lửa bập bùng giả lập bằng CSS (không lo bị lỗi link) */
+        .hero::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent, rgba(255, 69, 0, 0.1));
+            animation: flicker 3s infinite;
         }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 20%, var(--dark-blue) 90%);
-            z-index: 0;
+        @keyframes flicker {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
+        .hero-content h1 {
+            font-family: 'Oswald', sans-serif; font-size: clamp(50px, 10vw, 100px);
+            margin: 0; text-shadow: 0 0 30px var(--fire); font-style: italic;
         }
 
-        .hero h1 {
-            font-family: 'Oswald', sans-serif;
-            font-size: clamp(40px, 8vw, 90px);
-            margin: 0;
-            color: white;
-            text-transform: uppercase;
-            font-style: italic;
-            text-shadow: 0 0 30px var(--fire-orange);
-            line-height: 1;
+        .btn-play {
+            margin-top: 30px; padding: 18px 50px;
+            background: transparent; color: var(--gold);
+            border: 2px solid var(--gold); font-weight: bold;
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
         }
 
-        .hero p {
-            font-size: 18px;
-            letter-spacing: 6px;
-            color: #ffae00;
-            margin-top: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
+        .btn-play:hover { background: var(--gold); color: black; box-shadow: 0 0 30px var(--gold); }
+
+        /* 3. Phần Bộ sưu tập thẻ bài (Đẩy ảnh của bạn vào đây) */
+        .collection { padding: 80px 5%; text-align: center; }
+        .collection h2 { font-family: 'Oswald', sans-serif; font-size: 40px; color: var(--gold); margin-bottom: 40px; }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
         }
 
-        .btn-main {
-            margin-top: 40px;
-            padding: 20px 60px;
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            font-size: 22px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.4s;
-            letter-spacing: 2px;
+        .card-item {
+            background: #05101c; border: 1px solid #1e282d;
+            padding: 10px; transition: 0.3s;
         }
 
-        .btn-main:hover {
-            background: var(--gold);
-            color: black;
-            box-shadow: 0 0 50px rgba(196, 151, 62, 0.6);
-        }
+        .card-item:hover { border-color: var(--gold); transform: translateY(-10px); }
 
-        /* 3. Footer */
-        footer {
-            padding: 40px;
-            text-align: center;
-            background: #000;
-            font-size: 12px;
-            color: #555;
-            border-top: 1px solid #222;
-        }
+        .card-item img { width: 100%; border-radius: 5px; }
+
+        .card-name { margin-top: 15px; font-weight: bold; color: var(--gold); }
+
+        footer { padding: 40px; text-align: center; border-top: 1px solid #222; font-size: 12px; color: #555; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">HEROMOKA</div>
-        <ul>
-            <li><a href="#">Trò chơi</a></li>
-            <li><a href="#">Thẻ bài</a></li>
-            <li><a href="#">Tin tức</a></li>
-        </ul>
-        <a href="#" class="btn-nav">TẢI GAME</a>
+        <a href="#" class="btn-play" style="padding: 8px 20px; margin: 0; font-size: 12px;">TẢI GAME</a>
     </nav>
 
     <header class="hero">
-        <video autoplay muted loop playsinline class="back-video">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-fire-flames-in-the-dark-2114-large.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-
         <div class="hero-content">
             <h1>IGNIS LEGENDS</h1>
-            <p>Đánh thức ngọn lửa vĩnh cửu</p>
-            <button class="btn-main">Chơi Ngay</button>
+            <p style="color: #ffae00; letter-spacing: 5px;">THỨC TỈNH LINH HỒN LỬA</p>
+            <button class="btn-play">CHƠI NGAY</button>
         </div>
     </header>
 
+    <section class="collection">
+        <h2>BỘ SƯU TẬP THẺ BÀI</h2>
+        <div class="card-grid">
+            <div class="card-item">
+                <img src="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/Screenshot_11.png" alt="Dango">
+                <div class="card-name">DANGO</div>
+            </div>
+            <div class="card-item">
+                <img src="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/Screenshot_15.png" alt="Long Dinger">
+                <div class="card-name">LONG DINGER</div>
+            </div>
+            <div class="card-item">
+                <img src="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/Screenshot_12.png" alt="Simmons">
+                <div class="card-name">SWEATIN SIMMONS</div>
+            </div>
+            <div class="card-item">
+                <img src="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/Screenshot_16.png" alt="Akuma">
+                <div class="card-name">AKUMA</div>
+            </div>
+        </div>
+    </section>
+
     <footer>
-        <p>© 2026 HEROMOKA STUDIO. TRANG WEB ĐƯỢC THIẾT KẾ DỰA TRÊN PHONG CÁCH RUNETERRA.</p>
+        <p>© 2026 HEROMOKA STUDIO. POWERED BY GITHUB PAGES.</p>
     </footer>
 
 </body>
