@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKAHERO | Huyền Thoại Lửa</title>
-    <link rel="icon" type="image/png" href="./banner_fire.png">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/banner_fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* 1. THANH NAV */
+        /* Nav */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: rgba(1, 10, 19, 0.95);
@@ -37,12 +37,12 @@
         nav ul li a:hover { color: var(--gold); }
         .btn-play-small { background: var(--gold); color: black; padding: 10px 25px; text-decoration: none; font-weight: bold; border-radius: 3px; }
 
-        /* 2. HERO BANNER VỚI ẢNH RỰC LỬA */
+        /* HERO BANNER - SỬA LỖI ẢNH TẠI ĐÂY */
         .hero {
-            height: 90vh; /* Cao gần hết màn hình */
+            height: 90vh;
             position: relative;
             display: flex;
-            flex-direction: column; /* Xếp dọc nội dung */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -50,12 +50,11 @@
             overflow: hidden;
         }
 
-        /* Lớp nền chứa ảnh banner_fire.png */
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Thay thế màu đen bằng ảnh của bạn */
+            /* Dùng link tuyệt đối raw.githubusercontent để chắc chắn hiện ảnh */
             background: linear-gradient(to bottom, rgba(0,0,0,0.1), var(--dark-blue)), 
-                        url('./banner_fire.png'); 
+                        url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/banner_fire.png'); 
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -75,11 +74,10 @@
             text-shadow: 0 2px 5px black;
         }
 
-        /* Nút Chơi Ngay Lớn */
         .btn-play-big {
             margin-top: 40px; margin-bottom: 60px;
             padding: 15px 50px;
-            background: linear-gradient(to bottom, #d4af37, #aa8422); /* Màu vàng kim loại */
+            background: linear-gradient(to bottom, #d4af37, #aa8422);
             color: #2b1d00;
             border: 2px solid #fff5c6;
             font-size: 20px; font-weight: bold; text-transform: uppercase;
@@ -89,10 +87,10 @@
         }
         .btn-play-big:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        /* 3. KHU VỰC TẢI GAME (PC, MOBILE) */
+        /* KHU VỰC TẢI GAME */
         .platform-download {
             display: flex; gap: 15px; align-items: center; justify-content: center;
-            padding-bottom: 50px;
+            padding-bottom: 50px; flex-wrap: wrap;
         }
 
         .dl-btn {
@@ -109,13 +107,19 @@
         .dl-small { font-size: 10px; color: #aaa; display: block; }
         .dl-big { font-size: 14px; font-weight: bold; display: block; }
 
-        /* Card Collection (Giữ nguyên) */
+        /* Card Collection */
         .collection-container { padding: 60px 5%; background: #050c16; }
         .set-title { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--gold); margin-bottom: 25px; border-left: 5px solid var(--fire-orange); padding-left: 15px; text-transform: uppercase; }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .card-item { border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #0a141f; transition: 0.3s; }
         .card-item:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(196, 151, 62, 0.3); }
-        .card-visual { width: 100%; padding-top: 140%; background-image: url('./full_set.png'); background-size: 500% 400%; }
+        
+        /* Link ảnh tuyệt đối cho bộ thẻ bài luôn */
+        .card-visual { 
+            width: 100%; padding-top: 140%; 
+            background-image: url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/full_set.png'); 
+            background-size: 500% 400%; 
+        }
         .card-name { text-align: center; padding: 10px; font-weight: bold; color: #ccc; font-size: 14px; }
         
         /* Sprite Positions */
@@ -150,24 +154,15 @@
         <div class="platform-download">
             <a href="#" class="dl-btn">
                 <i class="fas fa-desktop"></i>
-                <div class="dl-text">
-                    <span class="dl-small">Có trên</span>
-                    <span class="dl-big">PC Client</span>
-                </div>
+                <div class="dl-text"><span class="dl-small">Có trên</span><span class="dl-big">PC Client</span></div>
             </a>
             <a href="#" class="dl-btn">
                 <i class="fab fa-apple"></i>
-                <div class="dl-text">
-                    <span class="dl-small">Tải về trên</span>
-                    <span class="dl-big">App Store</span>
-                </div>
+                <div class="dl-text"><span class="dl-small">Tải về trên</span><span class="dl-big">App Store</span></div>
             </a>
             <a href="#" class="dl-btn">
                 <i class="fab fa-google-play"></i>
-                <div class="dl-text">
-                    <span class="dl-small">Tải nội dung trên</span>
-                    <span class="dl-big">Google Play</span>
-                </div>
+                <div class="dl-text"><span class="dl-small">Tải nội dung trên</span><span class="dl-big">Google Play</span></div>
             </a>
         </div>
     </header>
@@ -181,7 +176,6 @@
             <div class="card-item"><div class="card-visual ignis-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual ignis-5"></div><div class="card-name">Legendary</div></div>
         </div>
-
         <div class="set-title" style="margin-top: 50px;">SYLVA (HỆ RỪNG)</div>
         <div class="card-grid">
             <div class="card-item"><div class="card-visual sylva-1"></div><div class="card-name">Common</div></div>
@@ -190,8 +184,7 @@
             <div class="card-item"><div class="card-visual sylva-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual sylva-5"></div><div class="card-name">Legendary</div></div>
         </div>
-        
-        </section>
+    </section>
 
     <footer>
         <p>© 2026 HEROMOKA STUDIO. STYLE BASED ON LEGENDS OF RUNETERRA.</p>
