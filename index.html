@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKAHERO | Huyền Thoại Lửa</title>
-    <link rel="icon" type="image/png" href="./fire.png">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -52,12 +52,9 @@
 
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* QUAN TRỌNG: Code này sẽ thử load file 'fire.png' của bạn.
-               Nếu không thấy, nó sẽ dùng ảnh mạng (dòng thứ 2) để không bị đen.
-            */
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), var(--dark-blue)), 
-                              url('./fire.png'), 
-                              url('https://images.unsplash.com/photo-1594902164876-b63690d719cc?q=80&w=2070&auto=format&fit=crop'); 
+            /* DÙNG LINK TRỰC TIẾP TỚI FILE fire.png TRÊN GITHUB CỦA BẠN */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--dark-blue)), 
+                              url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/fire.png'); 
             background-size: cover;
             background-position: center;
             z-index: -1;
