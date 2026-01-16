@@ -3,60 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEROMOKA | Horror Game Portal</title>
+    <title>HEROMOKA | Legends of Cards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS để làm đẹp trang web */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0a0a; /* Màu nền đen tối */
-            color: #ffffff;
-            line-height: 1.6;
+        :root {
+            --gold: #c4973e; /* Màu vàng đặc trưng LoR */
+            --dark-blue: #020a13;
+            --light-blue: #0bc6e3;
         }
 
-        /* Thanh menu điều hướng */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-blue);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* 1. Thanh Nav */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 40px;
+            background: rgba(1, 10, 19, 0.95);
+            border-bottom: 2px solid var(--gold);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-sizing: border-box;
         }
 
-        nav .logo {
+        .logo {
+            font-family: 'Oswald', sans-serif;
             font-size: 24px;
             font-weight: bold;
+            color: var(--gold);
+            text-transform: uppercase;
             letter-spacing: 2px;
-            color: #ff4d4d; /* Màu đỏ kinh dị */
         }
 
         nav ul {
-            list-style: none;
             display: flex;
+            list-style: none;
+            gap: 25px;
             margin: 0;
-            padding: 0;
         }
 
-        nav ul li { margin-left: 30px; }
         nav ul li a {
             text-decoration: none;
-            color: white;
+            color: #ccc;
+            font-size: 13px;
+            font-weight: bold;
             text-transform: uppercase;
-            font-size: 14px;
             transition: 0.3s;
         }
 
-        nav ul li a:hover { color: #ff4d4d; }
+        nav ul li a:hover { color: white; }
 
-        /* Phần Hero (Hình ảnh đầu trang) */
+        .btn-play-small {
+            background: var(--gold);
+            color: black;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12px;
+            border-radius: 2px;
+        }
+
+        /* 2. Phần Hero (Ảnh lớn) */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1509248961158-e54f6934749c?auto=format&fit=crop&w=1920&q=80'); /* Ảnh nền mẫu */
+            height: 90vh;
+            background: linear-gradient(to bottom, rgba(2,10,19,0.2), var(--dark-blue)), 
+                        url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -64,55 +84,63 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            padding-top: 80px;
         }
 
         .hero h1 {
-            font-size: 60px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 80px;
             margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            font-style: italic;
         }
 
-        .btn-play {
-            margin-top: 30px;
-            padding: 15px 40px;
-            background-color: #ff4d4d;
-            color: white;
-            text-decoration: none;
+        .btn-huge {
+            margin-top: 40px;
+            padding: 20px 60px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            font-size: 20px;
             font-weight: bold;
             text-transform: uppercase;
-            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .btn-huge:hover {
+            background: var(--gold);
+            color: black;
+            box-shadow: 0 0 30px rgba(196, 151, 62, 0.4);
+        }
+
+        /* 3. Phần Thẻ bài mẫu */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 50px 10%;
+            background-color: #05101c;
+        }
+
+        .card-box {
+            border: 1px solid #1e282d;
+            padding: 20px;
+            text-align: center;
             transition: 0.3s;
         }
 
-        .btn-play:hover {
-            background-color: #cc0000;
-            transform: scale(1.05);
-        }
+        .card-box:hover { border-color: var(--gold); }
 
-        /* Phần giới thiệu Game */
-        .content-section {
-            padding: 100px 10% ;
-            text-align: center;
-        }
-
-        .content-section h2 {
-            font-size: 40px;
-            color: #ff4d4d;
-        }
-
-        .content-section p {
-            max-width: 800px;
-            margin: 20px auto;
-            font-size: 18px;
-            color: #ccc;
-        }
+        .card-box img { width: 100%; border-bottom: 2px solid var(--gold); }
 
         footer {
-            padding: 50px;
             text-align: center;
-            background: #000;
-            border-top: 1px solid #333;
+            padding: 40px;
+            font-size: 12px;
+            color: #666;
+            background: #010a13;
         }
     </style>
 </head>
@@ -121,28 +149,37 @@
     <nav>
         <div class="logo">HEROMOKA</div>
         <ul>
-            <li><a href="#">Trang chủ</a></li>
-            <li><a href="#">Cửa hàng</a></li>
+            <li><a href="#">Trò chơi</a></li>
+            <li><a href="#">Tin tức</a></li>
+            <li><a href="#">Thẻ bài</a></li>
             <li><a href="#">Cộng đồng</a></li>
-            <li><a href="#">Hỗ trợ</a></li>
         </ul>
+        <a href="#" class="btn-play-small">CHƠI NGAY</a>
     </nav>
 
     <header class="hero">
-        <h1>THE BORNLESS CLONE</h1>
-        <p>Trải nghiệm kinh dị đỉnh cao ngay trên trình duyệt.</p>
-        <a href="#" class="btn-play">CHƠI NGAY</a>
+        <h1>LEGENDS OF HEROMOKA</h1>
+        <p style="letter-spacing: 5px; color: var(--light-blue)">KHÁM PHÁ THẾ GIỚI THẺ BÀI MA THUẬT</p>
+        <button class="btn-huge">Chơi miễn phí</button>
     </header>
 
-    <section class="content-section">
-        <h2>GAME LÀ GÌ?</h2>
-        <p>The Bornless là một trò chơi bắn súng kinh dị sinh tồn đầy kịch tính. Bạn phải chiến đấu với quỷ dữ, thực hiện các nghi lễ cổ xưa và sống sót qua đêm tối.</p>
-        <p>Đây là phiên bản Web Portal của Heromoka.</p>
+    <section class="features">
+        <div class="card-box">
+            <h3>CHIẾN THUẬT ĐỈNH CAO</h3>
+            <p>Kết hợp các khu vực để tạo nên bộ bài mạnh nhất.</p>
+        </div>
+        <div class="card-box">
+            <h3>HÌNH ẢNH SỐNG ĐỘNG</h3>
+            <p>Mỗi lá bài đều có hiệu ứng kỹ năng đặc biệt.</p>
+        </div>
+        <div class="card-box">
+            <h3>CÔNG BẰNG TUYỆT ĐỐI</h3>
+            <p>Kiếm thẻ bài thông qua việc chơi game hàng ngày.</p>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 HEROMOKA Studio. All rights reserved.</p>
-        <p>Theo dõi chúng tôi trên: Discord | Facebook | YouTube</p>
+        <p>&copy; 2026 HEROMOKA Studio. Thông tin pháp lý | Chính sách bảo mật</p>
     </footer>
 
 </body>
