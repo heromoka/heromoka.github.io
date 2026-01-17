@@ -17,148 +17,157 @@
         }
         * { box-sizing: border-box; user-select: none; }
         
-        /* BODY LÀ NỀN ĐEN BAO QUANH */
         body { 
             margin: 0; padding: 0; 
             font-family: 'Rajdhani', sans-serif; 
-            background-color: #050505; /* Màu đen viền ngoài */
+            background-color: #111; /* Nền ngoài tối */
             height: 100vh; width: 100vw;
-            display: flex; justify-content: center; align-items: center; /* Căn giữa màn hình game */
+            display: flex; justify-content: center; align-items: center;
             overflow: hidden;
+            background-image: radial-gradient(circle, #222 10%, #000 90%);
         }
 
-        /* KHUNG MÀN HÌNH GAME (CINEMATIC VIEWPORT) */
+        /* KHUNG GAME DỌC (MOBILE VIEWPORT 9:16) */
         #game-viewport {
             width: 100%;
-            max-width: 1280px;  /* Chiều rộng tối đa chuẩn HD */
-            aspect-ratio: 16/9; /* Tỷ lệ màn hình điện ảnh 16:9 */
-            max-height: 100vh;  /* Không bao giờ cao quá màn hình */
+            max-width: 450px; /* Chiều rộng chuẩn điện thoại */
+            height: 90vh;     /* Chiều cao chiếm 90% màn hình */
+            max-height: 900px;
+            aspect-ratio: 9/16; /* Tỉ lệ dọc chuẩn */
             
             background-image: url('./assets/bg_ignis.jpg?v=1');
             background-size: cover; background-position: center;
             
-            position: relative; /* Để các thành phần con neo vào đây */
+            position: relative; 
             overflow: hidden;
-            box-shadow: 0 0 100px rgba(0,0,0,0.8); /* Đổ bóng tách biệt với nền đen */
-            border: 1px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border: 4px solid #333;
+            border-radius: 25px; /* Bo góc như điện thoại */
         }
 
-        /* --- 1. TOP BAR --- */
+        /* --- 1. TOP BAR (Thu gọn cho mobile) --- */
         .top-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 40px; /* Căn chỉnh lại padding cho gọn */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-            height: 80px; position: absolute; top: 0; width: 100%; z-index: 100;
+            display: flex; flex-direction: column; /* Xếp dọc thông tin */
+            justify-content: center; align-items: center;
+            padding: 10px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+            position: absolute; top: 0; width: 100%; z-index: 100;
+            gap: 10px;
         }
         
-        .player-info { display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 55px; height: 55px; border: 2px solid var(--gold); border-radius: 50%; background: #222; overflow: hidden; }
+        .header-row { display: flex; justify-content: space-between; width: 100%; align-items: center; padding: 0 10px; }
+
+        .player-info { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 45px; height: 45px; border: 2px solid var(--gold); border-radius: 50%; background: #222; overflow: hidden; }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .player-level { background: rgba(0,0,0,0.8); border: 1px solid #444; padding: 5px 15px; border-radius: 4px; }
-        .p-name { color: var(--gold); font-weight: bold; font-size: 16px; font-family: 'Cinzel'; display: block; }
-        .p-lvl { font-size: 11px; color: #aaa; }
+        .player-level { background: rgba(0,0,0,0.6); border: 1px solid #444; padding: 2px 10px; border-radius: 4px; }
+        .p-name { color: var(--gold); font-weight: bold; font-size: 14px; font-family: 'Cinzel'; display: block; }
+        .p-lvl { font-size: 10px; color: #aaa; }
 
-        .resources { display: flex; gap: 15px; }
+        .resources { display: flex; gap: 5px; width: 100%; justify-content: center; }
         .res-box { 
-            background: rgba(0,0,0,0.7); border: 1px solid #555; 
-            padding: 5px 15px; border-radius: 20px; display: flex; align-items: center; gap: 8px;
-            font-weight: bold; font-size: 15px; color: #eee;
+            background: rgba(0,0,0,0.8); border: 1px solid #555; 
+            padding: 4px 10px; border-radius: 15px; display: flex; align-items: center; gap: 5px;
+            font-weight: bold; font-size: 13px; color: #eee; flex: 1; justify-content: center;
         }
-        .res-icon { color: var(--gold); font-size: 14px; }
+        .res-icon { color: var(--gold); font-size: 12px; }
 
-        /* --- 2. MAIN LOBBY (Center) --- */
+        /* --- 2. MAIN LOBBY (Xếp dọc) --- */
         .main-lobby {
-            display: flex; align-items: center; justify-content: center;
+            display: flex; flex-direction: column; /* Xếp chồng lên nhau */
+            align-items: center; justify-content: flex-start;
             height: 100%; width: 100%;
-            gap: 25px; padding-bottom: 40px; /* Đẩy lên một chút để không bị che bởi menu dưới */
+            gap: 15px; padding-top: 130px; /* Né cái Top Bar ra */
+            overflow-y: auto; /* Cho phép cuộn nếu nhiều chế độ */
+            padding-bottom: 100px; /* Né cái Bottom Bar */
         }
+        
+        /* Ẩn thanh cuộn xấu xí */
+        .main-lobby::-webkit-scrollbar { width: 0px; background: transparent; }
 
+        /* THẺ GAME MODE (DẠNG BANNER NGANG) */
         .game-mode-card {
-            width: 200px; height: 320px; /* Nhỏ lại một chút cho cân đối */
-            background: var(--panel); border: 2px solid #333; border-radius: 8px;
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-            padding: 20px; cursor: pointer; transition: 0.3s;
+            width: 90%; /* Rộng gần hết màn hình */
+            height: 120px; /* Chiều cao vừa phải */
+            background: var(--panel); border: 1px solid #444; border-radius: 12px;
+            display: flex; flex-direction: row; /* Ảnh bên trái, chữ bên phải */
+            align-items: center; justify-content: flex-start;
+            padding: 0; cursor: pointer; transition: 0.2s;
             position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
         
-        .mode-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.4s; z-index: 0; }
-        .mode-title { position: relative; z-index: 2; font-family: 'Cinzel'; font-size: 22px; color: #fff; text-shadow: 0 0 10px #000; margin-bottom: 5px; }
-        .mode-desc { position: relative; z-index: 2; font-size: 11px; color: #bbb; text-align: center; }
+        .mode-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: 0.4s; z-index: 0; }
         
-        .game-mode-card:hover { transform: translateY(-8px) scale(1.03); border-color: var(--gold); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
-        .game-mode-card:hover .mode-bg { opacity: 1; transform: scale(1.1); }
+        /* Nội dung chữ đè lên */
+        .mode-content { position: relative; z-index: 2; padding-left: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+        .mode-title { font-family: 'Cinzel'; font-size: 24px; color: #fff; text-shadow: 0 2px 5px #000; margin-bottom: 2px; }
+        .mode-desc { font-size: 12px; color: #ccc; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 4px; }
+        
+        .game-mode-card:hover { transform: scale(1.02); border-color: var(--gold); }
+        .game-mode-card:hover .mode-bg { opacity: 0.8; }
         .game-mode-card:hover .mode-title { color: var(--gold); }
 
-        /* --- 3. BOTTOM BAR --- */
+        /* --- 3. BOTTOM BAR (Compact) --- */
         .bottom-bar {
-            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 15px;
-            background: rgba(0,0,0,0.85); padding: 8px 30px; border-radius: 40px; border: 1px solid #444;
-            backdrop-filter: blur(5px); z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+            width: 95%; /* Gần full chiều rộng */
+            display: flex; justify-content: space-between; align-items: flex-end;
+            background: rgba(10, 10, 15, 0.95); padding: 10px 15px; border-radius: 20px; border: 1px solid #333;
+            z-index: 100; box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
         }
 
         .menu-btn {
-            background: none; border: none; color: #888;
-            font-family: 'Rajdhani'; font-weight: bold; font-size: 12px; text-transform: uppercase;
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            cursor: pointer; width: 70px; transition: 0.2s;
+            background: none; border: none; color: #666;
+            font-family: 'Rajdhani'; font-weight: bold; font-size: 10px; text-transform: uppercase;
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            cursor: pointer; flex: 1; transition: 0.2s;
         }
-        .menu-btn i { font-size: 20px; margin-bottom: 3px; }
-        .menu-btn:hover { color: #fff; }
-        .menu-btn:hover i { color: var(--gold); transform: translateY(-3px); }
+        .menu-btn i { font-size: 20px; margin-bottom: 2px; }
+        .menu-btn:hover, .menu-btn:active { color: var(--gold); }
+        .menu-btn:hover i { transform: translateY(-3px); }
 
         .play-btn-center {
-            width: 80px; height: 80px;
+            width: 70px; height: 70px;
             background: radial-gradient(circle, #ffae00, #b8860b);
             border: 3px solid #fff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            color: #000; font-size: 28px;
-            transform: translateY(-35px);
-            box-shadow: 0 0 25px #ffae00; cursor: pointer;
-            transition: 0.3s;
+            color: #000; font-size: 24px;
+            margin-bottom: 15px; /* Đẩy lên cao hẳn */
+            box-shadow: 0 0 20px #ffae00; cursor: pointer;
+            animation: pulse 2s infinite;
         }
-        .play-btn-center:hover { transform: translateY(-38px) scale(1.05); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 174, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 174, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 174, 0, 0); } }
 
-        /* --- 4. POPUP STYLE (Đã căn chỉnh lại để nằm gọn trong Viewport) --- */
+        /* --- 4. POPUP STYLE (Responsive Mobile) --- */
         .popup-overlay { 
-            position: absolute; /* Quan trọng: Absolute theo viewport chứ không phải fixed toàn màn hình */
-            top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.9); z-index: 200; 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.95); z-index: 200; 
             display: none; align-items: center; justify-content: center; 
             animation: fadeIn 0.2s; 
         }
         
-        .popup-content { width: 95%; max-width: 900px; height: 90%; background: #0f1014; border: 1px solid var(--gold); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
-        .popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .popup-header h2 { color: var(--gold); margin: 0; font-family: 'Cinzel'; font-size: 24px; }
+        .popup-content { width: 100%; height: 100%; background: #0f1014; padding: 15px; display: flex; flex-direction: column; }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 10px; }
+        .popup-header h2 { color: var(--gold); margin: 0; font-family: 'Cinzel'; font-size: 20px; }
         .close-btn { background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; }
         
-        .hero-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; overflow-y: auto; padding-right: 5px; }
+        .hero-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; overflow-y: auto; padding-bottom: 20px; }
         
-        .game-card { aspect-ratio: 2/3; background: #1a1a1a; border-radius: 6px; overflow: hidden; border: 2px solid #333; transition: 0.2s; cursor: pointer; position: relative; }
-        .game-card:hover { transform: scale(1.05); border-color: var(--gold); z-index: 10; }
+        .game-card { aspect-ratio: 2/3; background: #1a1a1a; border-radius: 6px; overflow: hidden; border: 1px solid #333; position: relative; }
         .card-img { width: 100%; height: 100%; object-fit: cover; }
-        .card-info { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); padding: 8px; color: #fff; }
-        .c-name { font-size: 12px; font-weight: bold; font-family: 'Cinzel'; display: block; margin-bottom: 2px; }
-        .c-stats { font-size: 10px; color: #ccc; display: flex; justify-content: space-between; }
+        .card-info { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,1), transparent); padding: 5px; color: #fff; }
+        .c-name { font-size: 11px; font-weight: bold; font-family: 'Cinzel'; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .c-stats { font-size: 9px; color: #ccc; display: flex; gap: 5px; }
         
-        .rarity-gem { position: absolute; top: 6px; right: 6px; width: 12px; height: 12px; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 0 4px #000; }
+        .rarity-gem { position: absolute; top: 4px; right: 4px; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #fff; }
         .r-1 { background: gray; } .r-2 { background: #0070dd; } .r-3 { background: #a335ee; } .r-4 { background: #ff8000; }
 
-        .filter-bar { display: flex; gap: 8px; margin-bottom: 15px; }
-        .filter-btn { background: #1a1a1a; color: #888; border: 1px solid #333; padding: 6px 15px; cursor: pointer; border-radius: 4px; font-size: 12px; font-weight: bold; transition: 0.2s; }
-        .filter-btn.active, .filter-btn:hover { background: var(--gold); color: #000; }
+        .filter-bar { display: flex; gap: 5px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 5px; }
+        .filter-btn { background: #1a1a1a; color: #888; border: 1px solid #333; padding: 5px 12px; cursor: pointer; border-radius: 15px; font-size: 11px; font-weight: bold; white-space: nowrap; }
+        .filter-btn.active { background: var(--gold); color: #000; }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Media Query để đảm bảo hiển thị tốt trên màn hình nhỏ */
-        @media (max-width: 768px) {
-            .res-box span { display: none; } /* Ẩn chữ tài nguyên trên mobile */
-            .main-lobby { flex-direction: column; gap: 15px; padding-top: 20px; }
-            .game-mode-card { width: 80%; height: 150px; flex-direction: row; align-items: center; justify-content: flex-start; padding: 0 20px; }
-            .game-mode-card img { opacity: 0.3; }
-        }
     </style>
 </head>
 <body>
@@ -166,50 +175,73 @@
     <div id="game-viewport">
         
         <div class="top-bar">
-            <div class="player-info">
-                <div class="avatar"><img src="./assets/fire.png"></div>
-                <div class="player-level">
-                    <span class="p-name">COMMANDER</span>
-                    <span class="p-lvl">LV.1 Beginner</span>
+            <div class="header-row">
+                <div class="player-info">
+                    <div class="avatar"><img src="./assets/fire.png"></div>
+                    <div class="player-level">
+                        <span class="p-name">COMMANDER</span>
+                        <span class="p-lvl">LV.1</span>
+                    </div>
                 </div>
+                <div style="font-size: 18px; color: #888; cursor: pointer;"><i class="fas fa-cog"></i></div>
             </div>
             <div class="resources">
-                <div class="res-box"><i class="fas fa-coins res-icon"></i> 1,000</div>
+                <div class="res-box"><i class="fas fa-coins res-icon"></i> 1K</div>
                 <div class="res-box"><i class="fas fa-gem res-icon" style="color:#00d9ff;"></i> 50</div>
                 <div class="res-box"><i class="fas fa-bolt res-icon" style="color:#ff3b3b;"></i> 100</div>
             </div>
-            <div style="font-size: 18px; cursor: pointer; color: #888;"><i class="fas fa-cog"></i></div>
         </div>
 
         <div class="main-lobby">
-            <div class="game-mode-card" onclick="alert('Đang tải dữ liệu cốt truyện...')">
+            
+            <div class="game-mode-card" onclick="alert('Đang tải cốt truyện...')">
                 <img src="./assets/bg_sylva.jpg?v=1" class="mode-bg">
-                <div class="mode-title">CAMPAIGN</div>
-                <div class="mode-desc">Vượt ải cốt truyện</div>
+                <div class="mode-content">
+                    <div class="mode-title">CAMPAIGN</div>
+                    <div class="mode-desc">CỐT TRUYỆN CHÍNH</div>
+                </div>
+                <i class="fas fa-chevron-right" style="position:absolute; right:15px; color:#fff; opacity:0.5;"></i>
             </div>
-            <div class="game-mode-card" onclick="alert('Đang tìm đối thủ...')">
+
+            <div class="game-mode-card" onclick="alert('Đang tìm trận PvP...')">
                 <img src="./assets/bg_ignis.jpg?v=1" class="mode-bg">
-                <div class="mode-title">ARENA</div>
-                <div class="mode-desc">Xếp hạng PvP</div>
+                <div class="mode-content">
+                    <div class="mode-title">ARENA</div>
+                    <div class="mode-desc">ĐẤU XẾP HẠNG</div>
+                </div>
+                <i class="fas fa-swords" style="position:absolute; right:15px; color:#fff; opacity:0.5;"></i>
             </div>
-            <div class="game-mode-card" style="filter: grayscale(100%); opacity: 0.6;">
-                <div style="position: absolute; top:10px; right:10px; background:#cc0000; padding:2px 6px; font-size:9px; border-radius:2px; font-weight:bold; z-index:5;">LOCKED</div>
+
+            <div class="game-mode-card" style="filter: grayscale(100%); opacity: 0.7;">
+                <div style="position: absolute; top:10px; right:10px; background:#cc0000; padding:2px 6px; font-size:9px; border-radius:2px; font-weight:bold; z-index:5; color:white;">LOCKED</div>
                 <img src="./assets/bg_zarok.jpg?v=1" class="mode-bg">
-                <div class="mode-title">WORLD BOSS</div>
-                <div class="mode-desc">Mở lúc 20:00</div>
+                <div class="mode-content">
+                    <div class="mode-title">WORLD BOSS</div>
+                    <div class="mode-desc">SỰ KIỆN MÙA GIẢI</div>
+                </div>
             </div>
+             <div class="game-mode-card" style="height: 80px;">
+                <img src="./assets/bg_omega.jpg?v=1" class="mode-bg">
+                <div class="mode-content">
+                    <div class="mode-title" style="font-size: 18px;">THE ABYSS</div>
+                    <div class="mode-desc">HẦM NGỤC VÔ TẬN</div>
+                </div>
+            </div>
+
         </div>
 
         <div class="bottom-bar">
             <button class="menu-btn" onclick="toggleHeroPopup()"><i class="fas fa-users"></i>Tướng</button>
             <button class="menu-btn"><i class="fas fa-backpack"></i>Túi đồ</button>
             
-            <div class="play-btn-center" onclick="alert('Bắt đầu trận đấu nhanh!')">
-                <i class="fas fa-play"></i>
+            <div style="position: relative; width: 0;">
+                <div class="play-btn-center" style="position: absolute; left: -35px; bottom: 0;">
+                    <i class="fas fa-play"></i>
+                </div>
             </div>
 
             <button class="menu-btn"><i class="fas fa-store"></i>Shop</button>
-            <button class="menu-btn"><i class="fas fa-users-cog"></i>Bang hội</button>
+            <button class="menu-btn"><i class="fas fa-users-cog"></i>Bang</button>
         </div>
 
         <div id="hero-collection" class="popup-overlay">
@@ -219,14 +251,14 @@
                     <button class="close-btn" onclick="toggleHeroPopup()">×</button>
                 </div>
                 <div class="filter-bar">
-                    <button class="filter-btn active" onclick="filterHeroes('all')">Tất cả</button>
+                    <button class="filter-btn active" onclick="filterHeroes('all')">All</button>
                     <button class="filter-btn" onclick="filterHeroes('ignis')">Hỏa</button>
                     <button class="filter-btn" onclick="filterHeroes('sylva')">Mộc</button>
                     <button class="filter-btn" onclick="filterHeroes('omega')">Máy</button>
                     <button class="filter-btn" onclick="filterHeroes('zarok')">Hư Không</button>
                 </div>
                 <div class="hero-grid" id="hero-list-container">
-                    <p style="color:#888; width:100%; text-align:center;">Đang tải dữ liệu...</p>
+                    <p style="color:#888; width:100%; text-align:center;">Loading...</p>
                 </div>
             </div>
         </div>
@@ -236,7 +268,7 @@
     <script>
         function toggleHeroPopup() {
             const popup = document.getElementById('hero-collection');
-            if (typeof charactersData === 'undefined') { alert("Chưa có dữ liệu tướng!"); return; }
+            if (typeof charactersData === 'undefined') { alert("Chưa có dữ liệu!"); return; }
 
             if (popup.style.display === 'flex') {
                 popup.style.display = 'none';
@@ -261,8 +293,8 @@
                         <div class="card-info">
                             <span class="c-name" style="color:${getFactionColor(hero.faction)}">${hero.name}</span>
                             <div class="c-stats">
-                                <span>⚔️ ${hero.stats.atk}</span>
-                                <span>❤️ ${hero.stats.hp}</span>
+                                <span>⚔️${hero.stats.atk}</span>
+                                <span>❤️${hero.stats.hp}</span>
                             </div>
                         </div>
                     </div>
