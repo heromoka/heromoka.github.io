@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MOKAHERO | GAME LOBBY</title>
+    <link rel="icon" type="image/png" href="./assets/fire.png?v=999">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- GAME UI STYLE --- */
+        :root {
+            --gold: #d4af37; --dark: #050505; --panel: rgba(20, 20, 25, 0.95);
+            --rare: #0070dd; --epic: #a335ee; --legendary: #ff8000;
+        }
+        * { box-sizing: border-box; user-select: none; } /* Chống bôi đen chữ */
+        body { 
+            margin: 0; padding: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+            background-color: #000; 
+            background-image: url('./assets/bg_ignis.jpg?v=1'); /* Ảnh nền sảnh */
+            background-size: cover; background-position: center;
+            height: 100vh; overflow: hidden; /* Không cho cuộn trang */
+            color: #fff;
+        }
+
+        /* --- 1. TOP BAR (Tài nguyên) --- */
+        .top-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 30px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            height: 80px; position: absolute; top: 0; width: 100%; z-index: 100;
+        }
+        
+        .player-info { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 60px; height: 60px; border: 2px solid var(--gold); border-radius: 50%; background: #222; overflow: hidden; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .player-level { 
+            background: #000; border: 1px solid #444; padding: 5px 15px; border-radius: 4px; 
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .p-name { color: var(--gold); font-weight: bold; font-size: 16px; font-family: 'Cinzel'; }
+        .p-lvl { font-size: 12px; color: #888; }
+
+        .resources { display: flex; gap: 20px; }
+        .res-box { 
+            background: rgba(0,0,0,0.6); border: 1px solid var(--gold); 
+            padding: 5px 20px; border-radius: 20px; display: flex; align-items: center; gap: 10px;
+            min-width: 120px; font-weight: bold; font-size: 18px;
+        }
+        .res-icon { color: var(--gold); }
+
+        /* --- 2. MAIN AREA (Chọn chế độ) --- */
+        .main-lobby {
+            display: flex; align-items: center; justify-content: center;
+            height: 100%; width: 100%;
+            gap: 20px; padding-top: 50px;
+        }
+
+        .game-mode-card {
+            width: 220px; height: 350px;
+            background: var(--panel);
+            border: 2px solid #333; border-radius: 8px;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            padding: 20px; cursor: pointer; transition: 0.3s;
+            position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .mode-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; transition: 0.4s; z-index: 0; }
+        
+        .mode-title { 
+            position: relative; z-index: 2; 
+            font-family: 'Cinzel', serif; font-size: 24px; color: #fff; 
+            text-shadow: 0 0 10px #000; margin-bottom: 5px;
+        }
+        .mode-desc { position: relative; z-index: 2; font-size: 12px; color: #aaa; text-align: center; }
+        
+        /* Hiệu ứng Hover */
+        .game-mode-card:hover { transform: translateY(-10px) scale(1.05); border-color: var(--gold); box-shadow: 0 0 20px var(--gold); }
+        .game-mode-card:hover .mode-bg { opacity: 1; transform: scale(1.1); }
+        .game-mode-card:hover .mode-title { color: var(--gold); }
+
+        /* --- 3. BOTTOM BAR (Menu chức năng) --- */
+        .bottom-bar {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 15px;
+            background: rgba(0,0,0,0.8); padding: 10px 30px; border-radius: 50px; border: 1px solid #333;
+            backdrop-filter: blur(5px);
+        }
+
+        .menu-btn {
+            background: none; border: none; color: #888;
+            font-family: 'Rajdhani'; font-weight: bold; font-size: 14px; text-transform: uppercase;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            cursor: pointer; width: 80px; transition: 0.3s;
+        }
+        .menu-btn i { font-size: 24px; margin-bottom: 5px; transition: 0.3s; }
+        
+        .menu-btn:hover { color: #fff; }
+        .menu-btn:hover i { color: var(--gold); transform: translateY(-5px); }
+
+        /* Nút PLAY to ở giữa */
+        .play-btn-center {
+            width: 90px; height: 90px;
+            background: radial-gradient(circle, #ffae00, #b8860b);
+            border: 4px solid #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #000; font-size: 30px;
+            transform: translateY(-30px); /* Nổi lên trên */
+            box-shadow: 0 0 30px #ffae00; cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 174, 0, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 174, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 174, 0, 0); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="player-info">
+            <div class="avatar"><img src="./assets/fire.png"></div>
+            <div class="player-level">
+                <span class="p-name">COMMANDER</span>
+                <span class="p-lvl">LV.1 Beginner</span>
+            </div>
+        </div>
+        <div class="resources">
+            <div class="res-box" title="Vàng"><i class="fas fa-coins res-icon"></i> 1,000</div>
+            <div class="res-box" title="Token Moka"><i class="fas fa-gem res-icon" style="color:#00d9ff;"></i> 50</div>
+            <div class="res-box" title="Năng lượng"><i class="fas fa-bolt res-icon" style="color:#ff3b3b;"></i> 100/100</div>
+        </div>
+        <div style="font-size: 20px; cursor: pointer;"><i class="fas fa-cog"></i></div>
+    </div>
+
+    <div class="main-lobby">
+        <div class="game-mode-card" onclick="alert('Đang tải dữ liệu cốt truyện...')">
+            <img src="./assets/bg_sylva.jpg?v=1" class="mode-bg">
+            <div class="mode-title">CAMPAIGN</div>
+            <div class="mode-desc">Vượt ải cốt truyện</div>
+        </div>
+
+        <div class="game-mode-card" onclick="alert('Đang tìm đối thủ...')">
+            <img src="./assets/bg_ignis.jpg?v=1" class="mode-bg">
+            <div class="mode-title">ARENA</div>
+            <div class="mode-desc">Xếp hạng PvP</div>
+        </div>
+
+        <div class="game-mode-card" style="filter: grayscale(100%); opacity: 0.7;">
+            <div style="position: absolute; top:10px; right:10px; background:red; padding:2px 8px; font-size:10px; border-radius:3px;">LOCKED</div>
+            <img src="./assets/bg_zarok.jpg?v=1" class="mode-bg">
+            <div class="mode-title">WORLD BOSS</div>
+            <div class="mode-desc">Mở lúc 20:00</div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <button class="menu-btn"><i class="fas fa-users"></i>Tướng</button>
+        <button class="menu-btn"><i class="fas fa-backpack"></i>Túi đồ</button>
+        
+        <div class="play-btn-center" onclick="alert('Bắt đầu trận đấu nhanh!')">
+            <i class="fas fa-play"></i>
+        </div>
+
+        <button class="menu-btn"><i class="fas fa-store"></i>Shop</button>
+        <button class="menu-btn"><i class="fas fa-users-cog"></i>Bang hội</button>
+    </div>
+
+</body>
+</html>
