@@ -28,6 +28,8 @@
         .logo span { color: var(--gold); }
         .links a { margin: 0 20px; text-decoration: none; color: var(--text-gray); font-weight: 600; transition: 0.3s; font-size: 14px; }
         .links a:hover { color: var(--gold); }
+        
+        /* Nút Chơi Ngay trên Menu */
         .btn-dl { background: var(--gold); color: #000; padding: 10px 30px; border: none; font-weight: bold; cursor: pointer; clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%); transition: 0.3s; }
         .btn-dl:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold); }
 
@@ -36,7 +38,9 @@
         .bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; z-index: -1; }
         .hero-text h1 { font-size: 5vw; margin: 0; line-height: 1; text-shadow: 0 0 30px rgba(0,0,0,0.8); }
         .hero-text p { font-size: 1.2rem; color: var(--gold); margin: 20px 0 40px; letter-spacing: 5px; }
-        .platforms { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
+        
+        /* Nút Platform ở Hero */
+        .platforms { display: flex; gap: 15px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
         .plat-btn { background: transparent; border: 1px solid #555; color: #fff; padding: 12px 25px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; border-radius: 4px; }
         .plat-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.1); }
 
@@ -80,7 +84,7 @@
             <a href="#roadmap">LỘ TRÌNH</a>
             <a href="whitepaper.html" target="_blank">WHITEPAPER</a>
         </div>
-        <button class="btn-dl">TẢI GAME</button>
+        <button class="btn-dl" onclick="window.open('game.html', '_blank')">CHƠI NGAY</button>
     </nav>
 
     <div id="hero">
@@ -90,11 +94,16 @@
         <div class="hero-text">
             <h1>GENESIS WARS</h1>
             <p>WEB3 STRATEGY CARD GAME</p>
+            
             <div class="platforms">
-                <button class="plat-btn"><i class="fab fa-windows"></i> Windows</button>
-                <button class="plat-btn"><i class="fab fa-android"></i> Android</button>
+                <button class="plat-btn" onclick="window.open('game.html', '_blank')" style="background: var(--gold); color: #000; border-color: var(--gold); font-weight: bold; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);">
+                    <i class="fas fa-gamepad"></i> CHƠI TRÊN WEB
+                </button>
+                
+                <button class="plat-btn"><i class="fab fa-android"></i> APK</button>
                 <button class="plat-btn"><i class="fab fa-apple"></i> iOS</button>
             </div>
+
             <p style="font-size: 12px; color: #555; margin-top: 10px;">*Phiên bản Alpha Test v1.0</p>
         </div>
     </div>
@@ -166,7 +175,7 @@
                 <ul>
                     <li>Ra mắt Website & Whitepaper.</li>
                     <li>Mở bán Genesis NFT Chest (Hộp bí ẩn).</li>
-                    <li>Phát hành bản Alpha Test (PC).</li>
+                    <li>Phát hành bản Alpha Test (PC/Web).</li>
                 </ul>
             </div>
             <div class="phase">
