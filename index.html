@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKAHERO | Huyền Thoại Lửa</title>
-    <link rel="icon" type="image/png" href="./fire.png">
+    <link rel="icon" type="image/png" href="https://heromoka.github.io/fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -24,6 +24,7 @@
             overflow-x: hidden;
         }
 
+        /* Nav */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; background: rgba(1, 10, 19, 0.95);
@@ -36,12 +37,11 @@
         nav ul li a:hover { color: var(--gold); }
         .btn-play-small { background: var(--gold); color: black; padding: 10px 25px; text-decoration: none; font-weight: bold; border-radius: 3px; }
 
-        /* HERO BANNER */
+        /* HERO BANNER - SỬA LẠI HOÀN TOÀN CẤU TRÚC */
         .hero {
             height: 90vh;
-            position: relative;
+            position: relative; /* Làm mốc tọa độ */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -49,14 +49,28 @@
             overflow: hidden;
         }
 
+        /* Lớp nền ảnh: Đặt Z-index = 0 để nằm trên nền body nhưng dưới chữ */
         .hero-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* THỦ THUẬT: Thêm ?v=100 để trình duyệt coi đây là ảnh mới và tải lại ngay */
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--dark-blue)), 
-                              url('./fire.png?v=100'); 
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0; 
+            /* DÙNG LINK TUYỆT ĐỐI MÀ BẠN ĐÃ KIỂM TRA LÀ CHẠY ĐƯỢC */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), var(--dark-blue)), 
+                              url('https://heromoka.github.io/fire.png'); 
             background-size: cover;
             background-position: center;
-            z-index: -1;
+            background-repeat: no-repeat;
+        }
+
+        /* Lớp nội dung: Đặt Z-index = 1 để nổi lên trên ảnh */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
         .hero h1 {
@@ -104,6 +118,7 @@
         .dl-small { font-size: 10px; color: #aaa; display: block; }
         .dl-big { font-size: 14px; font-weight: bold; display: block; }
 
+        /* CARD COLLECTION - Dùng link ảnh tuyệt đối cho chắc ăn */
         .collection-container { padding: 60px 5%; background: #050c16; }
         .set-title { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--gold); margin-bottom: 25px; border-left: 5px solid var(--fire-orange); padding-left: 15px; text-transform: uppercase; }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
@@ -112,7 +127,7 @@
         
         .card-visual { 
             width: 100%; padding-top: 140%; 
-            background-image: url('./full_set.png'); 
+            background-image: url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/full_set.png'); 
             background-size: 500% 400%; 
         }
         .card-name { text-align: center; padding: 10px; font-weight: bold; color: #ccc; font-size: 14px; }
@@ -139,23 +154,26 @@
 
     <header class="hero">
         <div class="hero-bg"></div>
-        <h1>MOKAHERO</h1>
-        <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
-        <button class="btn-play-big">CHƠI NGAY</button>
+        
+        <div class="hero-content">
+            <h1>MOKAHERO</h1>
+            <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
+            <button class="btn-play-big">CHƠI NGAY</button>
 
-        <div class="platform-download">
-            <a href="#" class="dl-btn">
-                <i class="fas fa-desktop"></i>
-                <div class="dl-text"><span class="dl-small">Có trên</span><span class="dl-big">PC Client</span></div>
-            </a>
-            <a href="#" class="dl-btn">
-                <i class="fab fa-apple"></i>
-                <div class="dl-text"><span class="dl-small">Tải về trên</span><span class="dl-big">App Store</span></div>
-            </a>
-            <a href="#" class="dl-btn">
-                <i class="fab fa-google-play"></i>
-                <div class="dl-text"><span class="dl-small">Tải nội dung trên</span><span class="dl-big">Google Play</span></div>
-            </a>
+            <div class="platform-download">
+                <a href="#" class="dl-btn">
+                    <i class="fas fa-desktop"></i>
+                    <div class="dl-text"><span class="dl-small">Có trên</span><span class="dl-big">PC Client</span></div>
+                </a>
+                <a href="#" class="dl-btn">
+                    <i class="fab fa-apple"></i>
+                    <div class="dl-text"><span class="dl-small">Tải về trên</span><span class="dl-big">App Store</span></div>
+                </a>
+                <a href="#" class="dl-btn">
+                    <i class="fab fa-google-play"></i>
+                    <div class="dl-text"><span class="dl-small">Tải nội dung trên</span><span class="dl-big">Google Play</span></div>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -168,6 +186,7 @@
             <div class="card-item"><div class="card-visual ignis-4"></div><div class="card-name">Epic</div></div>
             <div class="card-item"><div class="card-visual ignis-5"></div><div class="card-name">Legendary</div></div>
         </div>
+
         <div class="set-title" style="margin-top: 50px;">SYLVA (HỆ RỪNG)</div>
         <div class="card-grid">
             <div class="card-item"><div class="card-visual sylva-1"></div><div class="card-name">Common</div></div>
