@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKAHERO | HUYỀN THOẠI THẺ BÀI</title>
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/fire.png">
+    
+    <link rel="icon" type="image/png" href="https://heromoka.github.io/assets/fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -69,11 +70,10 @@
 
         .champion-display-box { flex-grow: 1; height: 100%; background-color: #000; border: 1px solid var(--gold); position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); transition: border-color 0.5s; }
         
-        /* ẢNH NỀN (Placeholder) */
         .champion-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; transition: opacity 0.4s ease-in-out; }
         
-        /* THẺ BÀI - DÙNG LINK GỐC */
-        .floating-card-preview { position: absolute; bottom: 40px; right: 60px; width: 240px; height: 360px; background-image: url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/full_set.png'); background-size: 500% 400%; border-radius: 10px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 5; transform: rotate(3deg); transition: all 0.5s ease; }
+        /* 2. KHẮC PHỤC ẢNH THẺ BÀI TRONG SLIDER (FULL_SET.PNG) */
+        .floating-card-preview { position: absolute; bottom: 40px; right: 60px; width: 240px; height: 360px; background-image: url('https://heromoka.github.io/assets/full_set.png'); background-size: 500% 400%; border-radius: 10px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 5; transform: rotate(3deg); transition: all 0.5s ease; }
 
         .champion-info-panel { position: relative; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent); width: 100%; padding: 40px; text-align: center; border-top: 1px solid rgba(200, 170, 109, 0.3); transition: border-color 0.5s; }
         .champ-region { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; transition: color 0.3s; }
@@ -100,8 +100,8 @@
         .card { flex: 1; min-width: 170px; max-width: 220px; background: #060a11; border: 2px solid #2c3646; border-radius: 8px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 15px 30px rgba(200, 170, 109, 0.2); }
         
-        /* CARD IMAGE - DÙNG LINK GỐC */
-        .card-img { width: 100%; padding-top: 140%; position: relative; background-image: url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/full_set.png'); background-size: 500% 400%; border-bottom: 2px solid #2c3646; }
+        /* 3. KHẮC PHỤC ẢNH BỘ SƯU TẬP (FULL_SET.PNG) */
+        .card-img { width: 100%; padding-top: 140%; position: relative; background-image: url('https://heromoka.github.io/assets/full_set.png'); background-size: 500% 400%; border-bottom: 2px solid #2c3646; }
         
         .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; gap: 6px; }
         .card-top { display: flex; justify-content: space-between; align-items: center; }
@@ -140,8 +140,8 @@
     </nav>
 
     <header class="hero">
-        <video autoplay muted playsinline loop class="video-bg" poster="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/fire.png">
-            <source src="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/video.mp4" type="video/mp4">
+        <video autoplay muted playsinline loop class="video-bg" poster="https://heromoka.github.io/assets/fire.png">
+            <source src="https://heromoka.github.io/assets/video.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -269,11 +269,11 @@
         }
 
         // --- SLIDER LOGIC ---
-        // SỬ DỤNG LINK TUYỆT ĐỐI TỪ GITHUB CỦA BẠN (raw.githubusercontent.com)
+        // 5. CẤU HÌNH ĐƯỜNG DẪN ẢNH TUYỆT ĐỐI (KHÔNG BAO GIỜ LỖI)
         const champions = [
             {
                 id: 'ignis',
-                bg: 'https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/bg_ignis.jpg', 
+                bg: 'https://heromoka.github.io/assets/bg_ignis.jpg', 
                 cardPos: '100% 0%',
                 region: 'HỆ LỬA • IGNIS',
                 name: 'IGNIS PRIME',
@@ -283,7 +283,7 @@
             },
             {
                 id: 'sylva',
-                bg: 'https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/bg_sylva.jpg',
+                bg: 'https://heromoka.github.io/assets/bg_sylva.jpg',
                 cardPos: '100% 33.33%',
                 region: 'HỆ RỪNG • SYLVA',
                 name: 'GAIA MOTHER',
@@ -293,7 +293,7 @@
             },
             {
                 id: 'omega',
-                bg: 'https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/bg_omega.jpg', 
+                bg: 'https://heromoka.github.io/assets/bg_omega.jpg', 
                 cardPos: '100% 66.66%',
                 region: 'HỆ MÁY • OMEGA',
                 name: 'OMEGA WEAPON',
@@ -303,7 +303,7 @@
             },
             {
                 id: 'zarok',
-                bg: 'https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/assets/bg_zarok.jpg',
+                bg: 'https://heromoka.github.io/assets/bg_zarok.jpg',
                 cardPos: '100% 100%',
                 region: 'HỆ BÓNG TỐI • ZAROK',
                 name: 'ZAROK ABYSS',
@@ -321,8 +321,6 @@
             const bgDiv = document.getElementById('showcase-bg');
             bgDiv.style.opacity = '0'; 
             setTimeout(() => {
-                // Thêm log để kiểm tra đường dẫn nếu vẫn lỗi
-                console.log("Đang tải ảnh: " + data.bg);
                 bgDiv.style.backgroundImage = `url('${data.bg}')`;
                 bgDiv.style.opacity = '1'; 
             }, 200);
