@@ -3,227 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOKAHERO | KHU VỰC CHINH PHẠT</title>
+    <title>MOKAHERO | HUYỀN THOẠI THẺ BÀI</title>
     <link rel="icon" type="image/png" href="./fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        /* --- CẤU HÌNH MÀU SẮC CHUẨN RUNETERRA --- */
         :root {
-            --gold: #c8aa6d; /* Vàng kim loại LoR */
-            --gold-bright: #f0e6d2;
-            --dark-bg: #010a13; /* Nền chính tối */
-            --box-bg: #03080e; /* Nền của khung chứa thẻ bài (tối hơn nữa) */
-            --card-bg: #020609;
-            --card-border: #1c222b;
-            --fire-orange: #ff4500;
-            --common: #a0a0a0; --uncommon: #1eff00; --rare: #0070dd; --epic: #a335ee; --legendary: #ff8000;
+            --gold: #c8aa6d;         /* Vàng kim loại */
+            --gold-hover: #f0e6d2;   /* Vàng sáng */
+            --blue-dark: #091120;    /* Xanh đen nền chính */
+            --content-bg: #111a2b;   /* Nền khung nội dung */
+            --border-color: #313c4e; /* Viền khung */
+            --text-main: #cdbe91;    /* Màu chữ vàng nhạt */
+            --text-white: #f0f0f0;
+            
+            /* Độ hiếm */
+            --common: #a0a0a0; --uncommon: #1eff00; 
+            --rare: #0070dd; --epic: #a335ee; --legendary: #ff8000;
         }
 
-        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: var(--dark-bg); color: #e0e0e0; overflow-x: hidden; }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: var(--blue-dark); color: var(--text-white); overflow-x: hidden; }
 
-        /* Nav & Footer (Giữ nguyên) */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(1, 10, 19, 0.95); border-bottom: 2px solid var(--gold); position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 26px; color: var(--gold); letter-spacing: 2px; }
-        nav ul { display: flex; list-style: none; gap: 30px; }
-        nav ul li a { text-decoration: none; color: #bbb; font-size: 14px; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        nav ul li a:hover { color: var(--gold); }
-        .btn-play-small { background: var(--gold); color: black; padding: 10px 25px; text-decoration: none; font-weight: bold; border-radius: 3px; transition: 0.3s; }
-        .btn-play-small:hover { background: var(--gold-bright); }
-        footer { padding: 40px; text-align: center; background: #000; font-size: 12px; color: #555; border-top: 1px solid #111; }
-
-        /* Hero Banner (Giữ nguyên) */
-        .hero { height: 90vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 60px; overflow: hidden; background-color: #000; }
-        .hero-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
-        .back-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%) scale(1.15); z-index: -1; object-fit: cover; }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(1, 10, 19, 0.3), var(--dark-bg)); z-index: 0; }
-        .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .hero h1 { font-family: 'Oswald', sans-serif; font-size: clamp(50px, 9vw, 110px); margin: 0; text-transform: uppercase; font-style: italic; text-shadow: 0 0 40px var(--fire-orange); line-height: 1; color: #fff; }
-        .hero p { font-size: 18px; letter-spacing: 6px; color: #ffae00; margin-top: 15px; text-transform: uppercase; font-weight: bold; text-shadow: 0 2px 5px black; }
-        .btn-play-big { margin-top: 40px; margin-bottom: 60px; padding: 15px 50px; background: linear-gradient(to bottom, #d4af37, #aa8422); color: #2b1d00; border: 2px solid #fff5c6; font-size: 20px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 20px rgba(0,0,0,0.5); border-radius: 4px; }
-        .btn-play-big:hover { transform: scale(1.05); filter: brightness(1.2); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); }
-        .platform-download { display: flex; gap: 15px; align-items: center; justify-content: center; padding-bottom: 50px; flex-wrap: wrap; }
-        .dl-btn { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.6); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; border: 1px solid #333; transition: 0.3s; min-width: 140px; justify-content: center; backdrop-filter: blur(5px); }
-        .dl-btn:hover { border-color: var(--gold); background: rgba(200, 170, 109, 0.1); }
-        .dl-btn i { font-size: 20px; color: var(--gold); }
-        .dl-text { text-align: left; line-height: 1.2; }
-        .dl-small { font-size: 10px; color: #aaa; display: block; }
-        .dl-big { font-size: 14px; font-weight: bold; display: block; }
-
-        /* --- CẤU TRÚC BỘ SƯU TẬP MỚI (ĐÃ SỬA LẠI CHO GIỐNG ẢNH 32) --- */
+        /* ================= 1. THANH ĐIỀU HƯỚNG (NAVBAR) ================= */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 40px; height: 80px;
+            background: rgba(9, 17, 32, 0.95);
+            border-bottom: 2px solid rgba(200, 170, 109, 0.3);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 30px; color: var(--gold); letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
         
-        /* 1. Lớp vỏ bên ngoài (Background chính) */
-        .collection-section-wrapper {
-            padding: 60px 0;
-            /* Nền gradient tối dần xuống dưới */
-            background: linear-gradient(to bottom, var(--dark-bg) 0%, #000 100%);
-            min-height: 800px;
-            display: flex;
-            justify-content: center; /* Căn giữa cái hộp bên trong */
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #a0aab8; font-weight: bold; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(200, 170, 109, 0.5); }
+        
+        .btn-login {
+            background: #1e2837; color: var(--gold); border: 1px solid var(--gold);
+            padding: 10px 30px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; border-radius: 2px;
+        }
+        .btn-login:hover { background: var(--gold); color: #000; }
+        .btn-play-nav {
+            background: var(--gold); color: #000; padding: 12px 30px;
+            font-weight: bold; text-transform: uppercase; text-decoration: none;
+            border-radius: 2px; margin-left: 15px; transition: 0.3s;
+        }
+        .btn-play-nav:hover { background: var(--gold-hover); }
+
+        /* ================= 2. HERO BANNER (VIDEO NỀN) ================= */
+        .hero {
+            height: 100vh; /* Full màn hình */
+            position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center;
+            background: #000;
+        }
+        .video-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0; opacity: 0.8;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(9,17,32,0.3) 0%, var(--blue-dark) 95%);
+            z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; margin-top: 60px; }
+        
+        .hero h1 {
+            font-family: 'Oswald', sans-serif; font-size: 80px; margin: 0;
+            background: -webkit-linear-gradient(#fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5); font-style: italic; letter-spacing: 2px;
+        }
+        .hero p { color: var(--gold); font-size: 18px; letter-spacing: 6px; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
+        
+        .btn-cta-big {
+            margin-top: 40px; padding: 20px 70px; font-size: 24px;
+            background: linear-gradient(to bottom, #d4af37, #aa8422);
+            color: #2b1d00; border: 2px solid #fff5c6;
+            font-weight: bold; text-transform: uppercase; cursor: pointer;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: 0.3s;
+        }
+        .btn-cta-big:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* ================= 3. KHUNG NỘI DUNG CHÍNH (GIỐNG ẢNH 32) ================= */
+        .main-wrapper {
+            position: relative; z-index: 10;
+            background: var(--blue-dark);
+            padding-bottom: 80px;
         }
 
-        /* 2. Cái hộp tối màu ở giữa (Khắc phục lỗi to quá khổ và thiếu khung) */
-        .collection-inner-box {
-            width: 90%; /* Chiếm 90% màn hình trên mobile */
-            max-width: 1150px; /* Giới hạn chiều rộng tối đa giống Runeterra */
-            background-color: var(--box-bg); /* Màu nền tối sẫm tách biệt */
-            border: 1px solid #1c222b; /* Viền mờ */
-            padding: 40px; /* Khoảng cách bên trong hộp */
-            box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Đổ bóng để nổi lên */
+        /* Container giới hạn chiều rộng giống Runeterra (khoảng 1200px) */
+        .container {
+            max-width: 1300px;
+            margin: -100px auto 0; /* Kéo lên đè lên banner một chút */
+            position: relative;
+            padding: 0 20px;
+        }
+
+        /* Khung chứa Bộ Sưu Tập */
+        .collection-box {
+            background-color: var(--content-bg);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        /* Header bên trong hộp */
-        .collection-header { text-align: center; margin-bottom: 40px; }
-        .collection-header h2 { font-family: 'Oswald', sans-serif; color: var(--gold); font-size: 36px; margin-bottom: 15px; letter-spacing: 1.5px; text-transform: uppercase; }
-        .collection-header p { color: #a8b2c1; font-size: 16px; max-width: 700px; margin: 0 auto 30px; line-height: 1.5; }
+        .section-header h2 {
+            font-family: 'Oswald', sans-serif; color: var(--gold);
+            font-size: 48px; text-transform: uppercase; text-align: center; margin: 0 0 15px 0;
+        }
+        .section-header p {
+            text-align: center; color: #9aa4b2; font-size: 18px;
+            max-width: 700px; margin: 0 auto 50px auto; line-height: 1.6;
+        }
 
-        /* Tab Menu */
-        .tab-menu { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; border-bottom: 2px solid #2a3544; flex-wrap: wrap; padding-bottom: 5px; }
-        .tab-btn { background: transparent; border: none; color: #6b7a8f; font-family: 'Oswald', sans-serif; font-size: 18px; padding: 15px 25px; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; font-weight: bold; letter-spacing: 1px; }
-        .tab-btn:hover { color: var(--gold-bright); }
-        .tab-btn.active { color: var(--gold); }
-        .tab-btn.active::after { content: ''; position: absolute; bottom: -7px; left: 0; width: 100%; height: 4px; background: var(--gold); box-shadow: 0 -2px 15px rgba(196, 151, 62, 0.8); border-radius: 2px 2px 0 0; }
-        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+        /* TAB MENU (Thiết kế lại phẳng và hiện đại) */
+        .tabs {
+            display: flex; justify-content: center; gap: 40px;
+            border-bottom: 2px solid #2c3646; margin-bottom: 50px;
+        }
+        .tab-item {
+            background: none; border: none;
+            color: #6a7585; font-family: 'Oswald', sans-serif; font-size: 20px;
+            padding-bottom: 20px; cursor: pointer; text-transform: uppercase;
+            transition: 0.3s; letter-spacing: 1px; position: relative;
+        }
+        .tab-item:hover { color: var(--text-white); }
+        .tab-item.active { color: var(--gold); }
+        .tab-item.active::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px;
+            background: var(--gold); box-shadow: 0 0 15px var(--gold);
+        }
+
+        /* LƯỚI THẺ BÀI (Căn giữa hoàn hảo) */
+        .tab-content { display: none; animation: slideUp 0.5s ease; }
         .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* 3. Lưới thẻ bài (Khắc phục lỗi căn giữa) */
+        
         .card-grid {
             display: grid;
-            /* Dùng auto-fit và cố định chiều rộng thẻ (240px) để không bị giãn */
-            grid-template-columns: repeat(auto-fit, 240px);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Tự động chia cột */
             gap: 25px;
-            /* Căn giữa toàn bộ lưới thẻ bài */
             justify-content: center;
         }
-        
-        /* Style thẻ bài (Giữ nguyên độ ngầu) */
-        .card-item { border: 3px solid var(--card-border); border-radius: 12px; overflow: hidden; background: var(--card-bg); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.7); }
-        .card-item:hover { transform: translateY(-8px) scale(1.02); border-color: var(--gold); box-shadow: 0 15px 40px rgba(196, 151, 62, 0.4); }
-        .card-visual { width: 100%; padding-top: 140%; background-image: url('./full_set.png'); background-size: 500% 400%; border-bottom: 3px solid var(--card-border); }
-        .card-info-box { padding: 18px; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; }
-        .info-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .info-name { font-family: 'Oswald', sans-serif; font-size: 19px; color: var(--gold-bright); letter-spacing: 0.5px; }
-        .info-rarity { font-size: 11px; font-weight: bold; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: #111; letter-spacing: 1px; }
-        .r-common { color: var(--common); box-shadow: inset 0 0 0 1px var(--common); }
-        .r-uncommon { color: var(--uncommon); box-shadow: inset 0 0 0 1px var(--uncommon); }
-        .r-rare { color: var(--rare); box-shadow: inset 0 0 0 1px var(--rare); }
-        .r-epic { color: var(--epic); box-shadow: inset 0 0 0 1px var(--epic); }
-        .r-legendary { color: var(--legendary); box-shadow: inset 0 0 0 1px var(--legendary), 0 0 10px rgba(255, 128, 0, 0.3); }
-        .info-stats { display: flex; justify-content: space-around; background: #010305; padding: 10px; border-radius: 8px; font-weight: bold; border: 1px solid #1c222b; }
-        .stat { display: flex; align-items: center; gap: 6px; font-size: 15px; }
-        .stat-atk { color: #e74c3c; } .stat-hp { color: #2ecc71; } .stat-def { color: #3498db; } .stat-mag { color: #9b59b6; }
-        .info-desc { font-size: 14px; color: #b0b8c4; line-height: 1.5; font-style: italic; }
-        .skill-name { color: var(--gold); font-weight: bold; font-style: normal; }
 
-        /* Tọa độ cắt ảnh */
+        /* Card Design */
+        .card {
+            background: #060a11; border: 2px solid #2c3646;
+            border-radius: 8px; overflow: hidden; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 30px rgba(200, 170, 109, 0.2);
+        }
+        .card-img {
+            width: 100%; padding-top: 140%; position: relative;
+            background-image: url('./full_set.png'); background-size: 500% 400%;
+            border-bottom: 2px solid #2c3646;
+        }
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+        .card-top { display: flex; justify-content: space-between; align-items: center; }
+        .card-name { font-family: 'Oswald', sans-serif; font-size: 18px; color: #fff; }
+        .card-rarity { font-size: 10px; font-weight: bold; padding: 2px 6px; background: #222; border-radius: 3px; text-transform: uppercase; }
+        
+        .stats { display: flex; justify-content: space-between; background: #0e1624; padding: 8px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        .atk { color: #e74c3c; } .hp { color: #2ecc71; } .cost { color: #3498db; }
+        .desc { font-size: 13px; color: #888; font-style: italic; line-height: 1.4; }
+
+        /* Tọa độ cắt ảnh (Sprite) */
         .ignis-1{background-position:0 0}.ignis-2{background-position:25% 0}.ignis-3{background-position:50% 0}.ignis-4{background-position:75% 0}.ignis-5{background-position:100% 0}
         .sylva-1{background-position:0 33.33%}.sylva-2{background-position:25% 33.33%}.sylva-3{background-position:50% 33.33%}.sylva-4{background-position:75% 33.33%}.sylva-5{background-position:100% 33.33%}
         .omega-1{background-position:0 66.66%}.omega-2{background-position:25% 66.66%}.omega-3{background-position:50% 66.66%}.omega-4{background-position:75% 66.66%}.omega-5{background-position:100% 66.66%}
         .zarok-1{background-position:0 100%}.zarok-2{background-position:25% 100%}.zarok-3{background-position:50% 100%}.zarok-4{background-position:75% 100%}.zarok-5{background-position:100% 100%}
+
+        /* Màu rarity */
+        .r-common{color:var(--common);box-shadow:inset 0 0 0 1px var(--common)}.r-uncommon{color:var(--uncommon);box-shadow:inset 0 0 0 1px var(--uncommon)}.r-rare{color:var(--rare);box-shadow:inset 0 0 0 1px var(--rare)}.r-epic{color:var(--epic);box-shadow:inset 0 0 0 1px var(--epic)}.r-legendary{color:var(--legendary);box-shadow:inset 0 0 0 1px var(--legendary)}
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Footer */
+        footer { background: #050910; padding: 50px 0; text-align: center; border-top: 1px solid #222; color: #555; font-size: 13px; }
+        .footer-logo { font-family: 'Oswald', sans-serif; font-size: 24px; color: #444; margin-bottom: 20px; display: inline-block; }
+
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">HEROMOKA</div>
-        <ul><li><a href="#">Trò chơi</a></li><li><a href="#">Thẻ bài</a></li><li><a href="#">Tin tức</a></li></ul>
-        <a href="#" class="btn-play-small">ĐĂNG NHẬP</a>
+        <ul class="nav-links">
+            <li><a href="#">TRÒ CHƠI</a></li>
+            <li><a href="#">TIN TỨC</a></li>
+            <li><a href="#">THẺ BÀI</a></li>
+            <li><a href="#">CỐT TRUYỆN</a></li>
+            <li><a href="#">HỖ TRỢ</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn-login">ĐĂNG NHẬP</button>
+            <a href="#" class="btn-play-nav">CHƠI NGAY</a>
+        </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-bg-container">
-            <video autoplay muted playsinline class="back-video" poster="./fire.png"><source src="./video.mp4" type="video/mp4"></video>
-            <div class="video-overlay"></div>
-        </div>
+        <video autoplay muted playsinline loop class="video-bg" poster="./fire.png">
+            <source src="./video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
         <div class="hero-content">
             <h1>MOKAHERO</h1>
             <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
-            <button class="btn-play-big">CHƠI NGAY</button>
-            <div class="platform-download">
-                <a href="#" class="dl-btn"><i class="fas fa-desktop"></i><div class="dl-text"><span class="dl-small">Có trên</span><span class="dl-big">PC Client</span></div></a>
-                <a href="#" class="dl-btn"><i class="fab fa-apple"></i><div class="dl-text"><span class="dl-small">Tải về trên</span><span class="dl-big">App Store</span></div></a>
-                <a href="#" class="dl-btn"><i class="fab fa-google-play"></i><div class="dl-text"><span class="dl-small">Tải nội dung trên</span><span class="dl-big">Google Play</span></div></a>
-            </div>
+            <button class="btn-cta-big">CHƠI MIỄN PHÍ</button>
         </div>
     </header>
 
-    <section class="collection-section-wrapper">
-        <div class="collection-inner-box">
-            
-            <div class="collection-header">
-                <h2>KHÁM PHÁ CÁC BỘ BÀI HEROMOKA</h2>
-                <p>Mỗi khu vực và hệ tộc trong Heromoka đều sở hữu lối chơi, chiến thuật và sức mạnh riêng biệt. Hãy chọn liên minh của bạn và thống trị chiến trường!</p>
-            </div>
-
-            <div class="tab-menu">
-                <button class="tab-btn active" onclick="openTab(event, 'Ignis')">IGNIS</button>
-                <button class="tab-btn" onclick="openTab(event, 'Sylva')">SYLVA</button>
-                <button class="tab-btn" onclick="openTab(event, 'Omega')">OMEGA</button>
-                <button class="tab-btn" onclick="openTab(event, 'Zarok')">ZAROK</button>
-            </div>
-
-            <div id="Ignis" class="tab-content active">
-                <div class="card-grid">
-                    <div class="card-item"><div class="card-visual ignis-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Lava Sprite</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 2</span><span class="stat stat-hp">❤️ 6</span><span class="stat stat-def">🛡️ 4</span></div><div class="info-desc"><span class="skill-name">Vỏ Cứng:</span> Giảm 1 sát thương nhận vào từ đòn đánh thường.</div></div></div>
-                    <div class="card-item"><div class="card-visual ignis-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Magma Golem</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 3</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 6</span></div><div class="info-desc"><span class="skill-name">Khiên Nhiệt:</span> Khi xuất trận, tạo lá chắn 4 điểm cho bản thân.</div></div></div>
-                    <div class="card-item"><div class="card-visual ignis-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Flame Guardian</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 4</span><span class="stat stat-hp">❤️ 14</span><span class="stat stat-def">🛡️ 8</span></div><div class="info-desc"><span class="skill-name">Bảo Vệ:</span> Đồng minh đứng cạnh nhận +2 Giáp.</div></div></div>
-                    <div class="card-item"><div class="card-visual ignis-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Infernal Sentinel</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 6</span><span class="stat stat-hp">❤️ 18</span><span class="stat stat-def">🛡️ 12</span></div><div class="info-desc"><span class="skill-name">Phản Đòn:</span> Khi chịu sát thương, gây 3 sát thương lửa lại kẻ tấn công.</div></div></div>
-                    <div class="card-item"><div class="card-visual ignis-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Ignis Prime</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 8</span><span class="stat stat-hp">❤️ 25</span><span class="stat stat-def">🛡️ 15</span></div><div class="info-desc"><span class="skill-name">Tường Lửa Vĩnh Cửu:</span> Kích hoạt: Miễn nhiễm mọi sát thương trong 1 lượt. Nội tại: Tất cả đồng minh +4 Giáp.</div></div></div>
+    <section class="main-wrapper">
+        <div class="container">
+            <div class="collection-box">
+                
+                <div class="section-header">
+                    <h2>KẾT HỢP KHU VỰC ĐỂ CHINH PHẠT</h2>
+                    <p>Mỗi khu vực của Heromoka đều có lối chơi và chiến thuật riêng. Hãy chọn liên minh của bạn và thống trị chiến trường!</p>
                 </div>
-            </div>
 
-            <div id="Sylva" class="tab-content">
-                <div class="card-grid">
-                    <div class="card-item"><div class="card-visual sylva-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Forest Wisp</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 2</span><span class="stat stat-hp">❤️ 5</span><span class="stat stat-def">🛡️ 1</span></div><div class="info-desc"><span class="skill-name">Hồi Phục Nhẹ:</span> Hồi 2 Máu cho một đồng minh khi xuất trận.</div></div></div>
-                    <div class="card-item"><div class="card-visual sylva-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Druid Healer</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 3</span><span class="stat stat-hp">❤️ 8</span><span class="stat stat-def">🛡️ 2</span></div><div class="info-desc"><span class="skill-name">Tăng Trưởng:</span> Tăng +2 Tấn Công cho một đồng minh ngẫu nhiên mỗi lượt.</div></div></div>
-                    <div class="card-item"><div class="card-visual sylva-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Elder Treant</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 4</span><span class="stat stat-hp">❤️ 15</span><span class="stat stat-def">🛡️ 4</span></div><div class="info-desc"><span class="skill-name">Rễ Bám:</span> Kẻ địch tấn công đơn vị này bị giảm 2 Tốc độ vào lượt sau.</div></div></div>
-                    <div class="card-item"><div class="card-visual sylva-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Lifebloom Dryad</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 5</span><span class="stat stat-hp">❤️ 12</span><span class="stat stat-def">🛡️ 3</span></div><div class="info-desc"><span class="skill-name">Mưa Hồi Sinh:</span> Cuối mỗi lượt, hồi 3 Máu cho TẤT CẢ đồng minh.</div></div></div>
-                    <div class="card-item"><div class="card-visual sylva-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Gaia, Mother Tree</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 6</span><span class="stat stat-hp">❤️ 22</span><span class="stat stat-def">🛡️ 8</span></div><div class="info-desc"><span class="skill-name">Tái Sinh Vĩ Đại:</span> Kích hoạt: Hồi sinh một đồng minh đã chết với 50% Máu. Nội tại: Đồng minh nhận +2/+2 chỉ số.</div></div></div>
+                <div class="tabs">
+                    <button class="tab-item active" onclick="openTab(event, 'Ignis')">IGNIS</button>
+                    <button class="tab-item" onclick="openTab(event, 'Sylva')">SYLVA</button>
+                    <button class="tab-item" onclick="openTab(event, 'Omega')">OMEGA</button>
+                    <button class="tab-item" onclick="openTab(event, 'Zarok')">ZAROK</button>
                 </div>
-            </div>
 
-            <div id="Omega" class="tab-content">
-                <div class="card-grid">
-                    <div class="card-item"><div class="card-visual omega-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Mech Drone</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 5</span><span class="stat stat-hp">❤️ 3</span><span class="stat stat-def">🛡️ 1</span></div><div class="info-desc"><span class="skill-name">Tấn Công Nhanh:</span> Có thể tấn công ngay khi xuất trận.</div></div></div>
-                    <div class="card-item"><div class="card-visual omega-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Assault Bot</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 7</span><span class="stat stat-hp">❤️ 6</span><span class="stat stat-def">🛡️ 2</span></div><div class="info-desc"><span class="skill-name">Bắn Liên Thanh:</span> Tấn công 2 lần trong một lượt nếu mục tiêu là lính.</div></div></div>
-                    <div class="card-item"><div class="card-visual omega-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Siege Tank</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 10</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 5</span></div><div class="info-desc"><span class="skill-name">Đạn Pháo:</span> Gây 5 sát thương lan sang các đơn vị cạnh mục tiêu chính.</div></div></div>
-                    <div class="card-item"><div class="card-visual omega-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Cyber Samurai</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 14</span><span class="stat stat-hp">❤️ 12</span><span class="stat stat-def">🛡️ 4</span></div><div class="info-desc"><span class="skill-name">Kiếm Chém Sắt:</span> Đòn tấn công bỏ qua 50% Giáp của mục tiêu (Sát thương chuẩn).</div></div></div>
-                    <div class="card-item"><div class="card-visual omega-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Omega Weapon X</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 20</span><span class="stat stat-hp">❤️ 18</span><span class="stat stat-def">🛡️ 8</span></div><div class="info-desc"><span class="skill-name">Hủy Diệt Hoàn Toàn:</span> Kích hoạt: Gây 30 Sát thương chuẩn lên một mục tiêu. Nếu mục tiêu chết, được tấn công tiếp.</div></div></div>
+                <div id="Ignis" class="tab-content active">
+                    <div class="card-grid">
+                        <div class="card"><div class="card-img ignis-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Lava Sprite</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 2</span><span class="hp">❤️ 6</span><span class="cost">🔷 1</span></div><div class="desc">Giảm 1 sát thương nhận vào từ đòn đánh thường.</div></div></div>
+                        <div class="card"><div class="card-img ignis-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Magma Golem</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">⚔️ 3</span><span class="hp">❤️ 10</span><span class="cost">🔷 3</span></div><div class="desc">Xuất trận: Tạo lá chắn 4 điểm.</div></div></div>
+                        <div class="card"><div class="card-img ignis-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Flame Guardian</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">⚔️ 4</span><span class="hp">❤️ 14</span><span class="cost">🔷 5</span></div><div class="desc">Đồng minh đứng cạnh nhận +2 Giáp.</div></div></div>
+                        <div class="card"><div class="card-img ignis-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Infernal Sentinel</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">⚔️ 6</span><span class="hp">❤️ 18</span><span class="cost">🔷 8</span></div><div class="desc">Phản đòn 3 sát thương lửa.</div></div></div>
+                        <div class="card"><div class="card-img ignis-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Ignis Prime</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 8</span><span class="hp">❤️ 25</span><span class="cost">🔷 12</span></div><div class="desc">Miễn nhiễm sát thương 1 lượt.</div></div></div>
+                    </div>
                 </div>
-            </div>
 
-            <div id="Zarok" class="tab-content">
-                <div class="card-grid">
-                    <div class="card-item"><div class="card-visual zarok-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Dark Acolyte</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-mag">✨ 4</span><span class="stat stat-hp">❤️ 4</span><span class="stat stat-def">🛡️ 0</span></div><div class="info-desc"><span class="skill-name">Cầu Lửa Đen:</span> Gây 3 sát thương phép khi xuất trận.</div></div></div>
-                    <div class="card-item"><div class="card-visual zarok-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Shadow Warlock</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-mag">✨ 6</span><span class="stat stat-hp">❤️ 7</span><span class="stat stat-def">🛡️ 1</span></div><div class="info-desc"><span class="skill-name">Nguyền Rủa:</span> Mục tiêu bị tấn công bị giảm 2 Tấn công trong 2 lượt.</div></div></div>
-                    <div class="card-item"><div class="card-visual zarok-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Void Mage</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-mag">✨ 9</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 2</span></div><div class="info-desc"><span class="skill-name">Xuyên Kháng Phép:</span> Đòn tấn công phép bỏ qua lá chắn phép thuật của đối phương.</div></div></div>
-                    <div class="card-item"><div class="card-visual zarok-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Necromancer Lord</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-mag">✨ 12</span><span class="stat stat-hp">❤️ 14</span><span class="stat stat-def">🛡️ 3</span></div><div class="info-desc"><span class="skill-name">Triệu Hồi Khô Lâu:</span> Khi một đơn vị chết, triệu hồi 1 Khô Lâu (2/2) phe mình.</div></div></div>
-                    <div class="card-item"><div class="card-visual zarok-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Zarok, The Abyss</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-mag">✨ 18</span><span class="stat stat-hp">❤️ 16</span><span class="stat stat-def">🛡️ 5</span></div><div class="info-desc"><span class="skill-name">Tận Thế Đen:</span> Kích hoạt: Gây 15 Sát thương phép chuẩn lên TOÀN BỘ kẻ địch. Những kẻ sống sót bị Choáng 1 lượt.</div></div></div>
+                <div id="Sylva" class="tab-content">
+                    <div class="card-grid">
+                        <div class="card"><div class="card-img sylva-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Forest Wisp</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 2</span><span class="hp">❤️ 5</span><span class="cost">🔷 1</span></div><div class="desc">Hồi 2 Máu cho đồng minh.</div></div></div>
+                        <div class="card"><div class="card-img sylva-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Druid Healer</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">⚔️ 3</span><span class="hp">❤️ 8</span><span class="cost">🔷 3</span></div><div class="desc">Tăng +2 công mỗi lượt.</div></div></div>
+                        <div class="card"><div class="card-img sylva-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Elder Treant</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">⚔️ 4</span><span class="hp">❤️ 15</span><span class="cost">🔷 5</span></div><div class="desc">Giảm tốc độ kẻ địch tấn công.</div></div></div>
+                        <div class="card"><div class="card-img sylva-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Lifebloom Dryad</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">⚔️ 5</span><span class="hp">❤️ 12</span><span class="cost">🔷 7</span></div><div class="desc">Hồi 3 máu toàn đội cuối lượt.</div></div></div>
+                        <div class="card"><div class="card-img sylva-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Gaia Mother</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 6</span><span class="hp">❤️ 22</span><span class="cost">🔷 10</span></div><div class="desc">Hồi sinh đồng minh đã chết.</div></div></div>
+                    </div>
                 </div>
-            </div>
 
-        </div> </section>
+                <div id="Omega" class="tab-content">
+                    <div class="card-grid">
+                        <div class="card"><div class="card-img omega-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Mech Drone</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 5</span><span class="hp">❤️ 3</span><span class="cost">🔷 1</span></div><div class="desc">Tấn công ngay khi xuất trận.</div></div></div>
+                        <div class="card"><div class="card-img omega-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Assault Bot</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">⚔️ 7</span><span class="hp">❤️ 6</span><span class="cost">🔷 3</span></div><div class="desc">Bắn 2 lần mỗi lượt.</div></div></div>
+                        <div class="card"><div class="card-img omega-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Siege Tank</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">⚔️ 10</span><span class="hp">❤️ 10</span><span class="cost">🔷 6</span></div><div class="desc">Gây sát thương lan.</div></div></div>
+                        <div class="card"><div class="card-img omega-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Cyber Samurai</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">⚔️ 14</span><span class="hp">❤️ 12</span><span class="cost">🔷 8</span></div><div class="desc">Sát thương xuyên giáp.</div></div></div>
+                        <div class="card"><div class="card-img omega-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Omega Weapon</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 20</span><span class="hp">❤️ 18</span><span class="cost">🔷 12</span></div><div class="desc">Hủy diệt hoàn toàn mục tiêu.</div></div></div>
+                    </div>
+                </div>
+
+                <div id="Zarok" class="tab-content">
+                    <div class="card-grid">
+                        <div class="card"><div class="card-img zarok-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Dark Acolyte</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">✨ 4</span><span class="hp">❤️ 4</span><span class="cost">🔷 1</span></div><div class="desc">Bắn cầu lửa đen (3 ST).</div></div></div>
+                        <div class="card"><div class="card-img zarok-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Warlock</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">✨ 6</span><span class="hp">❤️ 7</span><span class="cost">🔷 3</span></div><div class="desc">Nguyền rủa giảm tấn công.</div></div></div>
+                        <div class="card"><div class="card-img zarok-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Void Mage</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">✨ 9</span><span class="hp">❤️ 10</span><span class="cost">🔷 5</span></div><div class="desc">Bỏ qua lá chắn phép.</div></div></div>
+                        <div class="card"><div class="card-img zarok-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Necro Lord</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">✨ 12</span><span class="hp">❤️ 14</span><span class="cost">🔷 8</span></div><div class="desc">Triệu hồi khô lâu khi có unit chết.</div></div></div>
+                        <div class="card"><div class="card-img zarok-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Zarok Abyss</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">✨ 18</span><span class="hp">❤️ 16</span><span class="cost">🔷 12</span></div><div class="desc">Gây 15 ST chuẩn toàn map.</div></div></div>
+                    </div>
+                </div>
+
+            </div> </div>
+    </section>
 
     <footer>
-        <p>© 2026 HEROMOKA STUDIO. STYLE BASED ON LEGENDS OF RUNETERRA.</p>
+        <div class="footer-logo">HEROMOKA</div>
+        <p>© 2026 HEROMOKA STUDIO. DESIGN INSPIRED BY LEGENDS OF RUNETERRA.</p>
+        <p>Đây là dự án cá nhân, không thuộc về Riot Games.</p>
     </footer>
 
     <script>
-        function openTab(evt, collectionName) {
+        function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove("active");
             }
-            tablinks = document.getElementsByClassName("tab-btn");
+            tablinks = document.getElementsByClassName("tab-item");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
-            document.getElementById(collectionName).style.display = "block";
+            document.getElementById(tabName).style.display = "block";
+            // Kích hoạt animation
+            setTimeout(() => { document.getElementById(tabName).classList.add("active"); }, 10);
             evt.currentTarget.className += " active";
         }
     </script>
