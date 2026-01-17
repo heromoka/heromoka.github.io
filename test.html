@@ -46,94 +46,42 @@
         .btn-cta-big { margin-top: 40px; padding: 20px 70px; font-size: 24px; background: linear-gradient(to bottom, #d4af37, #aa8422); color: #2b1d00; border: 2px solid #fff5c6; font-weight: bold; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: 0.3s; }
         .btn-cta-big:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        /* ================= 3. NEW SECTION: CHAMPION SHOWCASE (ẢNH 34) ================= */
-        .champion-section {
-            padding: 80px 0;
-            background: #0b111a; /* Nền tối tiếp nối hero */
-            text-align: center;
-        }
-        
+        /* ================= 3. CHAMPION SHOWCASE (SLIDER) ================= */
+        .champion-section { padding: 80px 0; background: #0b111a; text-align: center; overflow: hidden; }
         .section-title-wrapper { margin-bottom: 40px; }
-        .section-title-wrapper h2 { font-family: 'Oswald', sans-serif; font-size: 42px; color: var(--gold-hover); text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        .section-title-wrapper h2 { font-family: 'Oswald', sans-serif; font-size: 42px; color: var(--gold-hover); text-transform: uppercase; letter-spacing: 1px; margin: 0; transition: color 0.3s; }
         .section-title-wrapper p { color: #888; margin-top: 10px; font-size: 16px; }
 
-        /* Khung chứa Slide */
-        .showcase-container {
-            max-width: 1400px; margin: 0 auto;
-            position: relative;
-            height: 600px; /* Chiều cao cố định giống ảnh */
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        /* Nút điều hướng 2 bên */
-        .nav-arrow {
-            width: 50px; height: 50px; border: 2px solid #444; border-radius: 50%;
-            background: rgba(0,0,0,0.5); color: #fff; font-size: 20px;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.3s; z-index: 10;
-        }
-        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); }
+        .showcase-container { max-width: 1400px; margin: 0 auto; position: relative; height: 600px; display: flex; align-items: center; justify-content: center; }
+        
+        /* Arrows */
+        .nav-arrow { width: 50px; height: 50px; border: 2px solid #444; border-radius: 50%; background: rgba(0,0,0,0.5); color: #fff; font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; z-index: 10; user-select: none; }
+        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.1); }
         .nav-prev { margin-right: 20px; } .nav-next { margin-left: 20px; }
 
-        /* Khung hiển thị chính (Cái hộp đen/ảnh nền) */
-        .champion-display-box {
-            flex-grow: 1; height: 100%;
-            background-color: #000; /* Nền đen như bạn yêu cầu */
-            border: 1px solid var(--gold); /* Viền vàng mảnh */
-            position: relative;
-            display: flex; align-items: flex-end; justify-content: center; /* Căn nội dung xuống đáy */
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
-        }
-
-        /* Phần ảnh nền nhân vật (Sau này bạn thay ảnh vào đây) */
-        .champion-bg-art {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Hiện tại để opacity thấp để tạo cảm giác nền tối */
-            background: radial-gradient(circle, #222 0%, #000 100%);
-            z-index: 1;
-        }
-
-        /* Thẻ bài nổi lên ở góc (Giả lập giống ảnh 34) */
-        .floating-card-preview {
-            position: absolute;
-            bottom: 40px; right: 60px;
-            width: 240px; height: 360px;
-            background-image: url('./full_set.png');
-            background-size: 500% 400%;
-            background-position: 100% 0; /* Lấy ảnh Ignis Legendary */
-            border-radius: 10px;
-            border: 2px solid var(--legendary);
-            box-shadow: 0 0 20px rgba(255, 128, 0, 0.5);
-            z-index: 5;
-            transform: rotate(3deg); /* Nghiêng nhẹ cho nghệ thuật */
-        }
-
-        /* Khung thông tin ở giữa đáy */
-        .champion-info-panel {
-            position: relative; z-index: 10;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            width: 100%; padding: 40px;
-            text-align: center;
-            border-top: 1px solid rgba(200, 170, 109, 0.3);
-        }
+        /* Display Box */
+        .champion-display-box { flex-grow: 1; height: 100%; background-color: #000; border: 1px solid var(--gold); position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); transition: border-color 0.5s; }
         
-        .champ-region { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
-        .champ-name { font-family: 'Oswald', sans-serif; font-size: 50px; color: #fff; margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: 3px; }
-        .champ-desc { color: #ccc; font-style: italic; margin-top: 15px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* Background Art with Transition */
+        .champion-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; transition: opacity 0.4s ease-in-out; }
+        
+        /* Floating Card */
+        .floating-card-preview { position: absolute; bottom: 40px; right: 60px; width: 240px; height: 360px; background-image: url('./full_set.png'); background-size: 500% 400%; border-radius: 10px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 5; transform: rotate(3deg); transition: all 0.5s ease; }
 
+        /* Info Panel */
+        .champion-info-panel { position: relative; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent); width: 100%; padding: 40px; text-align: center; border-top: 1px solid rgba(200, 170, 109, 0.3); transition: border-color 0.5s; }
+        .champ-region { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; transition: color 0.3s; }
+        .champ-name { font-family: 'Oswald', sans-serif; font-size: 60px; color: #fff; margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .champ-desc { color: #ccc; font-style: italic; margin-top: 15px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; min-height: 60px; }
 
-        /* ================= 4. MAIN COLLECTION (BỘ SƯU TẬP) ================= */
+        /* ================= 4. COLLECTION SECTION ================= */
         .main-wrapper { position: relative; z-index: 10; background: var(--blue-dark); padding-bottom: 80px; }
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; } /* Bỏ margin âm để tách biệt */
-
-        /* Header Bộ sưu tập */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
         .collection-header-wrapper { text-align: center; padding: 60px 0 40px; }
         .collection-header-wrapper h2 { font-family: 'Oswald', sans-serif; color: var(--gold); font-size: 40px; text-transform: uppercase; margin: 0; }
         .collection-header-wrapper p { color: #9aa4b2; margin-top: 10px; font-size: 16px; }
-
         .collection-box { background-color: var(--content-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 50px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-
+        
         /* Tabs */
         .tabs { display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid #2c3646; margin-bottom: 50px; }
         .tab-item { background: none; border: none; color: #6a7585; font-family: 'Oswald', sans-serif; font-size: 20px; padding-bottom: 20px; cursor: pointer; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; position: relative; }
@@ -199,35 +147,30 @@
 
     <section class="champion-section">
         <div class="section-title-wrapper">
-            <h2>CHỌN ANH HÙNG CỦA BẠN</h2>
+            <h2 id="faction-title">CHỌN ANH HÙNG CỦA BẠN</h2>
             <p>Bạn sẽ đem theo anh hùng nào vào trận đấu?</p>
         </div>
 
         <div class="showcase-container">
-            <div class="nav-arrow nav-prev"><i class="fas fa-arrow-left"></i></div>
+            <div class="nav-arrow nav-prev" onclick="changeSlide(-1)"><i class="fas fa-arrow-left"></i></div>
             
-            <div class="champion-display-box">
-                <div class="champion-bg-art"></div>
-                
-                <div class="floating-card-preview"></div>
-
-                <div class="champion-info-panel">
-                    <div class="champ-region">HỆ LỬA • IGNIS</div>
-                    <h3 class="champ-name">IGNIS PRIME</h3>
-                    <div class="champ-desc">
-                        "Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."
-                        <br>Tấn công rực lửa và thiêu đốt mọi kẻ thù cản bước.
-                    </div>
+            <div class="champion-display-box" id="showcase-box">
+                <div class="champion-bg-art" id="showcase-bg"></div>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #000 5%, transparent 90%); z-index: 2;"></div>
+                <div class="floating-card-preview" id="showcase-card"></div>
+                <div class="champion-info-panel" id="showcase-panel">
+                    <div class="champ-region" id="showcase-region">HỆ LỬA • IGNIS</div>
+                    <h3 class="champ-name" id="showcase-name">IGNIS PRIME</h3>
+                    <div class="champ-desc" id="showcase-desc"></div>
                 </div>
             </div>
 
-            <div class="nav-arrow nav-next"><i class="fas fa-arrow-right"></i></div>
+            <div class="nav-arrow nav-next" onclick="changeSlide(1)"><i class="fas fa-arrow-right"></i></div>
         </div>
     </section>
 
     <section class="main-wrapper">
         <div class="container">
-            
             <div class="collection-header-wrapper">
                 <h2>KẾT HỢP KHU VỰC ĐỂ CHINH PHẠT</h2>
                 <p>Mỗi khu vực của Runeterra đều có lối chơi và chiến thuật riêng. Chiến thuật của bạn sẽ là gì?</p>
@@ -290,6 +233,100 @@
     </footer>
 
     <script>
+        // --- 1. SLIDER LOGIC ---
+        const champions = [
+            {
+                id: 'ignis',
+                bg: './bg_ignis.jpg',
+                cardPos: '100% 0%',
+                region: 'HỆ LỬA • IGNIS',
+                name: 'IGNIS PRIME',
+                desc: '"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."<br>Tấn công rực lửa và thiêu đốt mọi kẻ thù.',
+                color: '#ffae00',
+                borderColor: '#ff8000'
+            },
+            {
+                id: 'sylva',
+                bg: './bg_sylva.jpg',
+                cardPos: '100% 33.33%',
+                region: 'HỆ RỪNG • SYLVA',
+                name: 'GAIA MOTHER',
+                desc: '"Mọi sinh linh đều trở về với đất mẹ. Ta là cội nguồn sự sống."<br>Hồi phục vô tận và triệu hồi sức mạnh rừng già.',
+                color: '#2ecc71',
+                borderColor: '#2ecc71'
+            },
+            {
+                id: 'omega',
+                bg: './bg_omega.jpg',
+                cardPos: '100% 66.66%',
+                region: 'HỆ MÁY • OMEGA',
+                name: 'OMEGA WEAPON',
+                desc: '"Cảm xúc là điểm yếu. Thép và năng lượng là vĩnh cửu."<br>Sử dụng công nghệ tối thượng để hủy diệt mục tiêu.',
+                color: '#00d2ff',
+                borderColor: '#3498db'
+            },
+            {
+                id: 'zarok',
+                bg: './bg_zarok.jpg',
+                cardPos: '100% 100%',
+                region: 'HỆ BÓNG TỐI • ZAROK',
+                name: 'ZAROK ABYSS',
+                desc: '"Nhìn vào vực thẳm, và vực thẳm sẽ nhìn lại ngươi."<br>Gieo rắc nỗi kinh hoàng và thao túng linh hồn.',
+                color: '#a335ee',
+                borderColor: '#9b59b6'
+            }
+        ];
+
+        let currentSlide = 0;
+
+        function updateShowcase() {
+            const data = champions[currentSlide];
+            
+            // Cập nhật Background
+            const bgDiv = document.getElementById('showcase-bg');
+            bgDiv.style.opacity = '0'; // Fade out
+            setTimeout(() => {
+                bgDiv.style.backgroundImage = `url('${data.bg}')`;
+                bgDiv.style.opacity = '1'; // Fade in
+            }, 200);
+
+            // Cập nhật Card
+            const card = document.getElementById('showcase-card');
+            card.style.backgroundPosition = data.cardPos;
+            card.style.borderColor = data.borderColor;
+            card.style.boxShadow = `0 0 30px ${data.borderColor}`;
+
+            // Cập nhật Text
+            const region = document.getElementById('showcase-region');
+            const name = document.getElementById('showcase-name');
+            const desc = document.getElementById('showcase-desc');
+            const panel = document.getElementById('showcase-panel');
+
+            region.innerText = data.region;
+            region.style.color = data.color;
+            name.innerText = data.name;
+            desc.innerHTML = data.desc;
+            panel.style.borderTopColor = data.color;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide >= champions.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = champions.length - 1;
+            updateShowcase();
+        }
+
+        // Bàn phím
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowLeft") changeSlide(-1);
+            if (event.key === "ArrowRight") changeSlide(1);
+        });
+
+        // Khởi động
+        updateShowcase();
+
+
+        // --- 2. COLLECTION TAB LOGIC ---
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
