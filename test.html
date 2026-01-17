@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOKAHERO: GENESIS WARS | NFT TCG</title>
+    <title>MOKAHERO: GENESIS WARS | OFFICIAL SITE</title>
     <link rel="icon" type="image/png" href="./assets/fire.png?v=999">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,160 +13,200 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- 1. SETUP GIAO DIỆN CAO CẤP --- */
+        /* --- CORE --- */
         :root {
-            /* Màu chủ đạo: Vàng đồng (Gold) & Xanh đen vũ trụ (Deep Void) */
-            --primary: #d4af37; 
-            --primary-glow: #ffdf80;
-            --bg-dark: #050505;
-            --bg-panel: #0f1014;
-            --text-main: #e0e0e0;
-            --text-muted: #888;
-            --accent-red: #ff3b3b; /* Cho phe Inferno */
-            --accent-green: #00ff88; /* Cho phe Verdant */
-            --accent-blue: #00d9ff; /* Cho phe Cyber */
-            --accent-purple: #9d00ff; /* Cho phe Void */
+            --gold: #d4af37; --dark: #050505; --card-bg: #111;
+            --text-gray: #888; --text-light: #eee;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Rajdhani', sans-serif; background: var(--dark); color: var(--text-light); scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         
-        body {
-            font-family: 'Rajdhani', sans-serif; /* Font công nghệ */
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+        /* --- NAV --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 50px; height: 80px; background: rgba(0,0,0,0.9); position: fixed; width: 100%; top: 0; z-index: 999; border-bottom: 1px solid #333; backdrop-filter: blur(10px); }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; }
+        .logo span { color: var(--gold); }
+        .links a { margin: 0 20px; text-decoration: none; color: var(--text-gray); font-weight: 600; transition: 0.3s; font-size: 14px; }
+        .links a:hover { color: var(--gold); }
+        .btn-dl { background: var(--gold); color: #000; padding: 10px 30px; border: none; font-weight: bold; cursor: pointer; clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%); transition: 0.3s; }
+        .btn-dl:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold); }
 
-        h1, h2, h3, .nav-logo {
-            font-family: 'Cinzel', serif; /* Font thần thoại */
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        /* --- HERO --- */
+        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding: 0 20px; }
+        .bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; z-index: -1; }
+        .hero-text h1 { font-size: 5vw; margin: 0; line-height: 1; text-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .hero-text p { font-size: 1.2rem; color: var(--gold); margin: 20px 0 40px; letter-spacing: 5px; }
+        .platforms { display: flex; gap: 15px; justify-content: center; margin-top: 30px; }
+        .plat-btn { background: transparent; border: 1px solid #555; color: #fff; padding: 12px 25px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; border-radius: 4px; }
+        .plat-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.1); }
 
-        /* --- 2. NAVIGATION (MENU) --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 50px; height: 90px;
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(10px); /* Hiệu ứng kính mờ thời thượng */
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            position: fixed; width: 100%; top: 0; z-index: 1000;
-        }
-        
-        .nav-logo { font-size: 28px; color: var(--text-main); font-weight: 900; cursor: pointer; }
-        .nav-logo span { color: var(--primary); }
+        /* --- SECTIONS COMMON --- */
+        section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; text-align: center; border-bottom: 1px solid #1a1a1a; }
+        .sec-title { font-size: 36px; color: var(--gold); margin-bottom: 10px; }
+        .sec-desc { color: var(--text-gray); max-width: 700px; margin: 0 auto 50px; font-size: 16px; line-height: 1.6; }
 
-        .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 16px; transition: 0.3s; position: relative; }
-        .nav-links a:hover { color: var(--primary); }
-        /* Hiệu ứng gạch chân khi hover */
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--primary); transition: 0.3s; }
-        .nav-links a:hover::after { width: 100%; }
+        /* --- FEATURES GRID --- */
+        .grid-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--card-bg); padding: 30px; border: 1px solid #222; border-radius: 8px; transition: 0.3s; text-align: left; }
+        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .card i { font-size: 30px; color: var(--gold); margin-bottom: 20px; }
+        .card h3 { font-size: 18px; margin-bottom: 10px; }
+        .card p { font-size: 14px; color: var(--text-gray); line-height: 1.5; }
 
-        .btn-gold {
-            background: linear-gradient(45deg, #b8860b, #d4af37);
-            color: #000; border: none; padding: 12px 30px;
-            font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px;
-            text-transform: uppercase; clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%); /* Cắt góc kiểu Sci-fi */
-            cursor: pointer; transition: 0.3s;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); color: #fff; }
+        /* --- ROADMAP --- */
+        .roadmap { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        .phase { width: 100%; max-width: 800px; background: #0f1014; border-left: 4px solid var(--gold); padding: 20px; text-align: left; position: relative; }
+        .phase h3 { color: #fff; margin-bottom: 5px; }
+        .phase span { color: var(--gold); font-size: 12px; font-weight: bold; display: block; margin-bottom: 10px; }
+        .phase ul { list-style: none; padding-left: 20px; }
+        .phase ul li { color: #888; font-size: 14px; margin-bottom: 5px; position: relative; }
+        .phase ul li::before { content: "•"; color: var(--gold); position: absolute; left: -15px; }
 
-        /* --- 3. CÁC SECTION (KHUNG SƯỜN) --- */
-        section {
-            min-height: 100vh; /* Mỗi phần cao ít nhất bằng màn hình */
-            padding: 100px 20px;
-            border-bottom: 1px solid #1a1a1a;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
+        /* --- PARTNERS --- */
+        .partner-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; opacity: 0.5; filter: grayscale(100%); margin-top: 30px; }
+        .partner-logos i { font-size: 40px; }
 
-        /* HERO SECTION */
-        #hero { position: relative; height: 100vh; padding: 0; text-align: center; }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, #050505 90%); z-index: 1; }
-        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.6; }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; }
-        .hero h1 { font-size: 70px; margin-bottom: 10px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .hero p { font-size: 20px; color: var(--primary); letter-spacing: 5px; margin-bottom: 40px; }
-        
-        /* STORY SECTION */
-        #story { background: #0a0a0a; }
-        
-        /* GAMEPLAY SECTION */
-        #gameplay { background: #050505; }
-
-        /* NFT SECTION */
-        #nft { background: #0a0a0a; }
-
-        /* TOKENOMICS SECTION */
-        #token { background: #050505; }
-
-        /* ROADMAP SECTION */
-        #roadmap { background: #0a0a0a; }
-
-        /* FOOTER */
-        footer { padding: 50px; text-align: center; border-top: 1px solid #222; background: #020202; color: #444; }
-
-        /* Tiêu đề chung cho các phần */
-        .section-title { font-size: 40px; color: var(--primary); margin-bottom: 20px; position: relative; display: inline-block; }
-        .section-desc { max-width: 600px; text-align: center; color: #888; margin-bottom: 60px; line-height: 1.6; }
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 40px; font-size: 12px; color: #444; background: #000; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="nav-logo">MOKA<span>HERO</span></div>
-        <ul class="nav-links">
-            <li><a href="#hero">TRANG CHỦ</a></li>
-            <li><a href="#story">CỐT TRUYỆN</a></li>
-            <li><a href="#gameplay">GAMEPLAY</a></li>
-            <li><a href="#nft">NFTs</a></li>
-            <li><a href="#roadmap">LỘ TRÌNH</a></li>
-            <li><a href="whitepaper.html" target="_blank">WHITEPAPER</a></li>
-        </ul>
-        <button class="btn-gold">PITCH DECK</button>
+        <div class="logo">MOKA<span>HERO</span></div>
+        <div class="links">
+            <a href="#about">GIỚI THIỆU</a>
+            <a href="#features">TÍNH NĂNG</a>
+            <a href="#roadmap">LỘ TRÌNH</a>
+            <a href="whitepaper.html" target="_blank">WHITEPAPER</a>
+        </div>
+        <button class="btn-dl">TẢI GAME</button>
     </nav>
 
-    <section id="hero">
-        <video autoplay muted loop playsinline class="hero-video" poster="./assets/fire.png">
+    <div id="hero">
+        <video autoplay muted loop playsinline class="bg-video" poster="./assets/fire.png">
             <source src="./assets/video.mp4" type="video/mp4">
         </video>
-        <div class="video-overlay"></div>
-        <div class="hero-content">
+        <div class="hero-text">
             <h1>GENESIS WARS</h1>
             <p>WEB3 STRATEGY CARD GAME</p>
-            <button class="btn-gold" style="font-size: 20px; padding: 15px 50px;">THAM GIA WHITELIST</button>
+            <div class="platforms">
+                <button class="plat-btn"><i class="fab fa-windows"></i> Windows</button>
+                <button class="plat-btn"><i class="fab fa-android"></i> Android</button>
+                <button class="plat-btn"><i class="fab fa-apple"></i> iOS</button>
+            </div>
+            <p style="font-size: 12px; color: #555; margin-top: 10px;">*Phiên bản Alpha Test v1.0</p>
+        </div>
+    </div>
+
+    <section id="about">
+        <h2 class="sec-title">HUYỀN THOẠI RUNETERRA</h2>
+        <p class="sec-desc">
+            Năm 3042, Lõi Năng Lượng vỡ tan. Thế giới chia cắt thành 4 phe phái: 
+            <span style="color:#ff3b3b">Ignis (Lửa)</span>, 
+            <span style="color:#00ff88">Sylva (Rừng)</span>, 
+            <span style="color:#00d9ff">Omega (Máy)</span> và 
+            <span style="color:#9d00ff">Zarok (Hư Không)</span>.
+            <br>Bạn sẽ trở thành Chỉ huy (Commander) để thống nhất thế giới hay hủy diệt nó?
+        </p>
+        <div class="grid-box">
+            <img src="./assets/bg_ignis.jpg?v=1" style="width:100%; height:200px; object-fit:cover; border-radius:4px; opacity:0.8;">
+            <img src="./assets/bg_sylva.jpg?v=1" style="width:100%; height:200px; object-fit:cover; border-radius:4px; opacity:0.8;">
+            <img src="./assets/bg_omega.jpg?v=1" style="width:100%; height:200px; object-fit:cover; border-radius:4px; opacity:0.8;">
+            <img src="./assets/bg_zarok.jpg?v=1" style="width:100%; height:200px; object-fit:cover; border-radius:4px; opacity:0.8;">
         </div>
     </section>
 
-    <section id="story">
-        <h2 class="section-title">THE LORE</h2>
-        <p class="section-desc">Thế giới Runeterra đã vỡ vụn. 4 nền văn minh trỗi dậy từ tro tàn, chiến đấu vì mảnh vỡ năng lượng cuối cùng. Bạn là ai trong cuộc chiến này?</p>
-        <div style="color: #444; font-style: italic;">[Khu vực này sẽ hiển thị 4 Tướng đại diện cho 4 Phe]</div>
-    </section>
-
-    <section id="gameplay">
-        <h2 class="section-title">PLAY TO OWN</h2>
-        <p class="section-desc">Không chỉ là chơi game. Đó là sở hữu. Thu thập thẻ bài, xây dựng bộ bài chiến thuật và giao dịch tự do trên Marketplace.</p>
-        <div style="color: #444; font-style: italic;">[Khu vực này sẽ có Video hoặc Ảnh động demo lối chơi]</div>
-    </section>
-
-    <section id="nft">
-        <h2 class="section-title">GENESIS COLLECTION</h2>
-        <p class="section-desc">Bộ sưu tập thẻ bài Khởi Nguyên với số lượng giới hạn. Sở hữu sức mạnh vĩnh cửu trên Blockchain.</p>
-        <div style="color: #444; font-style: italic;">[Khu vực này sẽ là Slider chạy các thẻ bài 3D]</div>
+    <section id="features">
+        <h2 class="sec-title">TÍNH NĂNG NỔI BẬT</h2>
+        <p class="sec-desc">Hệ thống sinh thái (Ecosystem) hoàn chỉnh giúp người chơi vừa giải trí vừa sở hữu tài sản thực.</p>
+        
+        <div class="grid-box">
+            <div class="card">
+                <i class="fas fa-chess-rook"></i>
+                <h3>CHIẾN THUẬT ĐA DẠNG</h3>
+                <p>Hệ thống khắc chế Ngũ Hành. 5 Chế độ chơi: Cốt truyện, Đấu trường, Hầm ngục, Thám hiểm, Boss.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-hammer"></i>
+                <h3>RÈN & CHẾ TÁC</h3>
+                <p>Thu thập nguyên liệu từ Hầm ngục để rèn trang bị NFT. Cơ chế cường hóa may rủi đầy kịch tính.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>BANG HỘI CHIẾN</h3>
+                <p>Tập hợp đồng minh, công chiếm thành trì và thu thuế lãnh địa hàng tuần.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-home"></i>
+                <h3>SỞ HỮU ĐẤT ĐAI</h3>
+                <p>Mua Land NFT để xây dựng căn cứ, khai thác tài nguyên thụ động ngay cả khi offline.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>THỊ TRƯỜNG TỰ DO</h3>
+                <p>Mua bán tướng, vật phẩm trên Marketplace. Hệ thống Đấu Giá Ngược và Chợ Đen độc đáo.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-user-friends"></i>
+                <h3>HỆ THỐNG SƯ ĐỒ</h3>
+                <p>Người chơi cũ dẫn dắt người mới. Cả hai cùng nhận thưởng khi hoàn thành nhiệm vụ.</p>
+            </div>
+        </div>
     </section>
 
     <section id="roadmap">
-        <h2 class="section-title">ROADMAP</h2>
-        <p class="section-desc">Hành trình của chúng tôi từ ý tưởng đến thực tế.</p>
-        <div style="color: #444; font-style: italic;">[Khu vực này sẽ hiển thị Timeline theo quý]</div>
+        <h2 class="sec-title">LỘ TRÌNH PHÁT TRIỂN</h2>
+        <p class="sec-desc">Cam kết dài hạn của đội ngũ phát triển MokaHero.</p>
+        
+        <div class="roadmap">
+            <div class="phase">
+                <h3>GIAI ĐOẠN 1: KHỞI NGUYÊN</h3>
+                <span>Q1 - Q2 / 2026</span>
+                <ul>
+                    <li>Ra mắt Website & Whitepaper.</li>
+                    <li>Mở bán Genesis NFT Chest (Hộp bí ẩn).</li>
+                    <li>Phát hành bản Alpha Test (PC).</li>
+                </ul>
+            </div>
+            <div class="phase">
+                <h3>GIAI ĐOẠN 2: BÙNG NỔ</h3>
+                <span>Q3 - Q4 / 2026</span>
+                <ul>
+                    <li>Ra mắt phiên bản Mobile (iOS/Android).</li>
+                    <li>Mở tính năng Bang Hội Chiến & Chợ Đen.</li>
+                    <li>Niêm yết Token $MOKA trên sàn CEX.</li>
+                </ul>
+            </div>
+            <div class="phase" style="opacity: 0.6;">
+                <h3>GIAI ĐOẠN 3: VŨ TRỤ MỞ RỘNG</h3>
+                <span>2027</span>
+                <ul>
+                    <li>Giải đấu eSports toàn cầu.</li>
+                    <li>Ra mắt tính năng Metaverse & Land 3D.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <p style="color: #444; font-size: 12px; letter-spacing: 2px;">BACKED BY & PARTNERS</p>
+        <div class="partner-logos">
+            <i class="fab fa-aws" title="Server Partner"></i>
+            <i class="fab fa-unity" title="Game Engine"></i>
+            <i class="fab fa-google" title="Cloud"></i>
+            <i class="fab fa-discord" title="Community"></i>
+            <i class="fas fa-cube" title="Blockchain"></i>
+        </div>
     </section>
 
     <footer>
-        <div class="nav-logo" style="margin-bottom: 20px; color: #333;">MOKA<span>HERO</span></div>
-        <p>© 2026 HEROMOKA STUDIO. POWERED BY WEB3 TECHNOLOGY.</p>
+        <div class="logo" style="margin-bottom: 10px; font-size: 20px;">MOKA<span>HERO</span></div>
+        <p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p>
+        <div style="margin-top: 10px;">
+            <a href="#" style="color: #666; text-decoration: none; margin: 0 10px;">Privacy Policy</a>
+            <a href="#" style="color: #666; text-decoration: none; margin: 0 10px;">Terms of Service</a>
+        </div>
     </footer>
 
 </body>
