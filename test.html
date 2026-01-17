@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKAHERO | HUYỀN THOẠI THẺ BÀI</title>
-    <link rel="icon" type="image/png" href="https://heromoka.github.io/assets/fire.png">
+    <link rel="icon" type="image/png" href="./assets/fire.png?v=999">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -23,21 +23,28 @@
         }
 
         * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: var(--blue-dark); color: var(--text-white); overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: var(--blue-dark); color: var(--text-white); overflow-x: hidden; height: 100%; }
 
         /* ================= NAV ================= */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(9, 17, 32, 0.95); border-bottom: 2px solid rgba(200, 170, 109, 0.3); position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 30px; color: var(--gold); letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 30px; color: var(--gold); letter-spacing: 2px; font-weight: bold; text-transform: uppercase; cursor: pointer; }
         .nav-links { display: flex; gap: 40px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #a0aab8; font-weight: bold; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(200, 170, 109, 0.5); }
+        .nav-links a { text-decoration: none; color: #a0aab8; font-weight: bold; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); text-shadow: 0 0 10px rgba(200, 170, 109, 0.5); }
         .btn-login { background: #1e2837; color: var(--gold); border: 1px solid var(--gold); padding: 10px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 2px; }
         .btn-login:hover { background: var(--gold); color: #000; }
         .btn-play-nav { background: var(--gold); color: #000; padding: 12px 30px; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 2px; margin-left: 15px; transition: 0.3s; }
         .btn-play-nav:hover { background: var(--gold-hover); }
 
-        /* ================= HERO VIDEO ================= */
-        .hero { height: 100vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #000; }
+        /* ================= SPA PAGES (CÁC TRANG ẢO) ================= */
+        /* Mặc định ẩn tất cả các trang, JS sẽ bật trang cần thiết lên */
+        .spa-page { display: none; padding-top: 80px; min-height: 100vh; animation: fadeIn 0.5s ease; }
+        .spa-page.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- TRANG CHỦ (HOME) --- */
+        .hero { height: calc(100vh - 80px); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #000; overflow: hidden; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.8; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(9,17,32,0.3) 0%, var(--blue-dark) 95%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; margin-top: 60px; display: flex; flex-direction: column; align-items: center; }
@@ -45,86 +52,69 @@
         .hero p { color: var(--gold); font-size: 18px; letter-spacing: 6px; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
         .btn-cta-big { margin-top: 40px; padding: 20px 70px; font-size: 24px; background: linear-gradient(to bottom, #d4af37, #aa8422); color: #2b1d00; border: 2px solid #fff5c6; font-weight: bold; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: 0.3s; margin-bottom: 30px; }
         .btn-cta-big:hover { transform: scale(1.05); filter: brightness(1.1); }
-
         .platform-downloads { display: flex; gap: 15px; align-items: center; justify-content: center; flex-wrap: wrap; }
         .dl-btn { background: #000; color: #fff; border: 1px solid #333; padding: 12px 25px; border-radius: 5px; font-family: 'Roboto', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s; min-width: 150px; justify-content: center; }
-        .dl-btn i { font-size: 18px; }
         .dl-btn:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-        /* ================= CHAMPION SHOWCASE ================= */
+        /* --- CÁC PHẦN KHÁC CỦA TRANG CHỦ --- */
         .champion-section { padding: 80px 0; background: #0b111a; text-align: center; overflow: hidden; }
         .section-title-wrapper { margin-bottom: 40px; }
-        .section-title-wrapper h2 { font-family: 'Oswald', sans-serif; font-size: 42px; color: var(--gold-hover); text-transform: uppercase; letter-spacing: 1px; margin: 0; transition: color 0.3s; }
-        .section-title-wrapper p { color: #888; margin-top: 10px; font-size: 16px; }
-
+        .section-title-wrapper h2 { font-family: 'Oswald', sans-serif; font-size: 42px; color: var(--gold-hover); text-transform: uppercase; letter-spacing: 1px; margin: 0; }
         .showcase-container { max-width: 1400px; margin: 0 auto; position: relative; height: 600px; display: flex; align-items: center; justify-content: center; }
         .nav-arrow { width: 50px; height: 50px; border: 2px solid #444; border-radius: 50%; background: rgba(0,0,0,0.5); color: #fff; font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; z-index: 10; user-select: none; }
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.1); }
-        .nav-prev { margin-right: 20px; } .nav-next { margin-left: 20px; }
-
-        .champion-display-box { flex-grow: 1; height: 100%; background-color: #000; border: 1px solid var(--gold); position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); transition: border-color 0.5s; }
-        
+        .champion-display-box { flex-grow: 1; height: 100%; background-color: #000; border: 1px solid var(--gold); position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
         .champion-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; transition: opacity 0.4s ease-in-out; }
-        
-        /* 2. LINK TUYỆT ĐỐI CHO THẺ BÀI TRONG SLIDER */
-        .floating-card-preview { position: absolute; bottom: 40px; right: 60px; width: 240px; height: 360px; background-image: url('https://heromoka.github.io/assets/full_set.png'); background-size: 500% 400%; border-radius: 10px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 5; transform: rotate(3deg); transition: all 0.5s ease; }
+        .floating-card-preview { position: absolute; bottom: 40px; right: 60px; width: 240px; height: 360px; background-image: url('./assets/full_set.png'); background-size: 500% 400%; border-radius: 10px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 5; transform: rotate(3deg); transition: all 0.5s ease; }
+        .champion-info-panel { position: relative; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent); width: 100%; padding: 40px; text-align: center; border-top: 1px solid rgba(200, 170, 109, 0.3); }
+        .champ-region { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; }
+        .champ-name { font-family: 'Oswald', sans-serif; font-size: 60px; color: #fff; line-height: 1; text-transform: uppercase; }
+        .champ-desc { color: #ccc; font-style: italic; margin-top: 15px; font-size: 16px; max-width: 600px; margin: 15px auto; }
 
-        .champion-info-panel { position: relative; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent); width: 100%; padding: 40px; text-align: center; border-top: 1px solid rgba(200, 170, 109, 0.3); transition: border-color 0.5s; }
-        .champ-region { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; transition: color 0.3s; }
-        .champ-name { font-family: 'Oswald', sans-serif; font-size: 60px; color: #fff; margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .champ-desc { color: #ccc; font-style: italic; margin-top: 15px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; min-height: 60px; }
-
-        /* ================= COLLECTION ================= */
-        .main-wrapper { position: relative; z-index: 10; background: var(--blue-dark); padding-bottom: 80px; }
+        .main-wrapper { padding: 80px 0; background: var(--blue-dark); }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
-        .collection-header-wrapper { text-align: center; padding: 60px 0 40px; }
-        .collection-header-wrapper h2 { font-family: 'Oswald', sans-serif; color: var(--gold); font-size: 40px; text-transform: uppercase; margin: 0; }
-        .collection-header-wrapper p { color: #9aa4b2; margin-top: 10px; font-size: 16px; }
         .collection-box { background-color: var(--content-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 40px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        
         .tabs { display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid #2c3646; margin-bottom: 40px; }
-        .tab-item { background: none; border: none; color: #6a7585; font-family: 'Oswald', sans-serif; font-size: 20px; padding-bottom: 20px; cursor: pointer; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; position: relative; }
-        .tab-item:hover { color: var(--text-white); }
-        .tab-item.active { color: var(--gold); }
-        .tab-item.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; background: var(--gold); box-shadow: 0 0 15px var(--gold); }
+        .tab-item { background: none; border: none; color: #6a7585; font-family: 'Oswald', sans-serif; font-size: 20px; padding-bottom: 20px; cursor: pointer; text-transform: uppercase; transition: 0.3s; position: relative; }
+        .tab-item:hover, .tab-item.active { color: var(--gold); }
+        .tab-item.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; background: var(--gold); }
         .tab-content { display: none; animation: slideUp 0.5s ease; }
         .tab-content.active { display: block; }
-        
-        .card-grid { display: flex; flex-wrap: nowrap; gap: 15px; justify-content: center; overflow-x: auto; padding-bottom: 10px; }
-        .card { flex: 1; min-width: 170px; max-width: 220px; background: #060a11; border: 2px solid #2c3646; border-radius: 8px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 15px 30px rgba(200, 170, 109, 0.2); }
-        
-        /* 3. LINK TUYỆT ĐỐI CHO THẺ BÀI TRONG BỘ SƯU TẬP */
-        .card-img { width: 100%; padding-top: 140%; position: relative; background-image: url('https://heromoka.github.io/assets/full_set.png'); background-size: 500% 400%; border-bottom: 2px solid #2c3646; }
-        
-        .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; gap: 6px; }
-        .card-top { display: flex; justify-content: space-between; align-items: center; }
-        .card-name { font-family: 'Oswald', sans-serif; font-size: 16px; color: #fff; }
-        .card-rarity { font-size: 9px; font-weight: bold; padding: 2px 5px; background: #222; border-radius: 3px; text-transform: uppercase; }
-        .stats { display: flex; justify-content: space-between; background: #0e1624; padding: 6px; border-radius: 4px; font-weight: bold; font-size: 12px; }
-        .atk { color: #e74c3c; } .hp { color: #2ecc71; } .cost { color: #3498db; }
-        .desc { font-size: 12px; color: #888; font-style: italic; line-height: 1.3; }
+        .card-grid { display: flex; gap: 15px; justify-content: center; overflow-x: auto; padding-bottom: 10px; }
+        .card { flex: 1; min-width: 170px; max-width: 220px; background: #060a11; border: 2px solid #2c3646; border-radius: 8px; overflow: hidden; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .card-img { width: 100%; padding-top: 140%; position: relative; background-image: url('./assets/full_set.png'); background-size: 500% 400%; border-bottom: 2px solid #2c3646; }
+        .card-body { padding: 12px; }
+        .card-top { display: flex; justify-content: space-between; align-items: center; color: #fff; font-family: 'Oswald'; font-size: 16px; }
+        .card-rarity { font-size: 9px; padding: 2px 5px; background: #222; border-radius: 3px; }
+        .stats { display: flex; justify-content: space-between; background: #0e1624; padding: 6px; border-radius: 4px; font-size: 12px; margin: 5px 0; }
+        .desc { font-size: 12px; color: #888; font-style: italic; }
 
+        /* Card Sprites & Rarity */
         .ignis-1{background-position:0 0}.ignis-2{background-position:25% 0}.ignis-3{background-position:50% 0}.ignis-4{background-position:75% 0}.ignis-5{background-position:100% 0}
         .sylva-1{background-position:0 33.33%}.sylva-2{background-position:25% 33.33%}.sylva-3{background-position:50% 33.33%}.sylva-4{background-position:75% 33.33%}.sylva-5{background-position:100% 33.33%}
         .omega-1{background-position:0 66.66%}.omega-2{background-position:25% 66.66%}.omega-3{background-position:50% 66.66%}.omega-4{background-position:75% 66.66%}.omega-5{background-position:100% 66.66%}
         .zarok-1{background-position:0 100%}.zarok-2{background-position:25% 100%}.zarok-3{background-position:50% 100%}.zarok-4{background-position:75% 100%}.zarok-5{background-position:100% 100%}
-        .r-common{color:var(--common);box-shadow:inset 0 0 0 1px var(--common)}.r-uncommon{color:var(--uncommon);box-shadow:inset 0 0 0 1px var(--uncommon)}.r-rare{color:var(--rare);box-shadow:inset 0 0 0 1px var(--rare)}.r-epic{color:var(--epic);box-shadow:inset 0 0 0 1px var(--epic)}.r-legendary{color:var(--legendary);box-shadow:inset 0 0 0 1px var(--legendary)}
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .r-common{color:var(--common)}.r-uncommon{color:var(--uncommon)}.r-rare{color:var(--rare)}.r-epic{color:var(--epic)}.r-legendary{color:var(--legendary)}
 
-        footer { background: #050910; padding: 50px 0; text-align: center; border-top: 1px solid #222; color: #555; font-size: 13px; }
-        .footer-logo { font-family: 'Oswald', sans-serif; font-size: 24px; color: #444; margin-bottom: 20px; display: inline-block; }
+        /* --- TRANG CỐT TRUYỆN (STORY) --- */
+        .story-page-content { max-width: 1000px; margin: 0 auto; padding: 50px 20px; text-align: center; }
+        .story-block { margin-bottom: 60px; background: rgba(0,0,0,0.3); padding: 40px; border-radius: 8px; border: 1px solid #333; }
+        .story-block h3 { color: var(--gold); font-family: 'Oswald', sans-serif; font-size: 30px; margin-bottom: 20px; }
+        .story-block p { color: #ccc; font-size: 18px; line-height: 1.8; text-align: justify; }
+
+        footer { background: #050910; padding: 50px 0; text-align: center; border-top: 1px solid #222; color: #555; font-size: 13px; margin-top: auto; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">HEROMOKA</div>
+        <div class="logo" onclick="navigateTo('home')">HEROMOKA</div>
         <ul class="nav-links">
-            <li><a href="#">TRÒ CHƠI</a></li>
-            <li><a href="#">THẺ BÀI</a></li>
-            <li><a href="#">TIN TỨC</a></li>
-            <li><a href="#">CỐT TRUYỆN</a></li>
+            <li><a onclick="navigateTo('home')" id="link-home">TRANG CHỦ</a></li>
+            <li><a onclick="navigateTo('story')" id="link-story">CỐT TRUYỆN</a></li>
+            <li><a onclick="navigateTo('cards')" id="link-cards">THẺ BÀI</a></li>
             <li><a href="whitepaper.html" target="_blank">SÁCH TRẮNG</a></li>
         </ul>
         <div class="nav-actions">
@@ -133,242 +123,203 @@
         </div>
     </nav>
 
-    <header class="hero">
-        <video autoplay muted playsinline loop class="video-bg" poster="https://heromoka.github.io/assets/fire.png">
-            <source src="https://heromoka.github.io/assets/video.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>MOKAHERO</h1>
-            <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
-            <button class="btn-cta-big">CHƠI MIỄN PHÍ</button>
+    <div id="page-home" class="spa-page active">
+        <header class="hero">
+            <video autoplay muted playsinline loop class="video-bg" poster="./assets/fire.png">
+                <source src="./assets/video.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>MOKAHERO</h1>
+                <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
+                <button class="btn-cta-big">CHƠI MIỄN PHÍ</button>
 
-            <div class="platform-downloads">
-                <button class="dl-btn" onclick="showComingSoon(this)">
-                    <i class="fas fa-desktop"></i> PC
-                </button>
-                <button class="dl-btn" onclick="showComingSoon(this)">
-                    <i class="fab fa-apple"></i> App Store
-                </button>
-                <button class="dl-btn" onclick="showComingSoon(this)">
-                    <i class="fab fa-google-play"></i> Google Play
-                </button>
-            </div>
-
-        </div>
-    </header>
-
-    <section class="champion-section">
-        <div class="section-title-wrapper">
-            <h2 id="faction-title">CHỌN ANH HÙNG CỦA BẠN</h2>
-            <p>Bạn sẽ đem theo anh hùng nào vào trận đấu?</p>
-        </div>
-
-        <div class="showcase-container">
-            <div class="nav-arrow nav-prev" onclick="changeSlide(-1)"><i class="fas fa-arrow-left"></i></div>
-            
-            <div class="champion-display-box" id="showcase-box">
-                <div class="champion-bg-art" id="showcase-bg"></div>
-                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #000 5%, transparent 90%); z-index: 2;"></div>
-                <div class="floating-card-preview" id="showcase-card"></div>
-                <div class="champion-info-panel" id="showcase-panel">
-                    <div class="champ-region" id="showcase-region">HỆ LỬA • IGNIS</div>
-                    <h3 class="champ-name" id="showcase-name">IGNIS PRIME</h3>
-                    <div class="champ-desc" id="showcase-desc"></div>
+                <div class="platform-downloads">
+                    <button class="dl-btn" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC</button>
+                    <button class="dl-btn" onclick="showComingSoon(this)"><i class="fab fa-apple"></i> App Store</button>
+                    <button class="dl-btn" onclick="showComingSoon(this)"><i class="fab fa-google-play"></i> Google Play</button>
                 </div>
             </div>
+        </header>
 
-            <div class="nav-arrow nav-next" onclick="changeSlide(1)"><i class="fas fa-arrow-right"></i></div>
+        <section class="champion-section">
+            <div class="section-title-wrapper">
+                <h2>CHỌN ANH HÙNG</h2>
+                <p>Lãnh đạo đội quân của bạn</p>
+            </div>
+            <div class="showcase-container">
+                <div class="nav-arrow nav-prev" onclick="changeSlide(-1)"><i class="fas fa-arrow-left"></i></div>
+                <div class="champion-display-box" id="showcase-box">
+                    <div class="champion-bg-art" id="showcase-bg"></div>
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, #000 5%, transparent 90%); z-index: 2;"></div>
+                    <div class="floating-card-preview" id="showcase-card"></div>
+                    <div class="champion-info-panel" id="showcase-panel">
+                        <div class="champ-region" id="showcase-region">HỆ LỬA • IGNIS</div>
+                        <h3 class="champ-name" id="showcase-name">IGNIS PRIME</h3>
+                        <div class="champ-desc" id="showcase-desc"></div>
+                    </div>
+                </div>
+                <div class="nav-arrow nav-next" onclick="changeSlide(1)"><i class="fas fa-arrow-right"></i></div>
+            </div>
+        </section>
+        
+        <div style="text-align: center; padding: 40px; background: #0b111a;">
+            <p style="color: #888; margin-bottom: 20px;">Bạn muốn tìm hiểu thêm về thế giới Runeterra?</p>
+            <button onclick="navigateTo('story')" class="btn-login" style="border-radius: 5px;">XEM CỐT TRUYỆN</button>
         </div>
-    </section>
+    </div>
 
-    <section class="main-wrapper">
-        <div class="container">
-            <div class="collection-header-wrapper">
-                <h2>KẾT HỢP KHU VỰC ĐỂ CHINH PHẠT</h2>
-                <p>Mỗi khu vực của Runeterra đều có lối chơi và chiến thuật riêng. Chiến thuật của bạn sẽ là gì?</p>
+    <div id="page-story" class="spa-page">
+        <div style="background: url('./assets/bg_zarok.jpg') no-repeat center center; background-size: cover; height: 300px; position: relative; display: flex; align-items: center; justify-content: center;">
+            <div style="background: rgba(0,0,0,0.7); position: absolute; inset: 0;"></div>
+            <h1 style="position: relative; z-index: 2; font-family: 'Oswald'; color: var(--gold); font-size: 60px;">CỐT TRUYỆN</h1>
+        </div>
+
+        <div class="story-page-content">
+            <div class="story-block">
+                <h3>KHỞI NGUỒN CỦA SỰ HỖN LOẠN</h3>
+                <p>Thế giới Runeterra từng là một khối cầu năng lượng hoàn chỉnh. Nhưng lòng tham của các Cổ Thần đã khiến lõi năng lượng vỡ tan thành 4 mảnh, tạo nên 4 vùng đất với lý tưởng đối lập.</p>
+                <p>Bây giờ, cuộc chiến không chỉ là để sinh tồn, mà là để giành quyền kiểm soát mảnh vỡ cuối cùng - Mảnh vỡ của Sự Thật.</p>
             </div>
 
-            <div class="collection-box">
-                <div class="tabs">
-                    <button class="tab-item active" onclick="openTab(event, 'Ignis')">IGNIS</button>
-                    <button class="tab-item" onclick="openTab(event, 'Sylva')">SYLVA</button>
-                    <button class="tab-item" onclick="openTab(event, 'Omega')">OMEGA</button>
-                    <button class="tab-item" onclick="openTab(event, 'Zarok')">ZAROK</button>
-                </div>
+            <div class="story-block" style="border-left: 5px solid #ff8000;">
+                <h3 style="color: #ff8000;">HỆ LỬA - IGNIS</h3>
+                <p>Nơi những chiến binh sinh ra từ dung nham. Họ tin rằng thế giới cũ đã mục nát và cần phải bị thiêu rụi hoàn toàn để tái sinh trong tro tàn. Sức mạnh của họ là hủy diệt tàn bạo.</p>
+            </div>
 
-                <div id="Ignis" class="tab-content active">
-                    <div class="card-grid">
-                        <div class="card"><div class="card-img ignis-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Lava Sprite</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 2</span><span class="hp">❤️ 6</span><span class="cost">🔷 1</span></div><div class="desc">Giảm 1 sát thương nhận vào từ đòn đánh thường.</div></div></div>
-                        <div class="card"><div class="card-img ignis-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Magma Golem</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">⚔️ 3</span><span class="hp">❤️ 10</span><span class="cost">🔷 3</span></div><div class="desc">Xuất trận: Tạo lá chắn 4 điểm.</div></div></div>
-                        <div class="card"><div class="card-img ignis-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Flame Guardian</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">⚔️ 4</span><span class="hp">❤️ 14</span><span class="cost">🔷 5</span></div><div class="desc">Đồng minh đứng cạnh nhận +2 Giáp.</div></div></div>
-                        <div class="card"><div class="card-img ignis-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Infernal Sentinel</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">⚔️ 6</span><span class="hp">❤️ 18</span><span class="cost">🔷 8</span></div><div class="desc">Phản đòn 3 sát thương lửa.</div></div></div>
-                        <div class="card"><div class="card-img ignis-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Ignis Prime</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 8</span><span class="hp">❤️ 25</span><span class="cost">🔷 12</span></div><div class="desc">Miễn nhiễm sát thương 1 lượt.</div></div></div>
-                    </div>
-                </div>
-
-                <div id="Sylva" class="tab-content">
-                    <div class="card-grid">
-                        <div class="card"><div class="card-img sylva-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Forest Wisp</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 2</span><span class="hp">❤️ 5</span><span class="cost">🔷 1</span></div><div class="desc">Hồi 2 Máu cho đồng minh.</div></div></div>
-                        <div class="card"><div class="card-img sylva-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Druid Healer</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">⚔️ 3</span><span class="hp">❤️ 8</span><span class="cost">🔷 3</span></div><div class="desc">Tăng +2 công mỗi lượt.</div></div></div>
-                        <div class="card"><div class="card-img sylva-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Elder Treant</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">⚔️ 4</span><span class="hp">❤️ 15</span><span class="cost">🔷 5</span></div><div class="desc">Giảm tốc độ kẻ địch tấn công.</div></div></div>
-                        <div class="card"><div class="card-img sylva-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Lifebloom Dryad</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">⚔️ 5</span><span class="hp">❤️ 12</span><span class="cost">🔷 7</span></div><div class="desc">Hồi 3 máu toàn đội cuối lượt.</div></div></div>
-                        <div class="card"><div class="card-img sylva-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Gaia Mother</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 6</span><span class="hp">❤️ 22</span><span class="cost">🔷 10</span></div><div class="desc">Hồi sinh đồng minh đã chết.</div></div></div>
-                    </div>
-                </div>
-
-                <div id="Omega" class="tab-content">
-                    <div class="card-grid">
-                        <div class="card"><div class="card-img omega-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Mech Drone</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 5</span><span class="hp">❤️ 3</span><span class="cost">🔷 1</span></div><div class="desc">Tấn công ngay khi xuất trận.</div></div></div>
-                        <div class="card"><div class="card-img omega-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Assault Bot</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">⚔️ 7</span><span class="hp">❤️ 6</span><span class="cost">🔷 3</span></div><div class="desc">Bắn 2 lần mỗi lượt.</div></div></div>
-                        <div class="card"><div class="card-img omega-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Siege Tank</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">⚔️ 10</span><span class="hp">❤️ 10</span><span class="cost">🔷 6</span></div><div class="desc">Gây sát thương lan.</div></div></div>
-                        <div class="card"><div class="card-img omega-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Cyber Samurai</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">⚔️ 14</span><span class="hp">❤️ 12</span><span class="cost">🔷 8</span></div><div class="desc">Sát thương xuyên giáp.</div></div></div>
-                        <div class="card"><div class="card-img omega-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Omega Weapon</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 20</span><span class="hp">❤️ 18</span><span class="cost">🔷 12</span></div><div class="desc">Hủy diệt hoàn toàn mục tiêu.</div></div></div>
-                    </div>
-                </div>
-
-                <div id="Zarok" class="tab-content">
-                    <div class="card-grid">
-                        <div class="card"><div class="card-img zarok-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Dark Acolyte</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">✨ 4</span><span class="hp">❤️ 4</span><span class="cost">🔷 1</span></div><div class="desc">Bắn cầu lửa đen (3 ST).</div></div></div>
-                        <div class="card"><div class="card-img zarok-2"></div><div class="card-body"><div class="card-top"><span class="card-name">Warlock</span><span class="card-rarity r-uncommon">Uncommon</span></div><div class="stats"><span class="atk">✨ 6</span><span class="hp">❤️ 7</span><span class="cost">🔷 3</span></div><div class="desc">Nguyền rủa giảm tấn công.</div></div></div>
-                        <div class="card"><div class="card-img zarok-3"></div><div class="card-body"><div class="card-top"><span class="card-name">Void Mage</span><span class="card-rarity r-rare">Rare</span></div><div class="stats"><span class="atk">✨ 9</span><span class="hp">❤️ 10</span><span class="cost">🔷 5</span></div><div class="desc">Bỏ qua lá chắn phép.</div></div></div>
-                        <div class="card"><div class="card-img zarok-4"></div><div class="card-body"><div class="card-top"><span class="card-name">Necro Lord</span><span class="card-rarity r-epic">Epic</span></div><div class="stats"><span class="atk">✨ 12</span><span class="hp">❤️ 14</span><span class="cost">🔷 8</span></div><div class="desc">Triệu hồi khô lâu khi có unit chết.</div></div></div>
-                        <div class="card"><div class="card-img zarok-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Zarok Abyss</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">✨ 18</span><span class="hp">❤️ 16</span><span class="cost">🔷 12</span></div><div class="desc">Gây 15 ST chuẩn toàn map.</div></div></div>
-                    </div>
-                </div>
+            <div class="story-block" style="border-left: 5px solid #2ecc71;">
+                <h3 style="color: #2ecc71;">HỆ RỪNG - SYLVA</h3>
+                <p>Rừng già Sylva không quan tâm đến chiến tranh, nhưng sẽ nghiền nát bất cứ kẻ nào dám xâm phạm. Mẹ Gaia ban cho họ khả năng hồi phục vô tận và lớp giáp gai dày đặc.</p>
             </div>
         </div>
-    </section>
+    </div>
+
+    <div id="page-cards" class="spa-page">
+        <div style="background: url('./assets/bg_omega.jpg') no-repeat center center; background-size: cover; height: 300px; position: relative; display: flex; align-items: center; justify-content: center;">
+            <div style="background: rgba(0,0,0,0.7); position: absolute; inset: 0;"></div>
+            <h1 style="position: relative; z-index: 2; font-family: 'Oswald'; color: var(--gold); font-size: 60px;">BỘ SƯU TẬP</h1>
+        </div>
+
+        <section class="main-wrapper">
+            <div class="container">
+                <div class="collection-box">
+                    <div class="tabs">
+                        <button class="tab-item active" onclick="openTab(event, 'Ignis')">IGNIS</button>
+                        <button class="tab-item" onclick="openTab(event, 'Sylva')">SYLVA</button>
+                        <button class="tab-item" onclick="openTab(event, 'Omega')">OMEGA</button>
+                        <button class="tab-item" onclick="openTab(event, 'Zarok')">ZAROK</button>
+                    </div>
+
+                    <div id="Ignis" class="tab-content active">
+                        <div class="card-grid">
+                            <div class="card"><div class="card-img ignis-1"></div><div class="card-body"><div class="card-top"><span class="card-name">Lava Sprite</span><span class="card-rarity r-common">Common</span></div><div class="stats"><span class="atk">⚔️ 2</span><span class="hp">❤️ 6</span><span class="cost">🔷 1</span></div></div></div>
+                            <div class="card"><div class="card-img ignis-5"></div><div class="card-body"><div class="card-top"><span class="card-name">Ignis Prime</span><span class="card-rarity r-legendary">Legendary</span></div><div class="stats"><span class="atk">⚔️ 8</span><span class="hp">❤️ 25</span><span class="cost">🔷 12</span></div></div></div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+    </div>
 
     <footer>
-        <div class="footer-logo">HEROMOKA</div>
-        <p>© 2026 HEROMOKA STUDIO. DESIGN INSPIRED BY LEGENDS OF RUNETERRA.</p>
+        <div class="logo">HEROMOKA</div>
+        <p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
-        // --- COMING SOON EFFECT ---
+        // 1. HÀM CHUYỂN TRANG ẢO (ROUTING)
+        function navigateTo(pageId) {
+            // Ẩn tất cả các trang
+            document.querySelectorAll('.spa-page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Hiện trang được chọn
+            const targetPage = document.getElementById('page-' + pageId);
+            if(targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0); // Cuộn lên đầu trang
+            }
+
+            // Cập nhật URL (Thêm #story, #cards...) mà không load lại
+            history.pushState(null, null, '#' + pageId);
+            
+            // Cập nhật menu active
+            updateActiveMenu(pageId);
+        }
+
+        function updateActiveMenu(pageId) {
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            const activeLink = document.getElementById('link-' + pageId);
+            if (activeLink) activeLink.classList.add('active');
+        }
+
+        // 2. XỬ LÝ NÚT BACK/FORWARD CỦA TRÌNH DUYỆT
+        window.addEventListener('popstate', function() {
+            // Lấy ID từ dấu thăng (ví dụ #story -> story)
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+        });
+
+        // 3. XỬ LÝ KHI MỚI VÀO WEB (Kiểm tra xem link có sẵn dấu # không)
+        document.addEventListener("DOMContentLoaded", () => {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+            updateShowcase(); // Khởi động slider
+        });
+
+        // --- CÁC HÀM CŨ (SLIDER, TAB...) GIỮ NGUYÊN ---
         function showComingSoon(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
-            const originalContent = btn.innerHTML;
+            const original = btn.innerHTML;
             btn.innerText = "COMING SOON...";
             btn.style.color = "#c8aa6d"; 
-            btn.style.borderColor = "#c8aa6d";
             setTimeout(() => {
-                btn.innerHTML = originalContent;
+                btn.innerHTML = original;
                 btn.style.color = "white";
-                btn.style.borderColor = "#333";
                 btn.dataset.clicking = "false"; 
             }, 1500);
         }
 
-        // --- SLIDER LOGIC ---
-        // 5. CẤU HÌNH ĐƯỜNG DẪN ẢNH TUYỆT ĐỐI (https://...)
+        // Slider logic
         const champions = [
-            {
-                id: 'ignis',
-                bg: 'https://heromoka.github.io/assets/bg_ignis.jpg', 
-                cardPos: '100% 0%',
-                region: 'HỆ LỬA • IGNIS',
-                name: 'IGNIS PRIME',
-                desc: '"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."<br>Tấn công rực lửa và thiêu đốt mọi kẻ thù.',
-                color: '#ffae00',
-                borderColor: '#ff8000'
-            },
-            {
-                id: 'sylva',
-                bg: 'https://heromoka.github.io/assets/bg_sylva.jpg',
-                cardPos: '100% 33.33%',
-                region: 'HỆ RỪNG • SYLVA',
-                name: 'GAIA MOTHER',
-                desc: '"Mọi sinh linh đều trở về với đất mẹ. Ta là cội nguồn sự sống."<br>Hồi phục vô tận và triệu hồi sức mạnh rừng già.',
-                color: '#2ecc71',
-                borderColor: '#2ecc71'
-            },
-            {
-                id: 'omega',
-                bg: 'https://heromoka.github.io/assets/bg_omega.jpg', 
-                cardPos: '100% 66.66%',
-                region: 'HỆ MÁY • OMEGA',
-                name: 'OMEGA WEAPON',
-                desc: '"Cảm xúc là điểm yếu. Thép và năng lượng là vĩnh cửu."<br>Sử dụng công nghệ tối thượng để hủy diệt mục tiêu.',
-                color: '#00d2ff',
-                borderColor: '#3498db'
-            },
-            {
-                id: 'zarok',
-                bg: 'https://heromoka.github.io/assets/bg_zarok.jpg',
-                cardPos: '100% 100%',
-                region: 'HỆ BÓNG TỐI • ZAROK',
-                name: 'ZAROK ABYSS',
-                desc: '"Nhìn vào vực thẳm, và vực thẳm sẽ nhìn lại ngươi."<br>Gieo rắc nỗi kinh hoàng và thao túng linh hồn.',
-                color: '#a335ee',
-                borderColor: '#9b59b6'
-            }
+            { id: 'ignis', bg: './assets/bg_ignis.jpg?v=1', cardPos: '100% 0%', region: 'HỆ LỬA • IGNIS', name: 'IGNIS PRIME', desc: 'Sự hủy diệt và tái sinh.', color: '#ffae00', borderColor: '#ff8000' },
+            { id: 'sylva', bg: './assets/bg_sylva.jpg?v=1', cardPos: '100% 33.33%', region: 'HỆ RỪNG • SYLVA', name: 'GAIA MOTHER', desc: 'Hồi phục vô tận.', color: '#2ecc71', borderColor: '#2ecc71' }
         ];
-
         let currentSlide = 0;
-
         function updateShowcase() {
             const data = champions[currentSlide];
-            
             const bgDiv = document.getElementById('showcase-bg');
             bgDiv.style.opacity = '0'; 
             setTimeout(() => {
-                // Thêm log để kiểm tra đường dẫn nếu vẫn lỗi
-                console.log("Đang tải ảnh: " + data.bg);
                 bgDiv.style.backgroundImage = `url('${data.bg}')`;
                 bgDiv.style.opacity = '1'; 
             }, 200);
-
             const card = document.getElementById('showcase-card');
             card.style.backgroundPosition = data.cardPos;
             card.style.borderColor = data.borderColor;
-            card.style.boxShadow = `0 0 30px ${data.borderColor}`;
-
-            const region = document.getElementById('showcase-region');
-            const name = document.getElementById('showcase-name');
-            const desc = document.getElementById('showcase-desc');
-            const panel = document.getElementById('showcase-panel');
-
-            region.innerText = data.region;
-            region.style.color = data.color;
-            name.innerText = data.name;
-            desc.innerHTML = data.desc;
-            panel.style.borderTopColor = data.color;
+            
+            document.getElementById('showcase-region').innerText = data.region;
+            document.getElementById('showcase-region').style.color = data.color;
+            document.getElementById('showcase-name').innerText = data.name;
+            document.getElementById('showcase-desc').innerText = data.desc;
+            document.getElementById('showcase-panel').style.borderTopColor = data.color;
         }
-
-        function changeSlide(direction) {
-            currentSlide += direction;
+        function changeSlide(d) {
+            currentSlide += d;
             if (currentSlide >= champions.length) currentSlide = 0;
             if (currentSlide < 0) currentSlide = champions.length - 1;
             updateShowcase();
         }
 
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "ArrowLeft") changeSlide(-1);
-            if (event.key === "ArrowRight") changeSlide(1);
-        });
-
-        updateShowcase();
-
-        // --- COLLECTION TAB LOGIC ---
         function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-item");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             document.getElementById(tabName).style.display = "block";
             setTimeout(() => { document.getElementById(tabName).classList.add("active"); }, 10);
-            evt.currentTarget.className += " active";
+            evt.currentTarget.classList.add("active");
         }
     </script>
-
 </body>
 </html>
