@@ -36,15 +36,36 @@
         .btn-play-nav { background: var(--gold); color: #000; padding: 12px 30px; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 2px; margin-left: 15px; transition: 0.3s; }
         .btn-play-nav:hover { background: var(--gold-hover); }
 
-        /* ================= 2. HERO VIDEO ================= */
+        /* ================= 2. HERO VIDEO & DOWNLOAD BUTTONS ================= */
         .hero { height: 100vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #000; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.8; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(9,17,32,0.3) 0%, var(--blue-dark) 95%); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; margin-top: 60px; }
+        .hero-content { position: relative; z-index: 2; margin-top: 60px; display: flex; flex-direction: column; align-items: center; }
         .hero h1 { font-family: 'Oswald', sans-serif; font-size: 80px; margin: 0; background: -webkit-linear-gradient(#fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 10px 30px rgba(0,0,0,0.5); font-style: italic; letter-spacing: 2px; }
         .hero p { color: var(--gold); font-size: 18px; letter-spacing: 6px; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
-        .btn-cta-big { margin-top: 40px; padding: 20px 70px; font-size: 24px; background: linear-gradient(to bottom, #d4af37, #aa8422); color: #2b1d00; border: 2px solid #fff5c6; font-weight: bold; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: 0.3s; }
+        
+        /* Main Button */
+        .btn-cta-big { margin-top: 40px; padding: 20px 70px; font-size: 24px; background: linear-gradient(to bottom, #d4af37, #aa8422); color: #2b1d00; border: 2px solid #fff5c6; font-weight: bold; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: 0.3s; margin-bottom: 30px; }
         .btn-cta-big:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* Platform Download Buttons (New) */
+        .platform-downloads { display: flex; gap: 15px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .dl-btn {
+            background: #000; /* Nền đen */
+            color: #fff;      /* Chữ trắng */
+            border: 1px solid #333;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 10px;
+            transition: 0.3s;
+            min-width: 150px; justify-content: center;
+        }
+        .dl-btn i { font-size: 18px; } /* Icon size */
+        .dl-btn:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
         /* ================= 3. CHAMPION SHOWCASE (SLIDER) ================= */
         .champion-section { padding: 80px 0; background: #0b111a; text-align: center; overflow: hidden; }
@@ -67,7 +88,7 @@
         .champ-name { font-family: 'Oswald', sans-serif; font-size: 60px; color: #fff; margin: 0; line-height: 1; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .champ-desc { color: #ccc; font-style: italic; margin-top: 15px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto; min-height: 60px; }
 
-        /* ================= 4. COLLECTION SECTION (SỬA LẠI ĐỂ 1 HÀNG) ================= */
+        /* ================= 4. COLLECTION SECTION ================= */
         .main-wrapper { position: relative; z-index: 10; background: var(--blue-dark); padding-bottom: 80px; }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
         .collection-header-wrapper { text-align: center; padding: 60px 0 40px; }
@@ -75,7 +96,6 @@
         .collection-header-wrapper p { color: #9aa4b2; margin-top: 10px; font-size: 16px; }
         .collection-box { background-color: var(--content-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 40px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
-        /* Tabs */
         .tabs { display: flex; justify-content: center; gap: 40px; border-bottom: 2px solid #2c3646; margin-bottom: 40px; }
         .tab-item { background: none; border: none; color: #6a7585; font-family: 'Oswald', sans-serif; font-size: 20px; padding-bottom: 20px; cursor: pointer; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; position: relative; }
         .tab-item:hover { color: var(--text-white); }
@@ -84,37 +104,15 @@
         .tab-content { display: none; animation: slideUp 0.5s ease; }
         .tab-content.active { display: block; }
         
-        /* --- CARD GRID MỚI (FIX 1 HÀNG) --- */
-        .card-grid {
-            display: flex; /* Dùng flex để xếp ngang */
-            flex-wrap: nowrap; /* Không xuống dòng */
-            gap: 15px; /* Khoảng cách vừa phải */
-            justify-content: center; /* Căn giữa */
-            overflow-x: auto; /* Cuộn ngang nếu màn hình quá bé */
-            padding-bottom: 10px;
-        }
-
-        .card { 
-            flex: 1; /* Chia đều không gian */
-            min-width: 170px; /* Độ rộng tối thiểu để không bị nát chữ */
-            max-width: 220px; /* Độ rộng tối đa */
-            background: #060a11; 
-            border: 2px solid #2c3646; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            transition: 0.3s; 
-            display: flex; 
-            flex-direction: column; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
-        }
-
+        .card-grid { display: flex; flex-wrap: nowrap; gap: 15px; justify-content: center; overflow-x: auto; padding-bottom: 10px; }
+        .card { flex: 1; min-width: 170px; max-width: 220px; background: #060a11; border: 2px solid #2c3646; border-radius: 8px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 15px 30px rgba(200, 170, 109, 0.2); }
         .card-img { width: 100%; padding-top: 140%; position: relative; background-image: url('./full_set.png'); background-size: 500% 400%; border-bottom: 2px solid #2c3646; }
         .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; gap: 6px; }
         .card-top { display: flex; justify-content: space-between; align-items: center; }
-        .card-name { font-family: 'Oswald', sans-serif; font-size: 16px; color: #fff; } /* Giảm size chữ tên */
+        .card-name { font-family: 'Oswald', sans-serif; font-size: 16px; color: #fff; }
         .card-rarity { font-size: 9px; font-weight: bold; padding: 2px 5px; background: #222; border-radius: 3px; text-transform: uppercase; }
-        .stats { display: flex; justify-content: space-between; background: #0e1624; padding: 6px; border-radius: 4px; font-weight: bold; font-size: 12px; } /* Giảm size chữ chỉ số */
+        .stats { display: flex; justify-content: space-between; background: #0e1624; padding: 6px; border-radius: 4px; font-weight: bold; font-size: 12px; }
         .atk { color: #e74c3c; } .hp { color: #2ecc71; } .cost { color: #3498db; }
         .desc { font-size: 12px; color: #888; font-style: italic; line-height: 1.3; }
 
@@ -156,6 +154,19 @@
             <h1>MOKAHERO</h1>
             <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
             <button class="btn-cta-big">CHƠI MIỄN PHÍ</button>
+
+            <div class="platform-downloads">
+                <button class="dl-btn" onclick="showComingSoon(this)">
+                    <i class="fas fa-desktop"></i> PC
+                </button>
+                <button class="dl-btn" onclick="showComingSoon(this)">
+                    <i class="fab fa-apple"></i> App Store
+                </button>
+                <button class="dl-btn" onclick="showComingSoon(this)">
+                    <i class="fab fa-google-play"></i> Google Play
+                </button>
+            </div>
+
         </div>
     </header>
 
@@ -247,7 +258,30 @@
     </footer>
 
     <script>
-        // --- 1. SLIDER LOGIC ---
+        // --- COMING SOON EFFECT ---
+        function showComingSoon(btn) {
+            // Ngăn chặn bấm liên tục
+            if (btn.dataset.clicking === "true") return;
+            btn.dataset.clicking = "true";
+
+            // Lưu nội dung cũ (icon + text)
+            const originalContent = btn.innerHTML;
+            
+            // Đổi chữ và màu sắc
+            btn.innerText = "COMING SOON...";
+            btn.style.color = "#c8aa6d"; // Màu vàng
+            btn.style.borderColor = "#c8aa6d";
+
+            // Sau 1.5 giây quay về cũ
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.style.color = "white";
+                btn.style.borderColor = "#333";
+                btn.dataset.clicking = "false"; // Cho phép bấm lại
+            }, 1500);
+        }
+
+        // --- SLIDER LOGIC ---
         const champions = [
             {
                 id: 'ignis',
@@ -296,21 +330,18 @@
         function updateShowcase() {
             const data = champions[currentSlide];
             
-            // Cập nhật Background
             const bgDiv = document.getElementById('showcase-bg');
-            bgDiv.style.opacity = '0'; // Fade out
+            bgDiv.style.opacity = '0'; 
             setTimeout(() => {
                 bgDiv.style.backgroundImage = `url('${data.bg}')`;
-                bgDiv.style.opacity = '1'; // Fade in
+                bgDiv.style.opacity = '1'; 
             }, 200);
 
-            // Cập nhật Card
             const card = document.getElementById('showcase-card');
             card.style.backgroundPosition = data.cardPos;
             card.style.borderColor = data.borderColor;
             card.style.boxShadow = `0 0 30px ${data.borderColor}`;
 
-            // Cập nhật Text
             const region = document.getElementById('showcase-region');
             const name = document.getElementById('showcase-name');
             const desc = document.getElementById('showcase-desc');
@@ -330,17 +361,14 @@
             updateShowcase();
         }
 
-        // Bàn phím
         document.addEventListener('keydown', function(event) {
             if (event.key === "ArrowLeft") changeSlide(-1);
             if (event.key === "ArrowRight") changeSlide(1);
         });
 
-        // Khởi động
         updateShowcase();
 
-
-        // --- 2. COLLECTION TAB LOGIC ---
+        // --- COLLECTION TAB LOGIC ---
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
