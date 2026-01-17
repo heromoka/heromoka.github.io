@@ -52,7 +52,7 @@
         }
         .res-icon { color: var(--gold); }
 
-        /* --- 2. MAIN AREA (Chọn chế độ) --- */
+        /* --- 2. MAIN LOBBY (Chọn chế độ) --- */
         .main-lobby {
             display: flex; align-items: center; justify-content: center;
             height: 100%; width: 100%;
@@ -78,7 +78,6 @@
         }
         .mode-desc { position: relative; z-index: 2; font-size: 12px; color: #aaa; text-align: center; }
         
-        /* Hiệu ứng Hover */
         .game-mode-card:hover { transform: translateY(-10px) scale(1.05); border-color: var(--gold); box-shadow: 0 0 20px var(--gold); }
         .game-mode-card:hover .mode-bg { opacity: 1; transform: scale(1.1); }
         .game-mode-card:hover .mode-title { color: var(--gold); }
@@ -88,7 +87,7 @@
             position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
             display: flex; gap: 15px;
             background: rgba(0,0,0,0.8); padding: 10px 30px; border-radius: 50px; border: 1px solid #333;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px); z-index: 100;
         }
 
         .menu-btn {
@@ -102,19 +101,53 @@
         .menu-btn:hover { color: #fff; }
         .menu-btn:hover i { color: var(--gold); transform: translateY(-5px); }
 
-        /* Nút PLAY to ở giữa */
         .play-btn-center {
             width: 90px; height: 90px;
             background: radial-gradient(circle, #ffae00, #b8860b);
             border: 4px solid #fff; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             color: #000; font-size: 30px;
-            transform: translateY(-30px); /* Nổi lên trên */
+            transform: translateY(-30px);
             box-shadow: 0 0 30px #ffae00; cursor: pointer;
             animation: pulse 2s infinite;
         }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 174, 0, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(255, 174, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 174, 0, 0); } }
 
+        /* --- 4. POPUP & HERO CARD STYLE --- */
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 200; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); animation: fadeIn 0.3s; }
+        .popup-content { width: 90%; max-width: 1000px; height: 85%; background: #0f1014; border: 2px solid var(--gold); border-radius: 10px; padding: 25px; display: flex; flex-direction: column; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        .popup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .popup-header h2 { color: var(--gold); margin: 0; font-family: 'Cinzel'; font-size: 28px; }
+        .close-btn { background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; transition: 0.2s; }
+        .close-btn:hover { color: var(--gold); transform: scale(1.1); }
+        
+        .hero-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; overflow-y: auto; padding-right: 10px; padding-bottom: 20px; }
+        /* Scrollbar đẹp */
+        .hero-grid::-webkit-scrollbar { width: 8px; }
+        .hero-grid::-webkit-scrollbar-track { background: #111; }
+        .hero-grid::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        .hero-grid::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        .game-card { position: relative; aspect-ratio: 2/3; background: #222; border-radius: 8px; overflow: hidden; border: 2px solid #444; transition: 0.3s; cursor: pointer; }
+        .game-card:hover { transform: scale(1.05); border-color: var(--gold); z-index: 10; box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .game-card:hover .card-img { transform: scale(1.1); }
+        
+        .card-info { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,1) 40%, transparent); padding: 10px; color: #fff; }
+        .c-name { font-size: 13px; font-weight: bold; font-family: 'Cinzel'; display: block; text-transform: uppercase; margin-bottom: 5px; text-shadow: 0 2px 2px #000; }
+        .c-stats { font-size: 11px; color: #ddd; display: flex; justify-content: space-between; background: rgba(255,255,255,0.1); padding: 3px 5px; border-radius: 3px; backdrop-filter: blur(2px); }
+        .rarity-gem { position: absolute; top: 8px; right: 8px; width: 15px; height: 15px; border-radius: 50%; border: 1px solid #fff; box-shadow: 0 0 5px #000; z-index: 5; }
+        
+        .r-1 { background: gray; box-shadow: 0 0 5px gray; }
+        .r-2 { background: #0070dd; box-shadow: 0 0 5px #0070dd; }
+        .r-3 { background: #a335ee; box-shadow: 0 0 5px #a335ee; }
+        .r-4 { background: #ff8000; box-shadow: 0 0 5px #ff8000; }
+
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .filter-btn { background: #1a1a1a; color: #888; border: 1px solid #333; padding: 8px 20px; cursor: pointer; border-radius: 4px; font-family: 'Rajdhani'; font-weight: bold; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -141,15 +174,13 @@
             <div class="mode-title">CAMPAIGN</div>
             <div class="mode-desc">Vượt ải cốt truyện</div>
         </div>
-
         <div class="game-mode-card" onclick="alert('Đang tìm đối thủ...')">
             <img src="./assets/bg_ignis.jpg?v=1" class="mode-bg">
             <div class="mode-title">ARENA</div>
             <div class="mode-desc">Xếp hạng PvP</div>
         </div>
-
         <div class="game-mode-card" style="filter: grayscale(100%); opacity: 0.7;">
-            <div style="position: absolute; top:10px; right:10px; background:red; padding:2px 8px; font-size:10px; border-radius:3px;">LOCKED</div>
+            <div style="position: absolute; top:10px; right:10px; background:red; padding:2px 8px; font-size:10px; border-radius:3px; z-index:5;">LOCKED</div>
             <img src="./assets/bg_zarok.jpg?v=1" class="mode-bg">
             <div class="mode-title">WORLD BOSS</div>
             <div class="mode-desc">Mở lúc 20:00</div>
@@ -157,7 +188,7 @@
     </div>
 
     <div class="bottom-bar">
-        <button class="menu-btn"><i class="fas fa-users"></i>Tướng</button>
+        <button class="menu-btn" onclick="toggleHeroPopup()"><i class="fas fa-users"></i>Tướng</button>
         <button class="menu-btn"><i class="fas fa-backpack"></i>Túi đồ</button>
         
         <div class="play-btn-center" onclick="alert('Bắt đầu trận đấu nhanh!')">
@@ -168,5 +199,101 @@
         <button class="menu-btn"><i class="fas fa-users-cog"></i>Bang hội</button>
     </div>
 
+    <div id="hero-collection" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2>KHO TÀNG TƯỚNG</h2>
+                <button class="close-btn" onclick="toggleHeroPopup()">×</button>
+            </div>
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterHeroes('all')">Tất cả</button>
+                <button class="filter-btn" onclick="filterHeroes('ignis')">Hỏa</button>
+                <button class="filter-btn" onclick="filterHeroes('sylva')">Mộc</button>
+                <button class="filter-btn" onclick="filterHeroes('omega')">Máy</button>
+                <button class="filter-btn" onclick="filterHeroes('zarok')">Hư Không</button>
+            </div>
+            <div class="hero-grid" id="hero-list-container">
+                <p style="color:#888; width:100%; text-align:center;">Đang tải dữ liệu...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/characters.js"></script>
+
+    <script>
+        // Bật tắt Popup
+        function toggleHeroPopup() {
+            const popup = document.getElementById('hero-collection');
+            
+            // Kiểm tra xem dữ liệu đã được load chưa
+            if (typeof charactersData === 'undefined') {
+                alert("Lỗi: Không tìm thấy file js/characters.js! Hãy chắc chắn bạn đã tạo file này ở Bước 1.");
+                return;
+            }
+
+            if (popup.style.display === 'flex') {
+                popup.style.display = 'none';
+            } else {
+                popup.style.display = 'flex';
+                // Chỉ vẽ lại nếu danh sách đang trống hoặc cần cập nhật
+                if(document.getElementById('hero-list-container').children.length <= 1) {
+                    renderHeroes(charactersData);
+                }
+            }
+        }
+
+        // Vẽ thẻ bài
+        function renderHeroes(data) {
+            const container = document.getElementById('hero-list-container');
+            container.innerHTML = ''; // Xóa cũ
+
+            if(data.length === 0) {
+                container.innerHTML = '<p style="color:#666; width:100%; text-align:center; padding:20px;">Không tìm thấy tướng nào.</p>';
+                return;
+            }
+
+            data.forEach(hero => {
+                const cardHTML = `
+                    <div class="game-card" style="border-color: ${getFactionColor(hero.faction)}" onclick="alert('Bạn chọn tướng: ${hero.name}')">
+                        <img src="${hero.image}" class="card-img" onerror="this.src='./assets/fire.png'">
+                        <div class="rarity-gem r-${hero.rarity}"></div>
+                        <div class="card-info">
+                            <span class="c-name" style="color:${getFactionColor(hero.faction)}">${hero.name}</span>
+                            <div class="c-stats">
+                                <span><i class="fas fa-fist-raised"></i> ${hero.stats.atk}</span>
+                                <span><i class="fas fa-heart"></i> ${hero.stats.hp}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Màu phe
+        function getFactionColor(faction) {
+            if(faction === 'ignis') return '#ff3b3b';
+            if(faction === 'sylva') return '#00ff88';
+            if(faction === 'omega') return '#00d9ff';
+            if(faction === 'zarok') return '#9d00ff';
+            return '#fff';
+        }
+
+        // Lọc tướng
+        function filterHeroes(faction) {
+            // Đổi màu nút active
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (typeof charactersData === 'undefined') return;
+
+            if(faction === 'all') {
+                renderHeroes(charactersData);
+            } else {
+                const filtered = charactersData.filter(h => h.faction === faction);
+                renderHeroes(filtered);
+            }
+        }
+    </script>
 </body>
 </html>
