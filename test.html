@@ -29,8 +29,11 @@
         nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(9, 17, 32, 0.95); border-bottom: 2px solid rgba(200, 170, 109, 0.3); position: fixed; width: 100%; top: 0; z-index: 1000; }
         .logo { font-family: 'Oswald', sans-serif; font-size: 30px; color: var(--gold); letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
         .nav-links { display: flex; gap: 40px; list-style: none; }
+        
+        /* Style chung cho link menu - Sách Trắng sẽ ăn theo cái này */
         .nav-links a { text-decoration: none; color: #a0aab8; font-weight: bold; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; transition: 0.3s; }
         .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(200, 170, 109, 0.5); }
+        
         .btn-login { background: #1e2837; color: var(--gold); border: 1px solid var(--gold); padding: 10px 30px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; border-radius: 2px; }
         .btn-login:hover { background: var(--gold); color: #000; }
         .btn-play-nav { background: var(--gold); color: #000; padding: 12px 30px; font-weight: bold; text-transform: uppercase; text-decoration: none; border-radius: 2px; margin-left: 15px; transition: 0.3s; }
@@ -44,11 +47,9 @@
         .hero h1 { font-family: 'Oswald', sans-serif; font-size: 80px; margin: 0; background: -webkit-linear-gradient(#fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 10px 30px rgba(0,0,0,0.5); font-style: italic; letter-spacing: 2px; }
         .hero p { color: var(--gold); font-size: 18px; letter-spacing: 6px; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
         
-        /* Main Button */
         .btn-cta-big { margin-top: 40px; padding: 20px 70px; font-size: 24px; background: linear-gradient(to bottom, #d4af37, #aa8422); color: #2b1d00; border: 2px solid #fff5c6; font-weight: bold; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); transition: 0.3s; margin-bottom: 30px; }
         .btn-cta-big:hover { transform: scale(1.05); filter: brightness(1.1); }
 
-        /* Platform Download Buttons */
         .platform-downloads { display: flex; gap: 15px; align-items: center; justify-content: center; flex-wrap: wrap; }
         .dl-btn {
             background: #000; color: #fff; border: 1px solid #333; padding: 12px 25px; border-radius: 5px;
@@ -71,7 +72,8 @@
 
         .champion-display-box { flex-grow: 1; height: 100%; background-color: #000; border: 1px solid var(--gold); position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); transition: border-color 0.5s; }
         .champion-bg-art { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; transition: opacity 0.4s ease-in-out; }
-        /* ĐỔI ĐƯỜNG DẪN ẢNH THẺ BÀI */
+        
+        /* SỬA ĐƯỜNG DẪN ẢNH THẺ BÀI (Assets) */
         .floating-card-preview { position: absolute; bottom: 40px; right: 60px; width: 240px; height: 360px; background-image: url('./assets/full_set.png'); background-size: 500% 400%; border-radius: 10px; border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 5; transform: rotate(3deg); transition: all 0.5s ease; }
 
         .champion-info-panel { position: relative; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent); width: 100%; padding: 40px; text-align: center; border-top: 1px solid rgba(200, 170, 109, 0.3); transition: border-color 0.5s; }
@@ -98,8 +100,10 @@
         .card-grid { display: flex; flex-wrap: nowrap; gap: 15px; justify-content: center; overflow-x: auto; padding-bottom: 10px; }
         .card { flex: 1; min-width: 170px; max-width: 220px; background: #060a11; border: 2px solid #2c3646; border-radius: 8px; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
         .card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 15px 30px rgba(200, 170, 109, 0.2); }
-        /* ĐỔI ĐƯỜNG DẪN ẢNH THẺ BÀI */
+        
+        /* SỬA ĐƯỜNG DẪN ẢNH THẺ BÀI TRONG GRID (Assets) */
         .card-img { width: 100%; padding-top: 140%; position: relative; background-image: url('./assets/full_set.png'); background-size: 500% 400%; border-bottom: 2px solid #2c3646; }
+        
         .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; gap: 6px; }
         .card-top { display: flex; justify-content: space-between; align-items: center; }
         .card-name { font-family: 'Oswald', sans-serif; font-size: 16px; color: #fff; }
@@ -130,7 +134,7 @@
             <li><a href="#">THẺ BÀI</a></li>
             <li><a href="#">TIN TỨC</a></li>
             <li><a href="#">CỐT TRUYỆN</a></li>
-            <li><a href="whitepaper.html" target="_blank" style="color: #ffcc00; border-bottom: 1px solid #ffcc00;">SÁCH TRẮNG</a></li>
+            <li><a href="whitepaper.html" target="_blank">SÁCH TRẮNG</a></li>
         </ul>
         <div class="nav-actions">
             <button class="btn-login">ĐĂNG NHẬP</button>
@@ -268,11 +272,11 @@
         }
 
         // --- SLIDER LOGIC ---
-        // CẬP NHẬT ĐƯỜNG DẪN ẢNH NỀN VÀO TRONG ASSETS/
+        // ĐÃ SỬA ĐƯỜNG DẪN ẢNH VÀO TRONG ASSETS/
         const champions = [
             {
                 id: 'ignis',
-                bg: './assets/bg_ignis.jpg', // Đã thêm assets/
+                bg: './assets/bg_ignis.jpg', // Đã sửa
                 cardPos: '100% 0%',
                 region: 'HỆ LỬA • IGNIS',
                 name: 'IGNIS PRIME',
@@ -282,7 +286,7 @@
             },
             {
                 id: 'sylva',
-                bg: './assets/bg_sylva.jpg', // Đã thêm assets/
+                bg: './assets/bg_sylva.jpg', // Đã sửa
                 cardPos: '100% 33.33%',
                 region: 'HỆ RỪNG • SYLVA',
                 name: 'GAIA MOTHER',
@@ -292,7 +296,7 @@
             },
             {
                 id: 'omega',
-                bg: './assets/bg_omega.jpg', // Đã thêm assets/
+                bg: './assets/bg_omega.jpg', // Đã sửa
                 cardPos: '100% 66.66%',
                 region: 'HỆ MÁY • OMEGA',
                 name: 'OMEGA WEAPON',
@@ -302,7 +306,7 @@
             },
             {
                 id: 'zarok',
-                bg: './assets/bg_zarok.jpg', // Đã thêm assets/
+                bg: './assets/bg_zarok.jpg', // Đã sửa
                 cardPos: '100% 100%',
                 region: 'HỆ BÓNG TỐI • ZAROK',
                 name: 'ZAROK ABYSS',
