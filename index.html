@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOKAHERO | Huyền Thoại Lửa</title>
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/fire.png">
+    <link rel="icon" type="image/png" href="./fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -37,7 +37,7 @@
         nav ul li a:hover { color: var(--gold); }
         .btn-play-small { background: var(--gold); color: black; padding: 10px 25px; text-decoration: none; font-weight: bold; border-radius: 3px; }
 
-        /* HERO BANNER - SỬA LỖI ẢNH TẠI ĐÂY */
+        /* HERO BANNER */
         .hero {
             height: 90vh;
             position: relative;
@@ -52,9 +52,9 @@
 
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* DÙNG LINK TRỰC TIẾP TỚI FILE fire.png TRÊN GITHUB CỦA BẠN */
+            /* CODE CHUẨN: Dùng file ảnh nằm ngay bên cạnh file html */
             background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--dark-blue)), 
-                              url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/fire.png'); 
+                              url('./fire.png'); 
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -87,7 +87,7 @@
         }
         .btn-play-big:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        /* KHU VỰC TẢI GAME */
+        /* DOWNLOAD AREA */
         .platform-download {
             display: flex; gap: 15px; align-items: center; justify-content: center;
             padding-bottom: 50px; flex-wrap: wrap;
@@ -100,29 +100,26 @@
             text-decoration: none; border: 1px solid #333;
             transition: 0.3s; min-width: 140px; justify-content: center;
         }
-
         .dl-btn:hover { border-color: var(--gold); background: #111; }
         .dl-btn i { font-size: 20px; }
         .dl-text { text-align: left; line-height: 1.2; }
         .dl-small { font-size: 10px; color: #aaa; display: block; }
         .dl-big { font-size: 14px; font-weight: bold; display: block; }
 
-        /* Card Collection */
+        /* CARD COLLECTION */
         .collection-container { padding: 60px 5%; background: #050c16; }
         .set-title { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--gold); margin-bottom: 25px; border-left: 5px solid var(--fire-orange); padding-left: 15px; text-transform: uppercase; }
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .card-item { border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #0a141f; transition: 0.3s; }
         .card-item:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(196, 151, 62, 0.3); }
         
-        /* Link ảnh tuyệt đối cho bộ thẻ bài */
         .card-visual { 
             width: 100%; padding-top: 140%; 
-            background-image: url('https://raw.githubusercontent.com/heromoka/heromoka.github.io/main/full_set.png'); 
+            background-image: url('./full_set.png'); 
             background-size: 500% 400%; 
         }
         .card-name { text-align: center; padding: 10px; font-weight: bold; color: #ccc; font-size: 14px; }
         
-        /* TỌA ĐỘ CẮT ẢNH CHO 4 BỘ */
         .ignis-1{background-position:0 0}.ignis-2{background-position:25% 0}.ignis-3{background-position:50% 0}.ignis-4{background-position:75% 0}.ignis-5{background-position:100% 0}
         .sylva-1{background-position:0 33.33%}.sylva-2{background-position:25% 33.33%}.sylva-3{background-position:50% 33.33%}.sylva-4{background-position:75% 33.33%}.sylva-5{background-position:100% 33.33%}
         .omega-1{background-position:0 66.66%}.omega-2{background-position:25% 66.66%}.omega-3{background-position:50% 66.66%}.omega-4{background-position:75% 66.66%}.omega-5{background-position:100% 66.66%}
@@ -145,10 +142,8 @@
 
     <header class="hero">
         <div class="hero-bg"></div>
-        
         <h1>MOKAHERO</h1>
         <p>ĐÁNH THỨC NGỌN LỬA VĨNH CỬU</p>
-        
         <button class="btn-play-big">CHƠI NGAY</button>
 
         <div class="platform-download">
