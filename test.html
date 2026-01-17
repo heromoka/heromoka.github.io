@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOKAHERO | BỘ SƯU TẬP CHI TIẾT</title>
+    <title>MOKAHERO | BỘ SƯU TẬP CHUYÊN NGHIỆP</title>
     <link rel="icon" type="image/png" href="./fire.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
             --gold: #c4973e;
             --dark-blue: #010a13;
             --fire-orange: #ff4500;
-            /* Màu cho độ hiếm */
             --common: #a0a0a0;
             --uncommon: #1eff00;
             --rare: #0070dd;
@@ -22,15 +21,9 @@
             --legendary: #ff8000;
         }
 
-        body, html {
-            margin: 0; padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--dark-blue);
-            color: white;
-            overflow-x: hidden;
-        }
+        body, html { margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: var(--dark-blue); color: white; overflow-x: hidden; }
 
-        /* Nav & Footer giữ nguyên */
+        /* Nav & Footer */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(1, 10, 19, 0.95); border-bottom: 2px solid var(--gold); position: fixed; width: 100%; top: 0; z-index: 1000; box-sizing: border-box; }
         .logo { font-family: 'Oswald', sans-serif; font-size: 26px; color: var(--gold); letter-spacing: 2px; }
         nav ul { display: flex; list-style: none; gap: 30px; }
@@ -39,7 +32,7 @@
         .btn-play-small { background: var(--gold); color: black; padding: 10px 25px; text-decoration: none; font-weight: bold; border-radius: 3px; }
         footer { padding: 40px; text-align: center; background: #000; font-size: 12px; color: #555; border-top: 1px solid #222; }
 
-        /* Hero Banner giữ nguyên (đã bỏ loop) */
+        /* Hero Banner */
         .hero { height: 90vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 60px; overflow: hidden; background-color: #000; }
         .hero-bg-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; }
         .back-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%) scale(1.15); z-index: -1; object-fit: cover; }
@@ -57,89 +50,80 @@
         .dl-small { font-size: 10px; color: #aaa; display: block; }
         .dl-big { font-size: 14px; font-weight: bold; display: block; }
 
-        /* --- CẤU TRÚC THẺ BÀI MỚI (BẮT ĐẦU TỪ ĐÂY) --- */
-        .collection-container { padding: 60px 5%; background: #050c16; }
-        .set-title { font-family: 'Oswald', sans-serif; font-size: 32px; color: var(--gold); margin-bottom: 25px; border-left: 5px solid var(--fire-orange); padding-left: 15px; text-transform: uppercase; }
+        /* --- PHẦN TAB MENU MỚI --- */
+        .collection-container { padding: 60px 5%; background: #050c16; min-height: 800px; }
         
-        /* Grid cho thẻ bài, tăng chiều rộng tối thiểu để chứa thông tin */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-
-        .card-item {
-            border: 1px solid #333;
-            border-radius: 10px;
-            overflow: hidden;
-            background: #0a141f;
-            transition: 0.3s;
+        /* Thanh Menu Chọn Bộ Tộc */
+        .tab-menu {
             display: flex;
-            flex-direction: column; /* Xếp ảnh lên trên, thông tin xuống dưới */
-        }
-
-        .card-item:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-            box-shadow: 0 10px 30px rgba(196, 151, 62, 0.3);
-        }
-        
-        /* Phần ảnh thẻ bài */
-        .card-visual { 
-            width: 100%; padding-top: 140%; /* Tỉ lệ ảnh */
-            background-image: url('./full_set.png'); 
-            background-size: 500% 400%; 
-            border-bottom: 1px solid #222;
-        }
-
-        /* Phần khung thông tin bên dưới */
-        .card-info-box {
-            padding: 15px;
-            flex-grow: 1; /* Để các thẻ có chiều cao bằng nhau */
-            display: flex;
-            flex-direction: column;
+            justify-content: center;
             gap: 10px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            flex-wrap: wrap;
         }
 
-        /* Header: Tên và Độ hiếm */
-        .info-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #222;
-            padding-bottom: 8px;
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #777;
+            font-family: 'Oswald', sans-serif;
+            font-size: 20px;
+            padding: 15px 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            position: relative;
         }
+
+        .tab-btn:hover { color: white; }
+
+        /* Trạng thái nút đang chọn */
+        .tab-btn.active {
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        /* Gạch chân vàng cho nút đang chọn */
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; /* Đè lên viền menu */
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gold);
+            box-shadow: 0 -2px 10px rgba(196, 151, 62, 0.5);
+        }
+
+        /* Ẩn các nội dung tab chưa chọn */
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        /* Hiện nội dung tab đang chọn */
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Các style thẻ bài cũ (giữ nguyên) */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .card-item { border: 1px solid #333; border-radius: 10px; overflow: hidden; background: #0a141f; transition: 0.3s; display: flex; flex-direction: column; }
+        .card-item:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(196, 151, 62, 0.3); }
+        .card-visual { width: 100%; padding-top: 140%; background-image: url('./full_set.png'); background-size: 500% 400%; border-bottom: 1px solid #222; }
+        .card-info-box { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
+        .info-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 8px; }
         .info-name { font-family: 'Oswald', sans-serif; font-size: 18px; color: #fff; }
         .info-rarity { font-size: 12px; font-weight: bold; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: #222; }
-        
-        /* Màu sắc độ hiếm */
         .r-common { color: var(--common); border: 1px solid var(--common); }
         .r-uncommon { color: var(--uncommon); border: 1px solid var(--uncommon); }
         .r-rare { color: var(--rare); border: 1px solid var(--rare); }
         .r-epic { color: var(--epic); border: 1px solid var(--epic); }
         .r-legendary { color: var(--legendary); border: 1px solid var(--legendary); box-shadow: 0 0 5px var(--legendary); }
-
-        /* Khu vực chỉ số (Stats) */
-        .info-stats {
-            display: flex;
-            justify-content: space-around;
-            background: #040a11;
-            padding: 8px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
+        .info-stats { display: flex; justify-content: space-around; background: #040a11; padding: 8px; border-radius: 6px; font-weight: bold; }
         .stat { display: flex; align-items: center; gap: 5px; }
-        .stat-atk { color: #e74c3c; } /* Đỏ tấn công */
-        .stat-hp { color: #2ecc71; } /* Xanh lá máu */
-        .stat-def { color: #3498db; } /* Xanh dương giáp */
-        .stat-mag { color: #9b59b6; } /* Tím phép */
-
-        /* Khu vực mô tả kỹ năng */
-        .info-desc {
-            font-size: 13px;
-            color: #ccc;
-            line-height: 1.4;
-            font-style: italic;
-        }
+        .stat-atk { color: #e74c3c; } .stat-hp { color: #2ecc71; } .stat-def { color: #3498db; } .stat-mag { color: #9b59b6; }
+        .info-desc { font-size: 13px; color: #ccc; line-height: 1.4; font-style: italic; }
         .skill-name { color: var(--gold); font-weight: bold; font-style: normal; }
 
-        /* Tọa độ cắt ảnh (Giữ nguyên) */
+        /* Tọa độ cắt ảnh */
         .ignis-1{background-position:0 0}.ignis-2{background-position:25% 0}.ignis-3{background-position:50% 0}.ignis-4{background-position:75% 0}.ignis-5{background-position:100% 0}
         .sylva-1{background-position:0 33.33%}.sylva-2{background-position:25% 33.33%}.sylva-3{background-position:50% 33.33%}.sylva-4{background-position:75% 33.33%}.sylva-5{background-position:100% 33.33%}
         .omega-1{background-position:0 66.66%}.omega-2{background-position:25% 66.66%}.omega-3{background-position:50% 66.66%}.omega-4{background-position:75% 66.66%}.omega-5{background-position:100% 66.66%}
@@ -172,179 +156,50 @@
     </header>
 
     <section class="collection-container">
-        <div class="set-title">IGNIS (HỘ VỆ LỬA)</div>
-        <div class="card-grid">
-            <div class="card-item">
-                <div class="card-visual ignis-1"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Lava Sprite</span><span class="info-rarity r-common">Common</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 2</span><span class="stat stat-hp">❤️ 6</span><span class="stat stat-def">🛡️ 4</span></div>
-                    <div class="info-desc"><span class="skill-name">Vỏ Cứng:</span> Giảm 1 sát thương nhận vào từ đòn đánh thường.</div>
-                </div>
-            </div>
-            <div class="card-item">
-                <div class="card-visual ignis-2"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Magma Golem</span><span class="info-rarity r-uncommon">Uncommon</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 3</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 6</span></div>
-                    <div class="info-desc"><span class="skill-name">Khiên Nhiệt:</span> Khi xuất trận, tạo lá chắn 4 điểm cho bản thân.</div>
-                </div>
-            </div>
-            <div class="card-item">
-                <div class="card-visual ignis-3"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Flame Guardian</span><span class="info-rarity r-rare">Rare</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 4</span><span class="stat stat-hp">❤️ 14</span><span class="stat stat-def">🛡️ 8</span></div>
-                    <div class="info-desc"><span class="skill-name">Bảo Vệ:</span> Đồng minh đứng cạnh nhận +2 Giáp.</div>
-                </div>
-            </div>
-            <div class="card-item">
-                <div class="card-visual ignis-4"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Infernal Sentinel</span><span class="info-rarity r-epic">Epic</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 6</span><span class="stat stat-hp">❤️ 18</span><span class="stat stat-def">🛡️ 12</span></div>
-                    <div class="info-desc"><span class="skill-name">Phản Đòn:</span> Khi chịu sát thương, gây 3 sát thương lửa lại kẻ tấn công.</div>
-                </div>
-            </div>
-            <div class="card-item">
-                <div class="card-visual ignis-5"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Ignis Prime</span><span class="info-rarity r-legendary">Legendary</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 8</span><span class="stat stat-hp">❤️ 25</span><span class="stat stat-def">🛡️ 15</span></div>
-                    <div class="info-desc"><span class="skill-name">Tường Lửa Vĩnh Cửu:</span> Kích hoạt: Miễn nhiễm mọi sát thương trong 1 lượt. Nội tại: Tất cả đồng minh +4 Giáp.</div>
-                </div>
+        <div class="tab-menu">
+            <button class="tab-btn active" onclick="openTab(event, 'Ignis')">IGNIS</button>
+            <button class="tab-btn" onclick="openTab(event, 'Sylva')">SYLVA</button>
+            <button class="tab-btn" onclick="openTab(event, 'Omega')">OMEGA</button>
+            <button class="tab-btn" onclick="openTab(event, 'Zarok')">ZAROK</button>
+        </div>
+
+        <div id="Ignis" class="tab-content active">
+            <div class="card-grid">
+                <div class="card-item"><div class="card-visual ignis-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Lava Sprite</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 2</span><span class="stat stat-hp">❤️ 6</span><span class="stat stat-def">🛡️ 4</span></div><div class="info-desc"><span class="skill-name">Vỏ Cứng:</span> Giảm 1 sát thương nhận vào từ đòn đánh thường.</div></div></div>
+                <div class="card-item"><div class="card-visual ignis-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Magma Golem</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 3</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 6</span></div><div class="info-desc"><span class="skill-name">Khiên Nhiệt:</span> Khi xuất trận, tạo lá chắn 4 điểm cho bản thân.</div></div></div>
+                <div class="card-item"><div class="card-visual ignis-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Flame Guardian</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 4</span><span class="stat stat-hp">❤️ 14</span><span class="stat stat-def">🛡️ 8</span></div><div class="info-desc"><span class="skill-name">Bảo Vệ:</span> Đồng minh đứng cạnh nhận +2 Giáp.</div></div></div>
+                <div class="card-item"><div class="card-visual ignis-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Infernal Sentinel</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 6</span><span class="stat stat-hp">❤️ 18</span><span class="stat stat-def">🛡️ 12</span></div><div class="info-desc"><span class="skill-name">Phản Đòn:</span> Khi chịu sát thương, gây 3 sát thương lửa lại kẻ tấn công.</div></div></div>
+                <div class="card-item"><div class="card-visual ignis-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Ignis Prime</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 8</span><span class="stat stat-hp">❤️ 25</span><span class="stat stat-def">🛡️ 15</span></div><div class="info-desc"><span class="skill-name">Tường Lửa Vĩnh Cửu:</span> Kích hoạt: Miễn nhiễm mọi sát thương trong 1 lượt. Nội tại: Tất cả đồng minh +4 Giáp.</div></div></div>
             </div>
         </div>
 
-        <div class="set-title" style="margin-top: 50px;">SYLVA (LINH HỒN RỪNG)</div>
-        <div class="card-grid">
-             <div class="card-item">
-                <div class="card-visual sylva-1"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Forest Wisp</span><span class="info-rarity r-common">Common</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 2</span><span class="stat stat-hp">❤️ 5</span><span class="stat stat-def">🛡️ 1</span></div>
-                    <div class="info-desc"><span class="skill-name">Hồi Phục Nhẹ:</span> Hồi 2 Máu cho một đồng minh khi xuất trận.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual sylva-2"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Druid Healer</span><span class="info-rarity r-uncommon">Uncommon</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 3</span><span class="stat stat-hp">❤️ 8</span><span class="stat stat-def">🛡️ 2</span></div>
-                    <div class="info-desc"><span class="skill-name">Tăng Trưởng:</span> Tăng +2 Tấn Công cho một đồng minh ngẫu nhiên mỗi lượt.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual sylva-3"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Elder Treant</span><span class="info-rarity r-rare">Rare</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 4</span><span class="stat stat-hp">❤️ 15</span><span class="stat stat-def">🛡️ 4</span></div>
-                    <div class="info-desc"><span class="skill-name">Rễ Bám:</span> Kẻ địch tấn công đơn vị này bị giảm 2 Tốc độ vào lượt sau.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual sylva-4"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Lifebloom Dryad</span><span class="info-rarity r-epic">Epic</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 5</span><span class="stat stat-hp">❤️ 12</span><span class="stat stat-def">🛡️ 3</span></div>
-                    <div class="info-desc"><span class="skill-name">Mưa Hồi Sinh:</span> Cuối mỗi lượt, hồi 3 Máu cho TẤT CẢ đồng minh.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual sylva-5"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Gaia, Mother Tree</span><span class="info-rarity r-legendary">Legendary</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 6</span><span class="stat stat-hp">❤️ 22</span><span class="stat stat-def">🛡️ 8</span></div>
-                    <div class="info-desc"><span class="skill-name">Tái Sinh Vĩ Đại:</span> Kích hoạt: Hồi sinh một đồng minh đã chết với 50% Máu. Nội tại: Đồng minh nhận +2/+2 chỉ số.</div>
-                </div>
+        <div id="Sylva" class="tab-content">
+            <div class="card-grid">
+                <div class="card-item"><div class="card-visual sylva-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Forest Wisp</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 2</span><span class="stat stat-hp">❤️ 5</span><span class="stat stat-def">🛡️ 1</span></div><div class="info-desc"><span class="skill-name">Hồi Phục Nhẹ:</span> Hồi 2 Máu cho một đồng minh khi xuất trận.</div></div></div>
+                <div class="card-item"><div class="card-visual sylva-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Druid Healer</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 3</span><span class="stat stat-hp">❤️ 8</span><span class="stat stat-def">🛡️ 2</span></div><div class="info-desc"><span class="skill-name">Tăng Trưởng:</span> Tăng +2 Tấn Công cho một đồng minh ngẫu nhiên mỗi lượt.</div></div></div>
+                <div class="card-item"><div class="card-visual sylva-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Elder Treant</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 4</span><span class="stat stat-hp">❤️ 15</span><span class="stat stat-def">🛡️ 4</span></div><div class="info-desc"><span class="skill-name">Rễ Bám:</span> Kẻ địch tấn công đơn vị này bị giảm 2 Tốc độ vào lượt sau.</div></div></div>
+                <div class="card-item"><div class="card-visual sylva-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Lifebloom Dryad</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 5</span><span class="stat stat-hp">❤️ 12</span><span class="stat stat-def">🛡️ 3</span></div><div class="info-desc"><span class="skill-name">Mưa Hồi Sinh:</span> Cuối mỗi lượt, hồi 3 Máu cho TẤT CẢ đồng minh.</div></div></div>
+                <div class="card-item"><div class="card-visual sylva-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Gaia, Mother Tree</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 6</span><span class="stat stat-hp">❤️ 22</span><span class="stat stat-def">🛡️ 8</span></div><div class="info-desc"><span class="skill-name">Tái Sinh Vĩ Đại:</span> Kích hoạt: Hồi sinh một đồng minh đã chết với 50% Máu. Nội tại: Đồng minh nhận +2/+2 chỉ số.</div></div></div>
             </div>
         </div>
 
-        <div class="set-title" style="margin-top: 50px;">OMEGA (CỖ MÁY HỦY DIỆT)</div>
-        <div class="card-grid">
-             <div class="card-item">
-                <div class="card-visual omega-1"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Mech Drone</span><span class="info-rarity r-common">Common</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 5</span><span class="stat stat-hp">❤️ 3</span><span class="stat stat-def">🛡️ 1</span></div>
-                    <div class="info-desc"><span class="skill-name">Tấn Công Nhanh:</span> Có thể tấn công ngay khi xuất trận.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual omega-2"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Assault Bot</span><span class="info-rarity r-uncommon">Uncommon</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 7</span><span class="stat stat-hp">❤️ 6</span><span class="stat stat-def">🛡️ 2</span></div>
-                    <div class="info-desc"><span class="skill-name">Bắn Liên Thanh:</span> Tấn công 2 lần trong một lượt nếu mục tiêu là lính.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual omega-3"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Siege Tank</span><span class="info-rarity r-rare">Rare</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 10</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 5</span></div>
-                    <div class="info-desc"><span class="skill-name">Đạn Pháo:</span> Gây 5 sát thương lan sang các đơn vị cạnh mục tiêu chính.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual omega-4"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Cyber Samurai</span><span class="info-rarity r-epic">Epic</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 14</span><span class="stat stat-hp">❤️ 12</span><span class="stat stat-def">🛡️ 4</span></div>
-                    <div class="info-desc"><span class="skill-name">Kiếm Chém Sắt:</span> Đòn tấn công bỏ qua 50% Giáp của mục tiêu (Sát thương chuẩn).</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual omega-5"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Omega Weapon X</span><span class="info-rarity r-legendary">Legendary</span></div>
-                    <div class="info-stats"><span class="stat stat-atk">⚔️ 20</span><span class="stat stat-hp">❤️ 18</span><span class="stat stat-def">🛡️ 8</span></div>
-                    <div class="info-desc"><span class="skill-name">Hủy Diệt Hoàn Toàn:</span> Kích hoạt: Gây 30 Sát thương chuẩn lên một mục tiêu. Nếu mục tiêu chết, được tấn công tiếp.</div>
-                </div>
+        <div id="Omega" class="tab-content">
+            <div class="card-grid">
+                <div class="card-item"><div class="card-visual omega-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Mech Drone</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 5</span><span class="stat stat-hp">❤️ 3</span><span class="stat stat-def">🛡️ 1</span></div><div class="info-desc"><span class="skill-name">Tấn Công Nhanh:</span> Có thể tấn công ngay khi xuất trận.</div></div></div>
+                <div class="card-item"><div class="card-visual omega-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Assault Bot</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 7</span><span class="stat stat-hp">❤️ 6</span><span class="stat stat-def">🛡️ 2</span></div><div class="info-desc"><span class="skill-name">Bắn Liên Thanh:</span> Tấn công 2 lần trong một lượt nếu mục tiêu là lính.</div></div></div>
+                <div class="card-item"><div class="card-visual omega-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Siege Tank</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 10</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 5</span></div><div class="info-desc"><span class="skill-name">Đạn Pháo:</span> Gây 5 sát thương lan sang các đơn vị cạnh mục tiêu chính.</div></div></div>
+                <div class="card-item"><div class="card-visual omega-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Cyber Samurai</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 14</span><span class="stat stat-hp">❤️ 12</span><span class="stat stat-def">🛡️ 4</span></div><div class="info-desc"><span class="skill-name">Kiếm Chém Sắt:</span> Đòn tấn công bỏ qua 50% Giáp của mục tiêu (Sát thương chuẩn).</div></div></div>
+                <div class="card-item"><div class="card-visual omega-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Omega Weapon X</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-atk">⚔️ 20</span><span class="stat stat-hp">❤️ 18</span><span class="stat stat-def">🛡️ 8</span></div><div class="info-desc"><span class="skill-name">Hủy Diệt Hoàn Toàn:</span> Kích hoạt: Gây 30 Sát thương chuẩn lên một mục tiêu. Nếu mục tiêu chết, được tấn công tiếp.</div></div></div>
             </div>
         </div>
 
-        <div class="set-title" style="margin-top: 50px;">ZAROK (BẬC THẦY HẮC ÁM)</div>
-        <div class="card-grid">
-             <div class="card-item">
-                <div class="card-visual zarok-1"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Dark Acolyte</span><span class="info-rarity r-common">Common</span></div>
-                    <div class="info-stats"><span class="stat stat-mag">✨ 4</span><span class="stat stat-hp">❤️ 4</span><span class="stat stat-def">🛡️ 0</span></div>
-                    <div class="info-desc"><span class="skill-name">Cầu Lửa Đen:</span> Gây 3 sát thương phép khi xuất trận.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual zarok-2"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Shadow Warlock</span><span class="info-rarity r-uncommon">Uncommon</span></div>
-                    <div class="info-stats"><span class="stat stat-mag">✨ 6</span><span class="stat stat-hp">❤️ 7</span><span class="stat stat-def">🛡️ 1</span></div>
-                    <div class="info-desc"><span class="skill-name">Nguyền Rủa:</span> Mục tiêu bị tấn công bị giảm 2 Tấn công trong 2 lượt.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual zarok-3"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Void Mage</span><span class="info-rarity r-rare">Rare</span></div>
-                    <div class="info-stats"><span class="stat stat-mag">✨ 9</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 2</span></div>
-                    <div class="info-desc"><span class="skill-name">Xuyên Kháng Phép:</span> Đòn tấn công phép bỏ qua lá chắn phép thuật của đối phương.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual zarok-4"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Necromancer Lord</span><span class="info-rarity r-epic">Epic</span></div>
-                    <div class="info-stats"><span class="stat stat-mag">✨ 12</span><span class="stat stat-hp">❤️ 14</span><span class="stat stat-def">🛡️ 3</span></div>
-                    <div class="info-desc"><span class="skill-name">Triệu Hồi Khô Lâu:</span> Khi một đơn vị chết, triệu hồi 1 Khô Lâu (2/2) phe mình.</div>
-                </div>
-            </div>
-             <div class="card-item">
-                <div class="card-visual zarok-5"></div>
-                <div class="card-info-box">
-                    <div class="info-header"><span class="info-name">Zarok, The Abyss</span><span class="info-rarity r-legendary">Legendary</span></div>
-                    <div class="info-stats"><span class="stat stat-mag">✨ 18</span><span class="stat stat-hp">❤️ 16</span><span class="stat stat-def">🛡️ 5</span></div>
-                    <div class="info-desc"><span class="skill-name">Tận Thế Đen:</span> Kích hoạt: Gây 15 Sát thương phép chuẩn lên TOÀN BỘ kẻ địch. Những kẻ sống sót bị Choáng 1 lượt.</div>
-                </div>
+        <div id="Zarok" class="tab-content">
+            <div class="card-grid">
+                <div class="card-item"><div class="card-visual zarok-1"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Dark Acolyte</span><span class="info-rarity r-common">Common</span></div><div class="info-stats"><span class="stat stat-mag">✨ 4</span><span class="stat stat-hp">❤️ 4</span><span class="stat stat-def">🛡️ 0</span></div><div class="info-desc"><span class="skill-name">Cầu Lửa Đen:</span> Gây 3 sát thương phép khi xuất trận.</div></div></div>
+                <div class="card-item"><div class="card-visual zarok-2"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Shadow Warlock</span><span class="info-rarity r-uncommon">Uncommon</span></div><div class="info-stats"><span class="stat stat-mag">✨ 6</span><span class="stat stat-hp">❤️ 7</span><span class="stat stat-def">🛡️ 1</span></div><div class="info-desc"><span class="skill-name">Nguyền Rủa:</span> Mục tiêu bị tấn công bị giảm 2 Tấn công trong 2 lượt.</div></div></div>
+                <div class="card-item"><div class="card-visual zarok-3"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Void Mage</span><span class="info-rarity r-rare">Rare</span></div><div class="info-stats"><span class="stat stat-mag">✨ 9</span><span class="stat stat-hp">❤️ 10</span><span class="stat stat-def">🛡️ 2</span></div><div class="info-desc"><span class="skill-name">Xuyên Kháng Phép:</span> Đòn tấn công phép bỏ qua lá chắn phép thuật của đối phương.</div></div></div>
+                <div class="card-item"><div class="card-visual zarok-4"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Necromancer Lord</span><span class="info-rarity r-epic">Epic</span></div><div class="info-stats"><span class="stat stat-mag">✨ 12</span><span class="stat stat-hp">❤️ 14</span><span class="stat stat-def">🛡️ 3</span></div><div class="info-desc"><span class="skill-name">Triệu Hồi Khô Lâu:</span> Khi một đơn vị chết, triệu hồi 1 Khô Lâu (2/2) phe mình.</div></div></div>
+                <div class="card-item"><div class="card-visual zarok-5"></div><div class="card-info-box"><div class="info-header"><span class="info-name">Zarok, The Abyss</span><span class="info-rarity r-legendary">Legendary</span></div><div class="info-stats"><span class="stat stat-mag">✨ 18</span><span class="stat stat-hp">❤️ 16</span><span class="stat stat-def">🛡️ 5</span></div><div class="info-desc"><span class="skill-name">Tận Thế Đen:</span> Kích hoạt: Gây 15 Sát thương phép chuẩn lên TOÀN BỘ kẻ địch. Những kẻ sống sót bị Choáng 1 lượt.</div></div></div>
             </div>
         </div>
     </section>
@@ -352,6 +207,29 @@
     <footer>
         <p>© 2026 HEROMOKA STUDIO. STYLE BASED ON LEGENDS OF RUNETERRA.</p>
     </footer>
+
+    <script>
+        function openTab(evt, collectionName) {
+            var i, tabcontent, tablinks;
+
+            // 1. Ẩn tất cả nội dung tab
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+
+            // 2. Xóa trạng thái "active" của tất cả nút
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // 3. Hiện tab được chọn và đánh dấu nút đó là active
+            document.getElementById(collectionName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
 
 </body>
 </html>
