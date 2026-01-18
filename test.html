@@ -15,50 +15,59 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* --- 1. CORE VARIABLES (V15 ORIGINAL) --- */
         :root {
             --gold: #c8aa6d;             
-            --gold-glow: rgba(200, 170, 109, 0.5);
-            --cyan: #00f2ff; 
+            --gold-bright: #f0e6d2;      
+            --cyan: #00f2ff;
             --cyan-glow: rgba(0, 242, 255, 0.5);
             --dark: #050505;             
             --ingame-blue: #4a9eff;
-            --card-glass: rgba(20, 20, 30, 0.85);
+            --web3-purple: #9b59b6;
+            --card-glass: rgba(20, 20, 30, 0.7);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
+        
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
 
-        h1, h2, h3, .logo, .f-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* --- UI ELEMENTS --- */
+        /* BUTTONS (V15) */
         .btn-main {
-            background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
+            background: linear-gradient(to bottom, #c8aa6d, #8e733b);
+            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
             cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif;
         }
         .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
 
         .btn-outline {
-            background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s;
+            background: transparent; border: 1px solid #666; color: #ccc;
+            padding: 10px 25px; cursor: pointer; transition: 0.3s;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
             font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700;
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
         .btn-platform {
-            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
-            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa;
+            padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
+            min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
         /* NAV */
         nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px;
-            background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 40px; height: 80px;
+            background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
         }
         .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
         .logo span { color: var(--gold); }
@@ -132,79 +141,145 @@
         .toggle-switch.on { background: var(--ingame-blue); }
         .toggle-switch.on::after { left: 27px; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- SECTIONS CSS --- */
+        /* SECTIONS COMMON */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
-        
-        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-bottom: none; }
+
+        /* 1. HERO */
+        #hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
+        }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
-        .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
+            z-index: 1;
+        }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
-        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; background: linear-gradient(to right, var(--gold), #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
+        .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
+        .hero-title { 
+            font-size: 80px; margin-bottom: 20px; line-height: 1; 
+            background: linear-gradient(to right, var(--gold), #fff, var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+        .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .platform-list { display: flex; gap: 15px; justify-content: center; }
+
+        /* 2. NFT (V15) */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
         .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
+        .genesis-panel::before, .genesis-panel::after { content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
+        .genesis-panel::before { left: 20px; }
+        .genesis-panel::after { right: 20px; }
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
-        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; }
-        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; }
+        .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
+        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
+        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
+        .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
+        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
+        /* 3. FEATURES (V15) */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; }
-        .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: bold; font-family: 'Cinzel'; }
+        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; }
+        .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
+        .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
+        .feature-card:hover { transform: translateY(-10px); }
+        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
+        .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.1); }
+        .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
+        .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
+        /* 4. ECONOMY */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
-        .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; }
-        .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; margin-bottom: 10px; }
-        .swap-action { width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px; margin: 10px 0; }
+        .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
+        .zone-game { border-top: 4px solid var(--ingame-blue); }
+        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
+        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
+        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
+        .zone-web3 { border-top: 4px solid var(--gold); }
+        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
+        .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; transition: 0.3s; }
+        .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
+        .eco-icon { font-size: 24px; width: 40px; text-align: center; }
+        .eco-text h4 { margin: 0; font-size: 16px; color: #fff; margin-bottom: 3px; font-weight: bold; }
+        .eco-text p { margin: 0; font-size: 13px; color: #888; line-height: 1.3; }
+        .swap-action { width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px; margin: 10px 0; position: relative; }
+        .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
+        .swap-action span { font-size: 14px; font-weight: bold; color: #ccc; text-transform: uppercase; }
+        .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
+        .arr-left { left: -22px; color: var(--ingame-blue); }
+        .arr-right { right: -22px; color: var(--gold); }
+        @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
+        /* 5. TOKENOMICS */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
         .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
-        .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        
+        .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        /* 6. ROADMAP */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
         .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
         .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
-        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; }
+        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
         .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-
+        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
+        .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
+        
+        /* 7. PARTNERS */
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
-        .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
+        .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
+        .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
+        .partner-item i { font-size: 24px; color: #fff; }
+        .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* FOOTER */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-        .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; border: 1px solid #222; }
+        .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
+        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; font-family: 'Roboto', sans-serif; }
+        .f-links a:hover { color: var(--gold); }
+        .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
+        .socials a:hover { border-color: var(--gold); color: var(--gold); }
 
         @media (max-width: 992px) {
             .nav-links { display: none; }
             .hero-title { font-size: 50px; }
             .genesis-wrapper { height: auto; padding-bottom: 0; }
             .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
+            .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
             .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
             .prev-btn, .next-btn { display: none; }
             .eco-layout { flex-direction: column; }
+            .zone-gate { flex: 1; border-top: none; border-left: 4px solid #fff; flex-direction: row; flex-wrap: wrap; }
             .footer-cols { grid-template-columns: 1fr; }
             .roadmap-line { left: 20px; }
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
+            /* Mobile Dash */
             .dash-wrapper { width: 100%; height: 100%; border-radius: 0; flex-direction: column; }
-            .dash-sidebar { width: 100%; flex-direction: row; height: auto; padding: 10px; overflow-x: auto; }
+            .dash-sidebar { width: 100%; flex-direction: row; height: auto; padding: 10px; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
             .dash-logo { display: none; }
             .dash-grid-top { grid-template-columns: 1fr; }
         }
+
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -249,23 +324,25 @@
                 <div class="dash-menu-item" onclick="switchDashTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
                 <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
             </div>
+            
             <div class="dash-main">
                 <div class="dash-topbar">
-                    <div class="dash-user-chip"><span style="color:#aaa; font-size:12px;">SERVER:</span> <span style="color:#0f0;">ASIA-1</span></div>
-                    <div class="dash-close-btn" onclick="closeDashboard()">CLOSE X</div>
+                    <div style="display:flex; gap:10px;">
+                        <span style="background:#222; padding:5px 15px; border-radius:20px; font-size:12px; color:#888; border:1px solid #444;">SERVER: ASIA-1</span>
+                    </div>
+                    <div style="cursor:pointer; color:#888; font-size:14px;" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
                 </div>
+
                 <div class="dash-content-area">
                     <div id="dash-profile" class="dash-panel active">
-                        <div class="dash-grid-top">
+                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">DASHBOARD</h2>
+                        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;" class="dash-grid-top">
                             <div class="d-card">
-                                <div class="d-card-header">
-                                    <span>PLAYER PROFILE</span>
-                                    <i class="fas fa-pen" style="cursor:pointer; color:#666;"></i>
-                                </div>
+                                <div class="d-card-header">PLAYER INFO <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
                                 <div class="d-card-body">
-                                    <div class="d-info-row"><span>Display Name:</span> <span id="dash-display-name">Commander</span></div>
-                                    <div class="d-info-row"><span>User ID:</span> <span>#8492</span></div>
-                                    <div class="d-info-row"><span>Wallet Address:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
+                                    <div class="d-info-row"><span>Name:</span> <span id="dash-display-name">Commander</span></div>
+                                    <div class="d-info-row"><span>Email:</span> <span id="dash-display-email">...</span></div>
+                                    <div class="d-info-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
                                     <div class="d-info-row"><span>Moka Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
                                 </div>
                             </div>
@@ -273,32 +350,28 @@
                                 <div class="d-card-header">DAILY REWARD</div>
                                 <div class="d-card-body" style="text-align:center;">
                                     <p style="font-size:12px; color:#888;">Check-in daily to receive +5 Shards.</p>
-                                    <button id="checkin-btn" class="d-checkin-btn">CLAIM REWARD</button>
+                                    <button id="checkin-btn" class="d-checkin-btn">CHECK IN</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div id="dash-inventory" class="dash-panel">
                         <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">INVENTORY</h2>
                         <div class="inv-grid">
-                            <div class="inv-item" style="height:220px; color:#444;"><div><i class="fas fa-plus"></i> Empty</div></div>
-                            <div class="inv-item" style="height:220px; color:#444;"><div><i class="fas fa-plus"></i> Empty</div></div>
-                            <div class="inv-item" style="height:220px; color:#444;"><div><i class="fas fa-plus"></i> Empty</div></div>
+                            <div style="grid-column:1/-1; text-align:center; padding:50px; color:#666; border:2px dashed #333;">NO ITEMS FOUND</div>
                         </div>
                     </div>
+
                     <div id="dash-settings" class="dash-panel">
                         <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">SETTINGS</h2>
                         <div class="d-card" style="padding:20px;">
                             <div class="set-row">
-                                <div style="display:flex; align-items:center; gap:15px; color:#fff;">
-                                    <i class="fab fa-twitter set-icon" style="color:#1da1f2;"></i> <span>Twitter (X)</span>
-                                </div>
+                                <div style="display:flex; align-items:center; gap:15px; color:#fff;"><i class="fab fa-twitter" style="color:#1da1f2;"></i> Twitter</div>
                                 <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
                             </div>
                             <div class="set-row">
-                                <div style="display:flex; align-items:center; gap:15px; color:#fff;">
-                                    <i class="fab fa-discord set-icon" style="color:#7289da;"></i> <span>Discord</span>
-                                </div>
+                                <div style="display:flex; align-items:center; gap:15px; color:#fff;"><i class="fab fa-discord" style="color:#7289da;"></i> Discord</div>
                                 <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
                             </div>
                         </div>
@@ -484,289 +557,4 @@
             <div class="token-wrap">
                 <div class="pie-chart">
                     <div class="pie-hole">
-                        <span style="font-size: 30px; font-weight: 900; color: var(--gold); font-family: 'Cinzel';">$MOKA</span>
-                        <span style="font-size: 12px; color: #666;">Total: 100M</span>
-                    </div>
-                </div>
-                <ul class="token-list" style="list-style: none;">
-                    <li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li>
-                    <li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li>
-                    <li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li>
-                    <li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="roadmap">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">ROADMAP</h2>
-            </div>
-            <div class="roadmap-container">
-                <div class="roadmap-line"></div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 1 (JAN - MAR 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>GENESIS</h3>
-                        <ul>
-                            <li>Website & Whitepaper Launch</li>
-                            <li>Genesis Chest Sale (Early NFTs)</li>
-                            <li>Alpha Test on Web</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 2 (APR - JUN 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>EXPLOSION</h3>
-                        <ul>
-                            <li>Mobile Launch (iOS/Android)</li>
-                            <li>Guild Wars Feature</li>
-                            <li>$MOKA CEX Listing</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 3 (JUL - SEP 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>EXPANSION</h3>
-                        <ul>
-                            <li>Cross-chain Bridge Integration</li>
-                            <li>Staking System & DAO Governance</li>
-                            <li>"Leviathan" World Boss Raid</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 4 (OCT - DEC 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>METAVERSE</h3>
-                        <ul>
-                            <li>Moka Land Gameplay Launch</li>
-                            <li>Global Championship 2026</li>
-                            <li>Scholarship Program</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="partners" style="padding: 60px 0; background: #080808; border-top: 1px solid #111;">
-        <div class="container">
-            <div class="text-center">
-                <p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p>
-            </div>
-            <div class="partner-grid">
-                <div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS CAPITAL</span></div>
-                <div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN VENTURES</span></div>
-                <div class="partner-item"><i class="fas fa-gem"></i> <span>DIAMOND HANDS</span></div>
-            </div>
-            <div class="partner-grid" style="margin-top: 20px;">
-                <div class="partner-item"><i class="fas fa-cube"></i> <span>BLOCKSTREAM</span></div>
-                <div class="partner-item"><i class="fas fa-gamepad"></i> <span>UNITY 3D</span></div>
-                <div class="partner-item"><i class="fas fa-users-cog"></i> <span>META GUILD</span></div>
-                <div class="partner-item"><i class="fas fa-search-dollar"></i> <span>QUANTUM AUDIT</span></div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-cols">
-                <div>
-                    <a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a>
-                    <p style="color: #666; font-size: 13px; line-height: 1.8;">
-                        Next-generation tactical card game with true ownership economy.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="f-title">ABOUT US</h4>
-                    <div class="f-links">
-                        <a href="#features">Features</a>
-                        <a href="#economy">Economy</a>
-                        <a href="whitepaper.html">Whitepaper</a>
-                        <a href="#">Contact</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="f-title">COMMUNITY</h4>
-                    <div class="socials">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;">
-                <p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
-            authDomain: "mokahero-8c560.firebaseapp.com",
-            projectId: "mokahero-8c560",
-            storageBucket: "mokahero-8c560.firebasestorage.app",
-            messagingSenderId: "307285112101",
-            appId: "1:307285112101:web:7ac30091baac32c85796cc"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
-        const loginBtn = document.getElementById('login-btn');
-        const walletBtn = document.getElementById('wallet-btn');
-        const userDropdown = document.getElementById('user-dropdown');
-        const dashOverlay = document.getElementById('dashboard-overlay');
-        const logoutBtn = document.getElementById('logout-btn');
-        let currentUser = null;
-
-        // AUTH
-        const handleLogin = async () => {
-            try { 
-                const result = await signInWithPopup(auth, provider);
-                const user = result.user;
-                const userRef = doc(db, "users", user.uid);
-                const snap = await getDoc(userRef);
-                if(!snap.exists()) {
-                    await setDoc(userRef, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
-                }
-            } 
-            catch (error) { console.error(error); alert("Login Failed: " + error.message); }
-        };
-
-        const handleLogout = async () => {
-            if(confirm("Logout?")) { await signOut(auth); userDropdown.classList.remove('active'); closeDashboard(); }
-        };
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
-                loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; border-radius:50%; margin-right:5px; border:1px solid #c8aa6d;">`;
-                loginBtn.style.color = "#c8aa6d"; loginBtn.style.borderColor = "#c8aa6d";
-                loginBtn.onclick = (e) => { e.stopPropagation(); userDropdown.classList.toggle('active'); };
-                document.getElementById('user-avatar').src = user.photoURL;
-                document.getElementById('user-name').innerText = user.displayName;
-                document.getElementById('user-email').innerText = user.email;
-                document.getElementById('logout-btn').onclick = handleLogout;
-                updateDashUI(user.uid);
-            } else {
-                currentUser = null;
-                loginBtn.innerHTML = "LOGIN";
-                loginBtn.style.color = "#ccc"; loginBtn.style.borderColor = "#666";
-                loginBtn.onclick = handleLogin;
-                userDropdown.classList.remove('active');
-            }
-        });
-
-        // DASHBOARD
-        window.closeDashboard = () => {
-            dashOverlay.classList.remove('active');
-            history.pushState("", document.title, window.location.pathname);
-        };
-        
-        window.openDashboard = (tab) => {
-            if(!currentUser) { alert("Please Login"); return; }
-            userDropdown.classList.remove('active');
-            dashOverlay.classList.add('active');
-            const tabBtn = document.querySelector(`.dash-menu-item[onclick*='${tab}']`);
-            if(tabBtn) window.switchDashTab(tab, tabBtn);
-            history.pushState({}, "", "#dashboard");
-        };
-
-        window.switchDashTab = (tab, btn) => {
-            document.querySelectorAll('.dash-panel').forEach(p => p.style.display='none');
-            document.getElementById('dash-'+tab).style.display='block';
-            document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        };
-
-        // WALLET
-        walletBtn.onclick = async () => {
-            if(window.ethereum) {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                await provider.send("eth_requestAccounts", []);
-                const signer = provider.getSigner();
-                const address = await signer.getAddress();
-                walletBtn.innerText = address.substring(0,6)+"...";
-                walletBtn.style.background = "#4a9eff";
-                if(currentUser) {
-                    await updateDoc(doc(db, "users", currentUser.uid), { wallet: address });
-                    document.getElementById('dash-wallet').innerText = address;
-                }
-            } else { alert("Install Metamask!"); }
-        };
-
-        // CHECKIN
-        document.getElementById('checkin-btn').onclick = async () => {
-            if(!currentUser) return;
-            const ref = doc(db, "users", currentUser.uid);
-            const snap = await getDoc(ref);
-            const currentShards = snap.data().shards || 0;
-            await updateDoc(ref, { shards: currentShards + 5 });
-            alert("Checked in! +5 Shards");
-            updateDashUI(currentUser.uid);
-        };
-
-        async function updateDashUI(uid) {
-            const snap = await getDoc(doc(db, "users", uid));
-            if(snap.exists()) {
-                const data = snap.data();
-                document.getElementById('dash-display-name').innerText = data.name;
-                document.getElementById('dash-display-email').innerText = data.email;
-                document.getElementById('dash-shards').innerText = data.shards;
-                document.getElementById('dash-wallet').innerText = data.wallet || "Not Connected";
-                document.getElementById('dash-avatar').src = currentUser.photoURL;
-            }
-        }
-
-        // HELPERS
-        window.showComingSoon = function(btn) {
-            if (btn.dataset.clicking === "true") return;
-            btn.dataset.clicking = "true";
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = "<i class='fas fa-clock'></i> Coming Soon";
-            btn.style.color = "#00f2ff"; btn.style.borderColor = "#00f2ff";
-            setTimeout(() => { btn.innerHTML = originalHTML; btn.style.color = "#aaa"; btn.style.borderColor = "#444"; btn.dataset.clicking = "false"; }, 1500);
-        };
-
-        const heroesData = [
-            { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span>", quote: "\"The fire never dies.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "100% 0%" },
-            { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span>", quote: "\"Nature is never in a hurry.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "100% 33.333%" },
-            { name: "OMEGA WEAPON", factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span>", quote: "\"Steel and Oil are eternal.\"", bgImage: "./assets/bg_omega.jpg?v=1", bgPos: "100% 66.666%" },
-            { name: "VOID EYE", factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span>", quote: "\"The abyss stares back.\"", bgImage: "./assets/bg_zarok.jpg?v=1", bgPos: "100% 100%" }
-        ];
-        let currentHeroIndex = 0;
-        window.changeHero = function(direction) {
-            currentHeroIndex += direction;
-            if (currentHeroIndex >= heroesData.length) currentHeroIndex = 0; else if (currentHeroIndex < 0) currentHeroIndex = heroesData.length - 1;
-            const hero = heroesData[currentHeroIndex];
-            const bg = document.getElementById('g-bg-img');
-            bg.style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('g-name').innerText = hero.name;
-                document.getElementById('g-faction').innerHTML = hero.factionHTML;
-                document.getElementById('g-quote').innerText = hero.quote;
-                bg.src = hero.bgImage;
-                document.getElementById('g-card-sprite').style.backgroundPosition = hero.bgPos;
-                bg.style.opacity = 1;
-            }, 300);
-        };
-        updateDashboardUI(); // Init
-    </script>
-</body>
-</html>
+                        <span style="font-size: 30px; font-weight: 900; color: var(--gold
