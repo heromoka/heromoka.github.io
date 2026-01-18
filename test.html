@@ -8,7 +8,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -19,38 +19,39 @@
             --gold-bright: #f0e6d2;      
             --dark: #050505;             
             --panel-bg: rgba(16, 18, 23, 0.95);
-            --ingame-blue: #4a9eff; /* Màu cho tài nguyên trong game */
+            --ingame-blue: #4a9eff;
+            --web3-purple: #9b59b6;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
-        /* SỬA LỖI FONT: Dùng Roboto cho nội dung chính để hiển thị tốt tiếng Việt */
+        /* Dùng Roboto cho thân trang để không lỗi font tiếng Việt */
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
 
-        /* Vẫn dùng Cinzel cho tiêu đề để sang trọng */
-        h1, h2, h3, .logo, .btn-main, .btn-outline, .nav-links a, .f-title { 
-            font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; 
-        }
+        /* Tiêu đề dùng Cinzel cho sang trọng */
+        h1, h2, h3, .logo, .f-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         
+        /* Các thành phần UI dùng Rajdhani cho hiện đại */
+        .btn-main, .btn-outline, .nav-links a, .phase-name, .eco-text h4 { font-family: 'Rajdhani', sans-serif; font-weight: bold; text-transform: uppercase; }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
         /* BUTTONS */
         .btn-main {
             background: linear-gradient(to bottom, #c8aa6d, #8e733b);
-            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
+            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            cursor: pointer; transition: 0.3s; font-size: 16px;
-            text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: bold;
+            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block;
         }
         .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
 
         .btn-outline {
             background: transparent; border: 1px solid #666; color: #ccc;
-            padding: 10px 25px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            padding: 10px 25px; cursor: pointer; transition: 0.3s;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: bold;
+            font-size: 14px; text-decoration: none; display: inline-block;
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
@@ -72,14 +73,14 @@
         .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
         .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-weight: 600; font-size: 13px; transition: 0.3s; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; font-weight: bold; }
+        .nav-links a { text-decoration: none; color: #888; font-size: 13px; transition: 0.3s; letter-spacing: 1px; }
         .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; }
 
         /* --- 3. SECTIONS COMMON --- */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
-        .sec-desc { color: #666; font-size: 14px; margin-bottom: 50px; letter-spacing: 1px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; }
+        .sec-desc { color: #666; font-size: 14px; margin-bottom: 50px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
 
         /* --- 4. HERO SECTION --- */
         #hero {
@@ -93,7 +94,7 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* --- 5. NFT SLIDER --- */
+        /* --- 5. NFT SLIDER (YASUO STYLE) --- */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper {
             position: relative; max-width: 1100px; height: 500px; margin: 0 auto;
@@ -137,11 +138,7 @@
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
         /* --- 6. FEATURES (GRID 6 MỤC) --- */
-        .feature-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-        }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .feature-card {
             background: #0f1012; border: 1px solid #222; padding: 50px 30px;
             border-radius: 4px; transition: 0.3s; text-align: center; position: relative; overflow: hidden;
@@ -153,64 +150,57 @@
         .f-desc { font-size: 14px; color: #888; line-height: 1.6; }
 
         /* ============================================== */
-        /* --- 7. ECONOMY (NEW COMPLEX LAYOUT) --- */
+        /* --- 7. ECONOMY (SEMI-ONCHAIN MODEL) --- */
         /* ============================================== */
-        .economy-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 50px;
+        .eco-layout {
+            display: flex; gap: 30px; justify-content: center; align-items: stretch;
+            flex-wrap: wrap; margin-top: 40px;
         }
-
-        /* Cột In-game (Bên trái) */
-        .eco-column {
-            flex: 1;
-            min-width: 300px;
-            background: rgba(20, 20, 25, 0.5);
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 30px;
-            position: relative;
+        .eco-zone {
+            flex: 1; min-width: 320px;
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid #333; border-radius: 12px;
+            padding: 30px; position: relative;
+            display: flex; flex-direction: column; gap: 20px;
         }
-        .eco-column.ingame { border-color: var(--ingame-blue); }
-        .eco-column.onchain { border-color: var(--gold); }
-
-        .eco-col-title {
-            font-family: 'Cinzel'; font-size: 20px; margin-bottom: 25px; text-align: center;
-        }
-        .ingame .eco-col-title { color: var(--ingame-blue); }
-        .onchain .eco-col-title { color: var(--gold); }
-
-        .eco-item {
-            display: flex; align-items: center; gap: 15px;
-            margin-bottom: 20px; padding: 15px;
-            background: rgba(0,0,0,0.3); border-radius: 6px;
-        }
-        .eco-item i { font-size: 24px; }
-        .ingame .eco-item i { color: var(--ingame-blue); }
-        .onchain .eco-item i { color: var(--gold); }
-        .eco-item-text h4 { margin: 0; font-size: 16px; color: #fff; font-family: 'Rajdhani', sans-serif; font-weight: bold; }
-        .eco-item-text p { margin: 0; font-size: 13px; color: #999; }
-
-        /* Cột giữa (Chuyển đổi) */
-        .eco-connector {
-            display: flex; flex-direction: column; justify-content: center; gap: 30px;
-            align-items: center;
-        }
-        .connector-box {
-            text-align: center; padding: 20px;
-            background: #111; border: 1px solid #444; border-radius: 50%;
-            width: 120px; height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            position: relative;
-        }
-        .connector-box i { font-size: 30px; margin-bottom: 10px; color: #fff; }
-        .connector-box span { font-size: 12px; color: #aaa; font-weight: bold; text-transform: uppercase; }
         
-        /* Mũi tên kết nối */
-        .connector-arrow { font-size: 30px; color: #555; animation: pulseArrow 2s infinite; }
-        @keyframes pulseArrow { 0%, 100% { opacity: 0.5; transform: translateX(0); } 50% { opacity: 1; transform: translateX(5px); } }
+        /* Zone Colors */
+        .zone-game { border-top: 4px solid var(--ingame-blue); }
+        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
+        
+        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
+        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
 
+        .zone-web3 { border-top: 4px solid var(--gold); }
+        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
+
+        /* Items */
+        .eco-item-box {
+            background: #151515; padding: 15px; border-radius: 8px;
+            display: flex; align-items: center; gap: 15px;
+            border: 1px solid #222; transition: 0.3s;
+        }
+        .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
+        .eco-icon { font-size: 24px; width: 40px; text-align: center; }
+        .eco-text h4 { margin: 0; font-size: 15px; color: #fff; margin-bottom: 3px; }
+        .eco-text p { margin: 0; font-size: 13px; color: #888; line-height: 1.3; }
+
+        /* Connector Area */
+        .swap-action {
+            width: 100%; text-align: center; padding: 15px;
+            background: #050505; border: 1px solid #333; border-radius: 8px;
+            margin: 10px 0; position: relative;
+        }
+        .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
+        .swap-action span { font-size: 13px; font-weight: bold; color: #ccc; font-family: 'Rajdhani'; text-transform: uppercase; }
+        .arrow-flow { 
+            position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666;
+            animation: flow 1.5s infinite;
+        }
+        .arr-left { left: -22px; color: var(--ingame-blue); }
+        .arr-right { right: -22px; color: var(--gold); }
+
+        @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
         /* --- 8. TOKENOMICS --- */
         #token { background: #050505; }
@@ -224,7 +214,7 @@
             position: absolute; inset: 60px; background: var(--dark); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
-        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; }
+        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-family: 'Roboto', sans-serif; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
         /* --- 9. ROADMAP --- */
@@ -233,38 +223,35 @@
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
         .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
         .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
-        .roadmap-point { 
-            position: absolute; top: 0; width: 12px; height: 12px; 
-            background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold);
-        }
+        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
         .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; font-family: 'Rajdhani', sans-serif; }
-        .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; font-family: 'Cinzel', sans-serif; }
+        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; }
         
         /* --- 10. FOOTER --- */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-        .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; font-family: 'Cinzel'; letter-spacing: 1px; }
-        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 13px; }
+        .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
+        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 13px; font-family: 'Roboto', sans-serif; }
         .f-links a:hover { color: var(--gold); }
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
 
         @media (max-width: 992px) {
+            .nav-links { display: none; }
             .genesis-wrapper { height: auto; padding-bottom: 0; }
             .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
             .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
             .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
             .prev-btn, .next-btn { display: none; }
+            .eco-layout { flex-direction: column; }
+            .zone-gate { flex: 1; border-top: none; border-left: 4px solid #fff; flex-direction: row; flex-wrap: wrap; }
+            .footer-cols { grid-template-columns: 1fr; }
             .roadmap-line { left: 20px; }
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
-            .footer-cols { grid-template-columns: 1fr; }
-            .economy-container { flex-direction: column; }
-            .eco-connector { flex-direction: row; transform: rotate(90deg); gap: 10px; margin: 20px 0; }
-            .connector-arrow { transform: rotate(-90deg); animation: none; }
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -369,7 +356,7 @@
                 <div class="feature-card">
                     <i class="fas fa-scroll f-icon"></i>
                     <h3 class="f-title">NHIỆM VỤ HÀNG NGÀY</h3>
-                    <p class="f-desc">Hoàn thành chuỗi nhiệm vụ và thành tựu mỗi ngày để nhận mảnh tướng và tài nguyên.</p>
+                    <p class="f-desc">Hoàn thành chuỗi nhiệm vụ và thành tựu mỗi ngày để nhận Mảnh Tướng và MOKA Shards.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-users f-icon"></i>
@@ -383,66 +370,83 @@
     <section id="economy">
         <div class="container">
             <div class="text-center">
-                <h2 class="sec-title">NỀN KINH TẾ KÉP (DUAL-TOKEN)</h2>
-                <p class="sec-desc">Mô hình bền vững kết hợp giữa tài nguyên trong game và tài sản trên Blockchain.</p>
+                <h2 class="sec-title">NỀN KINH TẾ (PLAY-TO-EARN)</h2>
+                <p class="sec-desc">Hệ thống kinh tế Semi-Onchain, cân bằng giữa Giải trí và Kiếm tiền.</p>
             </div>
             
-            <div class="economy-container">
+            <div class="eco-layout">
                 
-                <div class="eco-column ingame">
-                    <h3 class="eco-col-title"><i class="fas fa-gamepad"></i> VÒNG LẶP GAMEPLAY</h3>
-                    <div class="eco-item">
-                        <i class="fas fa-dungeon"></i>
-                        <div class="eco-item-text">
-                            <h4>PvE & Nhiệm Vụ</h4>
-                            <p>Kiếm Vàng & Mảnh Tướng (Shards).</p>
+                <div class="eco-zone zone-game">
+                    <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
+                    <div class="eco-item-box">
+                        <div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div>
+                        <div class="eco-text">
+                            <h4>MOKA SHARDS</h4>
+                            <p>Nhận khi thắng PvP, Rank, Boss.</p>
                         </div>
                     </div>
-                    <div class="eco-item">
-                        <i class="fas fa-level-up-alt"></i>
-                        <div class="eco-item-text">
-                            <h4>Nâng Cấp Cơ Bản</h4>
-                            <p>Dùng Vàng để tăng cấp tướng.</p>
+                    <div class="eco-item-box">
+                        <div class="eco-icon" style="color: #a335ee;"><i class="fas fa-puzzle-piece"></i></div>
+                        <div class="eco-text">
+                            <h4>MẢNH NFT (FRAGMENTS)</h4>
+                            <p>Rơi ra từ Hầm Ngục & Rương.</p>
+                        </div>
+                    </div>
+                    <div class="eco-item-box" style="border-color: #d63031;">
+                        <div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div>
+                        <div class="eco-text">
+                            <h4>CHỢ ĐEN (BLACK MARKET)</h4>
+                            <p>Giao dịch nội bộ Mảnh & Vật phẩm.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="eco-connector">
-                    <i class="fas fa-chevron-right connector-arrow"></i>
+                <div class="eco-zone zone-gate">
+                    <h3><i class="fas fa-torii-gate"></i> THE GATE</h3>
                     
-                    <div class="connector-box" style="border-color: #fff;">
-                        <i class="fas fa-hammer" style="color: #fff;"></i>
-                        <span>RÈN NFT</span>
-                        <p style="font-size: 10px; color: #888; margin: 5px 0 0;">(Mảnh + $MOKA)</p>
+                    <div class="swap-action">
+                        <i class="fas fa-sync-alt main-icon"></i>
+                        <span>SWAP</span>
+                        <p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p>
+                        <i class="fas fa-chevron-right arrow-flow arr-right"></i>
+                        <i class="fas fa-chevron-left arrow-flow arr-left"></i>
                     </div>
 
-                    <i class="fas fa-chevron-right connector-arrow"></i>
+                    <div class="swap-action">
+                        <i class="fas fa-hammer main-icon"></i>
+                        <span>MINT NFT</span>
+                        <p style="font-size: 10px; color:#666; margin:0;">Mảnh + $MOKA</p>
+                        <i class="fas fa-chevron-right arrow-flow arr-right"></i>
+                    </div>
                 </div>
 
-                <div class="eco-column onchain">
-                    <h3 class="eco-col-title"><i class="fas fa-cube"></i> HỆ SINH THÁI WEB3</h3>
-                    <div class="eco-item">
-                        <i class="fas fa-trophy"></i>
-                        <div class="eco-item-text">
-                            <h4>PvP & Boss Rank</h4>
-                            <p>Nhận phần thưởng Token $MOKA.</p>
+                <div class="eco-zone zone-web3">
+                    <h3><i class="fas fa-globe"></i> WEB3 WORLD</h3>
+                    
+                    <div class="eco-item-box">
+                        <div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div>
+                        <div class="eco-text">
+                            <h4>TOKEN $MOKA</h4>
+                            <p>Giao dịch trên CEX / DEX.</p>
                         </div>
                     </div>
-                    <div class="eco-item">
-                        <i class="fas fa-store-alt"></i>
-                        <div class="eco-item-text">
-                            <h4>Marketplace</h4>
-                            <p>Giao dịch NFT Tướng & Land.</p>
+                    <div class="eco-item-box">
+                        <div class="eco-icon" style="color: #ff9f43;"><i class="fas fa-store"></i></div>
+                        <div class="eco-text">
+                            <h4>NFT MARKETPLACE</h4>
+                            <p>Mua bán Tướng/Land hoàn chỉnh.</p>
+                        </div>
+                    </div>
+                    <div class="eco-item-box">
+                        <div class="eco-icon" style="color: #fff;"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="eco-text">
+                            <h4>SPENDING</h4>
+                            <p>Nạp ngược $MOKA vào game.</p>
                         </div>
                     </div>
                 </div>
 
             </div>
-
-            <p class="text-center" style="margin-top: 40px; color: #888; font-size: 14px; font-family: 'Rajdhani', sans-serif;">
-                *Token $MOKA là tiền tệ quản trị duy nhất có thể giao dịch trên các sàn DEX/CEX.
-            </p>
-
         </div>
     </section>
 
@@ -450,7 +454,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="sec-title">TOKENOMICS</h2>
-                <p class="sec-desc">Phân bổ Token $MOKA - Đảm bảo sự phát triển dài hạn.</p>
+                <p class="sec-desc">Phân bổ Token $MOKA - Tổng cung 1 Tỷ.</p>
             </div>
             <div class="token-wrap">
                 <div class="pie-chart">
@@ -461,9 +465,9 @@
                 </div>
                 <ul class="token-list" style="list-style: none;">
                     <li><span class="dot" style="background:var(--gold)"></span> 30% - Play to Earn (Thưởng Game)</li>
-                    <li><span class="dot" style="background:#555"></span> 20% - Team & Advisors (Khóa 2 năm)</li>
+                    <li><span class="dot" style="background:#555"></span> 20% - Team & Advisors</li>
                     <li><span class="dot" style="background:#333"></span> 30% - Ecosystem & Marketing</li>
-                    <li><span class="dot" style="background:#111"></span> 20% - Public Sale & Liquidity</li>
+                    <li><span class="dot" style="background:#111"></span> 20% - Public Sale</li>
                 </ul>
             </div>
         </div>
