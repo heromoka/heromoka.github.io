@@ -104,45 +104,71 @@
         .download-area { margin-top: 50px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .platform-list { display: flex; gap: 10px; justify-content: center; }
 
-        /* --- 5. NFT SLIDER (CAROUSEL STYLE) --- */
+        /* ========================================= */
+        /* --- 5. NFT SLIDER (YASUO STYLE V3) --- */
+        /* ========================================= */
         #nft { background: #080808; }
-        .genesis-container {
-            position: relative; max-width: 1000px; margin: 0 auto;
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            background: rgba(0,0,0,0.4); border-radius: 4px; padding: 50px;
-            display: flex; align-items: center; justify-content: space-between;
-            min-height: 500px;
+
+        /* Khung bao bọc chính, có viền vàng */
+        .genesis-wrapper {
+            position: relative;
+            max-width: 1100px; height: 600px; /* Chiều cao cố định */
+            margin: 0 auto;
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 4px; overflow: hidden;
+            background: #000;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
+
+        /* Ảnh nền lớn (Splash Art) nằm dưới cùng */
+        .genesis-bg-large {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* Lớp phủ chứa nội dung (Chữ + Thẻ nhỏ) nằm đè lên */
+        .genesis-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.6) 60%, transparent 100%);
+            z-index: 2;
+            display: flex; align-items: flex-end; justify-content: space-between; /* Căn chữ trái, thẻ phải */
+        }
+
+        /* Phần chữ bên trái */
+        .genesis-text {
+            flex: 1; /* Chiếm phần lớn không gian */
+            padding-right: 40px;
+            text-align: left;
+            animation: fadeUp 0.5s ease-out;
+        }
+        .g-faction { color: var(--gold); font-family: 'Cinzel'; letter-spacing: 3px; font-size: 16px; display: block; margin-bottom: 10px; }
+        .g-name { font-family: 'Cinzel'; font-size: 60px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 20px; text-transform: uppercase; text-shadow: 0 5px 10px rgba(0,0,0,0.8); }
+        .g-quote { font-style: italic; color: #ccc; font-size: 16px; max-width: 600px; border-top: 1px solid rgba(255,193,7,0.3); padding-top: 20px; }
+
+        /* Phần thẻ bài vàng nhỏ bên phải */
+        .genesis-small-card {
+            flex: 0 0 280px; /* Chiều rộng cố định */
+            height: 400px;
+            position: relative;
+            bottom: -20px; /* Đẩy xuống một chút tạo hiệu ứng lớp */
+            transition: transform 0.3s;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .genesis-small-card:hover { transform: scale(1.05) translateY(-10px); z-index: 10; }
+        .small-card-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
+
+        /* Nút điều hướng */
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            width: 50px; height: 50px; background: #111; border: 1px solid #444; border-radius: 50%;
-            color: #fff; font-size: 20px; cursor: pointer; z-index: 10;
-            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            width: 60px; height: 60px; background: rgba(0,0,0,0.5); border: 2px solid rgba(255,193,7,0.3); border-radius: 50%;
+            color: #fff; font-size: 24px; cursor: pointer; z-index: 10;
+            display: flex; align-items: center; justify-content: center; transition: 0.3s; backdrop-filter: blur(5px);
         }
-        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); }
-        .prev-btn { left: -25px; } 
-        .next-btn { right: -25px; }
-
-        .hero-content-wrapper { display: flex; width: 100%; align-items: center; justify-content: space-between; }
-        .hero-text-info { flex: 1; text-align: center; padding: 20px; z-index: 2; }
-        .hero-faction { color: #888; text-transform: uppercase; letter-spacing: 3px; font-size: 14px; margin-bottom: 10px; display: block; }
-        .hero-name { font-family: 'Cinzel', serif; font-size: 48px; font-weight: 900; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,1); margin-bottom: 20px; line-height: 1.1; text-transform: uppercase; }
-        .hero-quote { font-style: italic; color: var(--gold); font-size: 16px; max-width: 500px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
-
-        .hero-card-display {
-            flex: 0 0 320px; height: 460px; background: #000;
-            border: 2px solid #333; border-radius: 15px; position: relative;
-            transform: perspective(1000px) rotateY(-10deg); transition: 0.5s;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow: hidden;
-        }
-        .hero-card-display:hover { transform: perspective(1000px) rotateY(0deg) scale(1.05); border-color: var(--gold); }
-        .hero-img-src { width: 100%; height: 100%; object-fit: cover; }
-        .card-gem {
-            position: absolute; top: 15px; right: 15px; width: 40px; height: 40px;
-            background: var(--gold); border-radius: 50%; border: 2px solid #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; color: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
+        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(0,0,0,0.8); }
+        .prev-btn { left: 20px; } 
+        .next-btn { right: 20px; }
 
         /* --- 6. FEATURES --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
@@ -198,15 +224,16 @@
         @media (max-width: 768px) {
             .hero-title { font-size: 40px; }
             .nav-links { display: none; }
-            .genesis-container { flex-direction: column-reverse; padding: 20px; min-height: auto; }
-            .hero-content-wrapper { flex-direction: column-reverse; gap: 30px; }
-            .hero-card-display { transform: none; width: 200px; height: 300px; flex: none; }
-            .nav-arrow { width: 40px; height: 40px; top: 30%; }
-            .prev-btn { left: 0; }
-            .next-btn { right: 0; }
+            /* Responsive cho Slider mới */
+            .genesis-wrapper { height: auto; min-height: 500px; }
+            .genesis-overlay { flex-direction: column; align-items: center; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,1) 20%, rgba(0,0,0,0.5) 100%); }
+            .genesis-text { padding-right: 0; text-align: center; margin-bottom: 20px; }
+            .g-name { font-size: 40px; }
+            .genesis-small-card { flex: none; width: 200px; height: 280px; bottom: 0; }
+            .nav-arrow { width: 40px; height: 40px; font-size: 18px; }
         }
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -260,23 +287,24 @@
                 <p class="sec-desc">Chọn anh hùng của bạn. Ai sẽ cùng bạn bước vào trận chiến?</p>
             </div>
             
-            <div class="genesis-container">
-                <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-arrow-left"></i></button>
-                
-                <div class="hero-content-wrapper" id="hero-display-area">
-                    <div class="hero-text-info">
-                        <span class="hero-faction" id="h-faction" style="color: #ff3b3b;">HỆ LỬA • IGNIS</span>
-                        <h2 class="hero-name" id="h-name">IGNIS PRIME</h2>
-                        <p class="hero-quote" id="h-quote">"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."</p>
+            <div class="genesis-wrapper">
+                <img src="./assets/bg_ignis.jpg?v=1" class="genesis-bg-large" id="g-bg-img">
+
+                <div class="genesis-overlay" id="g-overlay">
+                    <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
+
+                    <div class="genesis-text">
+                        <span class="g-faction" id="g-faction">IONIA • BÃO THÉP</span>
+                        <h2 class="g-name" id="g-name">YASUO</h2>
+                        <p class="g-quote" id="g-quote">"Tấn công nhanh như chớp và chặn đứng đường đi nước bước của kẻ dịch."</p>
                     </div>
 
-                    <div class="hero-card-display" id="h-card-border">
-                        <div class="card-gem" id="h-cost">12</div>
-                        <img src="./assets/bg_ignis.jpg?v=1" class="hero-img-src" id="h-img">
+                    <div class="genesis-small-card">
+                        <img src="./assets/card_ignis_gold.png" class="small-card-img" id="g-card-img" onerror="this.src='./assets/fire.png'">
                     </div>
+
+                     <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
                 </div>
-
-                <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-arrow-right"></i></button>
             </div>
             
             <div class="text-center" style="margin-top: 40px;">
@@ -467,35 +495,37 @@
             }, 1500);
         }
 
-        // 2. LOGIC SLIDER CHỌN TƯỚNG (CAROUSEL)
+        // 2. LOGIC SLIDER YASUO STYLE MỚI
+        // Dữ liệu: Cần 2 ảnh (bgImage: ảnh nền lớn, cardImage: ảnh thẻ vàng nhỏ)
+        // LƯU Ý: Hãy thay thế tên file ảnh thẻ vàng thật của bạn vào `cardImage`
         const heroesData = [
             {
                 name: "IGNIS PRIME",
                 faction: "HỆ LỬA • IGNIS",
-                quote: "\"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh. Thiêu đốt mọi kẻ thù cản bước.\"",
-                image: "./assets/bg_ignis.jpg?v=1",
-                color: "#ff3b3b", cost: 12
+                quote: "\"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh.\"",
+                bgImage: "./assets/bg_ignis.jpg?v=1",
+                cardImage: "./assets/card_ignis_gold.png" // Thay bằng ảnh thẻ vàng thật
             },
             {
                 name: "GAIA MOTHER",
                 faction: "HỆ MỘC • SYLVA",
-                quote: "\"Thiên nhiên không vội vàng, nhưng mọi thứ đều hoàn thành. Sự sống sẽ trỗi dậy từ tro tàn.\"",
-                image: "./assets/bg_sylva.jpg?v=1",
-                color: "#00ff88", cost: 10
+                quote: "\"Sự sống sẽ trỗi dậy từ tro tàn. Thiên nhiên luôn tìm ra lối thoát.\"",
+                bgImage: "./assets/bg_sylva.jpg?v=1",
+                cardImage: "./assets/card_sylva_gold.png" // Thay bằng ảnh thẻ vàng thật
             },
             {
                 name: "OMEGA WEAPON",
                 faction: "HỆ MÁY • OMEGA",
-                quote: "\"Cảm xúc là điểm yếu. Thép và Dầu mới là chân lý của sự tiến hóa vĩnh cửu.\"",
-                image: "./assets/bg_omega.jpg?v=1",
-                color: "#00d9ff", cost: 15
+                quote: "\"Thép và Dầu là chân lý vĩnh cửu. Cảm xúc chỉ là điểm yếu.\"",
+                bgImage: "./assets/bg_omega.jpg?v=1",
+                cardImage: "./assets/card_omega_gold.png" // Thay bằng ảnh thẻ vàng thật
             },
             {
                 name: "VOID EYE",
                 faction: "HƯ KHÔNG • ZAROK",
-                quote: "\"Khi người nhìn vào vực thẳm, vực thẳm cũng đang nhìn lại ngươi... và mỉm cười.\"",
-                image: "./assets/bg_zarok.jpg?v=1",
-                color: "#9d00ff", cost: 11
+                quote: "\"Khi ngươi nhìn vào vực thẳm, vực thẳm cũng đang nhìn lại ngươi.\"",
+                bgImage: "./assets/bg_zarok.jpg?v=1",
+                cardImage: "./assets/card_zarok_gold.png" // Thay bằng ảnh thẻ vàng thật
             }
         ];
 
@@ -510,20 +540,30 @@
 
         function updateHeroDisplay() {
             const hero = heroesData[currentHeroIndex];
-            const displayArea = document.getElementById('hero-display-area');
-            displayArea.style.opacity = 0;
+            // Hiệu ứng mờ đi trước khi đổi
+            document.getElementById('g-bg-img').style.opacity = 0;
+            document.getElementById('g-overlay').style.opacity = 0;
+            
             setTimeout(() => {
-                document.getElementById('h-name').innerText = hero.name;
-                document.getElementById('h-name').style.color = hero.color;
-                document.getElementById('h-faction').innerText = hero.faction;
-                document.getElementById('h-faction').style.color = hero.color;
-                document.getElementById('h-quote').innerText = hero.quote;
-                document.getElementById('h-img').src = hero.image;
-                document.getElementById('h-cost').innerText = hero.cost;
-                document.getElementById('h-card-border').style.borderColor = hero.color;
-                displayArea.style.opacity = 1;
-            }, 200);
+                // Cập nhật nội dung
+                document.getElementById('g-name').innerText = hero.name;
+                document.getElementById('g-faction').innerText = hero.faction;
+                document.getElementById('g-quote').innerText = hero.quote;
+                document.getElementById('g-bg-img').src = hero.bgImage;
+                
+                // Cập nhật ảnh thẻ và xử lý lỗi nếu chưa có ảnh
+                const cardImg = document.getElementById('g-card-img');
+                cardImg.src = hero.cardImage;
+                cardImg.onerror = function() { this.src = './assets/fire.png'; }; // Ảnh dự phòng
+
+                // Hiển thị lại
+                document.getElementById('g-bg-img').style.opacity = 1;
+                document.getElementById('g-overlay').style.opacity = 1;
+            }, 300);
         }
+
+        // Khởi tạo lần đầu
+        updateHeroDisplay();
     </script>
 
 </body>
