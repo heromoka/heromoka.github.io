@@ -11,11 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS V15 (GIỮ NGUYÊN BẢN GỐC) --- */
+        /* --- 1. CORE CSS TỪ BẢN V15 CHUẨN (GIỮ NGUYÊN) --- */
         /* ================================================================= */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
@@ -25,7 +26,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
-        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        h1, h2, h3, .logo { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
@@ -44,18 +45,13 @@
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* SECTIONS */
-        section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
-        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
-        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
-
         /* HERO */
         #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
         .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
         .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
-        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; background: linear-gradient(to right, var(--gold), #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; background: linear-gradient(to right, var(--gold), #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
@@ -76,7 +72,7 @@
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* FEATURES */
+        /* FEATURES, ECO, TOKEN, ETC - KHÔI PHỤC V15 GỐC */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
         .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; position: relative; }
         .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
@@ -86,7 +82,6 @@
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* ECONOMY */
         .eco-layout { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; }
         .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
@@ -103,7 +98,6 @@
         .arr-left { left: -22px; color: var(--ingame-blue); } .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
-        /* TOKEN */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
         .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
@@ -111,38 +105,49 @@
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-        /* ROADMAP */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
         .roadmap-item:nth-child(odd) { left: 0; text-align: right; } .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
-        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
+        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; } .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
         .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
 
-        /* PARTNERS */
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
         .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
         .partner-item i { font-size: 24px; color: #fff; }
         .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* FOOTER */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
-        .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; }
         .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
         .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; font-family: 'Roboto', sans-serif; }
         .f-links a:hover { color: var(--gold); }
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
 
+        @media (max-width: 992px) {
+            .nav-links { display: none; }
+            .hero-title { font-size: 50px; }
+            .genesis-wrapper { height: auto; padding-bottom: 0; }
+            .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; }
+            .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
+            .prev-btn, .next-btn { display: none; }
+            .eco-layout { flex-direction: column; }
+            .footer-cols { grid-template-columns: 1fr; }
+            .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
+            .roadmap-point { left: 14px !important; }
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
         /* ================================================================= */
-        /* --- 2. ADDED STYLES: DASHBOARD, LOGIN, TOAST (V37 FINAL) --- */
+        /* --- 2. ADDED STYLES: DASHBOARD FULL SCREEN & FIXES (V37) --- */
         /* ================================================================= */
         
-        /* TOAST NOTIFICATION */
+        /* TOAST */
         #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
         .toast {
             background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px;
@@ -157,75 +162,53 @@
         /* LOGIN GATE */
         .login-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .login-overlay.active { display: flex; }
-        .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; box-shadow: 0 0 50px rgba(200,170,109,0.2); }
+        .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; }
         .login-option { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #ccc; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
         .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
 
         /* DASHBOARD FULL SCREEN (TRÀN VIỀN) */
-        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #000; flex-direction: column; }
+        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #000; flex-direction: column; width: 100vw; height: 100vh; }
         .dash-overlay.active { display: flex; }
         
-        /* Chỉnh lại wrapper full màn hình */
         .dash-wrapper { width: 100%; height: 100%; background: #111; display: flex; border: none; border-radius: 0; }
+        .dash-sidebar { width: 260px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 30px 20px; flex-shrink: 0; }
+        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-position: center; background-blend-mode: multiply; background-color: rgba(10,10,15,0.95); position: relative; }
+        .dash-topbar { height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; background: rgba(0,0,0,0.5); }
+        .dash-content { flex: 1; padding: 40px 60px; overflow-y: auto; }
         
-        .dash-sidebar { width: 250px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 20px; }
-        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: multiply; background-color: rgba(10,10,15,0.95); }
-        .dash-topbar { height: 60px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: flex-end; padding: 0 30px; }
-        .dash-content { flex: 1; padding: 40px; overflow-y: auto; }
-        
-        .dash-menu-item { padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 4px; margin-bottom: 5px; transition: 0.2s; }
+        .dash-menu-item { padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 4px; margin-bottom: 5px; transition: 0.2s; }
         .dash-menu-item:hover, .dash-menu-item.active { background: rgba(200,170,109,0.1); color: var(--gold); }
         .dash-logout { margin-top: auto; color: #ff4757; }
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
 
         /* PROFILE STYLES */
-        .profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 8px; width: 100%; max-width: 1000px; margin: 0 auto; }
+        .profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 8px; width: 100%; max-width: 1200px; margin: 0 auto; }
         .p-row { display: flex; flex-direction: column; margin-bottom: 25px; position: relative; }
         .p-label { color: #666; font-size: 11px; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
-        
-        /* The input acts like text by default */
-        .p-input { 
-            background: transparent; border: 1px solid transparent; color: #fff; 
-            padding: 10px 0; font-family: 'Roboto'; font-size: 16px; width: 100%; 
-            transition: 0.3s; pointer-events: none; /* Không cho click khi chưa bấm bút */
-        }
-        /* When editable */
-        .p-input.editable { 
-            background: rgba(0,0,0,0.5); border: 1px solid #444; padding: 10px; 
-            pointer-events: auto; color: var(--gold); 
-        }
+        .p-input { background: transparent; border: 1px solid transparent; color: #fff; padding: 10px 0; font-family: 'Roboto'; font-size: 16px; width: 100%; transition: 0.3s; pointer-events: none; }
+        .p-input.editable { background: rgba(0,0,0,0.5); border: 1px solid #444; padding: 10px; pointer-events: auto; color: var(--gold); }
         .p-input:focus { border-color: var(--gold); outline: none; }
-        
-        /* Edit Icon */
-        .edit-icon { 
-            position: absolute; right: 0; bottom: 12px; color: #444; 
-            cursor: pointer; transition: 0.2s; font-size: 14px;
-        }
+        .edit-icon { position: absolute; right: 0; bottom: 12px; color: #444; cursor: pointer; transition: 0.2s; font-size: 14px; }
         .edit-icon:hover { color: var(--gold); }
         .edit-icon.hidden { display: none; }
+        .save-btn { background: var(--gold); color: #000; border: none; padding: 10px 30px; font-weight: bold; cursor: pointer; float: right; margin-top: 10px; font-family: 'Rajdhani'; display: none; }
 
-        .save-btn { 
-            background: var(--gold); color: #000; border: none; padding: 10px 30px; 
-            font-weight: bold; cursor: pointer; float: right; margin-top: 10px; 
-            font-family: 'Rajdhani'; display: none;
-        }
-
-        /* SETTINGS */
-        .connect-row { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 6px; }
-        .social-info { display: flex; align-items: center; gap: 15px; color: #fff; font-weight: bold; }
-        .social-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 20px; }
-        .btn-connect { background: transparent; border: 1px solid #555; color: #ccc; padding: 6px 15px; font-size: 12px; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        /* SETTINGS & DROPDOWN */
+        .connect-row { display: flex; justify-content: space-between; align-items: center; padding: 25px; background: rgba(255,255,255,0.03); margin-bottom: 15px; border-radius: 6px; }
+        .social-info { display: flex; align-items: center; gap: 15px; color: #fff; font-weight: bold; font-size: 16px; }
+        .social-icon { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 22px; }
+        .btn-connect { background: transparent; border: 1px solid #555; color: #ccc; padding: 8px 20px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 4px; }
         .btn-connect:hover { border-color: #fff; color: #fff; }
-        .connected-text { color: #00ff88; font-size: 12px; margin-right: 10px; font-weight: bold; display: none; }
+        .connected-text { color: #00ff88; font-size: 13px; margin-right: 15px; font-weight: bold; display: none; }
 
         .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
         .user-dropdown.active { display: flex; }
         .dropdown-item { padding: 12px 15px; color: #ccc; text-decoration: none; font-size: 13px; border-bottom: 1px solid #222; transition: 0.2s; display: flex; gap: 10px; cursor: pointer; }
         .dropdown-item:hover { background: #222; color: var(--gold); }
 
-        @media (max-width: 768px) { .dash-wrapper { flex-direction: column; } .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; } }
+        @media (max-width: 768px) { .dash-wrapper { flex-direction: column; } .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; } .dash-content { padding: 20px; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -247,14 +230,14 @@
         <div class="nav-actions">
             <button id="main-login-btn" class="btn-outline">LOGIN</button>
             <div id="user-dropdown" class="user-dropdown">
-                <div style="padding:15px; border-bottom:1px solid #333; display:flex; gap:10px; align-items:center;">
-                    <img id="user-avatar" src="" style="width:30px; height:30px; border-radius:50%; display:none;">
+                <div class="dropdown-header" style="padding:15px; border-bottom:1px solid #333; display:flex; gap:10px; align-items:center;">
+                    <img id="user-avatar" src="" alt="" style="width:30px; height:30px; border-radius:50%; display:none;">
                     <div style="display:flex; flex-direction:column;">
                         <span id="user-display-name" style="color:#fff; font-size:13px; font-weight:bold;">...</span>
                         <span style="color:#666; font-size:10px;">Commander</span>
                     </div>
                 </div>
-                <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user"></i> Profile</div>
+                <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Profile</div>
                 <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box-open"></i> Inventory</div>
                 <div class="dropdown-item" onclick="openDashboard('settings')"><i class="fas fa-cog"></i> Settings</div>
                 <div class="dropdown-item" id="logout-btn" style="color:#ff4757;"><i class="fas fa-sign-out-alt"></i> Logout</div>
@@ -399,27 +382,15 @@
         </div>
     </section>
 
-    <section id="features"><div class="container"><div class="text-center"><h2 class="sec-title">GAME FEATURES</h2></div><div class="feature-grid"><div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks.</p></div><div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS</h3><p class="f-desc">Cooperate to defeat bosses.</p></div><div class="feature-card"><i class="fas fa-hammer f-icon"></i><h3 class="f-title">FORGE NFT</h3><p class="f-desc">Craft NFT gear.</p></div></div></div></section>
+    <section id="features"><div class="container"><div class="text-center"><h2 class="sec-title">GAME FEATURES</h2></div><div class="feature-grid"><div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p></div><div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS</h3><p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p></div><div class="feature-card"><i class="fas fa-hammer f-icon"></i><h3 class="f-title">FORGE NFT</h3><p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p></div><div class="feature-card"><i class="fas fa-landmark f-icon"></i><h3 class="f-title">LAND OWNERSHIP</h3><p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p></div><div class="feature-card"><i class="fas fa-scroll f-icon"></i><h3 class="f-title">DAILY QUESTS</h3><p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p></div><div class="feature-card"><i class="fas fa-users f-icon"></i><h3 class="f-title">GUILD WARS</h3><p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p></div></div></div></section>
     
-    <section id="economy">
-        <div class="container"><div class="text-center"><h2 class="sec-title">ECONOMY</h2></div><div class="eco-layout">
-            <div class="eco-zone zone-game"><h3>IN-GAME</h3><div class="eco-item-box"><div class="eco-icon">💎</div><h4>MOKA SHARDS</h4></div></div>
-            <div class="eco-zone zone-gate"><h3>GATE</h3><div class="swap-action">SWAP / MINT</div></div>
-            <div class="eco-zone zone-web3"><h3>WEB3</h3><div class="eco-item-box"><div class="eco-icon">🪙</div><h4>$MOKA TOKEN</h4></div></div>
-        </div></div>
-    </section>
+    <section id="economy"><div class="container"><div class="text-center"><h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2></div><div class="eco-layout"><div class="eco-zone zone-game"><h3>IN-GAME</h3><div class="eco-item-box"><div class="eco-icon">💎</div><h4>MOKA SHARDS</h4></div><div class="eco-item-box"><div class="eco-icon">🧩</div><h4>NFT FRAGMENTS</h4></div></div><div class="eco-zone zone-gate"><h3>GATE</h3><div class="swap-action">SWAP / MINT</div></div><div class="eco-zone zone-web3"><h3>WEB3</h3><div class="eco-item-box"><div class="eco-icon">🪙</div><h4>$MOKA TOKEN</h4></div><div class="eco-item-box"><div class="eco-icon">🛒</div><h4>MARKETPLACE</h4></div></div></div></div></section>
 
-    <section id="token">
-        <div class="container"><div class="text-center"><h2 class="sec-title">TOKENOMICS</h2></div><div class="token-wrap"><div class="pie-chart"><div class="pie-hole"><span style="font-family:'Cinzel'; font-size:30px; color:var(--gold);">100M</span></div></div><ul class="token-list" style="list-style:none;"><li><span class="dot" style="background:var(--gold)"></span> 51% Play to Earn</li><li><span class="dot" style="background:#9b59b6"></span> 20% Marketing</li></ul></div></div>
-    </section>
+    <section id="token"><div class="container"><div class="text-center"><h2 class="sec-title">TOKENOMICS</h2></div><div class="token-wrap"><div class="pie-chart"><div class="pie-hole"><span style="font-family:'Cinzel'; font-size:30px; color:var(--gold);">100M</span></div></div><ul class="token-list" style="list-style:none;"><li><span class="dot" style="background:var(--gold)"></span> 51% Play to Earn</li><li><span class="dot" style="background:#222"></span> 10% Team</li><li><span class="dot" style="background:#9b59b6"></span> 20% Marketing</li><li><span class="dot" style="background:#555"></span> 19% Ecosystem</li></ul></div></div></section>
 
-    <section id="roadmap">
-        <div class="container"><div class="text-center"><h2 class="sec-title">ROADMAP</h2></div><div class="roadmap-container"><div class="roadmap-line"></div><div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q1 2026</span><h3>GENESIS</h3></div><div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q2 2026</span><h3>LAUNCH</h3></div></div></div>
-    </section>
+    <section id="roadmap"><div class="container"><div class="text-center"><h2 class="sec-title">ROADMAP</h2></div><div class="roadmap-container"><div class="roadmap-line"></div><div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q1 2026</span><h3>GENESIS</h3><ul><li>Website Launch</li><li>Genesis Sale</li></ul></div><div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q2 2026</span><h3>LAUNCH</h3><ul><li>Mobile Launch</li><li>Guild Wars</li></ul></div></div></div></section>
 
-    <section id="partners">
-        <div class="container"><div class="text-center"><p style="color:#666; letter-spacing:3px;">PARTNERS</p></div><div class="partner-grid"><div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS</span></div><div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN</span></div></div></div>
-    </section>
+    <section id="partners"><div class="container"><div class="text-center"><p style="color:#666; letter-spacing:3px;">PARTNERS</p></div><div class="partner-grid"><div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS</span></div><div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN</span></div><div class="partner-item"><i class="fas fa-gem"></i> <span>DIAMOND</span></div></div></div></section>
 
     <footer><div class="container"><div class="text-center" style="color:#666; font-size:12px;">© 2026 MOKAHERO</div></div></footer>
 
@@ -495,8 +466,6 @@
             mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
             mainLoginBtn.style.color = "#c8aa6d"; mainLoginBtn.style.borderColor = "#c8aa6d";
             document.getElementById('user-display-name').innerText = user.name;
-            
-            // Fill Profile
             document.getElementById('input-name').value = user.name;
             
             if(user.type === 'google') {
@@ -521,7 +490,7 @@
             currentLoginType = '';
         }
 
-        // 5. EDIT PROFILE LOGIC
+        // 5. EDIT PROFILE
         window.enableEdit = (field) => {
             const input = document.getElementById('input-' + field);
             input.readOnly = false;
@@ -556,9 +525,18 @@
             }, 3000);
         };
 
-        window.connectSocial = (type) => showToast("Feature coming soon!", "success");
+        // 7. SETTINGS
+        window.connectSocial = (type) => {
+            const username = prompt("Enter username:");
+            if(username) {
+                document.getElementById(type+'-status').innerText = "Connected: @" + username;
+                document.getElementById(type+'-status').style.display = "inline";
+                document.querySelector(`#${type}-action .btn-connect`).innerText = "UNLINK";
+                showToast("Connected Successfully!", "success");
+            }
+        };
 
-        // DASHBOARD
+        // DASHBOARD TABS
         window.openDashboard = (tab) => {
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
@@ -602,7 +580,6 @@
                 bg.style.opacity = 1;
             }, 300);
         };
-        // Helpers
         window.showComingSoon = function(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
