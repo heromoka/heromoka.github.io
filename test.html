@@ -13,202 +13,343 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- 1. CORE & VARIABLES --- */
+        /* --- 1. CORE & NEW VARIABLES --- */
         :root {
-            --gold: #c8aa6d;             
-            --gold-bright: #f0e6d2;      
-            --dark: #050505;             
-            --ingame-blue: #4a9eff;
-            --web3-purple: #9b59b6;
+            --gold: #c8aa6d;
+            --gold-glow: rgba(200, 170, 109, 0.5);
+            --cyan: #00f2ff; /* NEW: Màu điểm nhấn công nghệ */
+            --cyan-glow: rgba(0, 242, 255, 0.5);
+            --dark: #050505;
+            --dark-depth: #0a0a0f; /* Nền tối có chiều sâu hơn */
+            --card-bg: rgba(20, 20, 30, 0.6); /* Nền kính mờ */
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
-        body { font-family: 'Rajdhani', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
+        body { 
+            font-family: 'Rajdhani', sans-serif; 
+            background-color: var(--dark); 
+            /* Thêm vân lưới nhẹ cho nền để bớt đơn điệu */
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            color: #f0f0f0; overflow-x: hidden; line-height: 1.6; 
+        }
 
         h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         
+        /* Hiệu ứng chữ tiêu đề chuyển màu (Gradient Text) */
+        .sec-title, .hero-title {
+            background: linear-gradient(to right, var(--gold), #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS */
-        .btn-main {
-            background: linear-gradient(to bottom, #c8aa6d, #8e733b);
-            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block;
+        /* GLOBAL GLASSMOrPHISM CARD STYLE */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
+        .glass-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(200, 170, 109, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* BUTTONS - Nâng cấp hiệu ứng */
+        .btn-main {
+            background: linear-gradient(45deg, var(--gold), #8e733b);
+            color: #000; padding: 12px 40px; border: none; font-weight: 700;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block;
+            position: relative; overflow: hidden;
+        }
+        .btn-main::before { /* Hiệu ứng quét sáng */
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+        }
+        .btn-main:hover::before { left: 100%; }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 0 30px var(--gold-glow); color: #000; }
 
         .btn-outline {
-            background: transparent; border: 1px solid #666; color: #ccc;
-            padding: 10px 25px; cursor: pointer; transition: 0.3s;
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); color: #ccc;
+            padding: 10px 30px; cursor: pointer; transition: 0.3s;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
             font-size: 14px; text-decoration: none; display: inline-block; font-weight: 700;
+            backdrop-filter: blur(5px);
         }
-        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-        .btn-platform {
-            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa;
-            padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
-            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
-            min-width: 120px; justify-content: center;
-        }
-        .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
+        .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); background: rgba(0, 242, 255, 0.1); }
 
         /* --- 2. NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; height: 80px;
-            background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222;
+            background: rgba(5, 5, 10, 0.8); /* Trong suốt hơn */
+            backdrop-filter: blur(15px); /* Làm mờ nền khi cuộn */
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             position: fixed; width: 100%; top: 0; z-index: 1000;
         }
-        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; text-shadow: 0 0 10px rgba(0,0,0,0.5); }
         .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links a { text-decoration: none; color: #aaa; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; position: relative; }
+        .nav-links a::after { /* Gạch chân phát sáng khi hover */
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; 
+            background: var(--cyan); transition: 0.3s; box-shadow: 0 0 10px var(--cyan);
+        }
+        .nav-links a:hover { color: var(--cyan); }
+        .nav-links a:hover::after { width: 100%; }
         .nav-actions { display: flex; gap: 15px; align-items: center; }
 
         /* --- 3. SECTIONS COMMON --- */
-        section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
-        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
-        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
+        section { padding: 120px 0; border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+        /* Thêm các luồng sáng nền cho mỗi section */
+        section::before {
+            content: ''; position: absolute; top: 50%; left: 50%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(200, 170, 109, 0.05) 0%, transparent 70%);
+            transform: translate(-50%, -50%); pointer-events: none; z-index: 0;
+        }
+        
+        .sec-title { font-size: 42px; margin-bottom: 15px; letter-spacing: 3px; }
+        .sec-desc { color: #888; font-size: 16px; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- 4. HERO SECTION --- */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
-            position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
+            position: relative; text-align: center; overflow: hidden; padding: 0; border: none;
         }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.7); }
         .hero-overlay {
             position: absolute; inset: 0;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
+            /* Gradient màu phong phú hơn */
+            background: radial-gradient(ellipse at center, rgba(0, 242, 255, 0.1) 0%, rgba(5, 5, 5, 0.8) 60%, #050505 100%);
             z-index: 1;
         }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
-        .hero-subtitle { font-size: 16px; color: var(--gold); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; }
-        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; text-shadow: 0 10px 40px #000; color: #fff; letter-spacing: 2px; }
-        .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .platform-list { display: flex; gap: 15px; justify-content: center; }
+        .hero-subtitle { font-size: 18px; color: var(--cyan); letter-spacing: 8px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 20px var(--cyan-glow); }
+        .hero-title { font-size: 90px; margin-bottom: 20px; line-height: 1.1; text-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 25px; }
+        .platform-list { display: flex; gap: 20px; justify-content: center; }
+        .btn-platform {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #aaa;
+            padding: 10px 25px; font-size: 13px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 10px; font-weight: bold;
+            backdrop-filter: blur(5px);
+        }
+        .btn-platform:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0, 242, 255, 0.1); box-shadow: 0 0 15px var(--cyan-glow); }
 
-        /* --- 5. NFT SLIDER --- */
-        #nft { background: #0b0b0b; padding-top: 80px; }
-        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid #333; background: #000; overflow: visible; }
-        .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
-        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.9); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .genesis-panel::before, .genesis-panel::after { content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
-        .genesis-panel::before { left: 20px; }
-        .genesis-panel::after { right: 20px; }
+        /* --- 5. NFT SLIDER (Adding Polish) --- */
+        #nft { background: var(--dark-depth); }
+        .genesis-wrapper { 
+            position: relative; max-width: 1100px; height: 500px; margin: 0 auto;
+            border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+        .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 50%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%); }
+        .genesis-panel { 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; 
+            background: rgba(10, 10, 15, 0.85); /* Kính mờ */
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--gold);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            display: flex; align-items: center; justify-content: center; z-index: 2; 
+        }
+        /* Thêm hiệu ứng sáng chạy trên viền panel */
+        .genesis-panel::after {
+            content: ''; position: absolute; top: -2px; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--cyan), transparent);
+            background-size: 200% 100%;
+            animation: borderFlow 3s linear infinite;
+        }
+        @keyframes borderFlow { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
-        .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
-        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
-        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
-        .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
-        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
-        .prev-btn { left: -70px; } .next-btn { right: -70px; }
+        .g-faction { color: var(--cyan); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; text-shadow: 0 0 10px var(--cyan-glow); }
+        .g-name { font-size: 52px; margin-bottom: 10px; text-shadow: 0 5px 20px rgba(0,0,0,0.8); }
+        .g-quote { font-size: 15px; color: #aaa; font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; margin-top: 15px; display: inline-block; width: 100%; }
+        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); filter: drop-shadow(0 30px 40px rgba(0,0,0,0.8)); }
+        .genesis-card-container:hover { transform: scale(1.08) translateY(-15px) rotate(2deg); }
+        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 12px; box-shadow: 0 0 0 2px rgba(200, 170, 109, 0.5), 0 0 30px rgba(200, 170, 109, 0.3); }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: #fff; font-size: 20px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; backdrop-filter: blur(5px); }
+        .nav-arrow:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
+        .prev-btn { left: -80px; } .next-btn { right: -80px; }
 
-        /* --- 6. FEATURES --- */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .feature-card { background: #0f1012; border: 1px solid #222; padding: 50px 30px; border-radius: 4px; transition: 0.3s; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
-        .feature-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
-        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; }
-        .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
-        .f-desc { font-size: 15px; color: #888; line-height: 1.6; }
+        /* --- 6. FEATURES (Dùng Glass Card) --- */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .feature-card {
+            padding: 50px 35px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            /* Kế thừa glass-card và thêm viền gradient */
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            border: 1px solid transparent; /* Ẩn viền gốc */
+            background-clip: padding-box; /* Quan trọng cho viền gradient */
+        }
+        /* Tạo viền gradient cho thẻ */
+        .feature-card::before {
+            content: ''; position: absolute; inset: 0; padding: 1px; /* Độ dày viền */
+            border-radius: 12px; 
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            pointer-events: none; transition: 0.3s;
+        }
+        .feature-card:hover::before {
+             background: linear-gradient(135deg, var(--gold), var(--cyan)); /* Viền đổi màu khi hover */
+             box-shadow: 0 0 30px var(--cyan-glow);
+        }
+        .feature-card:hover { transform: translateY(-10px); }
 
-        /* --- 7. ECONOMY --- */
-        .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
-        .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
-        .zone-game { border-top: 4px solid var(--ingame-blue); }
-        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
-        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
-        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
-        .zone-web3 { border-top: 4px solid var(--gold); }
-        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
-        .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; transition: 0.3s; }
-        .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
-        .eco-icon { font-size: 24px; width: 40px; text-align: center; }
-        .eco-text h4 { margin: 0; font-size: 16px; color: #fff; margin-bottom: 3px; font-weight: bold; }
-        .eco-text p { margin: 0; font-size: 13px; color: #888; line-height: 1.3; }
-        .swap-action { width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px; margin: 10px 0; position: relative; }
-        .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
-        .swap-action span { font-size: 14px; font-weight: bold; color: #ccc; text-transform: uppercase; }
-        .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
-        .arr-left { left: -22px; color: var(--ingame-blue); }
-        .arr-right { right: -22px; color: var(--gold); }
-        @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
+        .f-icon { font-size: 45px; color: var(--gold); margin-bottom: 30px; display: inline-block; transition: 0.3s; text-shadow: 0 0 20px var(--gold-glow); }
+        .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 20px var(--cyan-glow); transform: scale(1.1); }
+        .f-title { font-size: 22px; margin-bottom: 20px; color: #fff; letter-spacing: 1px; }
+        .f-desc { font-size: 15px; color: #aaa; line-height: 1.7; }
 
-        /* --- 8. TOKENOMICS --- */
-        #token { background: #050505; }
-        .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
+        /* --- 7. ECONOMY (Nâng cấp visual) --- */
+        .eco-layout { display: flex; gap: 40px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 50px; }
+        .eco-zone { 
+            flex: 1; min-width: 320px; padding: 40px; position: relative;
+            display: flex; flex-direction: column; gap: 25px; border-radius: 16px;
+        }
+        /* Màu sắc riêng cho từng zone */
+        .zone-game { border-top: 4px solid var(--ingame-blue); box-shadow: 0 -10px 30px rgba(74, 158, 255, 0.1) inset; }
+        .zone-game h3 { color: var(--ingame-blue); text-shadow: 0 0 15px rgba(74, 158, 255, 0.5); }
+        
+        .zone-gate { flex: 0 0 280px; border-top: 4px solid #fff; box-shadow: 0 -10px 30px rgba(255,255,255, 0.05) inset; justify-content: center; }
+        .zone-gate h3 { color: #fff; }
+
+        .zone-web3 { border-top: 4px solid var(--gold); box-shadow: 0 -10px 30px var(--gold-glow) inset; }
+        .zone-web3 h3 { color: var(--gold); text-shadow: 0 0 15px var(--gold-glow); }
+        
+        .eco-item-box {
+            background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 20px;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
+        }
+        .eco-item-box:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); transform: translateX(5px); }
+        .eco-icon { font-size: 28px; width: 50px; text-align: center; }
+        .eco-text h4 { font-size: 18px; margin-bottom: 5px; }
+
+        .swap-action {
+            width: 100%; text-align: center; padding: 25px; background: rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; position: relative;
+            transition: 0.3s;
+        }
+        .swap-action:hover { border-color: var(--cyan); box-shadow: 0 0 20px var(--cyan-glow); }
+        .swap-action i.main-icon { font-size: 32px; color: var(--gold); margin-bottom: 10px; display: block; transition:0.3s; }
+        .swap-action:hover i.main-icon { color: var(--cyan); transform: rotate(180deg); }
+        .swap-action span { font-size: 16px; letter-spacing: 2px; color: #fff; }
+        .arrow-flow { font-size: 24px; color: rgba(255,255,255,0.5); }
+
+        /* --- 8. TOKENOMICS (Thêm hiệu ứng sáng cho biểu đồ) --- */
+        #token { background: var(--dark-depth); }
+        .token-wrap { gap: 100px; }
         .pie-chart {
-            width: 280px; height: 280px; border-radius: 50%;
+            width: 320px; height: 320px; /* To hơn chút */
             background: conic-gradient(
                 var(--gold) 0% 51%, 
-                #9b59b6 51% 71%, 
+                var(--cyan) 51% 71%, /* Đổi màu marketing sang Cyan cho nổi */
                 #555 71% 90%, 
                 #222 90% 100%
             );
-            position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5);
+            box-shadow: 0 0 100px rgba(200, 170, 109, 0.2); /* Glow nhẹ xung quanh */
         }
-        .pie-hole {
-            position: absolute; inset: 60px; background: var(--dark); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
+        /* Vòng sáng bao quanh biểu đồ */
+        .pie-chart::before {
+            content: ''; position: absolute; inset: -10px; border-radius: 50%;
+            background: conic-gradient(transparent 20%, var(--gold), transparent 60%, var(--cyan), transparent 90%);
+            animation: spin 10s linear infinite; opacity: 0.5; z-index: -1;
         }
-        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; font-family: 'Roboto', sans-serif; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- 9. ROADMAP --- */
-        .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
-        .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
-        .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
-        .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
-        .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
-        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
-        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
-        .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
-        .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
-        .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
-        
-        /* --- 10. PARTNERS (NEW) --- */
-        .partner-grid { 
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px;
+        .pie-hole {
+            inset: 70px; background: var(--dark-depth);
+            box-shadow: inset 0 0 30px rgba(0,0,0,1);
         }
+        .token-list li { font-size: 18px; margin-bottom: 20px; }
+        .dot { width: 12px; height: 12px; box-shadow: 0 0 10px currentColor; }
+
+        /* --- 9. ROADMAP (Làm line và điểm sáng hơn) --- */
+        .roadmap-line { 
+            width: 2px; background: linear-gradient(to bottom, var(--gold), var(--cyan), var(--gold)); 
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+        .roadmap-point { 
+            width: 16px; height: 16px; background: var(--gold); 
+            box-shadow: 0 0 20px var(--gold), 0 0 40px var(--gold); /* Glow mạnh hơn */
+            border: 2px solid #fff;
+        }
+        .roadmap-item:nth-child(odd) .roadmap-point { right: -8px; }
+        .roadmap-item:nth-child(even) .roadmap-point { left: -8px; }
+        .phase-name { color: var(--cyan); font-size: 16px; margin-bottom: 10px; text-shadow: 0 0 10px var(--cyan-glow); }
+        .roadmap-content h3 { font-size: 24px; }
+        .roadmap-content ul li { margin-bottom: 10px; position: relative; padding-left: 20px; }
+        .roadmap-content ul li::before { content: '›'; position: absolute; left: 0; color: var(--gold); font-weight: bold; }
+
+        /* --- 10. PARTNERS (Biến thành các Chipset phát sáng) --- */
+        #partners { background: #030305; position: relative; }
+        /* Hiệu ứng quét sáng nền partners */
+        #partners::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            animation: scanline 5s linear infinite;
+        }
+        @keyframes scanline { 0% { left: -50%; } 100% { left: 100%; } }
+
+        .partner-grid { gap: 30px; margin-top: 50px; }
         .partner-item {
-            display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s;
-            border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111;
+            display: flex; align-items: center; gap: 15px; opacity: 0.8; transition: 0.4s;
+            padding: 15px 30px; border-radius: 8px; 
+            /* Style kiểu Chipset */
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative; overflow: hidden;
         }
-        .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
-        .partner-item i { font-size: 24px; color: #fff; }
-        .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
+        /* Đường mạch điện nhỏ ở góc */
+        .partner-item::before {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 30px; height: 30px;
+            background: linear-gradient(to top left, var(--gold) 50%, transparent 50%);
+            opacity: 0.3; transition: 0.4s;
+        }
+
+        .partner-item:hover { 
+            opacity: 1; border-color: var(--cyan); transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.2), 0 0 10px var(--cyan-glow) inset;
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.1), rgba(0,0,0,0.3));
+        }
+        .partner-item:hover::before { background: linear-gradient(to top left, var(--cyan) 50%, transparent 50%); opacity: 1; }
+        
+        .partner-item i { font-size: 28px; color: var(--gold); transition: 0.4s; }
+        .partner-item:hover i { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
+        .partner-item span { font-family: 'Rajdhani'; font-weight: 800; font-size: 20px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- 11. FOOTER --- */
-        footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
-        .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-        .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
-        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; font-family: 'Roboto', sans-serif; }
-        .f-links a:hover { color: var(--gold); }
-        .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
-        .socials a:hover { border-color: var(--gold); color: var(--gold); }
+        footer { background: #020202; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-cols { gap: 80px; }
 
+        /* RESPONSIVE FIXES */
         @media (max-width: 992px) {
             .nav-links { display: none; }
+            .hero-title { font-size: 50px; }
             .genesis-wrapper { height: auto; padding-bottom: 0; }
             .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
             .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
-            .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
+            .genesis-card-container { position: relative; right: auto; bottom: auto; width: 180px; height: 270px; margin: 0 auto; }
             .prev-btn, .next-btn { display: none; }
             .eco-layout { flex-direction: column; }
             .zone-gate { flex: 1; border-top: none; border-left: 4px solid #fff; flex-direction: row; flex-wrap: wrap; }
-            .footer-cols { grid-template-columns: 1fr; }
-            .roadmap-line { left: 20px; }
-            .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
-            .roadmap-point { left: 14px !important; }
+            .arrow-flow { transform: rotate(90deg); margin: 10px 0; position: static; }
+            .token-wrap { gap: 50px; }
+            .footer-cols { grid-template-columns: 1fr; gap: 40px; }
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -229,7 +370,7 @@
         </ul>
         <div class="nav-actions">
             <button class="btn-outline" onclick="alert('Login currently under maintenance')">LOGIN</button>
-            <button class="btn-outline" onclick="alert('Connecting Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+            <button class="btn-main" onclick="alert('Connecting Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
         </div>
     </nav>
 
@@ -241,11 +382,11 @@
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <p style="color: #ddd; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 18px;">
                 Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.
             </p>
             <div class="download-area">
-                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">FREE DOWNLOAD</button>
+                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)" style="padding: 15px 50px; font-size: 18px;">PLAY NOW FOR FREE</button>
                 <div class="platform-list">
                     <button class="btn-platform" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC Windows</button>
                     <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-android"></i> Android APK</button>
@@ -278,7 +419,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="margin-top: 50px;">
+            <div class="text-center" style="margin-top: 60px;">
                 <button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button>
             </div>
         </div>
@@ -291,32 +432,32 @@
                 <p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p>
             </div>
             <div class="feature-grid">
-                <div class="feature-card">
+                <div class="feature-card glass-card">
                     <i class="fas fa-chess-king f-icon"></i>
                     <h3 class="f-title">STRATEGIC PVP</h3>
                     <p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card glass-card">
                     <i class="fas fa-dragon f-icon"></i>
                     <h3 class="f-title">WORLD BOSS HUNT</h3>
                     <p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card glass-card">
                     <i class="fas fa-hammer f-icon"></i>
                     <h3 class="f-title">FORGE & UPGRADE</h3>
                     <p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card glass-card">
                     <i class="fas fa-landmark f-icon"></i>
                     <h3 class="f-title">LAND OWNERSHIP</h3>
                     <p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card glass-card">
                     <i class="fas fa-scroll f-icon"></i>
                     <h3 class="f-title">DAILY QUESTS</h3>
                     <p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card glass-card">
                     <i class="fas fa-users f-icon"></i>
                     <h3 class="f-title">GUILD WARS</h3>
                     <p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p>
@@ -331,8 +472,10 @@
                 <h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2>
                 <p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p>
             </div>
+            
             <div class="eco-layout">
-                <div class="eco-zone zone-game">
+                
+                <div class="eco-zone zone-game glass-card">
                     <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div>
@@ -356,24 +499,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="eco-zone zone-gate">
+
+                <div class="eco-zone zone-gate glass-card">
                     <h3><i class="fas fa-torii-gate"></i> THE GATE</h3>
+                    
                     <div class="swap-action">
                         <i class="fas fa-sync-alt main-icon"></i>
                         <span>SWAP</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p>
+                        <p style="font-size: 10px; color:#aaa; margin:0;">Shards ⇆ $MOKA</p>
                         <i class="fas fa-chevron-right arrow-flow arr-right"></i>
                         <i class="fas fa-chevron-left arrow-flow arr-left"></i>
                     </div>
+
                     <div class="swap-action">
                         <i class="fas fa-hammer main-icon"></i>
                         <span>MINT NFT</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p>
+                        <p style="font-size: 10px; color:#aaa; margin:0;">Fragments + $MOKA</p>
                         <i class="fas fa-chevron-right arrow-flow arr-right"></i>
                     </div>
                 </div>
-                <div class="eco-zone zone-web3">
+
+                <div class="eco-zone zone-web3 glass-card">
                     <h3><i class="fas fa-globe"></i> WEB3 WORLD</h3>
+                    
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div>
                         <div class="eco-text">
@@ -396,6 +544,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -414,10 +563,10 @@
                     </div>
                 </div>
                 <ul class="token-list" style="list-style: none;">
-                    <li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li>
-                    <li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li>
-                    <li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li>
-                    <li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li>
+                    <li><span class="dot" style="background:var(--gold); box-shadow: 0 0 10px var(--gold);"></span> 51% - Play to Earn</li>
+                    <li><span class="dot" style="background:#222;"></span> 10% - Team & Advisors</li>
+                    <li><span class="dot" style="background:var(--cyan); box-shadow: 0 0 10px var(--cyan);"></span> 20% - Marketing & Airdrop</li>
+                    <li><span class="dot" style="background:#555;"></span> 19% - Ecosystem</li>
                 </ul>
             </div>
         </div>
@@ -433,7 +582,7 @@
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
                     <span class="phase-name">PHASE 1 (JAN - MAR 2026)</span>
-                    <div class="roadmap-content">
+                    <div class="roadmap-content glass-card" style="padding: 30px; text-align: left;">
                         <h3>GENESIS</h3>
                         <ul>
                             <li>Website & Whitepaper Launch</li>
@@ -445,7 +594,7 @@
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
                     <span class="phase-name">PHASE 2 (APR - JUN 2026)</span>
-                    <div class="roadmap-content">
+                    <div class="roadmap-content glass-card" style="padding: 30px; text-align: left;">
                         <h3>EXPLOSION</h3>
                         <ul>
                             <li>Mobile Launch (iOS/Android)</li>
@@ -457,7 +606,7 @@
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
                     <span class="phase-name">PHASE 3 (JUL - SEP 2026)</span>
-                    <div class="roadmap-content">
+                    <div class="roadmap-content glass-card" style="padding: 30px; text-align: left;">
                         <h3>EXPANSION</h3>
                         <ul>
                             <li>Cross-chain Bridge Integration</li>
@@ -469,7 +618,7 @@
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
                     <span class="phase-name">PHASE 4 (OCT - DEC 2026)</span>
-                    <div class="roadmap-content">
+                    <div class="roadmap-content glass-card" style="padding: 30px; text-align: left;">
                         <h3>METAVERSE</h3>
                         <ul>
                             <li>Moka Land Gameplay Launch</li>
@@ -482,7 +631,7 @@
         </div>
     </section>
 
-    <section id="partners" style="padding: 60px 0; background: #080808; border-top: 1px solid #111;">
+    <section id="partners" style="padding: 80px 0; background: #020203; border-top: 1px solid #111;">
         <div class="container">
             <div class="text-center">
                 <p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p>
@@ -494,7 +643,7 @@
                 <div class="partner-item"><i class="fas fa-gem"></i> <span>DIAMOND HANDS</span></div>
             </div>
 
-            <div class="partner-grid" style="margin-top: 20px;">
+            <div class="partner-grid" style="margin-top: 30px;">
                 <div class="partner-item"><i class="fas fa-cube"></i> <span>BLOCKSTREAM</span></div>
                 <div class="partner-item"><i class="fas fa-gamepad"></i> <span>UNITY 3D</span></div>
                 <div class="partner-item"><i class="fas fa-users-cog"></i> <span>META GUILD</span></div>
@@ -508,8 +657,8 @@
             <div class="footer-cols">
                 <div>
                     <a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a>
-                    <p style="color: #666; font-size: 13px; line-height: 1.8;">
-                        Next-generation tactical card game with true ownership economy.
+                    <p style="color: #888; font-size: 14px; line-height: 1.8;">
+                        Next-generation tactical card game with true ownership economy built on the blockchain.
                     </p>
                 </div>
                 <div>
@@ -527,10 +676,11 @@
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-discord"></i></a>
                         <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;">
+            <div class="text-center" style="border-top: 1px solid #222; padding-top: 30px; font-size: 12px; color: #666; margin-top: 50px;">
                 <p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p>
             </div>
         </div>
@@ -544,8 +694,8 @@
             const originalColor = btn.style.color;
             const originalBorder = btn.style.borderColor;
             btn.innerHTML = "<i class='fas fa-clock'></i> Coming Soon";
-            btn.style.color = "#c8aa6d"; 
-            btn.style.borderColor = "#c8aa6d";
+            btn.style.color = "#00f2ff"; 
+            btn.style.borderColor = "#00f2ff";
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
                 btn.style.color = originalColor;
