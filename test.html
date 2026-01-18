@@ -15,271 +15,138 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
-        /* --- 1. CORE VARIABLES (V15 ORIGINAL) --- */
+        /* --- CORE VARIABLES (V15) --- */
         :root {
-            --gold: #c8aa6d;             
-            --gold-bright: #f0e6d2;      
-            --cyan: #00f2ff;
-            --cyan-glow: rgba(0, 242, 255, 0.5);
-            --dark: #050505;             
-            --ingame-blue: #4a9eff;
-            --web3-purple: #9b59b6;
+            --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
+            --dark: #050505; --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
             --card-glass: rgba(20, 20, 30, 0.7);
         }
-        
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
-
-        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
-        
+        h1, h2, h3, .logo { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS (V15) */
-        .btn-main {
-            background: linear-gradient(to bottom, #c8aa6d, #8e733b);
-            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif;
-        }
-        .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
-
-        .btn-outline {
-            background: transparent; border: 1px solid #666; color: #ccc;
-            padding: 10px 25px; cursor: pointer; transition: 0.3s;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700;
-        }
+        /* BUTTONS */
+        .btn-main { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-weight: 700; display: inline-block; text-decoration: none; border: 1px solid var(--gold-bright); }
+        .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); }
+        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-weight: 700; }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-        .btn-platform {
-            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa;
-            padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
-            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
-            min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
-        }
-        .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
-
         /* NAV */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 40px; height: 80px;
-            background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222;
-            position: fixed; width: 100%; top: 0; z-index: 1000;
-        }
-        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
-        .logo span { color: var(--gold); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; } .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
         /* USER DROPDOWN */
-        .user-dropdown {
-            position: absolute; top: 60px; right: 0; width: 220px;
-            background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); border-radius: 4px;
-            display: none; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            z-index: 1001; overflow: hidden;
-        }
+        .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); display: none; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; }
         .user-dropdown.active { display: flex; }
         .dropdown-header { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1); }
-        .dropdown-header img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold); }
-        .user-name-display { font-family: 'Rajdhani'; font-weight: bold; color: #fff; font-size: 15px; }
-        .dropdown-item {
-            padding: 12px 20px; color: #ccc; text-decoration: none; font-size: 13px; font-family: 'Rajdhani'; font-weight: 600; text-transform: uppercase;
-            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer;
-        }
+        .dropdown-item { padding: 12px 20px; color: #ccc; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; gap: 10px; align-items: center; }
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); padding-left: 25px; }
 
-        /* --- DASHBOARD OVERLAY --- */
-        .dash-overlay {
-            position: fixed; inset: 0; z-index: 2000; display: none;
-            background: rgba(0,0,0,0.95); backdrop-filter: blur(5px);
-            align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s;
-        }
+        /* --- DASHBOARD OVERLAY (FULL SCREEN APP) --- */
+        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #0a0a0a; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
         .dash-overlay.active { display: flex; opacity: 1; }
-
-        .dash-wrapper {
-            width: 95%; max-width: 1400px; height: 90vh;
-            background: #111; display: flex; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8); border: 1px solid #333;
-        }
-        .dash-sidebar { width: 250px; background: #0a0a0a; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 20px; }
-        .dash-logo { font-family: 'Cinzel'; font-size: 24px; color: #fff; margin-bottom: 40px; text-align: center; }
-        .dash-logo span { color: var(--gold); }
-        .dash-menu-item {
-            padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px;
-            cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 6px; margin-bottom: 5px; transition: 0.2s;
-        }
-        .dash-menu-item:hover, .dash-menu-item.active { background: rgba(200,170,109,0.1); color: var(--gold); }
-        .dash-logout { margin-top: auto; color: #ff4757; }
+        .dash-topbar { height: 60px; background: #111; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .dash-close { cursor: pointer; color: #888; font-weight: bold; border: 1px solid #444; padding: 5px 15px; border-radius: 4px; }
+        .dash-close:hover { color: #fff; border-color: #fff; }
         
-        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(10,10,15,0.95); }
-        .dash-topbar { height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
-        .dash-content-area { padding: 40px; overflow-y: auto; flex: 1; }
+        .dash-body { flex: 1; display: flex; overflow: hidden; }
+        .dash-sidebar { width: 240px; background: #0e0e0e; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .dash-menu-btn { padding: 12px 15px; color: #888; cursor: pointer; border-radius: 6px; font-family: 'Rajdhani'; font-weight: bold; display: flex; gap: 10px; align-items: center; }
+        .dash-menu-btn:hover, .dash-menu-btn.active { background: rgba(200,170,109,0.1); color: var(--gold); }
+        
+        .dash-content { flex: 1; padding: 40px; overflow-y: auto; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(0,0,0,0.9); }
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
 
-        .d-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 20px; }
-        .d-card-header { padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'Rajdhani'; font-weight: bold; color: var(--gold); text-transform: uppercase; font-size: 14px; letter-spacing: 1px; display: flex; justify-content: space-between; }
-        .d-card-body { padding: 25px; }
-        .d-info-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #ccc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        /* DASHBOARD CARDS */
+        .d-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; margin-bottom: 20px; }
+        .d-header { padding: 15px 20px; border-bottom: 1px solid #333; color: var(--gold); font-family: 'Rajdhani'; font-weight: bold; display: flex; justify-content: space-between; }
+        .d-body { padding: 20px; }
+        .d-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; color: #ccc; font-size: 14px; }
+        .d-row span:first-child { color: #888; font-weight: bold; }
         
-        .d-checkin-btn { width: 100%; padding: 12px; background: linear-gradient(90deg, #444, #555); border: 1px solid #666; color: #fff; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .d-checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+        .checkin-btn { width: 100%; padding: 12px; background: var(--gold); color: #000; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .checkin-btn:hover { filter: brightness(1.2); }
 
-        .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        .inv-item { aspect-ratio: 2/3; background: #000; border: 1px solid #333; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer; }
-        .inv-item:hover { border-color: var(--gold); transform: translateY(-5px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .set-row { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(255,255,255,0.02); margin-bottom: 10px; border-radius: 6px; }
-        .toggle-switch { width: 50px; height: 26px; background: #333; border-radius: 13px; position: relative; cursor: pointer; transition: 0.3s; }
-        .toggle-switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: 0.3s; }
-        .toggle-switch.on { background: var(--ingame-blue); }
-        .toggle-switch.on::after { left: 27px; }
-
-        /* SECTIONS COMMON */
+        /* --- SECTIONS (V15 STANDARD) --- */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* 1. HERO */
-        #hero {
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
-        }
+        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
-            z-index: 1;
-        }
+        .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
-        .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
-        .hero-title { 
-            font-size: 80px; margin-bottom: 20px; line-height: 1; 
-            background: linear-gradient(to right, var(--gold), #fff, var(--cyan));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-        }
+        .hero-subtitle { font-size: 16px; color: var(--gold); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; }
+        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; text-shadow: 0 10px 40px #000; color: #fff; letter-spacing: 2px; }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* 2. NFT (V15) */
+        /* NFT & Features (V15) */
         #nft { background: #0b0b0b; padding-top: 80px; }
-        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid #333; background: #000; overflow: visible; }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
-        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .genesis-panel::before, .genesis-panel::after { content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
-        .genesis-panel::before { left: 20px; }
-        .genesis-panel::after { right: 20px; }
+        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.9); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
-        .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
-        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
-        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
-        .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
-        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
-        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
+        .g-name { font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; }
+        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* 3. FEATURES (V15) */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; }
-        .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
-        .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
-        .feature-card:hover { transform: translateY(-10px); }
-        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
-        .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.1); }
-        .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
-        .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .feature-card { background: #0f1012; border: 1px solid #222; padding: 50px 30px; border-radius: 4px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; }
+        .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: bold; }
 
-        /* 4. ECONOMY */
-        .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
-        .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
-        .zone-game { border-top: 4px solid var(--ingame-blue); }
-        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
-        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
-        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
-        .zone-web3 { border-top: 4px solid var(--gold); }
-        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
-        .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; transition: 0.3s; }
-        .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
-        .eco-icon { font-size: 24px; width: 40px; text-align: center; }
-        .eco-text h4 { margin: 0; font-size: 16px; color: #fff; margin-bottom: 3px; font-weight: bold; }
-        .eco-text p { margin: 0; font-size: 13px; color: #888; line-height: 1.3; }
-        .swap-action { width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px; margin: 10px 0; position: relative; }
-        .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
-        .swap-action span { font-size: 14px; font-weight: bold; color: #ccc; text-transform: uppercase; }
-        .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
-        .arr-left { left: -22px; color: var(--ingame-blue); }
-        .arr-right { right: -22px; color: var(--gold); }
-        @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
-
-        /* 5. TOKENOMICS */
+        /* Economy, Token, Roadmap, Footer (V15 Simplified) */
+        .eco-layout { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+        .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; }
+        .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; margin-bottom: 10px; }
+        
         #token { background: #050505; }
-        .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
-        .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
-        .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-
-        /* 6. ROADMAP */
+        .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; margin: 0 auto; }
+        .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
-        .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
-        .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
-        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
-        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
-        .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
-        .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
-        .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
-        
-        /* 7. PARTNERS */
-        .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
-        .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
-        .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
-        .partner-item i { font-size: 24px; color: #fff; }
-        .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
+        .roadmap-item:nth-child(odd) { left: 0; text-align: right; } .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
+        .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; }
+        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; } .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
 
-        /* FOOTER */
+        .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
+        .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
+        
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
-        .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-        .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
-        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; font-family: 'Roboto', sans-serif; }
-        .f-links a:hover { color: var(--gold); }
-        .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
-        .socials a:hover { border-color: var(--gold); color: var(--gold); }
+        .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; }
+        .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; border: 1px solid #222; }
 
         @media (max-width: 992px) {
             .nav-links { display: none; }
             .hero-title { font-size: 50px; }
-            .genesis-wrapper { height: auto; padding-bottom: 0; }
-            .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
-            .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
+            .genesis-wrapper { height: auto; }
+            .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; }
             .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
             .prev-btn, .next-btn { display: none; }
             .eco-layout { flex-direction: column; }
-            .zone-gate { flex: 1; border-top: none; border-left: 4px solid #fff; flex-direction: row; flex-wrap: wrap; }
             .footer-cols { grid-template-columns: 1fr; }
-            .roadmap-line { left: 20px; }
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
-            /* Mobile Dash */
-            .dash-wrapper { width: 100%; height: 100%; border-radius: 0; flex-direction: column; }
-            .dash-sidebar { width: 100%; flex-direction: row; height: auto; padding: 10px; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
-            .dash-logo { display: none; }
-            .dash-grid-top { grid-template-columns: 1fr; }
+            .roadmap-line { left: 20px; }
+            .dash-body { flex-direction: column; }
+            .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; padding: 10px; }
         }
-
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -301,103 +168,32 @@
             
             <div id="user-dropdown" class="user-dropdown">
                 <div class="dropdown-header">
-                    <img id="user-avatar" src="" alt="Avatar">
+                    <img id="user-avatar" src="" alt="">
                     <div style="display:flex; flex-direction:column;">
-                        <span id="user-name" class="user-name-display">Commander</span>
-                        <span id="user-email" class="user-email-display">email@example.com</span>
+                        <span id="user-name" style="font-weight:bold; color:#fff;">Commander</span>
+                        <span id="user-email" style="font-size:11px; color:#888;"></span>
                     </div>
                 </div>
                 <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Dashboard</div>
                 <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box"></i> Inventory</div>
-                <div class="dropdown-item" onclick="openDashboard('settings')"><i class="fas fa-cog"></i> Settings</div>
                 <div class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</div>
             </div>
         </div>
     </nav>
 
-    <div id="dashboard-overlay" class="dash-overlay">
-        <div class="dash-wrapper">
-            <div class="dash-sidebar">
-                <div class="dash-logo">MOKA<span>HERO</span></div>
-                <div class="dash-menu-item active" onclick="switchDashTab('profile', this)"><i class="fas fa-chart-pie"></i> DASHBOARD</div>
-                <div class="dash-menu-item" onclick="switchDashTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
-                <div class="dash-menu-item" onclick="switchDashTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
-                <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
-            </div>
-            
-            <div class="dash-main">
-                <div class="dash-topbar">
-                    <div style="display:flex; gap:10px;">
-                        <span style="background:#222; padding:5px 15px; border-radius:20px; font-size:12px; color:#888; border:1px solid #444;">SERVER: ASIA-1</span>
-                    </div>
-                    <div style="cursor:pointer; color:#888; font-size:14px;" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
-                </div>
-
-                <div class="dash-content-area">
-                    <div id="dash-profile" class="dash-panel active">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">DASHBOARD</h2>
-                        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;" class="dash-grid-top">
-                            <div class="d-card">
-                                <div class="d-card-header">PLAYER INFO <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
-                                <div class="d-card-body">
-                                    <div class="d-info-row"><span>Name:</span> <span id="dash-display-name">Commander</span></div>
-                                    <div class="d-info-row"><span>Email:</span> <span id="dash-display-email">...</span></div>
-                                    <div class="d-info-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
-                                    <div class="d-info-row"><span>Moka Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
-                                </div>
-                            </div>
-                            <div class="d-card">
-                                <div class="d-card-header">DAILY REWARD</div>
-                                <div class="d-card-body" style="text-align:center;">
-                                    <p style="font-size:12px; color:#888;">Check-in daily to receive +5 Shards.</p>
-                                    <button id="checkin-btn" class="d-checkin-btn">CHECK IN</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="dash-inventory" class="dash-panel">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">INVENTORY</h2>
-                        <div class="inv-grid">
-                            <div style="grid-column:1/-1; text-align:center; padding:50px; color:#666; border:2px dashed #333;">NO ITEMS FOUND</div>
-                        </div>
-                    </div>
-
-                    <div id="dash-settings" class="dash-panel">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">SETTINGS</h2>
-                        <div class="d-card" style="padding:20px;">
-                            <div class="set-row">
-                                <div style="display:flex; align-items:center; gap:15px; color:#fff;"><i class="fab fa-twitter" style="color:#1da1f2;"></i> Twitter</div>
-                                <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
-                            </div>
-                            <div class="set-row">
-                                <div style="display:flex; align-items:center; gap:15px; color:#fff;"><i class="fab fa-discord" style="color:#7289da;"></i> Discord</div>
-                                <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <header id="hero">
-        <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1">
-            <source src="./assets/video.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1"><source src="./assets/video.mp4" type="video/mp4"></video>
         <div class="hero-overlay"></div>
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.
-            </p>
+            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero.</p>
             <div class="download-area">
-                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">FREE DOWNLOAD</button>
+                <button class="btn-main">FREE DOWNLOAD</button>
                 <div class="platform-list">
-                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC Windows</button>
-                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-android"></i> Android APK</button>
-                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-apple"></i> iOS Store</button>
+                    <button class="btn-platform"><i class="fas fa-desktop"></i> PC</button>
+                    <button class="btn-platform"><i class="fab fa-android"></i> Android</button>
+                    <button class="btn-platform"><i class="fab fa-apple"></i> iOS</button>
                 </div>
             </div>
         </div>
@@ -405,10 +201,7 @@
 
     <section id="nft">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">GENESIS COLLECTION</h2>
-                <p class="sec-desc">Choose your hero. Who will you bring into the battle?</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">GENESIS COLLECTION</h2></div>
             <div style="position: relative; max-width: 1100px; margin: 0 auto;">
                 <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
@@ -416,145 +209,280 @@
                     <img src="./assets/bg_ignis.jpg?v=1" class="genesis-bg-large" id="g-bg-img">
                     <div class="genesis-panel" id="g-overlay">
                         <div class="genesis-text">
-                            <span class="g-faction" id="g-faction">FACTION • <span style="color:#ff3b3b">IGNIS PRIME</span> • DESTRUCTION</span>
+                            <span class="g-faction" id="g-faction">FACTION • IGNIS</span>
                             <h2 class="g-name" id="g-name">IGNIS PRIME</h2>
-                            <span class="g-quote" id="g-quote">"The fire never dies. I am destruction, and I am rebirth."</span>
+                            <span class="g-quote" id="g-quote">"The fire never dies."</span>
                         </div>
-                        <div class="genesis-card-container">
-                            <div class="card-sprite" id="g-card-sprite"></div>
-                        </div>
+                        <div class="genesis-card-container"><div class="card-sprite" id="g-card-sprite"></div></div>
                     </div>
                 </div>
-            </div>
-            <div class="text-center" style="margin-top: 50px;">
-                <button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button>
             </div>
         </div>
     </section>
 
     <section id="features">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">GAMEPLAY FEATURES</h2>
-                <p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">GAMEPLAY FEATURES</h2></div>
             <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fas fa-chess-king f-icon"></i>
-                    <h3 class="f-title">STRATEGIC PVP</h3>
-                    <p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-dragon f-icon"></i>
-                    <h3 class="f-title">WORLD BOSS HUNT</h3>
-                    <p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-hammer f-icon"></i>
-                    <h3 class="f-title">FORGE & UPGRADE</h3>
-                    <p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-landmark f-icon"></i>
-                    <h3 class="f-title">LAND OWNERSHIP</h3>
-                    <p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-scroll f-icon"></i>
-                    <h3 class="f-title">DAILY QUESTS</h3>
-                    <p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-users f-icon"></i>
-                    <h3 class="f-title">GUILD WARS</h3>
-                    <p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p>
-                </div>
+                <div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks.</p></div>
+                <div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS</h3><p class="f-desc">Cooperate to defeat bosses.</p></div>
+                <div class="feature-card"><i class="fas fa-hammer f-icon"></i><h3 class="f-title">FORGE</h3><p class="f-desc">Craft NFT gear.</p></div>
             </div>
         </div>
     </section>
 
     <section id="economy">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2>
-                <p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">ECONOMY</h2></div>
             <div class="eco-layout">
-                <div class="eco-zone zone-game">
-                    <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div>
-                        <div class="eco-text">
-                            <h4>MOKA SHARDS</h4>
-                            <p>Earned from PvP, Rank, Boss.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #a335ee;"><i class="fas fa-puzzle-piece"></i></div>
-                        <div class="eco-text">
-                            <h4>NFT FRAGMENTS</h4>
-                            <p>Drops from Dungeons & Chests.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box" style="border-color: #d63031;">
-                        <div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div>
-                        <div class="eco-text">
-                            <h4>BLACK MARKET</h4>
-                            <p>Internal P2P trading for materials.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="eco-zone zone-gate">
-                    <h3><i class="fas fa-torii-gate"></i> THE GATE</h3>
-                    <div class="swap-action">
-                        <i class="fas fa-sync-alt main-icon"></i>
-                        <span>SWAP</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p>
-                        <i class="fas fa-chevron-right arrow-flow arr-right"></i>
-                        <i class="fas fa-chevron-left arrow-flow arr-left"></i>
-                    </div>
-                    <div class="swap-action">
-                        <i class="fas fa-hammer main-icon"></i>
-                        <span>MINT NFT</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p>
-                        <i class="fas fa-chevron-right arrow-flow arr-right"></i>
-                    </div>
-                </div>
-                <div class="eco-zone zone-web3">
-                    <h3><i class="fas fa-globe"></i> WEB3 WORLD</h3>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div>
-                        <div class="eco-text">
-                            <h4>$MOKA TOKEN</h4>
-                            <p>Tradable on CEX / DEX.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #ff9f43;"><i class="fas fa-store"></i></div>
-                        <div class="eco-text">
-                            <h4>NFT MARKETPLACE</h4>
-                            <p>Buy/Sell Heroes & Lands.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #fff;"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="eco-text">
-                            <h4>SPENDING</h4>
-                            <p>Deposit $MOKA back into game.</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="eco-zone"><h3 style="color:#4a9eff; text-align:center;">IN-GAME</h3><div class="eco-item-box"><div class="eco-icon">💎</div><h4>MOKA SHARDS</h4></div></div>
+                <div class="eco-zone"><h3 style="color:#fff; text-align:center;">GATE</h3><div class="swap-action">SWAP / MINT</div></div>
+                <div class="eco-zone"><h3 style="color:var(--gold); text-align:center;">WEB3</h3><div class="eco-item-box"><div class="eco-icon">🪙</div><h4>$MOKA TOKEN</h4></div></div>
             </div>
         </div>
     </section>
 
     <section id="token">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">TOKENOMICS</h2>
-                <p class="sec-desc">Token Allocation - Total Supply 100 Million.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">TOKENOMICS</h2></div>
             <div class="token-wrap">
-                <div class="pie-chart">
-                    <div class="pie-hole">
-                        <span style="font-size: 30px; font-weight: 900; color: var(--gold
+                <div class="pie-chart"><div class="pie-hole"><span style="font-family:'Cinzel'; font-size:30px; color:var(--gold);">100M</span></div></div>
+                <ul class="token-list" style="list-style:none;">
+                    <li><span class="dot" style="background:var(--gold)"></span> 51% Play to Earn</li>
+                    <li><span class="dot" style="background:#9b59b6"></span> 20% Marketing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap">
+        <div class="container">
+            <div class="text-center"><h2 class="sec-title">ROADMAP</h2></div>
+            <div class="roadmap-container">
+                <div class="roadmap-line"></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q1 2026</span><h3>GENESIS</h3></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q2 2026</span><h3>LAUNCH</h3></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners">
+        <div class="container">
+            <div class="text-center"><p style="color:#666; letter-spacing:3px;">PARTNERS</p></div>
+            <div class="partner-grid">
+                <div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS</span></div>
+                <div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-cols">
+                <div><a href="#" class="logo">MOKA<span>HERO</span></a><p style="color:#666; font-size:13px;">Next-gen Web3 Game.</p></div>
+                <div><h4 class="f-title">LINKS</h4><div class="f-links"><a href="#">Home</a><a href="#">Whitepaper</a></div></div>
+                <div><h4 class="f-title">SOCIAL</h4><div class="socials"><a href="#"><i class="fab fa-twitter"></i></a></div></div>
+            </div>
+            <div class="text-center" style="border-top:1px solid #111; padding-top:20px; font-size:12px; color:#444;">© 2026 HEROMOKA STUDIO.</div>
+        </div>
+    </footer>
+
+    <div id="dashboard-overlay" class="dash-overlay">
+        <div class="dash-topbar">
+            <div style="font-family:'Cinzel'; font-size:20px; color:#fff;">MOKA <span>DASHBOARD</span></div>
+            <div class="dash-close" onclick="closeDashboard()">EXIT APP <i class="fas fa-sign-out-alt"></i></div>
+        </div>
+        <div class="dash-body">
+            <div class="dash-sidebar">
+                <div class="dash-menu-btn active" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> MY PROFILE</div>
+                <div class="dash-menu-btn" onclick="switchTab('inventory', this)"><i class="fas fa-box"></i> INVENTORY</div>
+                <div class="dash-menu-btn" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
+            </div>
+            <div class="dash-content">
+                <div id="tab-profile" class="dash-panel active">
+                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER PROFILE</h2>
+                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
+                        <div class="d-card">
+                            <div class="d-header"><span>PLAYER INFO</span> <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
+                            <div class="d-body">
+                                <div class="d-row"><span>Name:</span> <span id="dash-name">...</span></div>
+                                <div class="d-row"><span>Email:</span> <span id="dash-email">...</span></div>
+                                <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
+                                <div class="d-row"><span>Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
+                            </div>
+                        </div>
+                        <div class="d-card">
+                            <div class="d-header">DAILY REWARD</div>
+                            <div class="d-body" style="text-align:center;">
+                                <p style="font-size:12px; color:#888;">+5 Shards Daily</p>
+                                <button id="checkin-btn" class="d-checkin-btn">CHECK IN</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-inventory" class="dash-panel">
+                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">INVENTORY</h2>
+                    <div style="text-align:center; padding:50px; border:2px dashed #333; color:#666;">NO ITEMS FOUND</div>
+                </div>
+                <div id="tab-settings" class="dash-panel">
+                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">SETTINGS</h2>
+                    <div class="d-card" style="padding:20px;"><p style="color:#888;">Social connections coming soon...</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
+            authDomain: "mokahero-8c560.firebaseapp.com",
+            projectId: "mokahero-8c560",
+            storageBucket: "mokahero-8c560.firebasestorage.app",
+            messagingSenderId: "307285112101",
+            appId: "1:307285112101:web:7ac30091baac32c85796cc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        const loginBtn = document.getElementById('login-btn');
+        const userDropdown = document.getElementById('user-dropdown');
+        const dashOverlay = document.getElementById('dashboard-overlay');
+        const walletBtn = document.getElementById('wallet-btn');
+        let currentUser = null;
+
+        // AUTH
+        loginBtn.onclick = async () => {
+            if(!currentUser) {
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    // Check user logic here...
+                } catch(e) { alert("Login Error"); }
+            } else {
+                userDropdown.classList.toggle('active');
+            }
+        };
+
+        document.getElementById('logout-btn').onclick = async () => {
+            if(confirm("Logout?")) { await signOut(auth); closeDashboard(); }
+        };
+
+        onAuthStateChanged(auth, async (user) => {
+            if(user) {
+                currentUser = user;
+                loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; border-radius:50%; border:1px solid #c8aa6d;">`;
+                loginBtn.style.border = "1px solid #c8aa6d";
+                // Load Dash Data
+                document.getElementById('user-avatar').src = user.photoURL;
+                document.getElementById('user-name').innerText = user.displayName;
+                document.getElementById('user-email').innerText = user.email;
+                document.getElementById('dash-name').innerText = user.displayName;
+                document.getElementById('dash-email').innerText = user.email;
+                
+                // Firestore Init
+                const ref = doc(db, "users", user.uid);
+                const snap = await getDoc(ref);
+                if(!snap.exists()) {
+                    await setDoc(ref, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
+                } else {
+                    const d = snap.data();
+                    document.getElementById('dash-shards').innerText = d.shards;
+                    if(d.wallet) {
+                        document.getElementById('dash-wallet').innerText = d.wallet;
+                        walletBtn.innerText = d.wallet.substring(0,6)+"...";
+                    }
+                }
+            } else {
+                currentUser = null;
+                loginBtn.innerHTML = "LOGIN";
+                loginBtn.style.border = "1px solid #666";
+                userDropdown.classList.remove('active');
+            }
+        });
+
+        // DASHBOARD OPEN/CLOSE + URL TRICK
+        window.openDashboard = (tab) => {
+            if(!currentUser) { alert("Login first!"); return; }
+            userDropdown.classList.remove('active');
+            dashOverlay.classList.add('active');
+            // Change URL without reload
+            history.pushState({}, "", "/dashboard/" + tab); 
+            window.switchTab(tab);
+        };
+
+        window.closeDashboard = () => {
+            dashOverlay.classList.remove('active');
+            // Revert URL
+            history.pushState({}, "", "/");
+        };
+
+        window.switchTab = (tab, btn) => {
+            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-'+tab).classList.add('active');
+            if(btn) {
+                document.querySelectorAll('.dash-menu-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+        };
+
+        // WALLET
+        walletBtn.onclick = async () => {
+            if(window.ethereum) {
+                try {
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    const signer = provider.getSigner();
+                    const addr = await signer.getAddress();
+                    walletBtn.innerText = addr.substring(0,6)+"...";
+                    if(currentUser) {
+                        await updateDoc(doc(db, "users", currentUser.uid), { wallet: addr });
+                        document.getElementById('dash-wallet').innerText = addr;
+                    }
+                } catch(e) { alert("Error"); }
+            } else { alert("Install Metamask"); }
+        };
+
+        // CHECKIN
+        document.getElementById('checkin-btn').onclick = async () => {
+            if(currentUser) {
+                const ref = doc(db, "users", currentUser.uid);
+                const s = await getDoc(ref);
+                const newShards = (s.data().shards || 0) + 5;
+                await updateDoc(ref, { shards: newShards });
+                document.getElementById('dash-shards').innerText = newShards;
+                alert("Success! +5 Shards");
+            }
+        };
+
+        // SLIDER LOGIC
+        const heroesData = [
+            { name: "IGNIS PRIME", factionHTML: "FACTION • IGNIS", quote: "\"The fire never dies.\"", bg: "./assets/bg_ignis.jpg?v=1", pos: "100% 0%" },
+            { name: "GAIA MOTHER", factionHTML: "FACTION • SYLVA", quote: "\"Nature is eternal.\"", bg: "./assets/bg_sylva.jpg?v=1", pos: "100% 33%" },
+            { name: "OMEGA WEAPON", factionHTML: "FACTION • OMEGA", quote: "\"Steel is strong.\"", bg: "./assets/bg_omega.jpg?v=1", pos: "100% 66%" },
+            { name: "VOID EYE", factionHTML: "FACTION • ZAROK", quote: "\"Abyss stares back.\"", bg: "./assets/bg_zarok.jpg?v=1", pos: "100% 100%" }
+        ];
+        let currentHeroIndex = 0;
+        window.changeHero = function(d) {
+            currentHeroIndex += d;
+            if(currentHeroIndex >= heroesData.length) currentHeroIndex = 0; else if(currentHeroIndex < 0) currentHeroIndex = 3;
+            const h = heroesData[currentHeroIndex];
+            const bg = document.getElementById('g-bg-img');
+            bg.style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('g-name').innerText = h.name;
+                document.getElementById('g-faction').innerHTML = h.factionHTML;
+                document.getElementById('g-quote').innerText = h.quote;
+                bg.src = h.bg;
+                document.getElementById('g-card-sprite').style.backgroundPosition = h.pos;
+                bg.style.opacity = 1;
+            }, 300);
+        };
+    </script>
+</body>
+</html>
