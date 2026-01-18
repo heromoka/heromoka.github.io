@@ -10,13 +10,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS TỪ BẢN V15 (GIỮ NGUYÊN 100%) --- */
+        /* --- 1. CORE CSS V15 (GIỮ NGUYÊN 100% TỪ MÃ BẠN GỬI) --- */
         /* ================================================================= */
         :root {
             --gold: #c8aa6d;              
@@ -39,7 +39,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS */
+        /* BUTTONS V15 */
         .btn-main {
             background: linear-gradient(to bottom, #c8aa6d, #8e733b);
             color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
@@ -139,14 +139,13 @@
         }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
         
-        /* --- [FIX QUAN TRỌNG: MẶC ĐỊNH CARD LÀ VÀNG (IGNIS)] --- */
+        /* CARD SPRITE FIX */
         .card-sprite { 
             width: 100%; height: 100%; 
             background-image: url('./assets/full_set.png'); 
             background-size: 500% 400%; background-repeat: no-repeat; 
             border-radius: 10px; 
             box-shadow: 0 0 0 1px rgba(255,215,0,0.3); 
-            /* Dòng này sửa lỗi ảnh trắng: */
             background-position: 100% 0%; 
         }
 
@@ -274,7 +273,7 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ================================================================= */
-        /* --- 2. ADD-ON CSS: DASHBOARD & LOGIC (V40 - FULL CONTENT) --- */
+        /* --- 2. ADD-ON CSS: DASHBOARD & LOGIC (V41 - FULL CONTENT + FIXED X) --- */
         /* ================================================================= */
         
         /* TOAST NOTIFICATION */
@@ -317,9 +316,7 @@
         .p-row { display: flex; flex-direction: column; margin-bottom: 25px; position: relative; }
         .p-label { color: #666; font-size: 11px; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
         
-        /* INPUT ẨN (NHÌN NHƯ TEXT) */
         .p-input { background: transparent; border: 1px solid transparent; color: #fff; padding: 10px 0; font-family: 'Roboto'; font-size: 16px; width: 100%; transition: 0.3s; pointer-events: none; }
-        /* INPUT HIỆN (KHI SỬA) */
         .p-input.editable { background: rgba(0,0,0,0.5); border: 1px solid #444; padding: 10px; pointer-events: auto; color: var(--gold); }
         .p-input:focus { border-color: var(--gold); outline: none; }
         
@@ -445,7 +442,9 @@
                         
                         <div class="connect-row">
                             <div class="social-info">
-                                <div class="social-icon" style="background:#000; border:1px solid #333;"><i class="fab fa-x-twitter" style="color:#fff;"></i></div>
+                                <div class="social-icon" style="background:#000; border:1px solid #666;">
+                                    <i class="fa-brands fa-x-twitter" style="color:#ffffff !important;"></i>
+                                </div>
                                 <span>Twitter (X)</span>
                             </div>
                             <div id="tw-action">
@@ -483,16 +482,12 @@
     </div>
 
     <header id="hero">
-        <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1">
-            <source src="./assets/video.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1"><source src="./assets/video.mp4" type="video/mp4"></video>
         <div class="hero-overlay"></div>
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.
-            </p>
+            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.</p>
             <div class="download-area">
                 <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">FREE DOWNLOAD</button>
                 <div class="platform-list">
@@ -506,10 +501,7 @@
 
     <section id="nft">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">GENESIS COLLECTION</h2>
-                <p class="sec-desc">Choose your hero. Who will you bring into the battle?</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">GENESIS COLLECTION</h2><p class="sec-desc">Choose your hero. Who will you bring into the battle?</p></div>
             <div style="position: relative; max-width: 1100px; margin: 0 auto;">
                 <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
@@ -521,24 +513,17 @@
                             <h2 class="g-name" id="g-name">IGNIS PRIME</h2>
                             <span class="g-quote" id="g-quote">"The fire never dies. I am destruction, and I am rebirth."</span>
                         </div>
-                        <div class="genesis-card-container">
-                            <div class="card-sprite" id="g-card-sprite"></div>
-                        </div>
+                        <div class="genesis-card-container"><div class="card-sprite" id="g-card-sprite"></div></div>
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="margin-top: 50px;">
-                <button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button>
-            </div>
+            <div class="text-center" style="margin-top: 50px;"><button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button></div>
         </div>
     </section>
 
     <section id="features">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">GAMEPLAY FEATURES</h2>
-                <p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">GAMEPLAY FEATURES</h2><p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p></div>
             <div class="feature-grid">
                 <div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p></div>
                 <div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS HUNT</h3><p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p></div>
@@ -552,10 +537,7 @@
 
     <section id="economy">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2>
-                <p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2><p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p></div>
             <div class="eco-layout">
                 <div class="eco-zone zone-game">
                     <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
@@ -579,33 +561,12 @@
     </section>
 
     <section id="token">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">TOKENOMICS</h2>
-                <p class="sec-desc">Token Allocation - Total Supply 100 Million.</p>
-            </div>
-            <div class="token-wrap">
-                <div class="pie-chart">
-                    <div class="pie-hole">
-                        <span style="font-size: 30px; font-weight: 900; color: var(--gold); font-family: 'Cinzel';">$MOKA</span>
-                        <span style="font-size: 12px; color: #666;">Total: 100M</span>
-                    </div>
-                </div>
-                <ul class="token-list" style="list-style: none;">
-                    <li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li>
-                    <li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li>
-                    <li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li>
-                    <li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li>
-                </ul>
-            </div>
-        </div>
+        <div class="container"><div class="text-center"><h2 class="sec-title">TOKENOMICS</h2><p class="sec-desc">Token Allocation - Total Supply 100 Million.</p></div><div class="token-wrap"><div class="pie-chart"><div class="pie-hole"><span style="font-family:'Cinzel'; font-size:30px; color:var(--gold);">100M</span><span style="font-size: 12px; color: #666;">Total: 100M</span></div></div><ul class="token-list" style="list-style: none;"><li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li><li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li><li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li><li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li></ul></div></div>
     </section>
 
     <section id="roadmap">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">ROADMAP</h2>
-            </div>
+            <div class="text-center"><h2 class="sec-title">ROADMAP</h2></div>
             <div class="roadmap-container">
                 <div class="roadmap-line"></div>
                 <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 1 (JAN - MAR 2026)</span><div class="roadmap-content"><h3>GENESIS</h3><ul><li>Website & Whitepaper Launch</li><li>Genesis Chest Sale (Early NFTs)</li><li>Alpha Test on Web</li></ul></div></div>
@@ -618,9 +579,7 @@
 
     <section id="partners" style="padding: 60px 0; background: #080808; border-top: 1px solid #111;">
         <div class="container">
-            <div class="text-center">
-                <p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p>
-            </div>
+            <div class="text-center"><p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p></div>
             <div class="partner-grid">
                 <div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS CAPITAL</span></div>
                 <div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN VENTURES</span></div>
@@ -638,33 +597,11 @@
     <footer>
         <div class="container">
             <div class="footer-cols">
-                <div>
-                    <a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a>
-                    <p style="color: #666; font-size: 13px; line-height: 1.8;">
-                        Next-generation tactical card game with true ownership economy.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="f-title">ABOUT US</h4>
-                    <div class="f-links">
-                        <a href="#features">Features</a>
-                        <a href="#economy">Economy</a>
-                        <a href="whitepaper.html">Whitepaper</a>
-                        <a href="#">Contact</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="f-title">COMMUNITY</h4>
-                    <div class="socials">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
-                    </div>
-                </div>
+                <div><a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a><p style="color: #666; font-size: 13px; line-height: 1.8;">Next-generation tactical card game with true ownership economy.</p></div>
+                <div><h4 class="f-title">ABOUT US</h4><div class="f-links"><a href="#features">Features</a><a href="#economy">Economy</a><a href="whitepaper.html">Whitepaper</a><a href="#">Contact</a></div></div>
+                <div><h4 class="f-title">COMMUNITY</h4><div class="socials"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a></div></div>
             </div>
-            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;">
-                <p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p>
-            </div>
+            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;"><p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p></div>
         </div>
     </footer>
 
@@ -673,7 +610,6 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -832,7 +768,7 @@
             location.reload();
         };
 
-        // 9. HERO SLIDER & HELPERS
+        // 9. HERO SLIDER
         const heroesData = [
             { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies. I am destruction, and I am rebirth.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "100% 0%" },
             { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is never in a hurry, yet everything is accomplished.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "100% 33.333%" },
@@ -842,7 +778,7 @@
         let currentHeroIndex = 0;
         window.changeHero = function(d) {
             currentHeroIndex += d;
-            if(currentHeroIndex >= heroesData.length) currentHeroIndex = 0; else if(currentHeroIndex < 0) currentHeroIndex = heroesData.length - 1;
+            if(currentHeroIndex >= heroesData.length) currentHeroIndex = 0; else if(currentHeroIndex < 0) currentHeroIndex = 3;
             const h = heroesData[currentHeroIndex];
             const bg = document.getElementById('g-bg-img');
             bg.style.opacity = 0;
