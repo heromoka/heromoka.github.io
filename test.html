@@ -11,10 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
-        /* --- 1. CORE VARIABLES (V15 ORIGINAL) --- */
+        /* --- CORE VARIABLES (V15) --- */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
             --dark: #050505; --ingame-blue: #4a9eff; --card-glass: rgba(20, 20, 30, 0.7);
@@ -38,7 +39,7 @@
         nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
         .logo { font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; } .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
+        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; font-weight: 600; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
@@ -49,35 +50,25 @@
         .dropdown-item { padding: 12px 20px; color: #ccc; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; gap: 10px; align-items: center; }
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); padding-left: 25px; }
 
-        /* DASHBOARD OVERLAY (CIVITAS STYLE) */
+        /* DASHBOARD OVERLAY */
         .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #0a0a0a; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
         .dash-overlay.active { display: flex; opacity: 1; }
         .dash-topbar { height: 60px; background: #111; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .dash-close { cursor: pointer; color: #888; font-weight: bold; border: 1px solid #444; padding: 5px 15px; border-radius: 4px; transition: 0.2s; }
-        .dash-close:hover { color: #fff; border-color: var(--gold); color: var(--gold); }
-        
+        .dash-close { cursor: pointer; color: #888; font-weight: bold; border: 1px solid #444; padding: 5px 15px; border-radius: 4px; }
+        .dash-close:hover { color: #fff; border-color: #fff; }
         .dash-body { flex: 1; display: flex; overflow: hidden; }
         .dash-sidebar { width: 240px; background: #0e0e0e; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .dash-menu-btn { padding: 12px 15px; color: #888; cursor: pointer; border-radius: 6px; font-family: 'Rajdhani'; font-weight: bold; display: flex; gap: 10px; align-items: center; transition: 0.2s; }
+        .dash-menu-btn { padding: 12px 15px; color: #888; cursor: pointer; border-radius: 6px; font-family: 'Rajdhani'; font-weight: bold; display: flex; gap: 10px; align-items: center; }
         .dash-menu-btn:hover, .dash-menu-btn.active { background: rgba(200,170,109,0.1); color: var(--gold); }
-        
         .dash-content { flex: 1; padding: 40px; overflow-y: auto; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(0,0,0,0.9); }
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
-
-        /* DASHBOARD CARDS */
         .d-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; margin-bottom: 20px; }
-        .d-header { padding: 15px 20px; border-bottom: 1px solid #333; color: var(--gold); font-family: 'Rajdhani'; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .d-header { padding: 15px 20px; border-bottom: 1px solid #333; color: var(--gold); font-family: 'Rajdhani'; font-weight: bold; display: flex; justify-content: space-between; }
         .d-body { padding: 20px; }
         .d-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; color: #ccc; font-size: 14px; }
-        .d-row span:first-child { color: #888; font-weight: bold; }
-        
-        .checkin-btn { width: 100%; padding: 12px; background: linear-gradient(to right, #444, #555); border: 1px solid #666; color: #fff; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
-
-        .streak-bar { display: flex; gap: 5px; margin-top: 20px; }
-        .streak-box { flex: 1; height: 40px; border: 2px solid #444; display: flex; align-items: center; justify-content: center; color: #444; border-radius: 4px; }
-        .streak-box.active { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
+        .checkin-btn { width: 100%; padding: 12px; background: var(--gold); color: #000; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* SECTIONS (V15) */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
@@ -116,7 +107,9 @@
         #token { background: #050505; }
         .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; margin: 0 auto; }
         .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        
+        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
@@ -147,7 +140,6 @@
             .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; padding: 10px; }
         }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -189,43 +181,28 @@
         </div>
         <div class="dash-body">
             <div class="dash-sidebar">
-                <div class="dash-menu-btn active" onclick="switchTab('profile', this)"><i class="fas fa-chart-pie"></i> DASHBOARD</div>
-                <div class="dash-menu-btn" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
+                <div class="dash-menu-btn active" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> MY PROFILE</div>
+                <div class="dash-menu-btn" onclick="switchTab('inventory', this)"><i class="fas fa-box"></i> INVENTORY</div>
                 <div class="dash-menu-btn" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
             </div>
             <div class="dash-content">
                 <div id="tab-profile" class="dash-panel active">
-                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER DASHBOARD</h2>
+                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER PROFILE</h2>
                     <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
                         <div class="d-card">
                             <div class="d-header"><span>PLAYER INFO</span> <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
                             <div class="d-body">
-                                <div class="d-row"><span>Name:</span> <span id="dash-display-name">...</span></div>
-                                <div class="d-row"><span>Email:</span> <span id="dash-display-email">...</span></div>
+                                <div class="d-row"><span>Name:</span> <span id="dash-name">...</span></div>
+                                <div class="d-row"><span>Email:</span> <span id="dash-email">...</span></div>
                                 <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
                                 <div class="d-row"><span>Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
                             </div>
                         </div>
                         <div class="d-card">
-                            <div class="d-header">DAILY CHECK-IN</div>
+                            <div class="d-header">DAILY REWARD</div>
                             <div class="d-body" style="text-align:center;">
-                                <p style="font-size:12px; color:#888;">Login daily to get rewards.</p>
+                                <p style="font-size:12px; color:#888;">+5 Shards Daily</p>
                                 <button id="checkin-btn" class="checkin-btn">CHECK IN</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-card">
-                        <div class="d-header">CHECK-IN STREAK</div>
-                        <div class="d-body">
-                            <p style="font-size:12px; color:#888;">Connect 7 days for bonus.</p>
-                            <div class="streak-bar">
-                                <div class="streak-box active"><i class="fas fa-check"></i></div>
-                                <div class="streak-box active"><i class="fas fa-check"></i></div>
-                                <div class="streak-box">3</div>
-                                <div class="streak-box">4</div>
-                                <div class="streak-box">5</div>
-                                <div class="streak-box">6</div>
-                                <div class="streak-box">7</div>
                             </div>
                         </div>
                     </div>
@@ -349,12 +326,12 @@
     </footer>
 
     <script type="module">
-        // Import Firebase từ CDN (Chuẩn cho HTML thường)
+        // Import Firebase từ CDN chuẩn cho Web
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIG CỦA BẠN (Đã sửa lại để chạy được)
+        // CONFIG CỦA BẠN (Đã dán)
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -369,6 +346,7 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // Elements
         const loginBtn = document.getElementById('login-btn');
         const walletBtn = document.getElementById('wallet-btn');
         const userDropdown = document.getElementById('user-dropdown');
@@ -376,24 +354,14 @@
         const logoutBtn = document.getElementById('logout-btn');
         let currentUser = null;
 
-        // XỬ LÝ ĐĂNG NHẬP
+        // AUTH & DATABASE LOGIC
+        // Lưu ý: Đã dùng addEventListener để không bị lỗi onclick trong HTML
         loginBtn.addEventListener('click', async (e) => {
             e.stopPropagation();
             if(!currentUser) {
                 try {
                     const result = await signInWithPopup(auth, provider);
-                    const user = result.user;
-                    // Tạo dữ liệu người dùng trên Firestore nếu chưa có
-                    const userRef = doc(db, "users", user.uid);
-                    const snap = await getDoc(userRef);
-                    if(!snap.exists()) {
-                        await setDoc(userRef, { 
-                            name: user.displayName, 
-                            email: user.email, 
-                            shards: 0, 
-                            wallet: "" 
-                        });
-                    }
+                    // Code này chạy khi login thành công
                 } catch(e) { 
                     alert("Login Failed: " + e.message); 
                 }
@@ -403,26 +371,29 @@
         });
 
         logoutBtn.addEventListener('click', async () => {
-            if(confirm("Logout?")) { await signOut(auth); closeDashboard(); userDropdown.classList.remove('active'); }
+            if(confirm("Logout?")) { await signOut(auth); userDropdown.classList.remove('active'); closeDashboard(); }
         });
 
         onAuthStateChanged(auth, async (user) => {
             if(user) {
                 currentUser = user;
                 loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; border-radius:50%; margin-right:5px; border:1px solid #c8aa6d;">`;
-                loginBtn.style.border = "1px solid #c8aa6d";
+                loginBtn.style.color = "#c8aa6d"; loginBtn.style.borderColor = "#c8aa6d";
                 
                 // Cập nhật thông tin lên Dashboard
                 document.getElementById('user-avatar').src = user.photoURL;
                 document.getElementById('user-name').innerText = user.displayName;
                 document.getElementById('user-email').innerText = user.email;
-                document.getElementById('dash-display-name').innerText = user.displayName;
-                document.getElementById('dash-display-email').innerText = user.email;
+                document.getElementById('dash-name').innerText = user.displayName;
+                document.getElementById('dash-email').innerText = user.email;
                 
-                // Lấy dữ liệu tiền/ví từ Database
-                const ref = doc(db, "users", user.uid);
-                const snap = await getDoc(ref);
-                if(snap.exists()) {
+                // Tạo/Lấy dữ liệu người dùng trên Firestore
+                const userRef = doc(db, "users", user.uid);
+                const snap = await getDoc(userRef);
+                
+                if(!snap.exists()) {
+                    await setDoc(userRef, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
+                } else {
                     const d = snap.data();
                     document.getElementById('dash-shards').innerText = d.shards;
                     if(d.wallet) {
@@ -433,19 +404,20 @@
             } else {
                 currentUser = null;
                 loginBtn.innerHTML = "LOGIN";
-                loginBtn.style.border = "1px solid #666";
+                loginBtn.style.color = "#ccc"; loginBtn.style.borderColor = "#666";
                 userDropdown.classList.remove('active');
             }
         });
 
-        // Xử lý đóng menu khi click ra ngoài
+        // Đóng menu khi click ra ngoài
         window.addEventListener('click', (e) => {
             if (!userDropdown.contains(e.target) && !loginBtn.contains(e.target)) userDropdown.classList.remove('active');
         });
 
-        // --- LOGIC DASHBOARD & URL ---
+        // DASHBOARD & URL LOGIC
         window.closeDashboard = () => {
             dashOverlay.classList.remove('active');
+            // Clean URL back to home (without reload)
             history.pushState("", document.title, window.location.pathname.replace("/dashboard", ""));
         };
         
@@ -454,7 +426,7 @@
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
             
-            // Đổi URL thành /dashboard
+            // CLEAN URL TRICK: Change URL to /dashboard without reloading
             const newUrl = window.location.pathname.endsWith('/') ? 'dashboard' : '/dashboard';
             history.pushState({}, "", newUrl);
 
@@ -470,7 +442,7 @@
             }
         };
 
-        // --- KẾT NỐI VÍ METAMASK ---
+        // WALLET (Metamask)
         walletBtn.addEventListener('click', async () => {
             if(window.ethereum) {
                 try {
@@ -485,10 +457,10 @@
                         document.getElementById('dash-wallet').innerText = addr;
                     }
                 } catch(e) { alert("Connect Error"); }
-            } else { alert("Install Metamask Extension!"); }
+            } else { alert("Please Install Metamask Extension!"); }
         });
 
-        // --- ĐIỂM DANH ---
+        // CHECKIN
         document.getElementById('checkin-btn').onclick = async () => {
             if(currentUser) {
                 const ref = doc(db, "users", currentUser.uid);
@@ -500,7 +472,7 @@
             }
         };
 
-        // --- SLIDER LOGIC (V15) ---
+        // SLIDER LOGIC
         const heroesData = [
             { name: "IGNIS PRIME", factionHTML: "FACTION • IGNIS", quote: "\"The fire never dies.\"", bg: "./assets/bg_ignis.jpg?v=1", pos: "100% 0%" },
             { name: "GAIA MOTHER", factionHTML: "FACTION • SYLVA", quote: "\"Nature is eternal.\"", bg: "./assets/bg_sylva.jpg?v=1", pos: "100% 33%" },
@@ -522,6 +494,15 @@
                 document.getElementById('g-card-sprite').style.backgroundPosition = h.pos;
                 bg.style.opacity = 1;
             }, 300);
+        };
+        // Helpers
+        window.showComingSoon = function(btn) {
+            if (btn.dataset.clicking === "true") return;
+            btn.dataset.clicking = "true";
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = "<i class='fas fa-clock'></i> Coming Soon";
+            btn.style.color = "#00f2ff"; btn.style.borderColor = "#00f2ff";
+            setTimeout(() => { btn.innerHTML = originalHTML; btn.style.color = "#aaa"; btn.style.borderColor = "#444"; btn.dataset.clicking = "false"; }, 1500);
         };
     </script>
 </body>
