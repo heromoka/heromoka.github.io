@@ -10,38 +10,72 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS V15 (GIỮ NGUYÊN BẢN GỐC 100%) --- */
+        /* --- 1. CORE CSS V15 (GIỮ NGUYÊN 100% TỪ MÃ BẠN GỬI) --- */
         /* ================================================================= */
         :root {
-            --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
-            --dark: #050505; --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
+            --gold: #c8aa6d;              
+            --gold-bright: #f0e6d2;       
+            --cyan: #00f2ff;
+            --cyan-glow: rgba(0, 242, 255, 0.5);
+            --dark: #050505;              
+            --ingame-blue: #4a9eff;
+            --web3-purple: #9b59b6;
             --card-glass: rgba(20, 20, 30, 0.7);
         }
+        
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
+        
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
+
         h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
         /* BUTTONS V15 */
-        .btn-main { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; }
+        .btn-main {
+            background: linear-gradient(to bottom, #c8aa6d, #8e733b);
+            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif;
+        }
         .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
-        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
+
+        .btn-outline {
+            background: transparent; border: 1px solid #666; color: #ccc;
+            padding: 10px 25px; cursor: pointer; transition: 0.3s;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700;
+        }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        .btn-platform { background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif; }
+
+        .btn-platform {
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa;
+            padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
+            min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
+        }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
         /* NAV */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; } .logo span { color: var(--gold); }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 40px; height: 80px;
+            background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
+        .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
+        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
         /* SECTIONS COMMON */
@@ -50,37 +84,87 @@
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
 
         /* HERO */
-        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none; }
+        #hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
+        }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
-        .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
+            z-index: 1;
+        }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
         .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
-        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; background: linear-gradient(to right, var(--gold), #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        .hero-title { 
+            font-size: 80px; margin-bottom: 20px; line-height: 1; 
+            background: linear-gradient(to right, var(--gold), #fff, var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
         /* NFT */
         #nft { background: #0b0b0b; padding-top: 80px; }
-        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
-        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .genesis-panel::before, .genesis-panel::after { content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
-        .genesis-panel::before { left: 20px; } .genesis-panel::after { right: 20px; }
+        .genesis-wrapper { 
+            position: relative; max-width: 1100px; height: 500px; margin: 0 auto; 
+            border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        .genesis-bg-large { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; 
+            transition: opacity 0.4s ease-in-out; 
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); 
+        }
+        .genesis-panel { 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; 
+            background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); 
+            display: flex; align-items: center; justify-content: center; z-index: 2; 
+        }
+        .genesis-panel::before, .genesis-panel::after { 
+            content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); 
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent); 
+        }
+        .genesis-panel::before { left: 20px; }
+        .genesis-panel::after { right: 20px; }
+        
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
         .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
         .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
-        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
+        
+        .genesis-card-container { 
+            position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; 
+            transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); 
+        }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
         .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        
+        .nav-arrow { 
+            position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; 
+            background: transparent; border: 1px solid #444; border-radius: 50%; 
+            color: #666; font-size: 18px; cursor: pointer; z-index: 20; 
+            display: flex; align-items: center; justify-content: center; transition: 0.3s; 
+        }
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
         /* FEATURES */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; }
-        .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
+        .feature-card {
+            padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            background: var(--card-glass); backdrop-filter: blur(10px);
+            border: 1px solid transparent; background-clip: padding-box;
+        }
+        .feature-card::before {
+            content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; 
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s;
+        }
         .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
         .feature-card:hover { transform: translateY(-10px); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
@@ -91,9 +175,12 @@
         /* ECONOMY */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
-        .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
-        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); } .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
-        .zone-web3 { border-top: 4px solid var(--gold); } .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
+        .zone-game { border-top: 4px solid var(--ingame-blue); }
+        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
+        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
+        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
+        .zone-web3 { border-top: 4px solid var(--gold); }
+        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
         .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; transition: 0.3s; }
         .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
         .eco-icon { font-size: 24px; width: 40px; text-align: center; }
@@ -103,14 +190,27 @@
         .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
         .swap-action span { font-size: 14px; font-weight: bold; color: #ccc; text-transform: uppercase; }
         .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
-        .arr-left { left: -22px; color: var(--ingame-blue); } .arr-right { right: -22px; color: var(--gold); }
+        .arr-left { left: -22px; color: var(--ingame-blue); }
+        .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
         /* TOKENOMICS */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
-        .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
-        .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .pie-chart {
+            width: 280px; height: 280px; border-radius: 50%;
+            background: conic-gradient(
+                var(--gold) 0% 51%, 
+                #9b59b6 51% 71%, 
+                #555 71% 90%, 
+                #222 90% 100%
+            );
+            position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5);
+        }
+        .pie-hole {
+            position: absolute; inset: 60px; background: var(--dark); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+        }
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
@@ -118,16 +218,21 @@
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
-        .roadmap-item:nth-child(odd) { left: 0; text-align: right; } .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
+        .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
+        .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
         .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
-        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; } .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
+        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
+        .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
         .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
-
+        
         /* PARTNERS */
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
-        .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
+        .partner-item {
+            display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s;
+            border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111;
+        }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
         .partner-item i { font-size: 24px; color: #fff; }
         .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
@@ -141,6 +246,7 @@
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
 
+        /* RESPONSIVE */
         @media (max-width: 992px) {
             .nav-links { display: none; }
             .hero-title { font-size: 50px; }
@@ -156,10 +262,11 @@
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
         }
+
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ================================================================= */
-        /* --- 2. ADD-ON CSS: DASHBOARD & LOGIC (V38 - FULL SCREEN) --- */
+        /* --- 2. ADD-ON CSS: DASHBOARD & LOGIC (V39 - FULL SCREEN & TOAST) --- */
         /* ================================================================= */
         
         /* TOAST NOTIFICATION */
@@ -182,9 +289,10 @@
         .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
 
-        /* DASHBOARD FULL SCREEN (ĐÃ SỬA FULL) */
+        /* DASHBOARD FULL SCREEN */
         .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #000; width: 100vw; height: 100vh; flex-direction: column; }
         .dash-overlay.active { display: flex; }
+        
         .dash-wrapper { width: 100%; height: 100%; background: #111; display: flex; border: none; border-radius: 0; }
         .dash-sidebar { width: 260px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 30px 20px; flex-shrink: 0; }
         .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-position: center; background-blend-mode: multiply; background-color: rgba(10,10,15,0.95); position: relative; }
@@ -197,13 +305,17 @@
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
 
-        /* PROFILE STYLES (FULL WIDTH) */
-        .profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 8px; width: 100%; max-width: 100%; /* ĐÃ SỬA FULL WIDTH */ margin: 0 auto; }
+        /* PROFILE STYLES */
+        .profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 8px; width: 100%; max-width: 1200px; margin: 0 auto; }
         .p-row { display: flex; flex-direction: column; margin-bottom: 25px; position: relative; }
         .p-label { color: #666; font-size: 11px; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+        
+        /* INPUT ẨN (NHÌN NHƯ TEXT) */
         .p-input { background: transparent; border: 1px solid transparent; color: #fff; padding: 10px 0; font-family: 'Roboto'; font-size: 16px; width: 100%; transition: 0.3s; pointer-events: none; }
+        /* INPUT HIỆN (KHI SỬA) */
         .p-input.editable { background: rgba(0,0,0,0.5); border: 1px solid #444; padding: 10px; pointer-events: auto; color: var(--gold); }
         .p-input:focus { border-color: var(--gold); outline: none; }
+        
         .edit-icon { position: absolute; right: 0; bottom: 12px; color: #444; cursor: pointer; transition: 0.2s; font-size: 14px; }
         .edit-icon:hover { color: var(--gold); }
         .edit-icon.hidden { display: none; }
@@ -223,7 +335,6 @@
         .dropdown-item:hover { background: #222; color: var(--gold); }
 
         @media (max-width: 768px) { .dash-wrapper { flex-direction: column; } .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; } .dash-content { padding: 20px; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -370,14 +481,21 @@
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px;">Gather your army, forge NFT gear, and conquer the world.</p>
-            <div class="download-area"><button class="btn-main">FREE DOWNLOAD</button></div>
+            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.</p>
+            <div class="download-area">
+                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">FREE DOWNLOAD</button>
+                <div class="platform-list">
+                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC Windows</button>
+                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-android"></i> Android APK</button>
+                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-apple"></i> iOS Store</button>
+                </div>
+            </div>
         </div>
     </header>
 
     <section id="nft">
         <div class="container">
-            <div class="text-center"><h2 class="sec-title">GENESIS COLLECTION</h2></div>
+            <div class="text-center"><h2 class="sec-title">GENESIS COLLECTION</h2><p class="sec-desc">Choose your hero. Who will you bring into the battle?</p></div>
             <div style="position: relative; max-width: 1100px; margin: 0 auto;">
                 <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
@@ -385,42 +503,119 @@
                     <img src="./assets/bg_ignis.jpg?v=1" class="genesis-bg-large" id="g-bg-img">
                     <div class="genesis-panel" id="g-overlay">
                         <div class="genesis-text">
-                            <span class="g-faction" id="g-faction">FACTION • IGNIS</span>
+                            <span class="g-faction" id="g-faction">FACTION • <span style="color:#ff3b3b">IGNIS PRIME</span> • DESTRUCTION</span>
                             <h2 class="g-name" id="g-name">IGNIS PRIME</h2>
-                            <span class="g-quote" id="g-quote">"The fire never dies."</span>
+                            <span class="g-quote" id="g-quote">"The fire never dies. I am destruction, and I am rebirth."</span>
                         </div>
                         <div class="genesis-card-container"><div class="card-sprite" id="g-card-sprite"></div></div>
                     </div>
                 </div>
             </div>
+            <div class="text-center" style="margin-top: 50px;"><button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button></div>
         </div>
     </section>
 
-    <section id="features"><div class="container"><div class="text-center"><h2 class="sec-title">GAME FEATURES</h2></div><div class="feature-grid"><div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p></div><div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS</h3><p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p></div><div class="feature-card"><i class="fas fa-hammer f-icon"></i><h3 class="f-title">FORGE NFT</h3><p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p></div><div class="feature-card"><i class="fas fa-landmark f-icon"></i><h3 class="f-title">LAND OWNERSHIP</h3><p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p></div><div class="feature-card"><i class="fas fa-scroll f-icon"></i><h3 class="f-title">DAILY QUESTS</h3><p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p></div><div class="feature-card"><i class="fas fa-users f-icon"></i><h3 class="f-title">GUILD WARS</h3><p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p></div></div></div></section>
-    
+    <section id="features">
+        <div class="container">
+            <div class="text-center"><h2 class="sec-title">GAMEPLAY FEATURES</h2><p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p></div>
+            <div class="feature-grid">
+                <div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p></div>
+                <div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS HUNT</h3><p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p></div>
+                <div class="feature-card"><i class="fas fa-hammer f-icon"></i><h3 class="f-title">FORGE & UPGRADE</h3><p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p></div>
+                <div class="feature-card"><i class="fas fa-landmark f-icon"></i><h3 class="f-title">LAND OWNERSHIP</h3><p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p></div>
+                <div class="feature-card"><i class="fas fa-scroll f-icon"></i><h3 class="f-title">DAILY QUESTS</h3><p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p></div>
+                <div class="feature-card"><i class="fas fa-users f-icon"></i><h3 class="f-title">GUILD WARS</h3><p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p></div>
+            </div>
+        </div>
+    </section>
+
     <section id="economy">
-        <div class="container"><div class="text-center"><h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2></div><div class="eco-layout"><div class="eco-zone zone-game"><h3>IN-GAME</h3><div class="eco-item-box"><div class="eco-icon">💎</div><h4>MOKA SHARDS</h4><p>Earned from PvP, Rank, Boss.</p></div><div class="eco-item-box"><div class="eco-icon">🧩</div><h4>NFT FRAGMENTS</h4><p>Drops from Dungeons & Chests.</p></div><div class="eco-item-box" style="border-color: #d63031;"><div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div><h4>BLACK MARKET</h4><p>Internal P2P trading.</p></div></div><div class="eco-zone zone-gate"><h3>GATE</h3><div class="swap-action"><i class="fas fa-sync-alt main-icon"></i><span>SWAP</span><p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p></div><div class="swap-action"><i class="fas fa-hammer main-icon"></i><span>MINT NFT</span><p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p></div></div><div class="eco-zone zone-web3"><h3>WEB3</h3><div class="eco-item-box"><div class="eco-icon">🪙</div><h4>$MOKA TOKEN</h4><p>Tradable on CEX / DEX.</p></div><div class="eco-item-box"><div class="eco-icon">🛒</div><h4>MARKETPLACE</h4><p>Buy/Sell Heroes & Lands.</p></div><div class="eco-item-box"><div class="eco-icon">🛍️</div><h4>SPENDING</h4><p>Deposit $MOKA.</p></div></div></div></div>
+        <div class="container">
+            <div class="text-center"><h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2><p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p></div>
+            <div class="eco-layout">
+                <div class="eco-zone zone-game">
+                    <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div><div class="eco-text"><h4>MOKA SHARDS</h4><p>Earned from PvP, Rank, Boss.</p></div></div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #a335ee;"><i class="fas fa-puzzle-piece"></i></div><div class="eco-text"><h4>NFT FRAGMENTS</h4><p>Drops from Dungeons & Chests.</p></div></div>
+                    <div class="eco-item-box" style="border-color: #d63031;"><div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div><div class="eco-text"><h4>BLACK MARKET</h4><p>Internal P2P trading for materials.</p></div></div>
+                </div>
+                <div class="eco-zone zone-gate">
+                    <h3><i class="fas fa-torii-gate"></i> THE GATE</h3>
+                    <div class="swap-action"><i class="fas fa-sync-alt main-icon"></i><span>SWAP</span><p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p><i class="fas fa-chevron-right arrow-flow arr-right"></i><i class="fas fa-chevron-left arrow-flow arr-left"></i></div>
+                    <div class="swap-action"><i class="fas fa-hammer main-icon"></i><span>MINT NFT</span><p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p><i class="fas fa-chevron-right arrow-flow arr-right"></i></div>
+                </div>
+                <div class="eco-zone zone-web3">
+                    <h3><i class="fas fa-globe"></i> WEB3 WORLD</h3>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div><div class="eco-text"><h4>$MOKA TOKEN</h4><p>Tradable on CEX / DEX.</p></div></div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #ff9f43;"><i class="fas fa-store"></i></div><div class="eco-text"><h4>NFT MARKETPLACE</h4><p>Buy/Sell Heroes & Lands.</p></div></div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #fff;"><i class="fas fa-shopping-cart"></i></div><div class="eco-text"><h4>SPENDING</h4><p>Deposit $MOKA back into game.</p></div></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="token">
-        <div class="container"><div class="text-center"><h2 class="sec-title">TOKENOMICS</h2></div><div class="token-wrap"><div class="pie-chart"><div class="pie-hole"><span style="font-family:'Cinzel'; font-size:30px; color:var(--gold);">100M</span></div></div><ul class="token-list" style="list-style:none;"><li><span class="dot" style="background:var(--gold)"></span> 51% Play to Earn</li><li><span class="dot" style="background:#222"></span> 10% Team</li><li><span class="dot" style="background:#9b59b6"></span> 20% Marketing</li><li><span class="dot" style="background:#555"></span> 19% Ecosystem</li></ul></div></div>
+        <div class="container">
+            <div class="text-center"><h2 class="sec-title">TOKENOMICS</h2><p class="sec-desc">Token Allocation - Total Supply 100 Million.</p></div>
+            <div class="token-wrap">
+                <div class="pie-chart"><div class="pie-hole"><span style="font-size: 30px; font-weight: 900; color: var(--gold); font-family: 'Cinzel';">$MOKA</span><span style="font-size: 12px; color: #666;">Total: 100M</span></div></div>
+                <ul class="token-list" style="list-style: none;">
+                    <li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li>
+                    <li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li>
+                    <li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li>
+                    <li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li>
+                </ul>
+            </div>
+        </div>
     </section>
 
     <section id="roadmap">
-        <div class="container"><div class="text-center"><h2 class="sec-title">ROADMAP</h2></div><div class="roadmap-container"><div class="roadmap-line"></div><div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q1 2026</span><h3>GENESIS</h3><ul><li>Website Launch</li><li>Genesis Sale</li></ul></div><div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">Q2 2026</span><h3>LAUNCH</h3><ul><li>Mobile Launch</li><li>Guild Wars</li></ul></div></div></div>
+        <div class="container">
+            <div class="text-center"><h2 class="sec-title">ROADMAP</h2></div>
+            <div class="roadmap-container">
+                <div class="roadmap-line"></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 1 (JAN - MAR 2026)</span><div class="roadmap-content"><h3>GENESIS</h3><ul><li>Website & Whitepaper Launch</li><li>Genesis Chest Sale (Early NFTs)</li><li>Alpha Test on Web</li></ul></div></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 2 (APR - JUN 2026)</span><div class="roadmap-content"><h3>EXPLOSION</h3><ul><li>Mobile Launch (iOS/Android)</li><li>Guild Wars Feature</li><li>$MOKA CEX Listing</li></ul></div></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 3 (JUL - SEP 2026)</span><div class="roadmap-content"><h3>EXPANSION</h3><ul><li>Cross-chain Bridge Integration</li><li>Staking System & DAO Governance</li><li>"Leviathan" World Boss Raid</li></ul></div></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 4 (OCT - DEC 2026)</span><div class="roadmap-content"><h3>METAVERSE</h3><ul><li>Moka Land Gameplay Launch</li><li>Global Championship 2026</li><li>Scholarship Program</li></ul></div></div>
+            </div>
+        </div>
     </section>
 
-    <section id="partners">
-        <div class="container"><div class="text-center"><p style="color:#666; letter-spacing:3px;">PARTNERS</p></div><div class="partner-grid"><div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS</span></div><div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN</span></div><div class="partner-item"><i class="fas fa-gem"></i> <span>DIAMOND</span></div></div></div>
+    <section id="partners" style="padding: 60px 0; background: #080808; border-top: 1px solid #111;">
+        <div class="container">
+            <div class="text-center"><p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p></div>
+            <div class="partner-grid">
+                <div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS CAPITAL</span></div>
+                <div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN VENTURES</span></div>
+                <div class="partner-item"><i class="fas fa-gem"></i> <span>DIAMOND HANDS</span></div>
+            </div>
+            <div class="partner-grid" style="margin-top: 20px;">
+                <div class="partner-item"><i class="fas fa-cube"></i> <span>BLOCKSTREAM</span></div>
+                <div class="partner-item"><i class="fas fa-gamepad"></i> <span>UNITY 3D</span></div>
+                <div class="partner-item"><i class="fas fa-users-cog"></i> <span>META GUILD</span></div>
+                <div class="partner-item"><i class="fas fa-search-dollar"></i> <span>QUANTUM AUDIT</span></div>
+            </div>
+        </div>
     </section>
 
-    <footer><div class="container"><div class="text-center" style="color:#666; font-size:12px;">© 2026 MOKAHERO</div></div></footer>
+    <footer>
+        <div class="container">
+            <div class="footer-cols">
+                <div><a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a><p style="color: #666; font-size: 13px; line-height: 1.8;">Next-generation tactical card game with true ownership economy.</p></div>
+                <div><h4 class="f-title">ABOUT US</h4><div class="f-links"><a href="#features">Features</a><a href="#economy">Economy</a><a href="whitepaper.html">Whitepaper</a><a href="#">Contact</a></div></div>
+                <div><h4 class="f-title">COMMUNITY</h4><div class="socials"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a></div></div>
+            </div>
+            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;"><p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p></div>
+        </div>
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        // FIREBASE CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -448,7 +643,7 @@
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // 2. METHODS
+        // 2. AUTH METHODS
         document.getElementById('btn-google').onclick = async () => {
             try { await signInWithPopup(auth, provider); closeLoginGate(); } 
             catch(e) { showToast("Login Failed: " + e.message, "error"); }
@@ -468,7 +663,7 @@
             } else { showToast("Please Install Metamask", "error"); }
         };
 
-        // 3. FIREBASE
+        // 3. FIREBASE LISTENER
         onAuthStateChanged(auth, (user) => {
             if(user) {
                 updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
@@ -482,7 +677,7 @@
             }
         });
 
-        // 4. UI LOGIC
+        // 4. UI UPDATE
         function updateUI(user) {
             currentLoginType = user.type;
             mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
@@ -512,7 +707,7 @@
             currentLoginType = '';
         }
 
-        // 5. EDIT PROFILE
+        // 5. PROFILE EDIT
         window.enableEdit = (field) => {
             const input = document.getElementById('input-' + field);
             input.readOnly = false;
@@ -538,13 +733,9 @@
             toast.className = 'toast';
             toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${msg}</span>`;
             if(type === 'error') toast.innerHTML = `<i class="fas fa-exclamation-circle" style="color:red;"></i> <span>${msg}</span>`;
-            
             container.appendChild(toast);
             setTimeout(() => toast.classList.add('show'), 100);
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
         // 7. SETTINGS
@@ -558,7 +749,7 @@
             }
         };
 
-        // DASHBOARD TABS
+        // 8. DASHBOARD NAV
         window.openDashboard = (tab) => {
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
@@ -579,12 +770,12 @@
             location.reload();
         };
 
-        // HERO SLIDER
+        // 9. HERO SLIDER (V15 LOGIC)
         const heroesData = [
-            { name: "IGNIS PRIME", factionHTML: "FACTION • IGNIS", quote: "\"The fire never dies.\"", bg: "./assets/bg_ignis.jpg?v=1", pos: "100% 0%" },
-            { name: "GAIA MOTHER", factionHTML: "FACTION • SYLVA", quote: "\"Nature is eternal.\"", bg: "./assets/bg_sylva.jpg?v=1", pos: "100% 33%" },
-            { name: "OMEGA WEAPON", factionHTML: "FACTION • OMEGA", quote: "\"Steel is strong.\"", bg: "./assets/bg_omega.jpg?v=1", pos: "100% 66%" },
-            { name: "VOID EYE", factionHTML: "FACTION • ZAROK", quote: "\"Abyss stares back.\"", bg: "./assets/bg_zarok.jpg?v=1", pos: "100% 100%" }
+            { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies. I am destruction, and I am rebirth.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "100% 0%" },
+            { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is never in a hurry, yet everything is accomplished.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "100% 33.333%" },
+            { name: "OMEGA WEAPON", factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span> • TECH", quote: "\"Steel and Oil are eternal truths. Emotion is a weakness.\"", bgImage: "./assets/bg_omega.jpg?v=1", bgPos: "100% 66.666%" },
+            { name: "VOID EYE", factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span> • ABYSS", quote: "\"When you stare into the abyss, the abyss stares back at you.\"", bgImage: "./assets/bg_zarok.jpg?v=1", bgPos: "100% 100%" }
         ];
         let currentHeroIndex = 0;
         window.changeHero = function(d) {
@@ -597,8 +788,8 @@
                 document.getElementById('g-name').innerText = h.name;
                 document.getElementById('g-faction').innerHTML = h.factionHTML;
                 document.getElementById('g-quote').innerText = h.quote;
-                bg.src = h.bg;
-                document.getElementById('g-card-sprite').style.backgroundPosition = h.pos;
+                bg.src = h.bgImage;
+                document.getElementById('g-card-sprite').style.backgroundPosition = h.bgPos;
                 bg.style.opacity = 1;
             }, 300);
         };
