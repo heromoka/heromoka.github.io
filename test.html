@@ -105,14 +105,13 @@
         .platform-list { display: flex; gap: 10px; justify-content: center; }
 
         /* ========================================= */
-        /* --- 5. NFT SLIDER (YASUO STYLE V3) --- */
+        /* --- 5. NFT SLIDER (YASUO STYLE - SPRITE) --- */
         /* ========================================= */
         #nft { background: #080808; }
 
-        /* Khung bao bọc chính, có viền vàng */
         .genesis-wrapper {
             position: relative;
-            max-width: 1100px; height: 600px; /* Chiều cao cố định */
+            max-width: 1100px; height: 600px; 
             margin: 0 auto;
             border: 2px solid rgba(255, 193, 7, 0.5);
             border-radius: 4px; overflow: hidden;
@@ -120,46 +119,47 @@
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
-        /* Ảnh nền lớn (Splash Art) nằm dưới cùng */
         .genesis-bg-large {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 0;
             transition: opacity 0.5s ease-in-out;
         }
 
-        /* Lớp phủ chứa nội dung (Chữ + Thẻ nhỏ) nằm đè lên */
         .genesis-overlay {
             position: absolute; bottom: 0; left: 0; width: 100%;
             padding: 40px;
             background: linear-gradient(to top, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.6) 60%, transparent 100%);
             z-index: 2;
-            display: flex; align-items: flex-end; justify-content: space-between; /* Căn chữ trái, thẻ phải */
+            display: flex; align-items: flex-end; justify-content: space-between;
         }
 
-        /* Phần chữ bên trái */
         .genesis-text {
-            flex: 1; /* Chiếm phần lớn không gian */
-            padding-right: 40px;
-            text-align: left;
+            flex: 1; padding-right: 40px; text-align: left;
             animation: fadeUp 0.5s ease-out;
         }
         .g-faction { color: var(--gold); font-family: 'Cinzel'; letter-spacing: 3px; font-size: 16px; display: block; margin-bottom: 10px; }
         .g-name { font-family: 'Cinzel'; font-size: 60px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 20px; text-transform: uppercase; text-shadow: 0 5px 10px rgba(0,0,0,0.8); }
         .g-quote { font-style: italic; color: #ccc; font-size: 16px; max-width: 600px; border-top: 1px solid rgba(255,193,7,0.3); padding-top: 20px; }
 
-        /* Phần thẻ bài vàng nhỏ bên phải */
         .genesis-small-card {
-            flex: 0 0 280px; /* Chiều rộng cố định */
-            height: 400px;
-            position: relative;
-            bottom: -20px; /* Đẩy xuống một chút tạo hiệu ứng lớp */
+            flex: 0 0 280px; height: 400px;
+            position: relative; bottom: -20px;
             transition: transform 0.3s;
             animation: fadeIn 0.5s ease-in-out;
+            /* Hiệu ứng nổi */
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
         }
         .genesis-small-card:hover { transform: scale(1.05) translateY(-10px); z-index: 10; }
-        .small-card-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); }
 
-        /* Nút điều hướng */
+        /* KỸ THUẬT CẮT ẢNH SPRITE */
+        .card-sprite {
+            width: 100%; height: 100%;
+            background-image: url('./assets/full_set.png'); /* File chứa toàn bộ bài */
+            background-size: 500% 400%; /* 5 Cột, 4 Hàng */
+            background-repeat: no-repeat;
+            border-radius: 15px; /* Bo góc nhẹ cho giống thẻ */
+        }
+
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
             width: 60px; height: 60px; background: rgba(0,0,0,0.5); border: 2px solid rgba(255,193,7,0.3); border-radius: 50%;
@@ -224,7 +224,6 @@
         @media (max-width: 768px) {
             .hero-title { font-size: 40px; }
             .nav-links { display: none; }
-            /* Responsive cho Slider mới */
             .genesis-wrapper { height: auto; min-height: 500px; }
             .genesis-overlay { flex-direction: column; align-items: center; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,1) 20%, rgba(0,0,0,0.5) 100%); }
             .genesis-text { padding-right: 0; text-align: center; margin-bottom: 20px; }
@@ -296,11 +295,11 @@
                     <div class="genesis-text">
                         <span class="g-faction" id="g-faction">IONIA • BÃO THÉP</span>
                         <h2 class="g-name" id="g-name">YASUO</h2>
-                        <p class="g-quote" id="g-quote">"Tấn công nhanh như chớp và chặn đứng đường đi nước bước của kẻ dịch."</p>
+                        <p class="g-quote" id="g-quote">"Tấn công nhanh như chớp..."</p>
                     </div>
 
                     <div class="genesis-small-card">
-                        <img src="./assets/card_ignis_gold.png" class="small-card-img" id="g-card-img" onerror="this.src='./assets/fire.png'">
+                        <div class="card-sprite" id="g-card-sprite"></div>
                     </div>
 
                      <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
@@ -495,37 +494,39 @@
             }, 1500);
         }
 
-        // 2. LOGIC SLIDER YASUO STYLE MỚI
-        // Dữ liệu: Cần 2 ảnh (bgImage: ảnh nền lớn, cardImage: ảnh thẻ vàng nhỏ)
-        // LƯU Ý: Hãy thay thế tên file ảnh thẻ vàng thật của bạn vào `cardImage`
+        // 2. LOGIC SLIDER - DÙNG BACKGROUND POSITION ĐỂ CẮT ẢNH
+        // Tọa độ cắt ảnh (Dựa trên lưới 5 cột x 4 hàng)
+        // Cột 5 (Gold) luôn là 100% width.
+        // Hàng 1: 0% height | Hàng 2: 33.33% | Hàng 3: 66.66% | Hàng 4: 100%
+        
         const heroesData = [
             {
                 name: "IGNIS PRIME",
                 faction: "HỆ LỬA • IGNIS",
                 quote: "\"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh.\"",
                 bgImage: "./assets/bg_ignis.jpg?v=1",
-                cardImage: "./assets/card_ignis_gold.png" // Thay bằng ảnh thẻ vàng thật
+                bgPos: "100% 0%" // Vị trí thẻ vàng Ignis
             },
             {
                 name: "GAIA MOTHER",
                 faction: "HỆ MỘC • SYLVA",
                 quote: "\"Sự sống sẽ trỗi dậy từ tro tàn. Thiên nhiên luôn tìm ra lối thoát.\"",
                 bgImage: "./assets/bg_sylva.jpg?v=1",
-                cardImage: "./assets/card_sylva_gold.png" // Thay bằng ảnh thẻ vàng thật
+                bgPos: "100% 33.333%" // Vị trí thẻ vàng Sylva
             },
             {
                 name: "OMEGA WEAPON",
                 faction: "HỆ MÁY • OMEGA",
                 quote: "\"Thép và Dầu là chân lý vĩnh cửu. Cảm xúc chỉ là điểm yếu.\"",
                 bgImage: "./assets/bg_omega.jpg?v=1",
-                cardImage: "./assets/card_omega_gold.png" // Thay bằng ảnh thẻ vàng thật
+                bgPos: "100% 66.666%" // Vị trí thẻ vàng Omega
             },
             {
                 name: "VOID EYE",
                 faction: "HƯ KHÔNG • ZAROK",
                 quote: "\"Khi ngươi nhìn vào vực thẳm, vực thẳm cũng đang nhìn lại ngươi.\"",
                 bgImage: "./assets/bg_zarok.jpg?v=1",
-                cardImage: "./assets/card_zarok_gold.png" // Thay bằng ảnh thẻ vàng thật
+                bgPos: "100% 100%" // Vị trí thẻ vàng Zarok
             }
         ];
 
@@ -540,29 +541,28 @@
 
         function updateHeroDisplay() {
             const hero = heroesData[currentHeroIndex];
-            // Hiệu ứng mờ đi trước khi đổi
+            
+            // Mờ đi
             document.getElementById('g-bg-img').style.opacity = 0;
             document.getElementById('g-overlay').style.opacity = 0;
             
             setTimeout(() => {
-                // Cập nhật nội dung
+                // Cập nhật chữ
                 document.getElementById('g-name').innerText = hero.name;
                 document.getElementById('g-faction').innerText = hero.faction;
                 document.getElementById('g-quote').innerText = hero.quote;
                 document.getElementById('g-bg-img').src = hero.bgImage;
                 
-                // Cập nhật ảnh thẻ và xử lý lỗi nếu chưa có ảnh
-                const cardImg = document.getElementById('g-card-img');
-                cardImg.src = hero.cardImage;
-                cardImg.onerror = function() { this.src = './assets/fire.png'; }; // Ảnh dự phòng
+                // Cập nhật thẻ bài bằng cách dịch chuyển ảnh nền
+                document.getElementById('g-card-sprite').style.backgroundPosition = hero.bgPos;
 
-                // Hiển thị lại
+                // Hiện lại
                 document.getElementById('g-bg-img').style.opacity = 1;
                 document.getElementById('g-overlay').style.opacity = 1;
             }, 300);
         }
 
-        // Khởi tạo lần đầu
+        // Khởi chạy lần đầu
         updateHeroDisplay();
     </script>
 
