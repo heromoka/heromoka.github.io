@@ -1,207 +1,271 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SÁCH TRẮNG | MOKAHERO WHITEPAPER</title>
+    <title>WHITEPAPER | MOKAHERO: GENESIS WARS</title>
     <link rel="icon" type="image/png" href="./assets/fire.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rajdhani:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        /* --- CORE VARIABLES (MATCHING LANDING PAGE) --- */
         :root {
-            --gold: #c8aa6d;
-            --blue-dark: #091120;
-            --text-main: #cdbe91;
-            --text-white: #f0f0f0;
+            --gold: #c8aa6d;             
+            --cyan: #00f2ff;
+            --dark: #050505;             
+            --sidebar-bg: #0a0a0a;
+            --content-bg: #0f1012;
+            --border: rgba(255,255,255,0.1);
         }
-
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #05080c; 
-            color: #ccc;
-            line-height: 1.8;
-        }
-
-        /* HEADER */
-        header {
-            background: linear-gradient(to right, #091120, #1a253a);
-            padding: 60px 0;
-            text-align: center;
-            border-bottom: 3px solid var(--gold);
-        }
-        .wp-title { font-family: 'Oswald', sans-serif; font-size: 48px; color: var(--gold); text-transform: uppercase; margin: 0; letter-spacing: 2px; }
-        .wp-subtitle { font-size: 18px; color: #fff; margin-top: 10px; opacity: 0.8; letter-spacing: 1px; }
-
-        /* CONTAINER */
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 50px;
-            background: #111a2b;
-            border: 1px solid #313c4e;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-        }
-
-        /* CONTENT STYLES */
-        h1, h2, h3 { font-family: 'Oswald', sans-serif; color: #fff; margin-top: 50px; }
-        h1 { font-size: 32px; border-bottom: 1px solid #444; padding-bottom: 15px; color: var(--gold); text-transform: uppercase; }
-        h3 { font-size: 22px; color: var(--text-main); margin-bottom: 10px; }
         
-        p { margin-bottom: 20px; font-size: 16px; text-align: justify; }
-        ul { margin-bottom: 20px; padding-left: 20px; }
-        li { margin-bottom: 10px; }
-        strong { color: #fff; font-weight: bold; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: var(--dark); 
+            color: #ccc; 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
 
+        h1, h2, h3 { font-family: 'Cinzel', serif; color: #fff; text-transform: uppercase; }
+        h1 { color: var(--gold); font-size: 32px; margin-bottom: 10px; }
+        h2 { color: var(--cyan); font-size: 24px; margin-top: 40px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        h3 { font-family: 'Rajdhani'; font-size: 18px; color: #fff; margin-top: 25px; margin-bottom: 10px; }
+        p { margin-bottom: 15px; line-height: 1.8; font-size: 15px; text-align: justify; }
+        ul { margin-left: 20px; margin-bottom: 20px; }
+        li { margin-bottom: 8px; }
+        b { color: #fff; }
+
+        /* --- SIDEBAR (NAVIGATION) --- */
+        .sidebar {
+            width: 280px; background: var(--sidebar-bg); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; flex-shrink: 0;
+        }
+        .logo-area {
+            padding: 30px; border-bottom: 1px solid var(--border); text-align: center;
+        }
+        .logo { font-family: 'Cinzel'; font-size: 22px; color: #fff; text-decoration: none; font-weight: bold; }
+        .logo span { color: var(--gold); }
+        
+        .menu { flex: 1; overflow-y: auto; padding: 20px; }
+        .menu-item {
+            display: block; padding: 12px 15px; color: #888; text-decoration: none;
+            font-family: 'Rajdhani'; font-weight: bold; font-size: 14px; text-transform: uppercase;
+            border-radius: 6px; transition: 0.2s; margin-bottom: 5px;
+        }
+        .menu-item:hover, .menu-item.active { background: rgba(255,255,255,0.05); color: var(--gold); }
+        .menu-item i { width: 20px; margin-right: 10px; }
+
+        .back-btn {
+            padding: 20px; border-top: 1px solid var(--border); text-align: center;
+        }
+        .btn-home {
+            display: inline-block; padding: 10px 20px; border: 1px solid var(--gold); color: var(--gold);
+            text-decoration: none; font-family: 'Rajdhani'; font-weight: bold; text-transform: uppercase;
+            font-size: 12px; transition: 0.3s; width: 100%;
+        }
+        .btn-home:hover { background: var(--gold); color: #000; }
+
+        /* --- MAIN CONTENT --- */
+        .content-area {
+            flex: 1; overflow-y: auto; padding: 50px 80px; position: relative;
+            background-image: radial-gradient(circle at top right, rgba(200, 170, 109, 0.05), transparent 40%);
+        }
+        
+        .doc-section { margin-bottom: 60px; scroll-margin-top: 40px; }
+        
+        /* Highlight Box */
         .highlight-box {
-            background: rgba(200, 170, 109, 0.1);
-            border-left: 4px solid var(--gold);
-            padding: 20px;
-            margin: 30px 0;
-            font-style: italic;
-            color: var(--text-white);
+            background: rgba(0, 242, 255, 0.05); border-left: 3px solid var(--cyan);
+            padding: 20px; margin: 20px 0; border-radius: 0 4px 4px 0; font-style: italic; color: #ddd;
         }
 
-        .table-custom {
-            width: 100%; border-collapse: collapse; margin: 20px 0;
-        }
-        .table-custom th, .table-custom td {
-            border: 1px solid #333; padding: 12px; text-align: left;
-        }
-        .table-custom th { background: #1e2837; color: var(--gold); }
+        /* Table Style */
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+        th, td { border: 1px solid var(--border); padding: 12px; text-align: left; }
+        th { background: rgba(255,255,255,0.05); color: var(--gold); font-family: 'Rajdhani'; text-transform: uppercase; }
 
-        .btn-back {
-            display: inline-block;
-            margin-top: 60px;
-            padding: 15px 50px;
-            background: transparent;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            text-decoration: none;
-            font-family: 'Oswald', sans-serif;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-        .btn-back:hover { background: var(--gold); color: #000; }
+        /* Tokenomics Chart Simulation */
+        .token-bar { display: flex; align-items: center; margin-bottom: 10px; }
+        .bar-label { width: 150px; font-family: 'Rajdhani'; font-weight: bold; }
+        .progress { flex: 1; height: 8px; background: #222; border-radius: 4px; overflow: hidden; margin: 0 15px; }
+        .fill { height: 100%; }
+        .bar-val { width: 50px; text-align: right; color: #fff; font-weight: bold; }
 
-        .wp-footer { text-align: center; margin: 50px 0; font-size: 12px; color: #555; }
+        /* Responsive */
+        @media (max-width: 900px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            .menu { display: none; } /* Hide menu on mobile for simplicity */
+            .logo-area { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+            .content-area { padding: 30px 20px; overflow: visible; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1 class="wp-title">MOKAHERO WHITEPAPER</h1>
-        <div class="wp-subtitle">PHIÊN BẢN 1.0 • THÁNG 1/2026</div>
-    </header>
-
-    <div class="container">
-        
-        <h1>1. TỔNG QUAN (EXECUTIVE SUMMARY)</h1>
-        <p><strong>MOKAHERO</strong> là tựa game thẻ bài chiến thuật thế hệ mới (Next-Gen Strategy Card Game) được xây dựng trên công nghệ Blockchain. Lấy cảm hứng từ những huyền thoại chiến thuật kinh điển, MOKAHERO không chỉ mang đến trải nghiệm đỉnh cao mà còn trao quyền sở hữu thực sự cho người chơi thông qua công nghệ NFT.</p>
-        <div class="highlight-box">
-            "Sứ mệnh của chúng tôi là xây dựng một nền kinh tế game bền vững, nơi kỹ năng quyết định chiến thắng (Skill-to-Earn) chứ không phải chỉ là nạp tiền (Pay-to-Win)."
+    <div class="sidebar">
+        <div class="logo-area">
+            <a href="#" class="logo">MOKA<span>HERO</span></a>
         </div>
-
-        <h1>2. CỐT TRUYỆN & CÁC HỆ PHÁI</h1>
-        <p>Thế giới Runeterra đang đứng trước bờ vực sụp đổ khi nguồn năng lượng lõi bị phân tách thành 4 mảnh vỡ, tạo nên 4 vùng đất với lý tưởng đối lập:</p>
-        
-        <h3>🔥 IGNIS (Hệ Lửa) - Sự Hủy Diệt</h3>
-        <ul>
-            <li><strong>Đặc điểm:</strong> Sức tấn công vật lý cực mạnh, lối chơi "khô máu" (Aggro).</li>
-            <li><strong>Thủ lĩnh:</strong> Ignis Prime - Rồng Lửa Hủy Diệt.</li>
-        </ul>
-
-        <h3>🌿 SYLVA (Hệ Rừng) - Sự Sống</h3>
-        <ul>
-            <li><strong>Đặc điểm:</strong> Khả năng hồi máu, tạo giáp và buff chỉ số khổng lồ.</li>
-            <li><strong>Thủ lĩnh:</strong> Gaia Mother - Mẹ Thiên Nhiên.</li>
-        </ul>
-
-        <h3>⚙️ OMEGA (Hệ Máy) - Công Nghệ</h3>
-        <ul>
-            <li><strong>Đặc điểm:</strong> Sát thương diện rộng, tấn công nhanh, xuyên giáp.</li>
-            <li><strong>Thủ lĩnh:</strong> Omega Weapon - Vũ Khí Tối Thượng.</li>
-        </ul>
-
-        <h3>🌑 ZAROK (Hệ Bóng Tối) - Ma Thuật</h3>
-        <ul>
-            <li><strong>Đặc điểm:</strong> Gây hiệu ứng xấu (Debuff), hút máu, triệu hồi từ cõi chết.</li>
-            <li><strong>Thủ lĩnh:</strong> Zarok Abyss - Chúa Tể Vực Thẳm.</li>
-        </ul>
-
-        <h1>3. GAMEPLAY (LỐI CHƠI)</h1>
-        <p>MOKAHERO là game đấu thẻ bài theo lượt (Turn-based). Kỹ năng tính toán và xây dựng bộ bài là yếu tố then chốt.</p>
-        <ul>
-            <li><strong>Xây dựng bộ bài (Deck Building):</strong> Người chơi chọn 1 hoặc 2 Hệ để kết hợp (Ví dụ: Lửa + Rừng). Mỗi bộ bài gồm 30 lá.</li>
-            <li><strong>Cơ chế Năng lượng (Mana):</strong> Mỗi lượt người chơi có lượng Mana tăng dần để triệu hồi thẻ bài.</li>
-            <li><strong>Điều kiện thắng:</strong> Tiêu diệt Nhà chính (Nexus) của đối phương hoặc khiến đối phương hết bài.</li>
-        </ul>
-
-        <h1>4. TÀI SẢN NFT (ASSETS)</h1>
-        <p>Mọi thẻ bài trong game đều là <strong>NFT (Non-Fungible Token)</strong> trên chuỗi khối. Người chơi có toàn quyền sở hữu, mua bán, trao đổi hoặc tặng thẻ bài của mình.</p>
-        <p>Hệ thống độ hiếm thẻ bài:</p>
-        <ul style="list-style: none;">
-            <li>⚪ <strong>Common:</strong> Phổ biến</li>
-            <li>🟢 <strong>Uncommon:</strong> Ít gặp</li>
-            <li>🔵 <strong>Rare:</strong> Hiếm</li>
-            <li>🟣 <strong>Epic:</strong> Sử thi</li>
-            <li>🟡 <strong>Legendary:</strong> Truyền thuyết (Chỉ có thể sở hữu tối đa 1 bản sao trong bộ bài)</li>
-        </ul>
-
-        <h1>5. TOKENOMICS ($MOKA)</h1>
-        <p>Game sử dụng một token quản trị và tiện ích duy nhất: <strong>$MOKA</strong>.</p>
-        <table class="table-custom">
-            <tr>
-                <th>Thông tin</th>
-                <th>Chi tiết</th>
-            </tr>
-            <tr>
-                <td>Tên Token</td>
-                <td>Moka Token</td>
-            </tr>
-            <tr>
-                <td>Mã (Ticker)</td>
-                <td>$MOKA</td>
-            </tr>
-            <tr>
-                <td>Tổng cung</td>
-                <td>1,000,000,000 (1 Tỷ)</td>
-            </tr>
-        </table>
-        <p><strong>Cơ chế đốt (Burn):</strong> 80% Token dùng để nâng cấp thẻ và mua vật phẩm trong game sẽ bị đốt bỏ vĩnh viễn để chống lạm phát.</p>
-
-        <h1>6. PLAY-TO-EARN (KIẾM TIỀN)</h1>
-        <p>Người chơi có thể tạo ra thu nhập thực thông qua các hoạt động:</p>
-        <ul>
-            <li><strong>Đấu Xếp Hạng (PvP):</strong> Thắng trận nhận Token, thưởng lớn cuối mùa giải.</li>
-            <li><strong>Săn Boss (PvE):</strong> Gây sát thương lên Boss thế giới để nhận thưởng hàng ngày.</li>
-            <li><strong>Giao dịch NFT:</strong> Mở thẻ hiếm hoặc nâng cấp thẻ rồi bán trên Marketplace.</li>
-            <li><strong>Cho thuê (Scholarship):</strong> Cho người chơi mới thuê bộ bài để chia sẻ lợi nhuận.</li>
-        </ul>
-
-        <h1>7. LỘ TRÌNH PHÁT TRIỂN (ROADMAP)</h1>
-        <ul>
-            <li><strong>Q1/2026:</strong> Hoàn thiện cốt truyện, Ra mắt Website & Whitepaper V1.0.</li>
-            <li><strong>Q2/2026:</strong> Bán sớm NFT (INO), Audit bảo mật Smart Contract.</li>
-            <li><strong>Q3/2026:</strong> IDO Token, Ra mắt bản Beta PvP (Chế độ xếp hạng).</li>
-            <li><strong>Q4/2026:</strong> Phiên bản Mobile (iOS/Android), Giải đấu toàn cầu đầu tiên.</li>
-        </ul>
-
-        <h1>8. ĐỘI NGŨ & ĐỐI TÁC</h1>
-        <p><strong>HEROMOKA STUDIO</strong> là tập hợp những kỹ sư blockchain và nghệ sĩ game đam mê, với mục tiêu đưa game Việt vươn tầm thế giới.</p>
-        <p>Chúng tôi cam kết minh bạch hóa mọi hoạt động và đặt lợi ích cộng đồng lên hàng đầu.</p>
-        <p><em>Liên hệ hợp tác: contact@mokahero.com</em></p>
-
-        <div style="text-align: center;">
-            <a href="test.html" class="btn-back">QUAY LẠI TRANG CHỦ</a>
+        <div class="menu">
+            <a href="#intro" class="menu-item active"><i class="fas fa-info-circle"></i> Introduction</a>
+            <a href="#lore" class="menu-item"><i class="fas fa-book-open"></i> Story & Lore</a>
+            <a href="#gameplay" class="menu-item"><i class="fas fa-gamepad"></i> Gameplay</a>
+            <a href="#assets" class="menu-item"><i class="fas fa-gem"></i> NFT Assets</a>
+            <a href="#economy" class="menu-item"><i class="fas fa-coins"></i> Economy (Dual-Token)</a>
+            <a href="#tokenomics" class="menu-item"><i class="fas fa-chart-pie"></i> Tokenomics</a>
+            <a href="#roadmap" class="menu-item"><i class="fas fa-map-signs"></i> Roadmap</a>
+            <a href="#disclaimer" class="menu-item"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a>
         </div>
-
+        <div class="back-btn">
+            <a href="test.html" class="btn-home"><i class="fas fa-arrow-left"></i> Back to Game</a>
+        </div>
     </div>
 
-    <div class="wp-footer">
-        © 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.
+    <div class="content-area">
+        
+        <div id="intro" class="doc-section">
+            <h1>INTRODUCTION</h1>
+            <p><strong>MokaHero: Genesis Wars</strong> is a next-generation Web3 tactical card game that redefines the concept of "Play-to-Earn". Built on blockchain technology, MokaHero offers a true ownership economy where every card, every piece of land, and every item you earn is truly yours.</p>
+            <p>Our mission is to create a sustainable ecosystem where entertainment meets finance (GameFi). We prioritize strategic depth and graphical quality, ensuring that MokaHero is fun to play first, and profitable second.</p>
+            <div class="highlight-box">
+                "We are building a digital nation, not just a game. A place where skill dictates value."
+            </div>
+        </div>
+
+        <div id="lore" class="doc-section">
+            <h2>STORY & LORE</h2>
+            <p>In the shattered world of Runeterra, the core energy source has fragmented. Four great factions have risen from the ashes to claim dominion over the new world:</p>
+            <ul>
+                <li><b style="color:#ff3b3b">IGNIS (The Fire Legion):</b> Warriors forged in magma, believing that destruction is the only path to rebirth.</li>
+                <li><b style="color:#00ff88">SYLVA (The Nature Guardians):</b> Ancient spirits who protect the last remaining forests and life.</li>
+                <li><b style="color:#00d9ff">OMEGA (The Cyber Union):</b> A technologically advanced society that merged flesh with steel.</li>
+                <li><b style="color:#9d00ff">ZAROK (The Void Walkers):</b> Mysterious entities from the abyss, seeking to consume all light.</li>
+            </ul>
+        </div>
+
+        <div id="gameplay" class="doc-section">
+            <h2>GAMEPLAY FEATURES</h2>
+            <p>MokaHero offers a diverse range of activities catering to both casual and hardcore players:</p>
+            
+            <h3>⚔️ Strategic PvP (Arena)</h3>
+            <p>Players build a deck of 5 Heroes and compete in turn-based battles. The combat system relies on elemental counters (Fire > Nature > Tech > Void > Fire) and tactical positioning. High-ranking players in the Seasonal Leaderboard earn significant $MOKA rewards.</p>
+
+            <h3>🐉 World Boss Raid</h3>
+            <p>A server-wide event where all players cooperate to take down massive bosses (e.g., The Leviathan). Damage contribution determines the share of the treasure pool (NFT Fragments).</p>
+
+            <h3>🏰 Guild Wars</h3>
+            <p>Players can form Guilds to conquer territories on the world map. Occupying land generates passive tax revenue for all guild members.</p>
+        </div>
+
+        <div id="assets" class="doc-section">
+            <h2>NFT ASSETS</h2>
+            <p>Assets in MokaHero are minted as NFTs (Non-Fungible Tokens) on the Polygon/BSC network.</p>
+            
+            <h3>Genesis Heroes</h3>
+            <p>The core units of the game. Each Hero has unique stats (ATK, HP, SPD) and Skills. They come in 4 rarities:</p>
+            <ul>
+                <li><b>Common:</b> Basic starter units.</li>
+                <li><b>Rare:</b> Enhanced stats, 1 special skill.</li>
+                <li><b>Epic:</b> High stats, 2 special skills.</li>
+                <li><b>Legendary:</b> Unique abilities, extremely limited supply.</li>
+            </ul>
+
+            <h3>Lands</h3>
+            <p>Digital real estate in the Moka Metaverse. Landowners can build resource mines to harvest materials required for crafting.</p>
+        </div>
+
+        <div id="economy" class="doc-section">
+            <h2>SEMI-ONCHAIN ECONOMY</h2>
+            <p>To ensure sustainability and low gas fees, MokaHero uses a dual-token model connecting Off-chain and On-chain activities.</p>
+
+            <h3>The Two Currencies</h3>
+            <table>
+                <tr>
+                    <th>Currency</th>
+                    <th>Type</th>
+                    <th>Utility</th>
+                </tr>
+                <tr>
+                    <td><b>Moka Shards</b></td>
+                    <td>Off-chain (In-game)</td>
+                    <td>Earned from PvP/PvE. Used to upgrade Heroes level.</td>
+                </tr>
+                <tr>
+                    <td><b>$MOKA Token</b></td>
+                    <td>On-chain (Crypto)</td>
+                    <td>The governance token. Tradable on DEX/CEX. Used for Minting & Marketplace.</td>
+                </tr>
+            </table>
+
+            <h3>The "Gate" Mechanism</h3>
+            <p>Players cannot simply "print" money. The economy requires a conversion process:</p>
+            <ol>
+                <li><b>Play:</b> Grind Dungeons to find <b>NFT Fragments</b> (Non-tradable).</li>
+                <li><b>Mint:</b> Combine Fragments + Pay a fee in <b>$MOKA</b> => Mint a full <b>NFT Hero</b>.</li>
+                <li><b>Trade:</b> Sell the NFT Hero on the Marketplace for profit.</li>
+            </ol>
+        </div>
+
+        <div id="tokenomics" class="doc-section">
+            <h2>TOKENOMICS</h2>
+            <p>The native token <b>$MOKA</b> has a fixed supply of <b>100,000,000 (100 Million)</b>. It is designed to be deflationary through burn mechanisms (Minting fees, Marketplace fees).</p>
+
+            <h3>Allocation</h3>
+            
+            <div class="token-bar">
+                <div class="bar-label" style="color:var(--gold)">Play to Earn</div>
+                <div class="progress"><div class="fill" style="width: 51%; background: var(--gold);"></div></div>
+                <div class="bar-val">51%</div>
+            </div>
+            <div class="token-bar">
+                <div class="bar-label" style="color:#9b59b6">Marketing/Airdrop</div>
+                <div class="progress"><div class="fill" style="width: 20%; background: #9b59b6;"></div></div>
+                <div class="bar-val">20%</div>
+            </div>
+            <div class="token-bar">
+                <div class="bar-label" style="color:#555">Ecosystem</div>
+                <div class="progress"><div class="fill" style="width: 19%; background: #555;"></div></div>
+                <div class="bar-val">19%</div>
+            </div>
+            <div class="token-bar">
+                <div class="bar-label" style="color:#333">Team & Advisors</div>
+                <div class="progress"><div class="fill" style="width: 10%; background: #333;"></div></div>
+                <div class="bar-val">10%</div>
+            </div>
+
+            <p style="font-size: 13px; color: #666; margin-top: 10px;">
+                *Team tokens are locked for 12 months, then vested linearly over 24 months.
+            </p>
+        </div>
+
+        <div id="roadmap" class="doc-section">
+            <h2>ROADMAP (2026)</h2>
+            <ul>
+                <li><b>Phase 1 (Jan - Mar):</b> Website Launch, Whitepaper v1.0, Genesis Chest Sale, Alpha Web Test.</li>
+                <li><b>Phase 2 (Apr - Jun):</b> Mobile App Launch (iOS/Android), Guild Wars Feature, $MOKA CEX Listing.</li>
+                <li><b>Phase 3 (Jul - Sep):</b> Expansion Update, Cross-chain Bridge, Staking & DAO Governance.</li>
+                <li><b>Phase 4 (Oct - Dec):</b> Metaverse Integration, Global eSports Tournament, Scholarship Program.</li>
+            </ul>
+        </div>
+
+        <div id="disclaimer" class="doc-section">
+            <h2>DISCLAIMER</h2>
+            <p style="font-size: 12px; color: #666;">
+                The information in this Whitepaper is for educational purposes only and does not constitute financial advice. Cryptocurrency investments carry high risks. The MokaHero team reserves the right to amend the roadmap and specifications as the project evolves. Please do your own research (DYOR) before investing.
+            </p>
+            <p style="text-align: center; margin-top: 50px;">© 2026 HEROMOKA STUDIO. All Rights Reserved.</p>
+        </div>
+
     </div>
 
 </body>
