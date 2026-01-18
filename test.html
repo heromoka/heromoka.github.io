@@ -11,22 +11,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS TỪ BẢN V15 CHUẨN (GIỮ NGUYÊN 100%) --- */
+        /* --- 1. CORE VARIABLES & CSS GỐC CỦA BẢN V15 (GIỮ NGUYÊN 100%) --- */
         /* ================================================================= */
         :root {
-            --gold: #c8aa6d;             
-            --gold-bright: #f0e6d2;      
-            --cyan: #00f2ff;
+            --gold: #c8aa6d;              
+            --gold-bright: #f0e6d2;       
+            --cyan: #00f2ff; /* Dùng cho phần 1 và 3 */
             --cyan-glow: rgba(0, 242, 255, 0.5);
-            --dark: #050505;             
+            --dark: #050505;              
             --ingame-blue: #4a9eff;
             --web3-purple: #9b59b6;
-            --card-glass: rgba(20, 20, 30, 0.7);
+            --card-glass: rgba(20, 20, 30, 0.7); /* Cho phần 3 */
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +39,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS V15 */
+        /* BUTTONS (Kiểu V13 - Vàng/Đen sang trọng) */
         .btn-main {
             background: linear-gradient(to bottom, #c8aa6d, #8e733b);
             color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
@@ -64,7 +64,7 @@
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
-        /* NAV */
+        /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; height: 80px;
@@ -76,9 +76,14 @@
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); }
-        .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
+        .nav-actions { display: flex; gap: 15px; align-items: center; }
 
-        /* HERO V15 */
+        /* --- SECTIONS COMMON --- */
+        section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
+        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
+        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* [PHẦN 1: HERO] */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
@@ -100,7 +105,7 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* NFT V15 */
+        /* [PHẦN 2: NFT] */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper { 
             position: relative; max-width: 1100px; height: 500px; margin: 0 auto; 
@@ -123,10 +128,12 @@
         }
         .genesis-panel::before { left: 20px; }
         .genesis-panel::after { right: 20px; }
+        
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
         .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
         .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
+        
         .genesis-card-container { 
             position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; 
             transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -134,6 +141,7 @@
         }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
         .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
+        
         .nav-arrow { 
             position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; 
             background: transparent; border: 1px solid #444; border-radius: 50%; 
@@ -143,10 +151,7 @@
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* FEATURES V15 */
-        section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
-        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
-        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
+        /* [PHẦN 3: FEATURES] */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
         .feature-card {
             padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
@@ -167,15 +172,12 @@
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* ECONOMY, TOKEN, ROADMAP, PARTNERS V15 */
+        /* [PHẦN 4, 5, 6, 7] */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
-        .zone-game { border-top: 4px solid var(--ingame-blue); }
-        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
-        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
-        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
-        .zone-web3 { border-top: 4px solid var(--gold); }
-        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
+        .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
+        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); } .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
+        .zone-web3 { border-top: 4px solid var(--gold); } .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
         .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; transition: 0.3s; }
         .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
         .eco-icon { font-size: 24px; width: 40px; text-align: center; }
@@ -234,12 +236,25 @@
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
         }
+
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ================================================================= */
-        /* --- 2. CSS BỔ SUNG CHO DASHBOARD (ĐỂ KHÔNG LỖI CSS CŨ) --- */
+        /* --- 2. ADDED CSS: LOGIN GATE & DASHBOARD (NẰM DƯỚI CÙNG ĐỂ KHÔNG PHÁ CODE CŨ) --- */
         /* ================================================================= */
-        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        
+        /* LOGIN GATE (Popup) */
+        .login-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s; }
+        .login-overlay.active { display: flex; opacity: 1; }
+        .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; box-shadow: 0 0 50px rgba(200,170,109,0.2); }
+        .login-title { font-family: 'Cinzel'; color: #fff; font-size: 24px; margin-bottom: 30px; }
+        .login-option { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #ccc; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
+        .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
+        .login-close:hover { color: #fff; }
+
+        /* DASHBOARD OVERLAY */
+        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #0a0a0a; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
         .dash-overlay.active { display: flex; opacity: 1; }
         .dash-wrapper { width: 95%; max-width: 1400px; height: 90vh; background: #111; display: flex; border-radius: 8px; overflow: hidden; box-shadow: 0 0 60px rgba(0,0,0,0.9); border: 1px solid #333; }
         .dash-sidebar { width: 250px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 20px; }
@@ -249,13 +264,12 @@
         .dash-logout { margin-top: auto; color: #ff4757; }
         .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: multiply; background-color: rgba(10,10,15,0.9); }
         .dash-topbar { height: 60px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
-        .dash-close { cursor: pointer; color: #888; font-weight: bold; font-size: 13px; border: 1px solid #444; padding: 5px 12px; border-radius: 4px; }
-        .dash-close:hover { color: #fff; border-color: #fff; }
+        .dash-close-btn { cursor: pointer; color: #888; font-weight: bold; font-size: 13px; border: 1px solid #444; padding: 5px 12px; border-radius: 4px; }
+        .dash-close-btn:hover { color: #fff; border-color: #fff; }
         .dash-content { flex: 1; padding: 30px; overflow-y: auto; }
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
-        /* Cards */
-        .d-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 20px; }
+        .d-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 20px; padding: 20px; }
         .d-header { padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'Rajdhani'; font-weight: bold; color: var(--gold); font-size: 14px; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
         .d-body { padding: 20px; }
         .d-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #ccc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
@@ -263,12 +277,18 @@
         .d-checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
         .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
         .inv-item { aspect-ratio: 2/3; background: #000; border: 1px solid #333; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #444; flex-direction: column; }
+        
+        /* Dropdown & Settings */
         .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
         .user-dropdown.active { display: flex; }
         .dropdown-header { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1); }
         .dropdown-item { padding: 12px 20px; color: #ccc; text-decoration: none; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; gap: 10px; cursor: pointer; }
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); }
-        
+        .set-row { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 4px; }
+        .toggle { width: 40px; height: 20px; background: #333; border-radius: 10px; position: relative; cursor: pointer; }
+        .toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: 0.3s; }
+        .toggle.on { background: var(--ingame-blue); } .toggle.on::after { left: 22px; }
+
         @media (max-width: 768px) {
             .dash-wrapper { width: 100%; height: 100%; border-radius: 0; flex-direction: column; }
             .dash-sidebar { width: 100%; height: auto; flex-direction: row; padding: 10px; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
@@ -291,23 +311,95 @@
             <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
         </ul>
         <div class="nav-actions">
-            <button id="login-btn" class="btn-outline">LOGIN</button>
-            <button id="wallet-btn" class="btn-outline"><i class="fas fa-wallet"></i> CONNECT</button>
-            
+            <button id="main-login-btn" class="btn-outline">LOGIN</button>
             <div id="user-dropdown" class="user-dropdown">
                 <div class="dropdown-header">
-                    <img id="user-avatar" src="" alt="" style="width:30px; height:30px; border-radius:50%;">
+                    <img id="user-avatar" src="" alt="" style="width:30px; height:30px; border-radius:50%; display:none;">
                     <div style="display:flex; flex-direction:column;">
-                        <span id="user-name" style="font-size:13px; font-weight:bold; color:#fff;">Commander</span>
-                        <span id="user-email" style="font-size:10px; color:#888;"></span>
+                        <span id="user-display-name" style="font-size:13px; font-weight:bold; color:#fff;">Commander</span>
+                        <span id="user-display-type" style="font-size:10px; color:#888;">Player</span>
                     </div>
                 </div>
-                <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Dashboard</div>
-                <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box"></i> Inventory</div>
-                <div class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</div>
+                <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Profile</div>
+                <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box-open"></i> Inventory</div>
+                <div class="dropdown-item" onclick="openDashboard('settings')"><i class="fas fa-cog"></i> Settings</div>
+                <div class="dropdown-item" id="logout-btn" style="color:#ff4757;"><i class="fas fa-sign-out-alt"></i> Logout</div>
             </div>
         </div>
     </nav>
+
+    <div id="login-gate" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLoginGate()"></i>
+            <h3 class="login-title">CHOOSE METHOD</h3>
+            <button class="login-option" id="btn-google">
+                <i class="fab fa-google" style="color:#db4437;"></i> LOGIN WITH GOOGLE
+            </button>
+            <button class="login-option" id="btn-metamask">
+                <i class="fas fa-wallet" style="color:#f6851b;"></i> CONNECT METAMASK
+            </button>
+        </div>
+    </div>
+
+    <div id="dashboard-overlay" class="dash-overlay">
+        <div class="dash-wrapper">
+            <div class="dash-sidebar">
+                <div class="dash-logo">MOKA<span>HERO</span></div>
+                <div class="dash-menu-item active" onclick="switchTab('profile', this)"><i class="fas fa-chart-pie"></i> DASHBOARD</div>
+                <div class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
+                <div class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
+                <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
+            </div>
+            
+            <div class="dash-main">
+                <div class="dash-topbar">
+                    <div style="font-size:12px; color:#888;">SERVER: <span style="color:#0f0;">ASIA-1</span></div>
+                    <div class="dash-close-btn" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
+                </div>
+
+                <div class="dash-content">
+                    <div id="tab-profile" class="dash-panel active">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">COMMANDER PROFILE</h2>
+                        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
+                            <div class="d-card">
+                                <div class="d-header"><span>PLAYER INFO</span> <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
+                                <div class="d-body">
+                                    <div class="d-row"><span>Name:</span> <span id="dash-name">...</span></div>
+                                    <div class="d-row"><span>Email:</span> <span id="dash-email">...</span></div>
+                                    <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
+                                    <div class="d-row"><span>Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
+                                </div>
+                            </div>
+                            <div class="d-card">
+                                <div class="d-header">DAILY REWARD</div>
+                                <div class="d-body" style="text-align:center;">
+                                    <p style="font-size:12px; color:#888;">+5 Shards Daily</p>
+                                    <button id="checkin-btn" class="d-checkin-btn">CHECK IN</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-inventory" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">INVENTORY</h2>
+                        <div class="inv-grid">
+                            <div class="inv-item" style="height:200px;"><div>Empty</div></div>
+                            <div class="inv-item" style="height:200px;"><div>Empty</div></div>
+                            <div class="inv-item" style="height:200px;"><div>Empty</div></div>
+                        </div>
+                    </div>
+
+                    <div id="tab-settings" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">SETTINGS</h2>
+                        <div class="d-card" style="padding:20px;">
+                            <div class="set-row"><div style="color:#fff;">Twitter</div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+                            <div class="set-row"><div style="color:#fff;">Discord</div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <header id="hero">
         <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1">
@@ -610,65 +702,11 @@
         </div>
     </footer>
 
-    <div id="dashboard-overlay" class="dash-overlay">
-        <div class="dash-wrapper">
-            <div class="dash-sidebar">
-                <div class="dash-logo">MOKA<span>HERO</span></div>
-                <div class="dash-menu-item active" onclick="switchTab('profile', this)"><i class="fas fa-chart-pie"></i> DASHBOARD</div>
-                <div class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
-                <div class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
-                <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
-            </div>
-            
-            <div class="dash-main">
-                <div class="dash-topbar">
-                    <div style="font-size:12px; color:#888;">SERVER: <span style="color:#0f0;">ASIA-1</span></div>
-                    <div class="dash-close" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
-                </div>
-
-                <div class="dash-content">
-                    <div id="tab-profile" class="dash-panel active">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER DASHBOARD</h2>
-                        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
-                            <div class="d-card">
-                                <div class="d-header"><span>PLAYER INFO</span></div>
-                                <div class="d-body">
-                                    <div class="d-row"><span>Name:</span> <span id="dash-display-name">...</span></div>
-                                    <div class="d-row"><span>Email:</span> <span id="dash-display-email">...</span></div>
-                                    <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
-                                    <div class="d-row"><span>Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
-                                </div>
-                            </div>
-                            <div class="d-card">
-                                <div class="d-header">DAILY REWARD</div>
-                                <div class="d-body" style="text-align:center;">
-                                    <p style="font-size:12px; color:#888;">+5 Shards Daily</p>
-                                    <button id="checkin-btn" class="d-checkin-btn">CHECK IN</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-inventory" class="dash-panel">
-                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">INVENTORY</h2>
-                        <div class="inv-grid">
-                            <div class="inv-item" style="height:200px;"><div>Empty</div></div>
-                        </div>
-                    </div>
-                    <div id="tab-settings" class="dash-panel">
-                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">SETTINGS</h2>
-                        <div class="d-card" style="padding:20px;"><p style="color:#888;">Social connections coming soon...</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIG CỦA BẠN
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -683,127 +721,127 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        const loginBtn = document.getElementById('login-btn');
-        const walletBtn = document.getElementById('wallet-btn');
+        const mainLoginBtn = document.getElementById('main-login-btn');
+        const loginGate = document.getElementById('login-gate');
         const userDropdown = document.getElementById('user-dropdown');
         const dashOverlay = document.getElementById('dashboard-overlay');
-        const logoutBtn = document.getElementById('logout-btn');
+        
         let currentUser = null;
 
-        // AUTH
-        loginBtn.addEventListener('click', async (e) => {
-            e.stopPropagation();
-            if(!currentUser) {
-                try {
-                    const result = await signInWithPopup(auth, provider);
-                } catch(e) { alert("Login Error: " + e.message); }
-            } else {
+        // 1. MAIN LOGIN BUTTON LOGIC
+        mainLoginBtn.onclick = () => {
+            if(currentUser) {
                 userDropdown.classList.toggle('active');
-            }
-        });
-
-        logoutBtn.addEventListener('click', async () => {
-            if(confirm("Logout?")) { await signOut(auth); closeDashboard(); userDropdown.classList.remove('active'); }
-        });
-
-        onAuthStateChanged(auth, async (user) => {
-            if(user) {
-                currentUser = user;
-                loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; border-radius:50%; margin-right:5px; border:1px solid #c8aa6d;">`;
-                loginBtn.style.color = "#c8aa6d"; loginBtn.style.borderColor = "#c8aa6d";
-                
-                // Load Dashboard
-                document.getElementById('user-avatar').src = user.photoURL;
-                document.getElementById('user-name').innerText = user.displayName;
-                document.getElementById('user-email').innerText = user.email;
-                document.getElementById('dash-display-name').innerText = user.displayName;
-                document.getElementById('dash-display-email').innerText = user.email;
-                
-                // Firestore Sync
-                const ref = doc(db, "users", user.uid);
-                const snap = await getDoc(ref);
-                if(!snap.exists()) {
-                    await setDoc(ref, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
-                } else {
-                    const d = snap.data();
-                    document.getElementById('dash-shards').innerText = d.shards;
-                    if(d.wallet) {
-                        document.getElementById('dash-wallet').innerText = d.wallet;
-                        walletBtn.innerHTML = `<i class="fas fa-wallet"></i> ${d.wallet.substring(0,6)}...`;
-                    }
-                }
-
-                // --- TÍNH NĂNG MEMORY (TỰ MỞ LẠI DASHBOARD NẾU F5) ---
-                if(localStorage.getItem('isDashboardOpen') === 'true') {
-                    openDashboard(localStorage.getItem('currentTab') || 'profile');
-                }
-
             } else {
-                currentUser = null;
-                loginBtn.innerHTML = "LOGIN";
-                loginBtn.style.color = "#ccc"; loginBtn.style.borderColor = "#666";
-                userDropdown.classList.remove('active');
-            }
-        });
-
-        window.addEventListener('click', (e) => {
-            if (!userDropdown.contains(e.target) && !loginBtn.contains(e.target)) userDropdown.classList.remove('active');
-        });
-
-        // DASHBOARD
-        window.closeDashboard = () => {
-            dashOverlay.classList.remove('active');
-            localStorage.setItem('isDashboardOpen', 'false'); // Ghi nhớ đã đóng
-        };
-        
-        window.openDashboard = (tab) => {
-            if(!currentUser) { alert("Please Login First!"); return; }
-            userDropdown.classList.remove('active');
-            dashOverlay.classList.add('active');
-            localStorage.setItem('isDashboardOpen', 'true'); // Ghi nhớ đang mở
-            window.switchTab(tab);
-        };
-
-        window.switchTab = (tab, btn) => {
-            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('tab-'+tab).classList.add('active');
-            localStorage.setItem('currentTab', tab); // Ghi nhớ tab đang xem
-            if(btn) {
-                document.querySelectorAll('.dash-menu-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                loginGate.classList.add('active');
             }
         };
 
-        // WALLET
-        walletBtn.addEventListener('click', async () => {
+        window.closeLoginGate = () => loginGate.classList.remove('active');
+
+        // 2. GOOGLE LOGIN
+        document.getElementById('btn-google').onclick = async () => {
+            try {
+                await signInWithPopup(auth, provider);
+                closeLoginGate();
+            } catch(e) { alert("Google Error: " + e.message); }
+        };
+
+        // 3. METAMASK LOGIN
+        document.getElementById('btn-metamask').onclick = async () => {
             if(window.ethereum) {
                 try {
                     const provider = new ethers.providers.Web3Provider(window.ethereum);
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     const addr = await signer.getAddress();
-                    walletBtn.innerHTML = `<i class="fas fa-wallet"></i> ${addr.substring(0,6)}...`;
-                    if(currentUser) {
-                        await updateDoc(doc(db, "users", currentUser.uid), { wallet: addr });
-                        document.getElementById('dash-wallet').innerText = addr;
+                    updateUI({ type: 'wallet', name: addr.substring(0,6)+"..." });
+                    closeLoginGate();
+                } catch(e) { alert("Wallet Connect Error"); }
+            } else { alert("Install Metamask!"); }
+        };
+
+        // 4. FIREBASE LISTENER
+        onAuthStateChanged(auth, (user) => {
+            if(user) {
+                currentUser = user;
+                updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
+                // Check Firestore
+                const userRef = doc(db, "users", user.uid);
+                getDoc(userRef).then(snap => {
+                    if(!snap.exists()) {
+                        setDoc(userRef, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
+                    } else {
+                        const d = snap.data();
+                        document.getElementById('dash-shards').innerText = d.shards;
+                        if(d.wallet) document.getElementById('dash-wallet').innerText = d.wallet;
                     }
-                } catch(e) { alert("Connect Error"); }
-            } else { alert("Install Metamask"); }
+                });
+            } else {
+                currentUser = null;
+                mainLoginBtn.innerHTML = "LOGIN";
+                mainLoginBtn.style.color = "#ccc";
+                mainLoginBtn.style.borderColor = "#666";
+                userDropdown.classList.remove('active');
+            }
         });
+
+        document.getElementById('logout-btn').onclick = async () => {
+            await signOut(auth);
+            location.reload();
+        };
+
+        function updateUI(user) {
+            mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
+            mainLoginBtn.style.color = "#c8aa6d";
+            mainLoginBtn.style.borderColor = "#c8aa6d";
+            
+            document.getElementById('user-display-name').innerText = user.name;
+            if(user.type === 'google') {
+                document.getElementById('user-avatar').src = user.photo;
+                document.getElementById('user-avatar').style.display = 'block';
+                document.getElementById('user-display-type').innerText = "Google Account";
+                document.getElementById('dash-name').innerText = user.name;
+                document.getElementById('dash-email').innerText = user.email;
+            } else {
+                document.getElementById('user-avatar').style.display = 'none';
+                document.getElementById('user-display-type').innerText = "Wallet User";
+                document.getElementById('dash-wallet').innerText = user.name; // Stores address
+            }
+        }
+
+        // --- DASHBOARD LOGIC ---
+        window.openDashboard = (tab) => {
+            userDropdown.classList.remove('active');
+            dashOverlay.classList.add('active');
+            window.switchTab(tab);
+        };
+        window.closeDashboard = () => dashOverlay.classList.remove('active');
+        
+        window.switchTab = (tab, btn) => {
+            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-'+tab).classList.add('active');
+            if(btn) {
+                document.querySelectorAll('.dash-menu-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+        };
 
         // CHECKIN
         document.getElementById('checkin-btn').onclick = async () => {
-            if(currentUser) {
-                const ref = doc(db, "users", currentUser.uid);
+            if(currentUser && auth.currentUser) {
+                const ref = doc(db, "users", auth.currentUser.uid);
                 const s = await getDoc(ref);
                 const newShards = (s.data().shards || 0) + 5;
                 await updateDoc(ref, { shards: newShards });
                 document.getElementById('dash-shards').innerText = newShards;
                 alert("Success! +5 Shards");
+            } else {
+                alert("Please login with Google to save progress.");
             }
         };
 
-        // SLIDER
+        // HERO SLIDER
         const heroesData = [
             { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies.\"", bg: "./assets/bg_ignis.jpg?v=1", pos: "100% 0%" },
             { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is eternal.\"", bg: "./assets/bg_sylva.jpg?v=1", pos: "100% 33%" },
