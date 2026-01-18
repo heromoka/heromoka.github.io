@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOKAHERO: GENESIS WARS (V27)</title>
+    <title>MOKAHERO: GENESIS WARS | OFFICIAL SITE</title>
     <link rel="icon" type="image/png" href="./assets/fire.png?v=999">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,99 +11,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* ================================================================= */
+        /* --- 1. CORE CSS TỪ BẢN V15 (BẢN CHUẨN ĐẸP NHẤT) --- */
+        /* ================================================================= */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
-            --dark: #050505; --ingame-blue: #4a9eff; --card-glass: rgba(20, 20, 30, 0.7);
+            --dark: #050505; --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
+            --card-glass: rgba(20, 20, 30, 0.7);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
-        h1, h2, h3, .logo { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS */
-        .btn-main { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-weight: 700; display: inline-block; text-decoration: none; border: 1px solid var(--gold-bright); }
-        .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); }
-        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-weight: 700; }
+        /* BUTTONS V15 */
+        .btn-main {
+            background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif;
+        }
+        .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
+        .btn-outline {
+            background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700;
+        }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        .btn-platform { background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; cursor: pointer; border-radius: 4px; transition: 0.3s; display: flex; gap: 8px; justify-content: center; }
-        .btn-platform:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-platform {
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
+        }
+        .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
         /* NAV */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; } .logo span { color: var(--gold); }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; } .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; font-weight: 600; text-transform: uppercase; }
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* DASHBOARD OVERLAY */
-        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #0a0a0a; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
-        .dash-overlay.active { display: flex; opacity: 1; }
-        .dash-wrapper { width: 95%; max-width: 1400px; height: 90vh; background: #111; display: flex; border-radius: 10px; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.8); border: 1px solid #333; }
-        .dash-sidebar { width: 250px; background: #0e0e0e; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .dash-logo { font-family: 'Cinzel'; font-size: 24px; color: #fff; margin-bottom: 40px; text-align: center; }
-        .dash-menu-btn { padding: 12px 15px; color: #888; cursor: pointer; border-radius: 6px; font-family: 'Rajdhani'; font-weight: bold; display: flex; gap: 10px; align-items: center; transition: 0.2s; }
-        .dash-menu-btn:hover, .dash-menu-btn.active { background: rgba(200,170,109,0.1); color: var(--gold); }
-        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(10,10,15,0.95); }
-        .dash-topbar { height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
-        .dash-content { flex: 1; padding: 40px; overflow-y: auto; }
-        .dash-panel { display: none; animation: fadeIn 0.3s; }
-        .dash-panel.active { display: block; }
-        .d-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; margin-bottom: 20px; }
-        .d-header { padding: 15px 20px; border-bottom: 1px solid #333; color: var(--gold); font-family: 'Rajdhani'; font-weight: bold; display: flex; justify-content: space-between; }
-        .d-body { padding: 20px; }
-        .d-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; color: #ccc; font-size: 14px; }
-        .checkin-btn { width: 100%; padding: 12px; background: linear-gradient(to right, #444, #555); border: 1px solid #666; color: #fff; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
-        
-        /* USER DROPDOWN */
-        .user-dropdown { position: absolute; top: 65px; right: 0; width: 220px; background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
+        /* USER DROPDOWN (Menu nhỏ khi login) */
+        .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); display: none; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; }
         .user-dropdown.active { display: flex; }
-        .dropdown-header { padding: 15px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1); }
-        .dropdown-item { padding: 12px 20px; color: #ccc; cursor: pointer; border-bottom: 1px solid #333; transition: 0.2s; display: flex; gap: 10px; align-items: center; }
-        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); }
+        .dropdown-header { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1); }
+        .dropdown-item { padding: 12px 20px; color: #ccc; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; gap: 10px; align-items: center; font-family: 'Rajdhani'; font-weight: bold; }
+        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); padding-left: 25px; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* SECTIONS (V15) */
-        section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
-        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
-        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
-        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; }
+        /* HERO (V14 Style Gradient Text) */
+        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-bottom: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
         .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
-        .hero-subtitle { font-size: 16px; color: var(--gold); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; }
-        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; text-shadow: 0 10px 40px #000; color: #fff; letter-spacing: 2px; }
+        .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
+        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; background: linear-gradient(to right, var(--gold), #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
-        #nft { background: #0b0b0b; padding-top: 80px; }
-        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid #333; background: #000; overflow: visible; }
+
+        /* NFT (V13 Yasuo Style) */
+        #nft { background: #0b0b0b; padding-top: 80px; padding-bottom: 100px; border-bottom: 1px solid #111; }
+        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
-        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.9); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
+        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
+        .genesis-panel::before, .genesis-panel::after { content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
+        .genesis-panel::before { left: 20px; } .genesis-panel::after { right: 20px; }
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
-        .g-name { font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; }
+        .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
+        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; }
+        .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
         .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; }
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .feature-card { background: #0f1012; border: 1px solid #222; padding: 50px 30px; border-radius: 4px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+        /* FEATURES (Glass) */
+        section { padding: 100px 0; border-bottom: 1px solid #111; }
+        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
+        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; position: relative; }
+        .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+        .feature-card:hover { transform: translateY(-10px); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; }
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: bold; }
+        .f-desc { font-size: 15px; color: #aaa; }
+
+        /* ECONOMY, TOKEN, ROADMAP, PARTNERS (Standard V15) */
         .eco-layout { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; }
+        .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
         .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; margin-bottom: 10px; }
+        .swap-action { width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px; margin: 10px 0; }
         #token { background: #050505; }
-        .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; margin: 0 auto; }
+        .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
+        .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
         .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
@@ -118,9 +126,8 @@
 
         @media (max-width: 992px) {
             .nav-links { display: none; }
-            .hero-title { font-size: 50px; }
             .genesis-wrapper { height: auto; padding-bottom: 0; }
-            .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
+            .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; }
             .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
             .prev-btn, .next-btn { display: none; }
             .eco-layout { flex-direction: column; }
@@ -128,10 +135,63 @@
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
             .roadmap-line { left: 20px; }
-            .dash-body { flex-direction: column; }
-            .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; padding: 10px; }
         }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ================================================================= */
+        /* --- 2. NEW DASHBOARD OVERLAY STYLES (ĐƯỢC THÊM VÀO SAU CÙNG) --- */
+        /* ================================================================= */
+        .dash-overlay {
+            position: fixed; inset: 0; z-index: 2000; display: none;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
+        }
+        .dash-overlay.active { display: flex; opacity: 1; }
+
+        .dash-wrapper {
+            width: 95%; max-width: 1400px; height: 90vh;
+            background: #111; display: flex; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 0 60px rgba(0,0,0,0.9); border: 1px solid #333;
+        }
+        .dash-sidebar { width: 250px; background: #0a0a0a; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 20px; }
+        .dash-logo { font-family: 'Cinzel'; font-size: 22px; color: #fff; margin-bottom: 40px; text-align: center; }
+        .dash-menu-item { padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 4px; margin-bottom: 5px; transition: 0.2s; }
+        .dash-menu-item:hover, .dash-menu-item.active { background: rgba(200,170,109,0.1); color: var(--gold); }
+        .dash-logout { margin-top: auto; color: #ff4757; }
+        
+        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: multiply; background-color: rgba(10,10,15,0.9); }
+        .dash-topbar { height: 60px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
+        .dash-close { cursor: pointer; color: #888; font-weight: bold; font-size: 13px; border: 1px solid #444; padding: 5px 12px; border-radius: 4px; }
+        .dash-close:hover { color: #fff; border-color: #fff; }
+        .dash-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .dash-panel { display: none; animation: fadeIn 0.3s; }
+        .dash-panel.active { display: block; }
+
+        /* Cards in Dashboard */
+        .d-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; margin-bottom: 20px; }
+        .d-header { padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-family: 'Rajdhani'; font-weight: bold; color: var(--gold); font-size: 14px; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
+        .d-body { padding: 20px; }
+        .d-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #ccc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
+        .d-row span:first-child { color: #888; font-weight: bold; }
+        .d-checkin-btn { width: 100%; padding: 10px; background: linear-gradient(90deg, #444, #555); border: 1px solid #666; color: #fff; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .d-checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        /* Inventory Grid */
+        .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .inv-item { aspect-ratio: 2/3; background: #000; border: 1px solid #333; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #444; flex-direction: column; }
+        
+        /* Settings */
+        .set-row { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-radius: 4px; }
+        .toggle { width: 40px; height: 20px; background: #333; border-radius: 10px; position: relative; cursor: pointer; }
+        .toggle::after { content:''; position:absolute; top:2px; left:2px; width:16px; height:16px; background:#fff; border-radius:50%; transition:0.3s; }
+        .toggle.on { background: var(--ingame-blue); } .toggle.on::after { left: 22px; }
+
+        @media (max-width: 768px) {
+            .dash-wrapper { width: 100%; height: 100%; border-radius: 0; flex-direction: column; }
+            .dash-sidebar { width: 100%; height: auto; flex-direction: row; padding: 10px; overflow-x: auto; border-right: none; border-bottom: 1px solid #222; }
+            .dash-logo { display: none; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -148,19 +208,20 @@
             <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
         </ul>
         <div class="nav-actions">
-            <button id="login-btn" class="btn-outline">LOGIN (V27)</button>
+            <button id="login-btn" class="btn-outline">LOGIN</button>
             <button id="wallet-btn" class="btn-main"><i class="fas fa-wallet"></i> CONNECT</button>
             
             <div id="user-dropdown" class="user-dropdown">
                 <div class="dropdown-header">
-                    <img id="user-avatar" src="" alt="">
+                    <img id="user-avatar" src="" alt="" style="width:30px; height:30px; border-radius:50%;">
                     <div style="display:flex; flex-direction:column;">
-                        <span id="user-name" style="font-weight:bold; color:#fff;">Commander</span>
-                        <span id="user-email" style="font-size:11px; color:#888;"></span>
+                        <span id="user-name" style="font-size:13px; font-weight:bold; color:#fff;">Commander</span>
+                        <span id="user-email" style="font-size:10px; color:#888;"></span>
                     </div>
                 </div>
                 <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Dashboard</div>
                 <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box"></i> Inventory</div>
+                <div class="dropdown-item" onclick="openDashboard('settings')"><i class="fas fa-cog"></i> Settings</div>
                 <div class="dropdown-item" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</div>
             </div>
         </div>
@@ -175,56 +236,58 @@
                 <div class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
                 <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
             </div>
-            
             <div class="dash-main">
                 <div class="dash-topbar">
-                    <div style="display:flex; gap:10px;">
-                        <span style="background:#222; padding:5px 15px; border-radius:20px; font-size:12px; color:#888; border:1px solid #444;">SERVER: ASIA-1</span>
-                    </div>
-                    <div class="dash-close" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
+                    <div style="font-size:12px; color:#888;">SERVER: <span style="color:#0f0;">ASIA-1</span></div>
+                    <div class="dash-close" onclick="closeDashboard()">CLOSE X</div>
                 </div>
-
                 <div class="dash-content">
+                    
                     <div id="tab-profile" class="dash-panel active">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER DASHBOARD</h2>
+                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">COMMANDER PROFILE</h2>
                         <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
                             <div class="d-card">
-                                <div class="d-header"><span>PLAYER INFO</span> <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
+                                <div class="d-header"><span>INFO</span> <i class="fas fa-pen" style="cursor:pointer; color:#666;"></i></div>
                                 <div class="d-body">
                                     <div class="d-row"><span>Name:</span> <span id="dash-display-name">...</span></div>
                                     <div class="d-row"><span>Email:</span> <span id="dash-display-email">...</span></div>
                                     <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
-                                    <div class="d-row"><span>Moka Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
+                                    <div class="d-row"><span>Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
                                 </div>
                             </div>
                             <div class="d-card">
                                 <div class="d-header">DAILY REWARD</div>
                                 <div class="d-body" style="text-align:center;">
-                                    <p style="font-size:12px; color:#888;">Check-in daily to receive +5 Shards.</p>
-                                    <button id="checkin-btn" class="checkin-btn">CHECK IN</button>
+                                    <p style="font-size:12px; color:#888;">+5 Shards Daily</p>
+                                    <button id="checkin-btn" class="d-checkin-btn">CHECK IN</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div id="tab-inventory" class="dash-panel">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">INVENTORY</h2>
-                        <div style="text-align:center; padding:50px; border:2px dashed #333; color:#666;">NO ITEMS FOUND</div>
+                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">INVENTORY</h2>
+                        <div class="inv-grid">
+                            <div class="inv-item" style="height:200px;"><div><i class="fas fa-plus"></i> Empty</div></div>
+                            <div class="inv-item" style="height:200px;"><div><i class="fas fa-plus"></i> Empty</div></div>
+                            <div class="inv-item" style="height:200px;"><div><i class="fas fa-plus"></i> Empty</div></div>
+                        </div>
                     </div>
 
                     <div id="tab-settings" class="dash-panel">
-                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">SETTINGS</h2>
+                        <h2 style="font-family:'Cinzel'; margin-bottom:20px; color:#fff;">SETTINGS</h2>
                         <div class="d-card" style="padding:20px;">
-                            <div class="d-row">
-                                <div style="display:flex; align-items:center; gap:10px;"><i class="fab fa-twitter" style="color:#1da1f2;"></i> Twitter</div>
-                                <div style="font-size:12px; color:#666;">Not Connected</div>
+                            <div class="set-row">
+                                <div style="display:flex; gap:10px; color:#fff;"><i class="fab fa-twitter" style="color:#1da1f2;"></i> Twitter</div>
+                                <div class="toggle" onclick="this.classList.toggle('on')"></div>
                             </div>
-                            <div class="d-row">
-                                <div style="display:flex; align-items:center; gap:10px;"><i class="fab fa-discord" style="color:#7289da;"></i> Discord</div>
-                                <div style="font-size:12px; color:#666;">Not Connected</div>
+                            <div class="set-row">
+                                <div style="display:flex; gap:10px; color:#fff;"><i class="fab fa-discord" style="color:#7289da;"></i> Discord</div>
+                                <div class="toggle" onclick="this.classList.toggle('on')"></div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -236,7 +299,7 @@
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.</p>
+            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero.</p>
             <div class="download-area">
                 <button class="btn-main">FREE DOWNLOAD</button>
                 <div class="platform-list">
@@ -284,9 +347,9 @@
         <div class="container">
             <div class="text-center"><h2 class="sec-title">ECONOMY</h2></div>
             <div class="eco-layout">
-                <div class="eco-zone"><h3 style="color:#4a9eff; text-align:center;">IN-GAME</h3><div class="eco-item-box"><div class="eco-icon">💎</div><h4>MOKA SHARDS</h4></div></div>
-                <div class="eco-zone"><h3 style="color:#fff; text-align:center;">GATE</h3><div class="swap-action">SWAP / MINT</div></div>
-                <div class="eco-zone"><h3 style="color:var(--gold); text-align:center;">WEB3</h3><div class="eco-item-box"><div class="eco-icon">🪙</div><h4>$MOKA TOKEN</h4></div></div>
+                <div class="eco-zone zone-game"><h3>IN-GAME</h3><div class="eco-item-box"><div class="eco-icon">💎</div><h4>MOKA SHARDS</h4></div></div>
+                <div class="eco-zone zone-gate"><h3>GATE</h3><div class="swap-action">SWAP / MINT</div></div>
+                <div class="eco-zone zone-web3"><h3>WEB3</h3><div class="eco-item-box"><div class="eco-icon">🪙</div><h4>$MOKA TOKEN</h4></div></div>
             </div>
         </div>
     </section>
@@ -341,7 +404,7 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // YOUR CONFIG (Đã tích hợp)
+        // YOUR CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -356,7 +419,6 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Elements
         const loginBtn = document.getElementById('login-btn');
         const walletBtn = document.getElementById('wallet-btn');
         const userDropdown = document.getElementById('user-dropdown');
@@ -364,28 +426,21 @@
         const logoutBtn = document.getElementById('logout-btn');
         let currentUser = null;
 
-        // AUTH & DATABASE LOGIC
+        // AUTH
         loginBtn.addEventListener('click', async (e) => {
             e.stopPropagation();
             if(!currentUser) {
                 try {
                     const result = await signInWithPopup(auth, provider);
-                    const user = result.user;
-                    // Create user doc if not exists
-                    const userRef = doc(db, "users", user.uid);
-                    const snap = await getDoc(userRef);
-                    if(!snap.exists()) {
-                        await setDoc(userRef, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
-                    }
-                } 
-                catch (error) { console.error(error); alert("Login Failed: " + error.message); }
+                    // Firestore logic moved to onAuthStateChanged
+                } catch(e) { alert("Login Error: " + e.message); }
             } else {
                 userDropdown.classList.toggle('active');
             }
         });
 
         logoutBtn.addEventListener('click', async () => {
-            if(confirm("Logout?")) { await signOut(auth); userDropdown.classList.remove('active'); closeDashboard(); }
+            if(confirm("Logout?")) { await signOut(auth); closeDashboard(); userDropdown.classList.remove('active'); }
         });
 
         onAuthStateChanged(auth, async (user) => {
@@ -394,17 +449,19 @@
                 loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; border-radius:50%; margin-right:5px; border:1px solid #c8aa6d;">`;
                 loginBtn.style.color = "#c8aa6d"; loginBtn.style.borderColor = "#c8aa6d";
                 
-                // Cập nhật thông tin lên Dashboard
+                // Load Dashboard
                 document.getElementById('user-avatar').src = user.photoURL;
                 document.getElementById('user-name').innerText = user.displayName;
                 document.getElementById('user-email').innerText = user.email;
                 document.getElementById('dash-display-name').innerText = user.displayName;
                 document.getElementById('dash-display-email').innerText = user.email;
                 
-                // Lấy dữ liệu tiền/ví từ Database
+                // Firestore Sync
                 const ref = doc(db, "users", user.uid);
                 const snap = await getDoc(ref);
-                if(snap.exists()) {
+                if(!snap.exists()) {
+                    await setDoc(ref, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
+                } else {
                     const d = snap.data();
                     document.getElementById('dash-shards').innerText = d.shards;
                     if(d.wallet) {
@@ -414,21 +471,19 @@
                 }
             } else {
                 currentUser = null;
-                loginBtn.innerHTML = "LOGIN (V27)";
+                loginBtn.innerHTML = "LOGIN";
                 loginBtn.style.color = "#ccc"; loginBtn.style.borderColor = "#666";
                 userDropdown.classList.remove('active');
             }
         });
 
-        // Đóng menu khi click ra ngoài
         window.addEventListener('click', (e) => {
             if (!userDropdown.contains(e.target) && !loginBtn.contains(e.target)) userDropdown.classList.remove('active');
         });
 
-        // DASHBOARD & URL LOGIC
+        // DASHBOARD
         window.closeDashboard = () => {
             dashOverlay.classList.remove('active');
-            // Clean URL back to home (without reload)
             history.pushState("", document.title, window.location.pathname.replace("/dashboard", ""));
         };
         
@@ -436,17 +491,9 @@
             if(!currentUser) { alert("Please Login First!"); return; }
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
-            
-            // CLEAN URL TRICK: Change URL to /dashboard without reloading
             const newUrl = window.location.pathname.endsWith('/') ? 'dashboard' : '/dashboard';
             history.pushState({}, "", newUrl);
-
             window.switchTab(tab);
-        };
-
-        // Handle Browser Back Button
-        window.onpopstate = () => {
-            dashOverlay.classList.remove('active');
         };
 
         window.switchTab = (tab, btn) => {
@@ -472,22 +519,23 @@
                         await updateDoc(doc(db, "users", currentUser.uid), { wallet: addr });
                         document.getElementById('dash-wallet').innerText = addr;
                     }
-                } catch(e) { alert("Connect Error"); }
-            } else { alert("Install Metamask!"); }
+                } catch(e) { alert("Error connecting wallet"); }
+            } else { alert("Install Metamask"); }
         });
 
         // CHECKIN
         document.getElementById('checkin-btn').onclick = async () => {
-            if(!currentUser) return;
-            const ref = doc(db, "users", currentUser.uid);
-            const s = await getDoc(ref);
-            const newShards = (s.data().shards || 0) + 5;
-            await updateDoc(ref, { shards: newShards });
-            document.getElementById('dash-shards').innerText = newShards;
-            alert("Checked in! +5 Shards");
+            if(currentUser) {
+                const ref = doc(db, "users", currentUser.uid);
+                const s = await getDoc(ref);
+                const newShards = (s.data().shards || 0) + 5;
+                await updateDoc(ref, { shards: newShards });
+                document.getElementById('dash-shards').innerText = newShards;
+                alert("Success! +5 Shards");
+            }
         };
 
-        // SLIDER LOGIC
+        // SLIDER
         const heroesData = [
             { name: "IGNIS PRIME", factionHTML: "FACTION • IGNIS", quote: "\"The fire never dies.\"", bg: "./assets/bg_ignis.jpg?v=1", pos: "100% 0%" },
             { name: "GAIA MOTHER", factionHTML: "FACTION • SYLVA", quote: "\"Nature is eternal.\"", bg: "./assets/bg_sylva.jpg?v=1", pos: "100% 33%" },
@@ -510,7 +558,7 @@
                 bg.style.opacity = 1;
             }, 300);
         };
-        // HELPERS
+        // Helpers
         window.showComingSoon = function(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
