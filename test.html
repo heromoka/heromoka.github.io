@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOKAHERO: GENESIS WARS | OFFICIAL SITE</title>
+    <title>MOKAHERO: GENESIS WARS (V27)</title>
     <link rel="icon" type="image/png" href="./assets/fire.png?v=999">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
-        /* --- CORE VARIABLES (V15) --- */
+        /* --- CORE VARIABLES --- */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
             --dark: #050505; --ingame-blue: #4a9eff; --card-glass: rgba(20, 20, 30, 0.7);
@@ -43,38 +43,39 @@
         .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* USER MENU */
-        .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); display: none; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,0.9); z-index: 1001; }
-        .user-dropdown.active { display: flex; }
-        .dropdown-header { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1); }
-        .dropdown-item { padding: 12px 20px; color: #ccc; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; gap: 10px; align-items: center; }
-        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); padding-left: 25px; }
-
         /* DASHBOARD OVERLAY */
         .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #0a0a0a; flex-direction: column; opacity: 0; transition: opacity 0.3s; }
         .dash-overlay.active { display: flex; opacity: 1; }
-        .dash-topbar { height: 60px; background: #111; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .dash-close { cursor: pointer; color: #888; font-weight: bold; border: 1px solid #444; padding: 5px 15px; border-radius: 4px; }
-        .dash-close:hover { color: #fff; border-color: #fff; }
-        .dash-body { flex: 1; display: flex; overflow: hidden; }
-        .dash-sidebar { width: 240px; background: #0e0e0e; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .dash-menu-btn { padding: 12px 15px; color: #888; cursor: pointer; border-radius: 6px; font-family: 'Rajdhani'; font-weight: bold; display: flex; gap: 10px; align-items: center; }
+        .dash-wrapper { width: 95%; max-width: 1400px; height: 90vh; background: #111; display: flex; border-radius: 10px; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.8); border: 1px solid #333; }
+        .dash-sidebar { width: 250px; background: #0e0e0e; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .dash-logo { font-family: 'Cinzel'; font-size: 24px; color: #fff; margin-bottom: 40px; text-align: center; }
+        .dash-menu-btn { padding: 12px 15px; color: #888; cursor: pointer; border-radius: 6px; font-family: 'Rajdhani'; font-weight: bold; display: flex; gap: 10px; align-items: center; transition: 0.2s; }
         .dash-menu-btn:hover, .dash-menu-btn.active { background: rgba(200,170,109,0.1); color: var(--gold); }
-        .dash-content { flex: 1; padding: 40px; overflow-y: auto; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(0,0,0,0.9); }
+        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(10,10,15,0.95); }
+        .dash-topbar { height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+        .dash-content { flex: 1; padding: 40px; overflow-y: auto; }
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
         .d-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; margin-bottom: 20px; }
         .d-header { padding: 15px 20px; border-bottom: 1px solid #333; color: var(--gold); font-family: 'Rajdhani'; font-weight: bold; display: flex; justify-content: space-between; }
         .d-body { padding: 20px; }
         .d-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; color: #ccc; font-size: 14px; }
-        .checkin-btn { width: 100%; padding: 12px; background: var(--gold); color: #000; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .checkin-btn { width: 100%; padding: 12px; background: linear-gradient(to right, #444, #555); border: 1px solid #666; color: #fff; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+        
+        /* USER DROPDOWN */
+        .user-dropdown { position: absolute; top: 65px; right: 0; width: 220px; background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
+        .user-dropdown.active { display: flex; }
+        .dropdown-header { padding: 15px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1); }
+        .dropdown-item { padding: 12px 20px; color: #ccc; cursor: pointer; border-bottom: 1px solid #333; transition: 0.2s; display: flex; gap: 10px; align-items: center; }
+        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* SECTIONS (V15) */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
-        
         #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
         .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
@@ -83,7 +84,6 @@
         .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; text-shadow: 0 10px 40px #000; color: #fff; letter-spacing: 2px; }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
-
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid #333; background: #000; overflow: visible; }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
@@ -94,32 +94,24 @@
         .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; }
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
-
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .feature-card { background: #0f1012; border: 1px solid #222; padding: 50px 30px; border-radius: 4px; text-align: center; display: flex; flex-direction: column; align-items: center; }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; }
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; font-weight: bold; }
-
         .eco-layout { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; }
         .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; margin-bottom: 10px; }
-        
         #token { background: #050505; }
         .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; margin: 0 auto; }
         .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
         .roadmap-item:nth-child(odd) { left: 0; text-align: right; } .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
         .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; } .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
         .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
-        
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; }
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; border: 1px solid #222; }
@@ -156,7 +148,7 @@
             <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
         </ul>
         <div class="nav-actions">
-            <button id="login-btn" class="btn-outline">LOGIN</button>
+            <button id="login-btn" class="btn-outline">LOGIN (V27)</button>
             <button id="wallet-btn" class="btn-main"><i class="fas fa-wallet"></i> CONNECT</button>
             
             <div id="user-dropdown" class="user-dropdown">
@@ -175,45 +167,64 @@
     </nav>
 
     <div id="dashboard-overlay" class="dash-overlay">
-        <div class="dash-topbar">
-            <div style="font-family:'Cinzel'; font-size:20px; color:#fff;">MOKA <span>DASHBOARD</span></div>
-            <div class="dash-close" onclick="closeDashboard()">EXIT APP <i class="fas fa-sign-out-alt"></i></div>
-        </div>
-        <div class="dash-body">
+        <div class="dash-wrapper">
             <div class="dash-sidebar">
-                <div class="dash-menu-btn active" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> MY PROFILE</div>
-                <div class="dash-menu-btn" onclick="switchTab('inventory', this)"><i class="fas fa-box"></i> INVENTORY</div>
-                <div class="dash-menu-btn" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
+                <div class="dash-logo">MOKA<span>HERO</span></div>
+                <div class="dash-menu-item active" onclick="switchTab('profile', this)"><i class="fas fa-chart-pie"></i> DASHBOARD</div>
+                <div class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
+                <div class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
+                <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
             </div>
-            <div class="dash-content">
-                <div id="tab-profile" class="dash-panel active">
-                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER PROFILE</h2>
-                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
-                        <div class="d-card">
-                            <div class="d-header"><span>PLAYER INFO</span> <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
-                            <div class="d-body">
-                                <div class="d-row"><span>Name:</span> <span id="dash-name">...</span></div>
-                                <div class="d-row"><span>Email:</span> <span id="dash-email">...</span></div>
-                                <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
-                                <div class="d-row"><span>Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
+            
+            <div class="dash-main">
+                <div class="dash-topbar">
+                    <div style="display:flex; gap:10px;">
+                        <span style="background:#222; padding:5px 15px; border-radius:20px; font-size:12px; color:#888; border:1px solid #444;">SERVER: ASIA-1</span>
+                    </div>
+                    <div class="dash-close" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
+                </div>
+
+                <div class="dash-content">
+                    <div id="tab-profile" class="dash-panel active">
+                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">COMMANDER DASHBOARD</h2>
+                        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:20px;">
+                            <div class="d-card">
+                                <div class="d-header"><span>PLAYER INFO</span> <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i></div>
+                                <div class="d-body">
+                                    <div class="d-row"><span>Name:</span> <span id="dash-display-name">...</span></div>
+                                    <div class="d-row"><span>Email:</span> <span id="dash-display-email">...</span></div>
+                                    <div class="d-row"><span>Wallet:</span> <span id="dash-wallet" style="color:var(--gold);">Not Connected</span></div>
+                                    <div class="d-row"><span>Moka Shards:</span> <span id="dash-shards" style="color:var(--ingame-blue);">0</span></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="d-card">
-                            <div class="d-header">DAILY REWARD</div>
-                            <div class="d-body" style="text-align:center;">
-                                <p style="font-size:12px; color:#888;">+5 Shards Daily</p>
-                                <button id="checkin-btn" class="checkin-btn">CHECK IN</button>
+                            <div class="d-card">
+                                <div class="d-header">DAILY REWARD</div>
+                                <div class="d-body" style="text-align:center;">
+                                    <p style="font-size:12px; color:#888;">Check-in daily to receive +5 Shards.</p>
+                                    <button id="checkin-btn" class="checkin-btn">CHECK IN</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="tab-inventory" class="dash-panel">
-                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">INVENTORY</h2>
-                    <div style="text-align:center; padding:50px; border:2px dashed #333; color:#666;">NO ITEMS FOUND</div>
-                </div>
-                <div id="tab-settings" class="dash-panel">
-                    <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">SETTINGS</h2>
-                    <div class="d-card" style="padding:20px;"><p style="color:#888;">Social connections coming soon...</p></div>
+
+                    <div id="tab-inventory" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">INVENTORY</h2>
+                        <div style="text-align:center; padding:50px; border:2px dashed #333; color:#666;">NO ITEMS FOUND</div>
+                    </div>
+
+                    <div id="tab-settings" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; color:#fff; margin-bottom:20px;">SETTINGS</h2>
+                        <div class="d-card" style="padding:20px;">
+                            <div class="d-row">
+                                <div style="display:flex; align-items:center; gap:10px;"><i class="fab fa-twitter" style="color:#1da1f2;"></i> Twitter</div>
+                                <div style="font-size:12px; color:#666;">Not Connected</div>
+                            </div>
+                            <div class="d-row">
+                                <div style="display:flex; align-items:center; gap:10px;"><i class="fab fa-discord" style="color:#7289da;"></i> Discord</div>
+                                <div style="font-size:12px; color:#666;">Not Connected</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -225,7 +236,7 @@
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero.</p>
+            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.</p>
             <div class="download-area">
                 <button class="btn-main">FREE DOWNLOAD</button>
                 <div class="platform-list">
@@ -326,12 +337,11 @@
     </footer>
 
     <script type="module">
-        // Import Firebase từ CDN chuẩn cho Web
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIG CỦA BẠN (Đã dán)
+        // YOUR CONFIG (Đã tích hợp)
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -355,16 +365,20 @@
         let currentUser = null;
 
         // AUTH & DATABASE LOGIC
-        // Lưu ý: Đã dùng addEventListener để không bị lỗi onclick trong HTML
         loginBtn.addEventListener('click', async (e) => {
             e.stopPropagation();
             if(!currentUser) {
                 try {
                     const result = await signInWithPopup(auth, provider);
-                    // Code này chạy khi login thành công
-                } catch(e) { 
-                    alert("Login Failed: " + e.message); 
-                }
+                    const user = result.user;
+                    // Create user doc if not exists
+                    const userRef = doc(db, "users", user.uid);
+                    const snap = await getDoc(userRef);
+                    if(!snap.exists()) {
+                        await setDoc(userRef, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
+                    }
+                } 
+                catch (error) { console.error(error); alert("Login Failed: " + error.message); }
             } else {
                 userDropdown.classList.toggle('active');
             }
@@ -384,16 +398,13 @@
                 document.getElementById('user-avatar').src = user.photoURL;
                 document.getElementById('user-name').innerText = user.displayName;
                 document.getElementById('user-email').innerText = user.email;
-                document.getElementById('dash-name').innerText = user.displayName;
-                document.getElementById('dash-email').innerText = user.email;
+                document.getElementById('dash-display-name').innerText = user.displayName;
+                document.getElementById('dash-display-email').innerText = user.email;
                 
-                // Tạo/Lấy dữ liệu người dùng trên Firestore
-                const userRef = doc(db, "users", user.uid);
-                const snap = await getDoc(userRef);
-                
-                if(!snap.exists()) {
-                    await setDoc(userRef, { name: user.displayName, email: user.email, shards: 0, wallet: "" });
-                } else {
+                // Lấy dữ liệu tiền/ví từ Database
+                const ref = doc(db, "users", user.uid);
+                const snap = await getDoc(ref);
+                if(snap.exists()) {
                     const d = snap.data();
                     document.getElementById('dash-shards').innerText = d.shards;
                     if(d.wallet) {
@@ -403,7 +414,7 @@
                 }
             } else {
                 currentUser = null;
-                loginBtn.innerHTML = "LOGIN";
+                loginBtn.innerHTML = "LOGIN (V27)";
                 loginBtn.style.color = "#ccc"; loginBtn.style.borderColor = "#666";
                 userDropdown.classList.remove('active');
             }
@@ -433,6 +444,11 @@
             window.switchTab(tab);
         };
 
+        // Handle Browser Back Button
+        window.onpopstate = () => {
+            dashOverlay.classList.remove('active');
+        };
+
         window.switchTab = (tab, btn) => {
             document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('tab-'+tab).classList.add('active');
@@ -442,7 +458,7 @@
             }
         };
 
-        // WALLET (Metamask)
+        // WALLET
         walletBtn.addEventListener('click', async () => {
             if(window.ethereum) {
                 try {
@@ -457,19 +473,18 @@
                         document.getElementById('dash-wallet').innerText = addr;
                     }
                 } catch(e) { alert("Connect Error"); }
-            } else { alert("Please Install Metamask Extension!"); }
+            } else { alert("Install Metamask!"); }
         });
 
         // CHECKIN
         document.getElementById('checkin-btn').onclick = async () => {
-            if(currentUser) {
-                const ref = doc(db, "users", currentUser.uid);
-                const s = await getDoc(ref);
-                const newShards = (s.data().shards || 0) + 5;
-                await updateDoc(ref, { shards: newShards });
-                document.getElementById('dash-shards').innerText = newShards;
-                alert("Success! +5 Shards");
-            }
+            if(!currentUser) return;
+            const ref = doc(db, "users", currentUser.uid);
+            const s = await getDoc(ref);
+            const newShards = (s.data().shards || 0) + 5;
+            await updateDoc(ref, { shards: newShards });
+            document.getElementById('dash-shards').innerText = newShards;
+            alert("Checked in! +5 Shards");
         };
 
         // SLIDER LOGIC
@@ -495,7 +510,7 @@
                 bg.style.opacity = 1;
             }, 300);
         };
-        // Helpers
+        // HELPERS
         window.showComingSoon = function(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
