@@ -15,10 +15,10 @@
     <style>
         /* --- 1. CORE & VARIABLES --- */
         :root {
-            --gold: #ffc107;             /* Vàng tươi hơn cho nổi bật trên nền đen */
-            --gold-dim: #b8860b;         /* Vàng đậm cho viền/nền */
-            --dark: #050505;             /* Đen sâu */
-            --panel: rgba(20, 20, 25, 0.8); /* Nền kính mờ */
+            --gold: #ffc107;             
+            --gold-dim: #b8860b;         
+            --dark: #050505;             
+            --panel: rgba(20, 20, 25, 0.8); 
             --text-main: #f0f0f0;
             --text-gray: #a0a0a0;
             --accent-glow: 0 0 20px rgba(255, 193, 7, 0.3);
@@ -55,11 +55,20 @@
 
         .btn-outline {
             background: transparent; border: 1px solid var(--text-main); color: var(--text-main);
-            padding: 12px 35px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            padding: 10px 25px; font-weight: 700; cursor: pointer; transition: 0.3s;
             clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
-            font-family: 'Rajdhani'; font-size: 16px; text-transform: uppercase; text-decoration: none; display: inline-block;
+            font-family: 'Rajdhani'; font-size: 14px; text-transform: uppercase; text-decoration: none; display: inline-block;
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,193,7,0.1); }
+
+        /* Nút Platform (PC/Mobile) */
+        .btn-platform {
+            background: rgba(0,0,0,0.6); border: 1px solid #555; color: #ccc;
+            padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
+            min-width: 120px; justify-content: center;
+        }
+        .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,193,7,0.1); }
 
         /* --- 2. NAVIGATION (STICKY) --- */
         nav {
@@ -77,6 +86,8 @@
         .nav-links a { text-decoration: none; color: var(--text-gray); font-weight: 600; font-size: 14px; transition: 0.3s; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(255,193,7,0.5); }
 
+        .nav-actions { display: flex; gap: 15px; align-items: center; }
+
         /* --- 3. SECTIONS COMMON --- */
         section { padding: 100px 0; border-bottom: 1px solid #1a1a1a; position: relative; }
         .sec-title { font-size: 42px; color: var(--gold); margin-bottom: 15px; text-shadow: 0 0 20px rgba(255, 193, 7, 0.2); }
@@ -87,14 +98,17 @@
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
         }
-        /* Hình nền: Ưu tiên Video, nếu lỗi sẽ hiện ảnh poster */
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.4); }
         .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at center, transparent 0%, #000 90%); }
         
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
         .hero-subtitle { font-size: 18px; color: var(--gold); letter-spacing: 5px; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; }
         .hero-title { font-size: 70px; margin-bottom: 10px; line-height: 1; text-shadow: 0 10px 30px #000; color: #fff; }
-        .hero-actions { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .hero-actions { display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+        
+        /* Phần Download riêng */
+        .download-area { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .platform-list { display: flex; gap: 10px; justify-content: center; }
 
         /* --- PHẦN 2: GAMEPLAY FEATURES --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
@@ -112,7 +126,7 @@
         /* --- PHẦN 3: NFT SHOWCASE (Slider giả lập) --- */
         .nft-scroller { 
             display: flex; gap: 30px; overflow-x: auto; padding: 40px 0; 
-            scroll-snap-type: x mandatory; 
+            scroll-snap-type: x mandatory; justify-content: center; /* Căn giữa nếu ít thẻ */
         }
         .nft-scroller::-webkit-scrollbar { height: 8px; }
         .nft-scroller::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
@@ -140,7 +154,6 @@
         
         /* --- PHẦN 5: TOKENOMICS --- */
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 60px; }
-        /* Biểu đồ tròn CSS */
         .pie-chart {
             width: 250px; height: 250px; border-radius: 50%;
             background: conic-gradient(
@@ -177,7 +190,7 @@
         .partner-logo { font-size: 40px; color: #fff; transition: 0.3s; }
         .partner-logo:hover { color: var(--gold); transform: scale(1.1); opacity: 1; }
 
-        /* --- PHẦN 8: FOOTER --- */
+        /* --- 8. FOOTER --- */
         footer { background: #000; padding: 60px 0 20px; border-top: 1px solid #222; }
         .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
         .f-title { color: #fff; font-size: 18px; margin-bottom: 20px; font-family: 'Cinzel'; }
@@ -194,7 +207,6 @@
             .eco-arrow { transform: rotate(90deg); }
         }
 
-        /* Animation */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -203,13 +215,15 @@
     <nav>
         <a href="#" class="logo">MOKA<span>HERO</span></a>
         <ul class="nav-links">
-            <li><a href="#features">Tính Năng</a></li>
-            <li><a href="#nft">NFTs</a></li>
+            <li><a href="#nft">NFTs</a></li> <li><a href="#features">Tính Năng</a></li>
             <li><a href="#economy">Kinh Tế</a></li>
             <li><a href="#token">Token</a></li>
             <li><a href="#roadmap">Lộ Trình</a></li>
         </ul>
-        <button class="btn-outline" onclick="alert('Đang kết nối ví Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+        <div class="nav-actions">
+            <button class="btn-outline" onclick="alert('Tính năng đăng nhập đang bảo trì')">ĐĂNG NHẬP</button>
+            <button class="btn-outline" onclick="alert('Đang kết nối ví Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+        </div>
     </nav>
 
     <header id="hero">
@@ -221,46 +235,27 @@
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
+            
             <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Tập hợp đội quân, rèn đúc trang bị NFT và chinh phục thế giới Runeterra trong kỷ nguyên Blockchain mới.
+                Tập hợp đội quân, rèn đúc trang bị NFT và chinh phục thế giới MokaHero trong kỷ nguyên Blockchain mới.
             </p>
+            
             <div class="hero-actions">
                 <a href="game.html" target="_blank" class="btn-main"><i class="fas fa-play"></i> CHƠI DEMO</a>
                 <a href="whitepaper.html" target="_blank" class="btn-outline">SÁCH TRẮNG</a>
             </div>
+
+            <div class="download-area">
+                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">TẢI MIỄN PHÍ</button>
+                
+                <div class="platform-list">
+                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC Windows</button>
+                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-android"></i> Android APK</button>
+                    <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-apple"></i> iOS Store</button>
+                </div>
+            </div>
         </div>
     </header>
-
-    <section id="features">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">TÍNH NĂNG ĐẶC SẮC</h2>
-                <p class="sec-desc">Trải nghiệm chiến thuật đỉnh cao kết hợp nền kinh tế sở hữu thực.</p>
-            </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fas fa-chess-king f-icon"></i>
-                    <h3 class="f-title">CHIẾN THUẬT PVP</h3>
-                    <p>Xây dựng bộ bài khắc chế. Leo rank theo mùa giải để nhận phần thưởng Token giá trị.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-dragon f-icon"></i>
-                    <h3 class="f-title">SĂN WORLD BOSS</h3>
-                    <p>Sự kiện toàn server. Hợp sức tiêu diệt Boss khổng lồ để chia sẻ kho báu.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-hammer f-icon"></i>
-                    <h3 class="f-title">RÈN & CƯỜNG HÓA</h3>
-                    <p>Thu thập tài nguyên để chế tạo trang bị NFT. Hệ thống cường hóa may rủi kịch tính.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-landmark f-icon"></i>
-                    <h3 class="f-title">SỞ HỮU ĐẤT ĐAI</h3>
-                    <p>Mua Land NFT để xây dựng căn cứ và khai thác tài nguyên thụ động.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="nft" style="background: #0a0a0a;">
         <div class="container">
@@ -298,6 +293,37 @@
             
             <div class="text-center" style="margin-top: 30px;">
                 <button class="btn-outline" onclick="alert('Chợ Marketplace sẽ mở vào Q2/2026')">XEM MARKETPLACE</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="sec-title">TÍNH NĂNG ĐẶC SẮC</h2>
+                <p class="sec-desc">Trải nghiệm chiến thuật đỉnh cao kết hợp nền kinh tế sở hữu thực.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chess-king f-icon"></i>
+                    <h3 class="f-title">CHIẾN THUẬT PVP</h3>
+                    <p>Xây dựng bộ bài khắc chế. Leo rank theo mùa giải để nhận phần thưởng Token giá trị.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-dragon f-icon"></i>
+                    <h3 class="f-title">SĂN WORLD BOSS</h3>
+                    <p>Sự kiện toàn server. Hợp sức tiêu diệt Boss khổng lồ để chia sẻ kho báu.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-hammer f-icon"></i>
+                    <h3 class="f-title">RÈN & CƯỜNG HÓA</h3>
+                    <p>Thu thập tài nguyên để chế tạo trang bị NFT. Hệ thống cường hóa may rủi kịch tính.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-landmark f-icon"></i>
+                    <h3 class="f-title">SỞ HỮU ĐẤT ĐAI</h3>
+                    <p>Mua Land NFT để xây dựng căn cứ và khai thác tài nguyên thụ động.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -436,8 +462,8 @@
                 <div>
                     <h4 class="f-title">VỀ CHÚNG TÔI</h4>
                     <div class="f-links">
-                        <a href="#about">Cốt Truyện</a>
-                        <a href="#team">Đội Ngũ</a>
+                        <a href="#features">Tính Năng</a>
+                        <a href="#economy">Kinh Tế</a>
                         <a href="whitepaper.html">Whitepaper</a>
                         <a href="#">Liên Hệ</a>
                     </div>
@@ -464,6 +490,32 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function showComingSoon(btn) {
+            // Ngăn người dùng bấm liên tục
+            if (btn.dataset.clicking === "true") return;
+            btn.dataset.clicking = "true";
+
+            // Lưu nội dung cũ
+            const originalHTML = btn.innerHTML;
+            const originalColor = btn.style.color;
+            const originalBorder = btn.style.borderColor;
+
+            // Đổi sang Coming Soon
+            btn.innerHTML = "<i class='fas fa-clock'></i> Coming Soon";
+            btn.style.color = "#ffc107"; // Màu vàng
+            btn.style.borderColor = "#ffc107";
+            
+            // Sau 1.5 giây thì trả lại như cũ
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.color = originalColor;
+                btn.style.borderColor = originalBorder;
+                btn.dataset.clicking = "false"; 
+            }, 1500);
+        }
+    </script>
 
 </body>
 </html>
