@@ -38,10 +38,8 @@
 
         h1, h2, h3, .logo { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Tiện ích căn giữa */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
-        .flex-center { display: flex; align-items: center; justify-content: center; }
 
         /* NÚT BẤM (BUTTONS) */
         .btn-main {
@@ -61,7 +59,6 @@
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,193,7,0.1); }
 
-        /* Nút Platform (PC/Mobile) */
         .btn-platform {
             background: rgba(0,0,0,0.6); border: 1px solid #555; color: #ccc;
             padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
@@ -82,7 +79,7 @@
         .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
         .logo span { color: var(--gold); }
         
-        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links { display: flex; gap: 25px; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--text-gray); font-weight: 600; font-size: 14px; transition: 0.3s; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px rgba(255,193,7,0.5); }
 
@@ -104,29 +101,15 @@
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
         .hero-subtitle { font-size: 18px; color: var(--gold); letter-spacing: 5px; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; }
         .hero-title { font-size: 70px; margin-bottom: 10px; line-height: 1; text-shadow: 0 10px 30px #000; color: #fff; }
-        .hero-actions { display: flex; gap: 20px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
         
         /* Phần Download riêng */
-        .download-area { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .download-area { margin-top: 50px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .platform-list { display: flex; gap: 10px; justify-content: center; }
 
-        /* --- PHẦN 2: GAMEPLAY FEATURES --- */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .feature-card {
-            background: var(--panel); border: 1px solid #333; padding: 40px 20px;
-            border-radius: 8px; transition: 0.3s; text-align: center; position: relative; overflow: hidden;
-        }
-        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); transform: scaleX(0); transition: 0.3s; }
-        .feature-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .feature-card:hover::before { transform: scaleX(1); }
-        
-        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 20px; display: inline-block; }
-        .f-title { font-size: 20px; margin-bottom: 10px; color: #fff; }
-
-        /* --- PHẦN 3: NFT SHOWCASE (Slider giả lập) --- */
+        /* --- PHẦN 2: NFT SHOWCASE --- */
         .nft-scroller { 
             display: flex; gap: 30px; overflow-x: auto; padding: 40px 0; 
-            scroll-snap-type: x mandatory; justify-content: center; /* Căn giữa nếu ít thẻ */
+            scroll-snap-type: x mandatory; justify-content: center; 
         }
         .nft-scroller::-webkit-scrollbar { height: 8px; }
         .nft-scroller::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
@@ -142,6 +125,18 @@
             position: absolute; bottom: 0; width: 100%; padding: 15px;
             background: linear-gradient(to top, #000 40%, transparent); color: #fff;
         }
+
+        /* --- PHẦN 3: GAMEPLAY FEATURES --- */
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-card {
+            background: var(--panel); border: 1px solid #333; padding: 40px 20px;
+            border-radius: 8px; transition: 0.3s; text-align: center; position: relative; overflow: hidden;
+        }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); transform: scaleX(0); transition: 0.3s; }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 20px; display: inline-block; }
+        .f-title { font-size: 20px; margin-bottom: 10px; color: #fff; }
 
         /* --- PHẦN 4: GAME ECONOMY (Flowchart) --- */
         .eco-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px; }
@@ -199,12 +194,10 @@
         .socials a { width: 40px; height: 40px; background: #222; color: #fff; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; }
         .socials a:hover { background: var(--gold); color: #000; }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero-title { font-size: 40px; }
-            .nav-links { display: none; } /* Ẩn menu trên mobile */
+            .nav-links { display: none; }
             .eco-flow { flex-direction: column; }
-            .eco-arrow { transform: rotate(90deg); }
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -215,11 +208,12 @@
     <nav>
         <a href="#" class="logo">MOKA<span>HERO</span></a>
         <ul class="nav-links">
-            <li><a href="#nft">NFTs</a></li> <li><a href="#features">Tính Năng</a></li>
+            <li><a href="#hero">Trang Chủ</a></li> <li><a href="#nft">NFTs</a></li>
+            <li><a href="#features">Tính Năng</a></li>
             <li><a href="#economy">Kinh Tế</a></li>
             <li><a href="#token">Token</a></li>
             <li><a href="#roadmap">Lộ Trình</a></li>
-        </ul>
+            <li><a href="whitepaper.html" target="_blank">Sách Trắng</a></li> </ul>
         <div class="nav-actions">
             <button class="btn-outline" onclick="alert('Tính năng đăng nhập đang bảo trì')">ĐĂNG NHẬP</button>
             <button class="btn-outline" onclick="alert('Đang kết nối ví Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
@@ -240,11 +234,6 @@
                 Tập hợp đội quân, rèn đúc trang bị NFT và chinh phục thế giới MokaHero trong kỷ nguyên Blockchain mới.
             </p>
             
-            <div class="hero-actions">
-                <a href="game.html" target="_blank" class="btn-main"><i class="fas fa-play"></i> CHƠI DEMO</a>
-                <a href="whitepaper.html" target="_blank" class="btn-outline">SÁCH TRẮNG</a>
-            </div>
-
             <div class="download-area">
                 <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">TẢI MIỄN PHÍ</button>
                 
@@ -334,26 +323,22 @@
                 <h2 class="sec-title">NỀN KINH TẾ (PLAY-TO-EARN)</h2>
                 <p class="sec-desc">Vòng lặp kinh tế bền vững giúp người chơi tạo ra thu nhập thực.</p>
             </div>
-            
             <div class="eco-flow">
                 <div class="eco-step">
                     <h3>CHƠI GAME</h3>
                     <p style="font-size: 13px; color:#888;">PvP, PvE, Boss</p>
                 </div>
                 <div class="eco-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
-                
                 <div class="eco-step">
                     <h3>NHẬN TÀI NGUYÊN</h3>
                     <p style="font-size: 13px; color:#888;">Vàng, Token, Vật liệu</p>
                 </div>
                 <div class="eco-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
-
                 <div class="eco-step">
                     <h3>CHẾ TẠO NFT</h3>
                     <p style="font-size: 13px; color:#888;">Rèn Tướng, Trang bị</p>
                 </div>
                 <div class="eco-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
-
                 <div class="eco-step" style="border-color: var(--gold);">
                     <h3 style="color:#fff;">BÁN TRÊN CHỢ</h3>
                     <p style="font-size: 13px; color:var(--gold);">Thu về $MOKA / USDT</p>
@@ -368,7 +353,6 @@
                 <h2 class="sec-title">TOKENOMICS</h2>
                 <p class="sec-desc">Mã thông báo quản trị $MOKA - Trái tim của hệ sinh thái.</p>
             </div>
-
             <div class="token-wrap">
                 <div class="pie-chart">
                     <div class="pie-hole">
@@ -376,7 +360,6 @@
                         <span style="font-size: 12px; color: #666;">Total: 1 Tỷ</span>
                     </div>
                 </div>
-                
                 <ul class="token-list" style="list-style: none;">
                     <li><span class="dot" style="background:var(--gold)"></span> 30% - Play to Earn (Phần thưởng)</li>
                     <li><span class="dot" style="background:#a335ee"></span> 20% - Team & Advisors (Khóa 2 năm)</li>
@@ -392,10 +375,8 @@
             <div class="text-center">
                 <h2 class="sec-title">LỘ TRÌNH PHÁT TRIỂN</h2>
             </div>
-            
             <div class="roadmap-container">
                 <div class="roadmap-line"></div>
-                
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
                     <span class="phase-name">GIAI ĐOẠN 1 (Q1-Q2 2026)</span>
@@ -408,7 +389,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="roadmap-item">
                     <div class="roadmap-point" style="border-color: #fff;"></div>
                     <span class="phase-name" style="color: #fff;">GIAI ĐOẠN 2 (Q3-Q4 2026)</span>
@@ -421,7 +401,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="roadmap-item">
                     <div class="roadmap-point" style="border-color: #555; background: #222;"></div>
                     <span class="phase-name" style="color: #666;">GIAI ĐOẠN 3 (2027)</span>
@@ -493,21 +472,14 @@
 
     <script>
         function showComingSoon(btn) {
-            // Ngăn người dùng bấm liên tục
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
-
-            // Lưu nội dung cũ
             const originalHTML = btn.innerHTML;
             const originalColor = btn.style.color;
             const originalBorder = btn.style.borderColor;
-
-            // Đổi sang Coming Soon
             btn.innerHTML = "<i class='fas fa-clock'></i> Coming Soon";
-            btn.style.color = "#ffc107"; // Màu vàng
+            btn.style.color = "#ffc107"; 
             btn.style.borderColor = "#ffc107";
-            
-            // Sau 1.5 giây thì trả lại như cũ
             setTimeout(() => {
                 btn.innerHTML = originalHTML;
                 btn.style.color = originalColor;
