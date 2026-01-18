@@ -21,7 +21,6 @@
             --panel: rgba(20, 20, 25, 0.8); 
             --text-main: #f0f0f0;
             --text-gray: #a0a0a0;
-            --accent-glow: 0 0 20px rgba(255, 193, 7, 0.3);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,7 +40,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* NÚT BẤM (BUTTONS) */
+        /* BUTTONS */
         .btn-main {
             background: linear-gradient(45deg, var(--gold-dim), var(--gold));
             color: #000; padding: 12px 35px; border: none; font-weight: 700;
@@ -67,11 +66,11 @@
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,193,7,0.1); }
 
-        /* --- 2. NAVIGATION (STICKY) --- */
+        /* --- 2. NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; height: 80px;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
             position: fixed; width: 100%; top: 0; z-index: 1000;
         }
@@ -90,7 +89,7 @@
         .sec-title { font-size: 42px; color: var(--gold); margin-bottom: 15px; text-shadow: 0 0 20px rgba(255, 193, 7, 0.2); }
         .sec-desc { color: var(--text-gray); max-width: 600px; margin: 0 auto 50px; font-size: 16px; }
 
-        /* --- PHẦN 1: HERO SECTION --- */
+        /* --- 4. HERO SECTION --- */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
@@ -102,76 +101,42 @@
         .hero-subtitle { font-size: 18px; color: var(--gold); letter-spacing: 5px; margin-bottom: 15px; font-weight: 700; text-transform: uppercase; }
         .hero-title { font-size: 70px; margin-bottom: 10px; line-height: 1; text-shadow: 0 10px 30px #000; color: #fff; }
         
-        /* Phần Download riêng */
         .download-area { margin-top: 50px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .platform-list { display: flex; gap: 10px; justify-content: center; }
 
-        /* --- PHẦN 2: NFT SHOWCASE --- */
-        <style>
-        /* CSS MỚI CHO PHẦN SLIDER */
-        #nft { background: #080808; position: relative; overflow: hidden; }
-        
+        /* --- 5. NFT SLIDER (CAROUSEL STYLE) --- */
+        #nft { background: #080808; }
         .genesis-container {
-            position: relative;
-            max-width: 1000px; margin: 0 auto;
-            border: 1px solid rgba(255, 193, 7, 0.3); /* Viền vàng mờ giống ảnh */
-            background: rgba(0,0,0,0.4);
-            border-radius: 4px;
-            padding: 50px;
+            position: relative; max-width: 1000px; margin: 0 auto;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            background: rgba(0,0,0,0.4); border-radius: 4px; padding: 50px;
             display: flex; align-items: center; justify-content: space-between;
             min-height: 500px;
         }
-
-        /* Nút mũi tên điều hướng */
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            width: 50px; height: 50px;
-            background: #111; border: 1px solid #444; border-radius: 50%;
+            width: 50px; height: 50px; background: #111; border: 1px solid #444; border-radius: 50%;
             color: #fff; font-size: 20px; cursor: pointer; z-index: 10;
-            display: flex; align-items: center; justify-content: center;
-            transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; transition: 0.3s;
         }
-        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 15px rgba(255,193,7,0.3); }
-        .prev-btn { left: -25px; } /* Đẩy ra ngoài khung một chút */
+        .nav-arrow:hover { border-color: var(--gold); color: var(--gold); }
+        .prev-btn { left: -25px; } 
         .next-btn { right: -25px; }
 
-        /* Nội dung bên trong Slider */
-        .hero-content-wrapper {
-            display: flex; width: 100%; align-items: center; justify-content: space-between;
-            animation: fadeIn 0.5s ease-in-out;
-        }
+        .hero-content-wrapper { display: flex; width: 100%; align-items: center; justify-content: space-between; }
+        .hero-text-info { flex: 1; text-align: center; padding: 20px; z-index: 2; }
+        .hero-faction { color: #888; text-transform: uppercase; letter-spacing: 3px; font-size: 14px; margin-bottom: 10px; display: block; }
+        .hero-name { font-family: 'Cinzel', serif; font-size: 48px; font-weight: 900; color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,1); margin-bottom: 20px; line-height: 1.1; text-transform: uppercase; }
+        .hero-quote { font-style: italic; color: var(--gold); font-size: 16px; max-width: 500px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
 
-        /* Phần chữ (Bên trái hoặc giữa) */
-        .hero-text-info {
-            flex: 1; text-align: center; padding: 20px; z-index: 2;
-        }
-        .hero-faction {
-            color: #888; text-transform: uppercase; letter-spacing: 3px; font-size: 14px; margin-bottom: 10px; display: block;
-        }
-        .hero-name {
-            font-family: 'Cinzel', serif; font-size: 48px; font-weight: 900;
-            color: #fff; text-shadow: 0 5px 15px rgba(0,0,0,1);
-            margin-bottom: 20px; line-height: 1.1; text-transform: uppercase;
-        }
-        .hero-quote {
-            font-style: italic; color: var(--gold); font-size: 16px; max-width: 500px; margin: 0 auto;
-            border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;
-        }
-
-        /* Phần ảnh thẻ bài (Bên phải) */
         .hero-card-display {
-            flex: 0 0 320px; /* Cố định chiều rộng ảnh */
-            height: 460px;
-            background: #000;
-            border: 2px solid #333; border-radius: 15px;
-            position: relative; transform: perspective(1000px) rotateY(-10deg); /* Nghiêng nhẹ 3D */
-            transition: 0.5s; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            overflow: hidden;
+            flex: 0 0 320px; height: 460px; background: #000;
+            border: 2px solid #333; border-radius: 15px; position: relative;
+            transform: perspective(1000px) rotateY(-10deg); transition: 0.5s;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); overflow: hidden;
         }
         .hero-card-display:hover { transform: perspective(1000px) rotateY(0deg) scale(1.05); border-color: var(--gold); }
         .hero-img-src { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Hiệu ứng Rarity Gem trên thẻ */
         .card-gem {
             position: absolute; top: 15px; right: 15px; width: 40px; height: 40px;
             background: var(--gold); border-radius: 50%; border: 2px solid #fff;
@@ -179,163 +144,28 @@
             font-weight: bold; color: #000; box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .genesis-container { flex-direction: column-reverse; padding: 20px; min-height: auto; }
-            .hero-content-wrapper { flex-direction: column-reverse; gap: 30px; }
-            .hero-card-display { transform: none; width: 200px; height: 300px; flex: none; }
-            .hero-name { font-size: 32px; }
-            .nav-arrow { width: 40px; height: 40px; top: 30%; } /* Chỉnh vị trí nút trên mobile */
-            .prev-btn { left: 0; }
-            .next-btn { right: 0; }
-        }
-    </style>
-
-    <section id="nft">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">BỘ SƯU TẬP GENESIS</h2>
-                <p class="sec-desc">Chọn anh hùng của bạn. Ai sẽ cùng bạn bước vào trận chiến?</p>
-            </div>
-            
-            <div class="genesis-container">
-                <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-arrow-left"></i></button>
-                
-                <div class="hero-content-wrapper" id="hero-display-area">
-                    <div class="hero-text-info">
-                        <span class="hero-faction" id="h-faction" style="color: #ff3b3b;">HỆ LỬA • IGNIS</span>
-                        <h2 class="hero-name" id="h-name">IGNIS PRIME</h2>
-                        <p class="hero-quote" id="h-quote">
-                            "Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."
-                        </p>
-                    </div>
-
-                    <div class="hero-card-display" id="h-card-border">
-                        <div class="card-gem" id="h-cost">12</div>
-                        <img src="./assets/bg_ignis.jpg?v=1" class="hero-img-src" id="h-img">
-                    </div>
-                </div>
-
-                <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-arrow-right"></i></button>
-            </div>
-            
-            <div class="text-center" style="margin-top: 40px;">
-                <button class="btn-outline" onclick="alert('Chợ Marketplace sẽ mở vào Q2/2026')">XEM MARKETPLACE</button>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // Dữ liệu 4 Tướng (Bạn có thể sửa text ở đây)
-        const heroesData = [
-            {
-                name: "IGNIS PRIME",
-                faction: "HỆ LỬA • IGNIS",
-                quote: "\"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh. Thiêu đốt mọi kẻ thù cản bước.\"",
-                image: "./assets/bg_ignis.jpg?v=1",
-                color: "#ff3b3b", // Màu đỏ
-                cost: 12
-            },
-            {
-                name: "GAIA MOTHER",
-                faction: "HỆ MỘC • SYLVA",
-                quote: "\"Thiên nhiên không vội vàng, nhưng mọi thứ đều hoàn thành. Sự sống sẽ trỗi dậy từ tro tàn.\"",
-                image: "./assets/bg_sylva.jpg?v=1",
-                color: "#00ff88", // Màu xanh lá
-                cost: 10
-            },
-            {
-                name: "OMEGA WEAPON",
-                faction: "HỆ MÁY • OMEGA",
-                quote: "\"Cảm xúc là điểm yếu. Thép và Dầu mới là chân lý của sự tiến hóa vĩnh cửu.\"",
-                image: "./assets/bg_omega.jpg?v=1",
-                color: "#00d9ff", // Màu xanh dương
-                cost: 15
-            },
-            {
-                name: "VOID EYE",
-                faction: "HƯ KHÔNG • ZAROK",
-                quote: "\"Khi người nhìn vào vực thẳm, vực thẳm cũng đang nhìn lại ngươi... và mỉm cười.\"",
-                image: "./assets/bg_zarok.jpg?v=1",
-                color: "#9d00ff", // Màu tím
-                cost: 11
-            }
-        ];
-
-        let currentHeroIndex = 0;
-
-        function changeHero(direction) {
-            // Tính toán index tiếp theo (Vòng lặp vô tận)
-            currentHeroIndex += direction;
-            
-            if (currentHeroIndex >= heroesData.length) {
-                currentHeroIndex = 0; // Quay về đầu
-            } else if (currentHeroIndex < 0) {
-                currentHeroIndex = heroesData.length - 1; // Quay về cuối
-            }
-
-            updateHeroDisplay();
-        }
-
-        function updateHeroDisplay() {
-            const hero = heroesData[currentHeroIndex];
-            const displayArea = document.getElementById('hero-display-area');
-
-            // Hiệu ứng Fade out nhẹ trước khi đổi
-            displayArea.style.opacity = 0;
-
-            setTimeout(() => {
-                // Cập nhật dữ liệu
-                document.getElementById('h-name').innerText = hero.name;
-                document.getElementById('h-name').style.color = hero.color; // Đổi màu tên theo hệ
-                
-                document.getElementById('h-faction').innerText = hero.faction;
-                document.getElementById('h-faction').style.color = hero.color;
-
-                document.getElementById('h-quote').innerText = hero.quote;
-                document.getElementById('h-img').src = hero.image;
-                document.getElementById('h-cost').innerText = hero.cost;
-                
-                // Đổi màu viền card theo hệ
-                document.getElementById('h-card-border').style.borderColor = hero.color;
-
-                // Fade in trở lại
-                displayArea.style.opacity = 1;
-            }, 200);
-        }
-    </script>
-
-        /* --- PHẦN 3: GAMEPLAY FEATURES --- */
+        /* --- 6. FEATURES --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
         .feature-card {
             background: var(--panel); border: 1px solid #333; padding: 40px 20px;
             border-radius: 8px; transition: 0.3s; text-align: center; position: relative; overflow: hidden;
         }
-        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--gold); transform: scaleX(0); transition: 0.3s; }
         .feature-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .feature-card:hover::before { transform: scaleX(1); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 20px; display: inline-block; }
         .f-title { font-size: 20px; margin-bottom: 10px; color: #fff; }
 
-        /* --- PHẦN 4: GAME ECONOMY (Flowchart) --- */
+        /* --- 7. ECONOMY --- */
         .eco-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px; }
-        .eco-step { 
-            background: #1a1a1a; padding: 20px 30px; border-radius: 8px; border: 1px solid #444; 
-            text-align: center; width: 200px; position: relative;
-        }
+        .eco-step { background: #1a1a1a; padding: 20px 30px; border-radius: 8px; border: 1px solid #444; text-align: center; width: 200px; }
         .eco-step h3 { color: var(--gold); font-size: 18px; margin-bottom: 5px; }
         .eco-arrow { font-size: 24px; color: #555; }
         
-        /* --- PHẦN 5: TOKENOMICS --- */
+        /* --- 8. TOKENOMICS --- */
+        #token { background: #0a0a0a; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 60px; }
         .pie-chart {
             width: 250px; height: 250px; border-radius: 50%;
-            background: conic-gradient(
-                var(--gold) 0% 30%, 
-                #a335ee 30% 50%, 
-                #00d9ff 50% 80%, 
-                #333 80% 100%
-            );
+            background: conic-gradient(var(--gold) 0% 30%, #a335ee 30% 50%, #00d9ff 50% 80%, #333 80% 100%);
             position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
         .pie-hole {
@@ -345,26 +175,17 @@
         .token-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-size: 18px; }
         .dot { width: 12px; height: 12px; border-radius: 2px; }
 
-        /* --- PHẦN 6: ROADMAP --- */
+        /* --- 9. ROADMAP --- */
         .roadmap-container { position: relative; max-width: 800px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: #333; }
         .roadmap-item { position: relative; padding-left: 60px; margin-bottom: 50px; }
-        .roadmap-point { 
-            position: absolute; left: 11px; top: 0; width: 20px; height: 20px; 
-            background: var(--dark); border: 4px solid var(--gold); border-radius: 50%; 
-            z-index: 2;
-        }
+        .roadmap-point { position: absolute; left: 11px; top: 0; width: 20px; height: 20px; background: var(--dark); border: 4px solid var(--gold); border-radius: 50%; z-index: 2; }
         .phase-name { color: var(--gold); font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block; }
         .roadmap-content h3 { font-size: 24px; margin-bottom: 10px; }
         .roadmap-content ul { list-style: none; color: #888; }
         .roadmap-content li::before { content: "•"; color: var(--gold); margin-right: 10px; }
 
-        /* --- PHẦN 7: PARTNERS --- */
-        .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; opacity: 0.6; }
-        .partner-logo { font-size: 40px; color: #fff; transition: 0.3s; }
-        .partner-logo:hover { color: var(--gold); transform: scale(1.1); opacity: 1; }
-
-        /* --- 8. FOOTER --- */
+        /* --- 10. FOOTER --- */
         footer { background: #000; padding: 60px 0 20px; border-top: 1px solid #222; }
         .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
         .f-title { color: #fff; font-size: 18px; margin-bottom: 20px; font-family: 'Cinzel'; }
@@ -373,13 +194,20 @@
         .socials a { width: 40px; height: 40px; background: #222; color: #fff; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; }
         .socials a:hover { background: var(--gold); color: #000; }
 
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .hero-title { font-size: 40px; }
             .nav-links { display: none; }
-            .eco-flow { flex-direction: column; }
+            .genesis-container { flex-direction: column-reverse; padding: 20px; min-height: auto; }
+            .hero-content-wrapper { flex-direction: column-reverse; gap: 30px; }
+            .hero-card-display { transform: none; width: 200px; height: 300px; flex: none; }
+            .nav-arrow { width: 40px; height: 40px; top: 30%; }
+            .prev-btn { left: 0; }
+            .next-btn { right: 0; }
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -387,12 +215,14 @@
     <nav>
         <a href="#" class="logo">MOKA<span>HERO</span></a>
         <ul class="nav-links">
-            <li><a href="#hero">Trang Chủ</a></li> <li><a href="#nft">NFTs</a></li>
+            <li><a href="#hero">Trang Chủ</a></li>
+            <li><a href="#nft">NFTs</a></li>
             <li><a href="#features">Tính Năng</a></li>
             <li><a href="#economy">Kinh Tế</a></li>
             <li><a href="#token">Token</a></li>
             <li><a href="#roadmap">Lộ Trình</a></li>
-            <li><a href="whitepaper.html" target="_blank">Sách Trắng</a></li> </ul>
+            <li><a href="whitepaper.html" target="_blank">Sách Trắng</a></li>
+        </ul>
         <div class="nav-actions">
             <button class="btn-outline" onclick="alert('Tính năng đăng nhập đang bảo trì')">ĐĂNG NHẬP</button>
             <button class="btn-outline" onclick="alert('Đang kết nối ví Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
@@ -408,14 +238,12 @@
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            
             <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
                 Tập hợp đội quân, rèn đúc trang bị NFT và chinh phục thế giới MokaHero trong kỷ nguyên Blockchain mới.
             </p>
             
             <div class="download-area">
                 <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">TẢI MIỄN PHÍ</button>
-                
                 <div class="platform-list">
                     <button class="btn-platform" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC Windows</button>
                     <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-android"></i> Android APK</button>
@@ -425,41 +253,33 @@
         </div>
     </header>
 
-    <section id="nft" style="background: #0a0a0a;">
+    <section id="nft">
         <div class="container">
             <div class="text-center">
                 <h2 class="sec-title">BỘ SƯU TẬP GENESIS</h2>
-                <p class="sec-desc">Sở hữu những Anh Hùng huyền thoại đầu tiên của thế giới MokaHero.</p>
+                <p class="sec-desc">Chọn anh hùng của bạn. Ai sẽ cùng bạn bước vào trận chiến?</p>
             </div>
             
-            <div class="nft-scroller">
-                <div class="nft-card" style="background-image: url('./assets/bg_ignis.jpg?v=1');">
-                    <div class="nft-info">
-                        <h3 style="color: #ff3b3b; font-family:'Cinzel'">IGNIS PRIME</h3>
-                        <p style="font-size: 12px; color: #aaa;">LEGENDARY • FIRE</p>
+            <div class="genesis-container">
+                <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-arrow-left"></i></button>
+                
+                <div class="hero-content-wrapper" id="hero-display-area">
+                    <div class="hero-text-info">
+                        <span class="hero-faction" id="h-faction" style="color: #ff3b3b;">HỆ LỬA • IGNIS</span>
+                        <h2 class="hero-name" id="h-name">IGNIS PRIME</h2>
+                        <p class="hero-quote" id="h-quote">"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."</p>
+                    </div>
+
+                    <div class="hero-card-display" id="h-card-border">
+                        <div class="card-gem" id="h-cost">12</div>
+                        <img src="./assets/bg_ignis.jpg?v=1" class="hero-img-src" id="h-img">
                     </div>
                 </div>
-                <div class="nft-card" style="background-image: url('./assets/bg_sylva.jpg?v=1');">
-                    <div class="nft-info">
-                        <h3 style="color: #00ff88; font-family:'Cinzel'">GAIA MOTHER</h3>
-                        <p style="font-size: 12px; color: #aaa;">EPIC • NATURE</p>
-                    </div>
-                </div>
-                <div class="nft-card" style="background-image: url('./assets/bg_omega.jpg?v=1');">
-                    <div class="nft-info">
-                        <h3 style="color: #00d9ff; font-family:'Cinzel'">OMEGA MECH</h3>
-                        <p style="font-size: 12px; color: #aaa;">RARE • TECH</p>
-                    </div>
-                </div>
-                <div class="nft-card" style="background-image: url('./assets/bg_zarok.jpg?v=1');">
-                    <div class="nft-info">
-                        <h3 style="color: #9d00ff; font-family:'Cinzel'">VOID EYE</h3>
-                        <p style="font-size: 12px; color: #aaa;">LEGENDARY • VOID</p>
-                    </div>
-                </div>
+
+                <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-arrow-right"></i></button>
             </div>
             
-            <div class="text-center" style="margin-top: 30px;">
+            <div class="text-center" style="margin-top: 40px;">
                 <button class="btn-outline" onclick="alert('Chợ Marketplace sẽ mở vào Q2/2026')">XEM MARKETPLACE</button>
             </div>
         </div>
@@ -526,7 +346,7 @@
         </div>
     </section>
 
-    <section id="token" style="background: #0a0a0a;">
+    <section id="token">
         <div class="container">
             <div class="text-center">
                 <h2 class="sec-title">TOKENOMICS</h2>
@@ -540,10 +360,10 @@
                     </div>
                 </div>
                 <ul class="token-list" style="list-style: none;">
-                    <li><span class="dot" style="background:var(--gold)"></span> 30% - Play to Earn (Phần thưởng)</li>
-                    <li><span class="dot" style="background:#a335ee"></span> 20% - Team & Advisors (Khóa 2 năm)</li>
-                    <li><span class="dot" style="background:#00d9ff"></span> 30% - Ecosystem & Marketing</li>
-                    <li><span class="dot" style="background:#333"></span> 20% - Public Sale & Liquidity</li>
+                    <li><span class="dot" style="background:var(--gold)"></span> 30% - Play to Earn</li>
+                    <li><span class="dot" style="background:#a335ee"></span> 20% - Team & Advisors</li>
+                    <li><span class="dot" style="background:#00d9ff"></span> 30% - Ecosystem</li>
+                    <li><span class="dot" style="background:#333"></span> 20% - Public Sale</li>
                 </ul>
             </div>
         </div>
@@ -595,26 +415,13 @@
         </div>
     </section>
 
-    <section id="partners" style="padding: 60px 0; background: #080808;">
-        <div class="container text-center">
-            <p style="color: #444; letter-spacing: 2px; font-size: 12px; margin-bottom: 30px;">BACKED BY & PARTNERS</p>
-            <div class="partner-grid">
-                <i class="fab fa-aws partner-logo" title="AWS"></i>
-                <i class="fab fa-unity partner-logo" title="Unity"></i>
-                <i class="fab fa-google partner-logo" title="Google Cloud"></i>
-                <i class="fab fa-discord partner-logo" title="Discord"></i>
-                <i class="fas fa-cube partner-logo" title="Polygon"></i>
-            </div>
-        </div>
-    </section>
-
     <footer>
         <div class="container">
             <div class="footer-cols">
                 <div>
                     <a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a>
                     <p style="color: #666; font-size: 14px;">
-                        Tựa game chiến thuật thẻ bài thế hệ mới, trao quyền sở hữu thực sự cho người chơi.
+                        Tựa game chiến thuật thẻ bài thế hệ mới.
                     </p>
                 </div>
                 <div>
@@ -632,14 +439,6 @@
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-discord"></i></a>
                         <a href="#"><i class="fab fa-telegram-plane"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    </div>
-                    <p style="color: #666; font-size: 12px; margin-top: 20px;">
-                        Subscribe để nhận tin tức mới nhất:
-                    </p>
-                    <div style="display: flex; gap: 10px; margin-top: 10px;">
-                        <input type="email" placeholder="Email của bạn..." style="background: #222; border: 1px solid #444; padding: 8px; color: #fff; width: 100%;">
-                        <button class="btn-main" style="padding: 8px 15px;">GỬI</button>
                     </div>
                 </div>
             </div>
@@ -650,6 +449,7 @@
     </footer>
 
     <script>
+        // 1. LOGIC NÚT COMING SOON
         function showComingSoon(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
@@ -665,6 +465,64 @@
                 btn.style.borderColor = originalBorder;
                 btn.dataset.clicking = "false"; 
             }, 1500);
+        }
+
+        // 2. LOGIC SLIDER CHỌN TƯỚNG (CAROUSEL)
+        const heroesData = [
+            {
+                name: "IGNIS PRIME",
+                faction: "HỆ LỬA • IGNIS",
+                quote: "\"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh. Thiêu đốt mọi kẻ thù cản bước.\"",
+                image: "./assets/bg_ignis.jpg?v=1",
+                color: "#ff3b3b", cost: 12
+            },
+            {
+                name: "GAIA MOTHER",
+                faction: "HỆ MỘC • SYLVA",
+                quote: "\"Thiên nhiên không vội vàng, nhưng mọi thứ đều hoàn thành. Sự sống sẽ trỗi dậy từ tro tàn.\"",
+                image: "./assets/bg_sylva.jpg?v=1",
+                color: "#00ff88", cost: 10
+            },
+            {
+                name: "OMEGA WEAPON",
+                faction: "HỆ MÁY • OMEGA",
+                quote: "\"Cảm xúc là điểm yếu. Thép và Dầu mới là chân lý của sự tiến hóa vĩnh cửu.\"",
+                image: "./assets/bg_omega.jpg?v=1",
+                color: "#00d9ff", cost: 15
+            },
+            {
+                name: "VOID EYE",
+                faction: "HƯ KHÔNG • ZAROK",
+                quote: "\"Khi người nhìn vào vực thẳm, vực thẳm cũng đang nhìn lại ngươi... và mỉm cười.\"",
+                image: "./assets/bg_zarok.jpg?v=1",
+                color: "#9d00ff", cost: 11
+            }
+        ];
+
+        let currentHeroIndex = 0;
+
+        function changeHero(direction) {
+            currentHeroIndex += direction;
+            if (currentHeroIndex >= heroesData.length) currentHeroIndex = 0;
+            else if (currentHeroIndex < 0) currentHeroIndex = heroesData.length - 1;
+            updateHeroDisplay();
+        }
+
+        function updateHeroDisplay() {
+            const hero = heroesData[currentHeroIndex];
+            const displayArea = document.getElementById('hero-display-area');
+            displayArea.style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('h-name').innerText = hero.name;
+                document.getElementById('h-name').style.color = hero.color;
+                document.getElementById('h-faction').innerText = hero.faction;
+                document.getElementById('h-faction').style.color = hero.color;
+                document.getElementById('h-quote').innerText = hero.quote;
+                document.getElementById('h-img').src = hero.image;
+                document.getElementById('h-cost').innerText = hero.cost;
+                document.getElementById('h-card-border').style.borderColor = hero.color;
+                displayArea.style.opacity = 1;
+            }, 200);
         }
     </script>
 
