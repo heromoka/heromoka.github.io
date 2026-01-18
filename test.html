@@ -26,13 +26,10 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
-        /* Dùng Roboto cho thân trang để không lỗi font tiếng Việt */
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
 
-        /* Tiêu đề dùng Cinzel cho sang trọng */
         h1, h2, h3, .logo, .f-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Các thành phần UI dùng Rajdhani cho hiện đại */
         .btn-main, .btn-outline, .nav-links a, .phase-name, .eco-text h4 { font-family: 'Rajdhani', sans-serif; font-weight: bold; text-transform: uppercase; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -82,19 +79,29 @@
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 14px; margin-bottom: 50px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
 
-        /* --- 4. HERO SECTION --- */
+        /* --- 4. HERO SECTION (ĐÃ SỬA LỖI CHE GÓC) --- */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
         }
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.5); }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
+        
+        /* CẬP NHẬT: Tăng độ tối ở các góc để che logo/watermark */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            /* Gradient này sẽ tối hơn ở viền, đặc biệt là các góc */
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
+            z-index: 1;
+        }
+        
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
         .hero-subtitle { font-size: 14px; color: var(--gold); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; }
         .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; text-shadow: 0 10px 40px #000; color: #fff; letter-spacing: 2px; }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* --- 5. NFT SLIDER (YASUO STYLE) --- */
+        /* --- 5. NFT SLIDER --- */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper {
             position: relative; max-width: 1100px; height: 500px; margin: 0 auto;
@@ -149,57 +156,36 @@
         .f-title { font-size: 18px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; font-family: 'Cinzel', sans-serif; }
         .f-desc { font-size: 14px; color: #888; line-height: 1.6; }
 
-        /* ============================================== */
         /* --- 7. ECONOMY (SEMI-ONCHAIN MODEL) --- */
-        /* ============================================== */
-        .eco-layout {
-            display: flex; gap: 30px; justify-content: center; align-items: stretch;
-            flex-wrap: wrap; margin-top: 40px;
-        }
+        .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone {
-            flex: 1; min-width: 320px;
-            background: rgba(10, 10, 10, 0.8);
-            border: 1px solid #333; border-radius: 12px;
-            padding: 30px; position: relative;
+            flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8);
+            border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative;
             display: flex; flex-direction: column; gap: 20px;
         }
-        
-        /* Zone Colors */
         .zone-game { border-top: 4px solid var(--ingame-blue); }
         .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
-        
         .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
         .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
-
         .zone-web3 { border-top: 4px solid var(--gold); }
         .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
-
-        /* Items */
         .eco-item-box {
-            background: #151515; padding: 15px; border-radius: 8px;
-            display: flex; align-items: center; gap: 15px;
+            background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px;
             border: 1px solid #222; transition: 0.3s;
         }
         .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
         .eco-icon { font-size: 24px; width: 40px; text-align: center; }
         .eco-text h4 { margin: 0; font-size: 15px; color: #fff; margin-bottom: 3px; }
         .eco-text p { margin: 0; font-size: 13px; color: #888; line-height: 1.3; }
-
-        /* Connector Area */
         .swap-action {
-            width: 100%; text-align: center; padding: 15px;
-            background: #050505; border: 1px solid #333; border-radius: 8px;
+            width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px;
             margin: 10px 0; position: relative;
         }
         .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
         .swap-action span { font-size: 13px; font-weight: bold; color: #ccc; font-family: 'Rajdhani'; text-transform: uppercase; }
-        .arrow-flow { 
-            position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666;
-            animation: flow 1.5s infinite;
-        }
+        .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
         .arr-left { left: -22px; color: var(--ingame-blue); }
         .arr-right { right: -22px; color: var(--gold); }
-
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
         /* --- 8. TOKENOMICS --- */
@@ -280,6 +266,7 @@
         <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1">
             <source src="./assets/video.mp4" type="video/mp4">
         </video>
+        <div class="hero-overlay"></div>
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
