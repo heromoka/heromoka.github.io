@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* --- 1. CORE VARIABLES (HYBRID STYLE V15) --- */
         :root {
             --gold: #c8aa6d;             
             --gold-bright: #f0e6d2;      
-            --cyan: #00f2ff;
+            --cyan: #00f2ff; 
             --cyan-glow: rgba(0, 242, 255, 0.5);
             --dark: #050505;             
             --ingame-blue: #4a9eff;
@@ -60,7 +60,7 @@
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION & DROPDOWN --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; height: 80px;
@@ -72,14 +72,55 @@
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); }
-        .nav-actions { display: flex; gap: 15px; align-items: center; }
+        
+        .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
+
+        /* USER DROPDOWN MENU STYLE (NEW) */
+        .user-dropdown {
+            position: absolute;
+            top: 60px; right: 0;
+            width: 220px;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1001;
+            overflow: hidden;
+            animation: fadeIn 0.2s ease-out;
+        }
+        .user-dropdown.active { display: flex; }
+        
+        /* Dropdown Header (User Info) */
+        .dropdown-header {
+            padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; gap: 10px; background: rgba(200, 170, 109, 0.1);
+        }
+        .dropdown-header img { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--gold); }
+        .user-name-display { font-family: 'Rajdhani'; font-weight: bold; color: #fff; font-size: 14px; }
+        .user-email-display { font-size: 11px; color: #888; }
+
+        /* Dropdown Items */
+        .dropdown-item {
+            padding: 12px 15px; color: #ccc; text-decoration: none; font-size: 13px; font-family: 'Roboto';
+            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+        }
+        .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); padding-left: 20px; }
+        .dropdown-item:last-child { border-bottom: none; color: #ff4757; }
+        .dropdown-item:last-child:hover { background: rgba(255, 71, 87, 0.1); color: #ff6b81; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
 
         /* --- SECTIONS COMMON --- */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- 1. HERO SECTION (V14 STYLE) --- */
+        /* --- 1. HERO (V14) --- */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
@@ -101,7 +142,7 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* --- 2. NFT SLIDER (V13 STYLE) --- */
+        /* --- 2. NFT (V13) --- */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
@@ -120,7 +161,7 @@
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* --- 3. FEATURES (V14 STYLE) --- */
+        /* --- 3. FEATURES (V14) --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
         .feature-card {
             padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
@@ -140,7 +181,7 @@
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* --- 4. ECONOMY (V13 STYLE) --- */
+        /* --- 4. ECONOMY (V13) --- */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
         .zone-game { border-top: 4px solid var(--ingame-blue); }
@@ -205,6 +246,7 @@
 
         @media (max-width: 992px) {
             .nav-links { display: none; }
+            .hero-title { font-size: 50px; }
             .genesis-wrapper { height: auto; padding-bottom: 0; }
             .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
             .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
@@ -237,6 +279,28 @@
         <div class="nav-actions">
             <button id="login-btn" class="btn-outline">LOGIN</button>
             <button class="btn-main" onclick="alert('Connecting Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+            
+            <div id="user-dropdown" class="user-dropdown">
+                <div class="dropdown-header">
+                    <img id="user-avatar" src="" alt="Avatar">
+                    <div style="display:flex; flex-direction:column;">
+                        <span id="user-name" class="user-name-display">Commander</span>
+                        <span id="user-email" class="user-email-display">email@example.com</span>
+                    </div>
+                </div>
+                <div class="dropdown-item" onclick="alert('Profile Page - Coming Soon')">
+                    <i class="fas fa-user"></i> My Profile
+                </div>
+                <div class="dropdown-item" onclick="alert('Inventory - Coming Soon')">
+                    <i class="fas fa-box-open"></i> Inventory
+                </div>
+                <div class="dropdown-item" onclick="alert('Settings - Coming Soon')">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <div class="dropdown-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -558,33 +622,84 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
+        
+        // DOM Elements
         const loginBtn = document.getElementById('login-btn');
+        const userDropdown = document.getElementById('user-dropdown');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // User Info Elements in Dropdown
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const userEmail = document.getElementById('user-email');
 
+        // --- HANDLE LOGIN ---
         const handleLogin = async () => {
             try {
-                const result = await signInWithPopup(auth, provider);
-                alert("Welcome " + result.user.displayName);
+                await signInWithPopup(auth, provider);
+                // No Alert here, just let onAuthStateChanged handle the UI update
             } catch (error) {
                 console.error(error);
                 alert("Login Error: " + error.message);
             }
         };
 
+        // --- HANDLE LOGOUT ---
         const handleLogout = async () => {
-            if(confirm("Logout?")) await signOut(auth);
+            if(confirm("Are you sure you want to logout?")) {
+                await signOut(auth);
+                userDropdown.classList.remove('active'); // Hide menu
+            }
         };
 
+        // --- TOGGLE DROPDOWN MENU ---
+        const toggleDropdown = (e) => {
+            e.stopPropagation(); // Stop click from propagating to window
+            userDropdown.classList.toggle('active');
+        };
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!userDropdown.contains(e.target) && !loginBtn.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+
+        // --- AUTH STATE LISTENER ---
         onAuthStateChanged(auth, (user) => {
-            if (user && loginBtn) {
-                loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:20px; border-radius:50%; vertical-align:middle; margin-right:5px;"> ${user.displayName.split(' ')[0]}`;
+            if (user) {
+                // LOGGED IN STATE
+                // 1. Update Login Button to Avatar
+                loginBtn.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <img src="${user.photoURL}" style="width:24px; height:24px; border-radius:50%; border:1px solid #c8aa6d;">
+                        <span>${user.displayName.split(' ')[0]}</span>
+                        <i class="fas fa-caret-down" style="font-size:10px;"></i>
+                    </div>
+                `;
                 loginBtn.style.borderColor = "#c8aa6d";
                 loginBtn.style.color = "#c8aa6d";
-                loginBtn.onclick = handleLogout;
-            } else if (loginBtn) {
+                
+                // 2. Bind Click to Toggle Dropdown
+                loginBtn.onclick = toggleDropdown;
+
+                // 3. Fill Dropdown Info
+                userAvatar.src = user.photoURL;
+                userName.innerText = user.displayName;
+                userEmail.innerText = user.email;
+                
+                // 4. Bind Logout Button
+                logoutBtn.onclick = handleLogout;
+
+            } else {
+                // LOGGED OUT STATE
                 loginBtn.innerHTML = "LOGIN";
                 loginBtn.style.borderColor = "#666";
                 loginBtn.style.color = "#ccc";
                 loginBtn.onclick = handleLogin;
+                
+                // Hide dropdown if open
+                userDropdown.classList.remove('active');
             }
         });
 
