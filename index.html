@@ -10,19 +10,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
-        /* --- 1. CORE VARIABLES (Kết hợp V13 & V14) --- */
+        /* ================================================================= */
+        /* --- 1. CORE CSS V15 (GIỮ NGUYÊN 100% TỪ MÃ BẠN GỬI) --- */
+        /* ================================================================= */
         :root {
-            --gold: #c8aa6d;             
-            --gold-bright: #f0e6d2;      
-            --cyan: #00f2ff; /* Dùng cho phần 1 và 3 */
+            --gold: #c8aa6d;              
+            --gold-bright: #f0e6d2;       
+            --cyan: #00f2ff;
             --cyan-glow: rgba(0, 242, 255, 0.5);
-            --dark: #050505;             
+            --dark: #050505;              
             --ingame-blue: #4a9eff;
             --web3-purple: #9b59b6;
-            --card-glass: rgba(20, 20, 30, 0.7); /* Cho phần 3 */
+            --card-glass: rgba(20, 20, 30, 0.7);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,7 +39,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS (Kiểu V13 - Vàng/Đen sang trọng) */
+        /* BUTTONS V15 */
         .btn-main {
             background: linear-gradient(to bottom, #c8aa6d, #8e733b);
             color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
@@ -60,7 +64,7 @@
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
-        /* --- NAVIGATION --- */
+        /* NAV */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; height: 80px;
@@ -72,33 +76,26 @@
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); }
-        .nav-actions { display: flex; gap: 15px; align-items: center; }
+        .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* --- SECTIONS COMMON --- */
+        /* SECTIONS COMMON */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* ================================================================= */
-        /* [PHẦN 1: HERO] - GIỮ CỦA V14 (Có Gradient Text, Vignette, Cyan)   */
-        /* ================================================================= */
+        /* HERO */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
         }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
-        
-        /* Hiệu ứng tối góc mạnh (Vignette) che logo */
         .hero-overlay {
             position: absolute; inset: 0;
             background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
             z-index: 1;
         }
-        
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
-        /* Chữ phụ màu Cyan nổi bật */
         .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
-        /* Chữ tiêu đề Gradient */
         .hero-title { 
             font-size: 80px; margin-bottom: 20px; line-height: 1; 
             background: linear-gradient(to right, var(--gold), #fff, var(--cyan));
@@ -108,12 +105,8 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* ================================================================= */
-        /* [PHẦN 2: NFT] - QUAY VỀ V13 (Yasuo Style, Gold, Solid)            */
-        /* ================================================================= */
+        /* NFT */
         #nft { background: #0b0b0b; padding-top: 80px; }
-        
-        /* Khung viền vàng sang trọng */
         .genesis-wrapper { 
             position: relative; max-width: 1100px; height: 500px; margin: 0 auto; 
             border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; 
@@ -135,20 +128,27 @@
         }
         .genesis-panel::before { left: 20px; }
         .genesis-panel::after { right: 20px; }
-        
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
         .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
         .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
-        
         .genesis-card-container { 
             position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; 
             transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); 
         }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
-        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
         
+        /* CARD SPRITE FIX */
+        .card-sprite { 
+            width: 100%; height: 100%; 
+            background-image: url('./assets/full_set.png'); 
+            background-size: 500% 400%; background-repeat: no-repeat; 
+            border-radius: 10px; 
+            box-shadow: 0 0 0 1px rgba(255,215,0,0.3); 
+            background-position: 100% 0%; 
+        }
+
         .nav-arrow { 
             position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; 
             background: transparent; border: 1px solid #444; border-radius: 50%; 
@@ -158,42 +158,28 @@
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* ================================================================= */
-        /* [PHẦN 3: FEATURES] - GIỮ CỦA V14 (Glass Cards, Glowing Border)    */
-        /* ================================================================= */
+        /* FEATURES */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
         .feature-card {
             padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
             display: flex; flex-direction: column; align-items: center;
-            /* Glassmorphism style từ V14 */
-            background: var(--card-glass); 
-            backdrop-filter: blur(10px);
-            border: 1px solid transparent; 
-            background-clip: padding-box;
+            background: var(--card-glass); backdrop-filter: blur(10px);
+            border: 1px solid transparent; background-clip: padding-box;
         }
-        /* Viền Gradient Cyan/Gold */
         .feature-card::before {
             content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; 
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); 
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s;
         }
-        .feature-card:hover::before {
-             background: linear-gradient(135deg, var(--gold), var(--cyan)); 
-             box-shadow: 0 0 20px var(--cyan-glow);
-        }
+        .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
         .feature-card:hover { transform: translateY(-10px); }
-
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
         .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.1); }
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* ================================================================= */
-        /* [PHẦN 4, 5, 6, 7] - QUAY VỀ V13 (Style chuẩn, gọn gàng)           */
-        /* ================================================================= */
-        
-        /* 4. ECONOMY (Semi-Onchain) */
+        /* ECONOMY */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
         .zone-game { border-top: 4px solid var(--ingame-blue); }
@@ -215,7 +201,7 @@
         .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
-        /* 5. TOKENOMICS (100M) */
+        /* TOKENOMICS */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
         .pie-chart {
@@ -235,7 +221,7 @@
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-        /* 6. ROADMAP (4 Giai đoạn) */
+        /* ROADMAP */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
@@ -248,7 +234,7 @@
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
         
-        /* 7. PARTNERS */
+        /* PARTNERS */
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
         .partner-item {
             display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s;
@@ -285,9 +271,79 @@
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ================================================================= */
+        /* --- 2. ADD-ON CSS: DASHBOARD & LOGIC (V41 - FULL CONTENT + FIXED X) --- */
+        /* ================================================================= */
+        
+        /* TOAST NOTIFICATION */
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
+        .toast {
+            background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px;
+            border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            font-family: 'Rajdhani'; font-weight: bold; min-width: 250px;
+            transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast i { color: var(--gold); font-size: 18px; }
+
+        /* LOGIN GATE */
+        .login-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .login-overlay.active { display: flex; }
+        .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; }
+        .login-option { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #ccc; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
+        .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
+
+        /* DASHBOARD FULL SCREEN */
+        .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #000; width: 100vw; height: 100vh; flex-direction: column; }
+        .dash-overlay.active { display: flex; }
+        .dash-wrapper { width: 100%; height: 100%; background: #111; display: flex; border: none; border-radius: 0; }
+        .dash-sidebar { width: 260px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 30px 20px; flex-shrink: 0; }
+        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-position: center; background-blend-mode: multiply; background-color: rgba(10,10,15,0.95); position: relative; }
+        .dash-topbar { height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: flex-end; padding: 0 40px; background: rgba(0,0,0,0.5); }
+        .dash-content { flex: 1; padding: 40px 60px; overflow-y: auto; }
+        
+        .dash-menu-item { padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 4px; margin-bottom: 5px; transition: 0.2s; }
+        .dash-menu-item:hover, .dash-menu-item.active { background: rgba(200,170,109,0.1); color: var(--gold); }
+        .dash-logout { margin-top: auto; color: #ff4757; }
+        .dash-panel { display: none; animation: fadeIn 0.3s; }
+        .dash-panel.active { display: block; }
+
+        /* PROFILE STYLES */
+        .profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 8px; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .p-row { display: flex; flex-direction: column; margin-bottom: 25px; position: relative; }
+        .p-label { color: #666; font-size: 11px; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+        
+        .p-input { background: transparent; border: 1px solid transparent; color: #fff; padding: 10px 0; font-family: 'Roboto'; font-size: 16px; width: 100%; transition: 0.3s; pointer-events: none; }
+        .p-input.editable { background: rgba(0,0,0,0.5); border: 1px solid #444; padding: 10px; pointer-events: auto; color: var(--gold); }
+        .p-input:focus { border-color: var(--gold); outline: none; }
+        
+        .edit-icon { position: absolute; right: 0; bottom: 12px; color: #444; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .edit-icon:hover { color: var(--gold); }
+        .edit-icon.hidden { display: none; }
+        .save-btn { background: var(--gold); color: #000; border: none; padding: 10px 30px; font-weight: bold; cursor: pointer; float: right; margin-top: 10px; font-family: 'Rajdhani'; display: none; }
+
+        /* SETTINGS & DROPDOWN */
+        .connect-row { display: flex; justify-content: space-between; align-items: center; padding: 25px; background: rgba(255,255,255,0.03); margin-bottom: 15px; border-radius: 6px; }
+        .social-info { display: flex; align-items: center; gap: 15px; color: #fff; font-weight: bold; font-size: 16px; }
+        .social-icon { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 22px; }
+        .btn-connect { background: transparent; border: 1px solid #555; color: #ccc; padding: 8px 20px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        .btn-connect:hover { border-color: #fff; color: #fff; }
+        .connected-text { color: #00ff88; font-size: 13px; margin-right: 15px; font-weight: bold; display: none; }
+
+        .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
+        .user-dropdown.active { display: flex; }
+        .dropdown-item { padding: 12px 15px; color: #ccc; text-decoration: none; font-size: 13px; border-bottom: 1px solid #222; transition: 0.2s; display: flex; gap: 10px; cursor: pointer; }
+        .dropdown-item:hover { background: #222; color: var(--gold); }
+
+        @media (max-width: 768px) { .dash-wrapper { flex-direction: column; } .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; } .dash-content { padding: 20px; } }
     </style>
 </head>
 <body>
+
+    <div id="toast-container"></div>
 
     <nav>
         <a href="#" class="logo">MOKA<span>HERO</span></a>
@@ -301,22 +357,137 @@
             <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
         </ul>
         <div class="nav-actions">
-            <button class="btn-outline" onclick="alert('Login currently under maintenance')">LOGIN</button>
-            <button class="btn-outline" onclick="alert('Connecting Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+            <button id="main-login-btn" class="btn-outline">LOGIN</button>
+            <div id="user-dropdown" class="user-dropdown">
+                <div class="dropdown-header" style="padding:15px; border-bottom:1px solid #333; display:flex; gap:10px; align-items:center;">
+                    <img id="user-avatar" src="" alt="" style="width:30px; height:30px; border-radius:50%; display:none;">
+                    <div style="display:flex; flex-direction:column;">
+                        <span id="user-display-name" style="color:#fff; font-size:13px; font-weight:bold;">...</span>
+                        <span style="color:#666; font-size:10px;">Commander</span>
+                    </div>
+                </div>
+                <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Profile</div>
+                <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box-open"></i> Inventory</div>
+                <div class="dropdown-item" onclick="openDashboard('settings')"><i class="fas fa-cog"></i> Settings</div>
+                <div class="dropdown-item" id="logout-btn" style="color:#ff4757;"><i class="fas fa-sign-out-alt"></i> Logout</div>
+            </div>
         </div>
     </nav>
 
+    <div id="login-gate" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLoginGate()"></i>
+            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">CHOOSE METHOD</h3>
+            <button class="login-option" id="btn-google"><i class="fab fa-google" style="color:#db4437;"></i> LOGIN WITH GOOGLE</button>
+            <button class="login-option" id="btn-metamask"><i class="fas fa-wallet" style="color:#f6851b;"></i> CONNECT METAMASK</button>
+        </div>
+    </div>
+
+    <div id="dashboard-overlay" class="dash-overlay">
+        <div class="dash-wrapper">
+            <div class="dash-sidebar">
+                <div style="color:#fff; font-family:'Cinzel'; font-size:22px; text-align:center; margin-bottom:40px;">MOKA<span>HERO</span></div>
+                <div class="dash-menu-item active" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> PROFILE</div>
+                <div class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
+                <div class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
+                <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
+            </div>
+            <div class="dash-main">
+                <div class="dash-topbar">
+                    <button class="btn-outline" style="padding:5px 15px; font-size:12px;" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></button>
+                </div>
+                <div class="dash-content">
+                    
+                    <div id="tab-profile" class="dash-panel active">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">COMMANDER PROFILE</h2>
+                        <div class="profile-card">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:20px; border-bottom:1px solid #333; padding-bottom:10px;">
+                                <span style="color:#888; font-weight:bold;">PLAYER INFO</span>
+                                <span style="color:var(--gold); font-weight:bold;">BALANCE: <span id="dash-moka" style="color:#fff;">0</span> $MOKA</span>
+                            </div>
+                            
+                            <div class="p-row">
+                                <span class="p-label">DISPLAY NAME</span>
+                                <input type="text" id="input-name" class="p-input" value="..." readonly>
+                                <i class="fas fa-pen edit-icon" onclick="enableEdit('name')"></i>
+                            </div>
+                            
+                            <div class="p-row">
+                                <span class="p-label">EMAIL ADDRESS</span>
+                                <input type="text" id="input-email" class="p-input" value="..." readonly>
+                                <i class="fas fa-pen edit-icon" id="edit-email-icon" onclick="enableEdit('email')"></i>
+                            </div>
+                            
+                            <div class="p-row">
+                                <span class="p-label">WALLET ADDRESS</span>
+                                <input type="text" id="input-wallet" class="p-input" value="..." readonly>
+                                <i class="fas fa-pen edit-icon" id="edit-wallet-icon" onclick="enableEdit('wallet')"></i>
+                            </div>
+
+                            <button id="save-profile-btn" class="save-btn" onclick="saveProfile()">SAVE CHANGES</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-inventory" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">INVENTORY</h2>
+                        <div class="inv-grid">
+                            <div class="inv-item" style="height:200px; color:#666;">Empty Slot</div>
+                            <div class="inv-item" style="height:200px; color:#666;">Empty Slot</div>
+                            <div class="inv-item" style="height:200px; color:#666;">Empty Slot</div>
+                        </div>
+                    </div>
+
+                    <div id="tab-settings" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">SOCIAL CONNECTIONS</h2>
+                        
+                        <div class="connect-row">
+                            <div class="social-info">
+                                <div class="social-icon" style="background:#000; border:1px solid #666;">
+                                    <i class="fa-brands fa-x-twitter" style="color:#ffffff !important;"></i>
+                                </div>
+                                <span>Twitter (X)</span>
+                            </div>
+                            <div id="tw-action">
+                                <span class="connected-text" id="tw-status"></span>
+                                <button class="btn-connect" onclick="connectSocial('tw')">CONNECT</button>
+                            </div>
+                        </div>
+
+                        <div class="connect-row">
+                            <div class="social-info">
+                                <div class="social-icon" style="background:#5865F2;"><i class="fab fa-discord" style="color:#fff;"></i></div>
+                                <span>Discord</span>
+                            </div>
+                            <div id="dc-action">
+                                <span class="connected-text" id="dc-status"></span>
+                                <button class="btn-connect" onclick="connectSocial('dc')">CONNECT</button>
+                            </div>
+                        </div>
+
+                        <div class="connect-row">
+                            <div class="social-info">
+                                <div class="social-icon" style="background:#229ED9;"><i class="fab fa-telegram-plane" style="color:#fff;"></i></div>
+                                <span>Telegram</span>
+                            </div>
+                            <div id="tg-action">
+                                <span class="connected-text" id="tg-status"></span>
+                                <button class="btn-connect" onclick="connectSocial('tg')">CONNECT</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header id="hero">
-        <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1">
-            <source src="./assets/video.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1"><source src="./assets/video.mp4" type="video/mp4"></video>
         <div class="hero-overlay"></div>
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
-            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.
-            </p>
+            <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.</p>
             <div class="download-area">
                 <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">FREE DOWNLOAD</button>
                 <div class="platform-list">
@@ -330,10 +501,7 @@
 
     <section id="nft">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">GENESIS COLLECTION</h2>
-                <p class="sec-desc">Choose your hero. Who will you bring into the battle?</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">GENESIS COLLECTION</h2><p class="sec-desc">Choose your hero. Who will you bring into the battle?</p></div>
             <div style="position: relative; max-width: 1100px; margin: 0 auto;">
                 <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
@@ -345,221 +513,73 @@
                             <h2 class="g-name" id="g-name">IGNIS PRIME</h2>
                             <span class="g-quote" id="g-quote">"The fire never dies. I am destruction, and I am rebirth."</span>
                         </div>
-                        <div class="genesis-card-container">
-                            <div class="card-sprite" id="g-card-sprite"></div>
-                        </div>
+                        <div class="genesis-card-container"><div class="card-sprite" id="g-card-sprite"></div></div>
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="margin-top: 50px;">
-                <button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button>
-            </div>
+            <div class="text-center" style="margin-top: 50px;"><button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button></div>
         </div>
     </section>
 
     <section id="features">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">GAMEPLAY FEATURES</h2>
-                <p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">GAMEPLAY FEATURES</h2><p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p></div>
             <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fas fa-chess-king f-icon"></i>
-                    <h3 class="f-title">STRATEGIC PVP</h3>
-                    <p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-dragon f-icon"></i>
-                    <h3 class="f-title">WORLD BOSS HUNT</h3>
-                    <p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-hammer f-icon"></i>
-                    <h3 class="f-title">FORGE & UPGRADE</h3>
-                    <p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-landmark f-icon"></i>
-                    <h3 class="f-title">LAND OWNERSHIP</h3>
-                    <p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-scroll f-icon"></i>
-                    <h3 class="f-title">DAILY QUESTS</h3>
-                    <p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-users f-icon"></i>
-                    <h3 class="f-title">GUILD WARS</h3>
-                    <p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p>
-                </div>
+                <div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p></div>
+                <div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS HUNT</h3><p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p></div>
+                <div class="feature-card"><i class="fas fa-hammer f-icon"></i><h3 class="f-title">FORGE & UPGRADE</h3><p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p></div>
+                <div class="feature-card"><i class="fas fa-landmark f-icon"></i><h3 class="f-title">LAND OWNERSHIP</h3><p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p></div>
+                <div class="feature-card"><i class="fas fa-scroll f-icon"></i><h3 class="f-title">DAILY QUESTS</h3><p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p></div>
+                <div class="feature-card"><i class="fas fa-users f-icon"></i><h3 class="f-title">GUILD WARS</h3><p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p></div>
             </div>
         </div>
     </section>
 
     <section id="economy">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2>
-                <p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p>
-            </div>
+            <div class="text-center"><h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2><p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p></div>
             <div class="eco-layout">
                 <div class="eco-zone zone-game">
                     <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div>
-                        <div class="eco-text">
-                            <h4>MOKA SHARDS</h4>
-                            <p>Earned from PvP, Rank, Boss.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #a335ee;"><i class="fas fa-puzzle-piece"></i></div>
-                        <div class="eco-text">
-                            <h4>NFT FRAGMENTS</h4>
-                            <p>Drops from Dungeons & Chests.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box" style="border-color: #d63031;">
-                        <div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div>
-                        <div class="eco-text">
-                            <h4>BLACK MARKET</h4>
-                            <p>Internal P2P trading for materials.</p>
-                        </div>
-                    </div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div><div class="eco-text"><h4>MOKA SHARDS</h4><p>Earned from PvP, Rank, Boss.</p></div></div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #a335ee;"><i class="fas fa-puzzle-piece"></i></div><div class="eco-text"><h4>NFT FRAGMENTS</h4><p>Drops from Dungeons & Chests.</p></div></div>
+                    <div class="eco-item-box" style="border-color: #d63031;"><div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div><div class="eco-text"><h4>BLACK MARKET</h4><p>Internal P2P trading for materials.</p></div></div>
                 </div>
                 <div class="eco-zone zone-gate">
                     <h3><i class="fas fa-torii-gate"></i> THE GATE</h3>
-                    <div class="swap-action">
-                        <i class="fas fa-sync-alt main-icon"></i>
-                        <span>SWAP</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p>
-                        <i class="fas fa-chevron-right arrow-flow arr-right"></i>
-                        <i class="fas fa-chevron-left arrow-flow arr-left"></i>
-                    </div>
-                    <div class="swap-action">
-                        <i class="fas fa-hammer main-icon"></i>
-                        <span>MINT NFT</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p>
-                        <i class="fas fa-chevron-right arrow-flow arr-right"></i>
-                    </div>
+                    <div class="swap-action"><i class="fas fa-sync-alt main-icon"></i><span>SWAP</span><p style="font-size: 10px; color:#666; margin:0;">Shards ⇆ $MOKA</p><i class="fas fa-chevron-right arrow-flow arr-right"></i><i class="fas fa-chevron-left arrow-flow arr-left"></i></div>
+                    <div class="swap-action"><i class="fas fa-hammer main-icon"></i><span>MINT NFT</span><p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p><i class="fas fa-chevron-right arrow-flow arr-right"></i></div>
                 </div>
                 <div class="eco-zone zone-web3">
                     <h3><i class="fas fa-globe"></i> WEB3 WORLD</h3>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div>
-                        <div class="eco-text">
-                            <h4>$MOKA TOKEN</h4>
-                            <p>Tradable on CEX / DEX.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #ff9f43;"><i class="fas fa-store"></i></div>
-                        <div class="eco-text">
-                            <h4>NFT MARKETPLACE</h4>
-                            <p>Buy/Sell Heroes & Lands.</p>
-                        </div>
-                    </div>
-                    <div class="eco-item-box">
-                        <div class="eco-icon" style="color: #fff;"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="eco-text">
-                            <h4>SPENDING</h4>
-                            <p>Deposit $MOKA back into game.</p>
-                        </div>
-                    </div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div><div class="eco-text"><h4>$MOKA TOKEN</h4><p>Tradable on CEX / DEX.</p></div></div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #ff9f43;"><i class="fas fa-store"></i></div><div class="eco-text"><h4>NFT MARKETPLACE</h4><p>Buy/Sell Heroes & Lands.</p></div></div>
+                    <div class="eco-item-box"><div class="eco-icon" style="color: #fff;"><i class="fas fa-shopping-cart"></i></div><div class="eco-text"><h4>SPENDING</h4><p>Deposit $MOKA back into game.</p></div></div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="token">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">TOKENOMICS</h2>
-                <p class="sec-desc">Token Allocation - Total Supply 100 Million.</p>
-            </div>
-            <div class="token-wrap">
-                <div class="pie-chart">
-                    <div class="pie-hole">
-                        <span style="font-size: 30px; font-weight: 900; color: var(--gold); font-family: 'Cinzel';">$MOKA</span>
-                        <span style="font-size: 12px; color: #666;">Total: 100M</span>
-                    </div>
-                </div>
-                <ul class="token-list" style="list-style: none;">
-                    <li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li>
-                    <li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li>
-                    <li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li>
-                    <li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li>
-                </ul>
-            </div>
-        </div>
+        <div class="container"><div class="text-center"><h2 class="sec-title">TOKENOMICS</h2><p class="sec-desc">Token Allocation - Total Supply 100 Million.</p></div><div class="token-wrap"><div class="pie-chart"><div class="pie-hole"><span style="font-family:'Cinzel'; font-size:30px; color:var(--gold);">100M</span><span style="font-size: 12px; color: #666;">Total: 100M</span></div></div><ul class="token-list" style="list-style: none;"><li><span class="dot" style="background:var(--gold)"></span> 51% - Play to Earn</li><li><span class="dot" style="background:#222"></span> 10% - Team & Advisors</li><li><span class="dot" style="background:#9b59b6"></span> 20% - Marketing & Airdrop</li><li><span class="dot" style="background:#555"></span> 19% - Ecosystem</li></ul></div></div>
     </section>
 
     <section id="roadmap">
         <div class="container">
-            <div class="text-center">
-                <h2 class="sec-title">ROADMAP</h2>
-            </div>
+            <div class="text-center"><h2 class="sec-title">ROADMAP</h2></div>
             <div class="roadmap-container">
                 <div class="roadmap-line"></div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 1 (JAN - MAR 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>GENESIS</h3>
-                        <ul>
-                            <li>Website & Whitepaper Launch</li>
-                            <li>Genesis Chest Sale (Early NFTs)</li>
-                            <li>Alpha Test on Web</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 2 (APR - JUN 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>EXPLOSION</h3>
-                        <ul>
-                            <li>Mobile Launch (iOS/Android)</li>
-                            <li>Guild Wars Feature</li>
-                            <li>$MOKA CEX Listing</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 3 (JUL - SEP 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>EXPANSION</h3>
-                        <ul>
-                            <li>Cross-chain Bridge Integration</li>
-                            <li>Staking System & DAO Governance</li>
-                            <li>"Leviathan" World Boss Raid</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="roadmap-item">
-                    <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 4 (OCT - DEC 2026)</span>
-                    <div class="roadmap-content">
-                        <h3>METAVERSE</h3>
-                        <ul>
-                            <li>Moka Land Gameplay Launch</li>
-                            <li>Global Championship 2026</li>
-                            <li>Scholarship Program</li>
-                        </ul>
-                    </div>
-                </div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 1 (JAN - MAR 2026)</span><div class="roadmap-content"><h3>GENESIS</h3><ul><li>Website & Whitepaper Launch</li><li>Genesis Chest Sale (Early NFTs)</li><li>Alpha Test on Web</li></ul></div></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 2 (APR - JUN 2026)</span><div class="roadmap-content"><h3>EXPLOSION</h3><ul><li>Mobile Launch (iOS/Android)</li><li>Guild Wars Feature</li><li>$MOKA CEX Listing</li></ul></div></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 3 (JUL - SEP 2026)</span><div class="roadmap-content"><h3>EXPANSION</h3><ul><li>Cross-chain Bridge Integration</li><li>Staking System & DAO Governance</li><li>"Leviathan" World Boss Raid</li></ul></div></div>
+                <div class="roadmap-item"><div class="roadmap-point"></div><span class="phase-name">PHASE 4 (OCT - DEC 2026)</span><div class="roadmap-content"><h3>METAVERSE</h3><ul><li>Moka Land Gameplay Launch</li><li>Global Championship 2026</li><li>Scholarship Program</li></ul></div></div>
             </div>
         </div>
     </section>
 
     <section id="partners" style="padding: 60px 0; background: #080808; border-top: 1px solid #111;">
         <div class="container">
-            <div class="text-center">
-                <p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p>
-            </div>
+            <div class="text-center"><p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p></div>
             <div class="partner-grid">
                 <div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS CAPITAL</span></div>
                 <div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN VENTURES</span></div>
@@ -577,111 +597,205 @@
     <footer>
         <div class="container">
             <div class="footer-cols">
-                <div>
-                    <a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a>
-                    <p style="color: #666; font-size: 13px; line-height: 1.8;">
-                        Next-generation tactical card game with true ownership economy.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="f-title">ABOUT US</h4>
-                    <div class="f-links">
-                        <a href="#features">Features</a>
-                        <a href="#economy">Economy</a>
-                        <a href="whitepaper.html">Whitepaper</a>
-                        <a href="#">Contact</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="f-title">COMMUNITY</h4>
-                    <div class="socials">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
-                    </div>
-                </div>
+                <div><a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a><p style="color: #666; font-size: 13px; line-height: 1.8;">Next-generation tactical card game with true ownership economy.</p></div>
+                <div><h4 class="f-title">ABOUT US</h4><div class="f-links"><a href="#features">Features</a><a href="#economy">Economy</a><a href="whitepaper.html">Whitepaper</a><a href="#">Contact</a></div></div>
+                <div><h4 class="f-title">COMMUNITY</h4><div class="socials"><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-discord"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a></div></div>
             </div>
-            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;">
-                <p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p>
-            </div>
+            <div class="text-center" style="border-top: 1px solid #111; padding-top: 20px; font-size: 12px; color: #444;"><p>© 2026 HEROMOKA STUDIO. ALL RIGHTS RESERVED.</p></div>
         </div>
     </footer>
 
-    <script>
-        function showComingSoon(btn) {
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
+            authDomain: "mokahero-8c560.firebaseapp.com",
+            projectId: "mokahero-8c560",
+            storageBucket: "mokahero-8c560.firebasestorage.app",
+            messagingSenderId: "307285112101",
+            appId: "1:307285112101:web:7ac30091baac32c85796cc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        const mainLoginBtn = document.getElementById('main-login-btn');
+        const loginGate = document.getElementById('login-gate');
+        const userDropdown = document.getElementById('user-dropdown');
+        const dashOverlay = document.getElementById('dashboard-overlay');
+        let currentLoginType = ''; 
+
+        // 1. LOGIN GATE
+        mainLoginBtn.onclick = () => {
+            if(mainLoginBtn.innerText === "LOGIN") loginGate.classList.add('active');
+            else userDropdown.classList.toggle('active');
+        };
+        window.closeLoginGate = () => loginGate.classList.remove('active');
+
+        // 2. METHODS
+        document.getElementById('btn-google').onclick = async () => {
+            try { await signInWithPopup(auth, provider); closeLoginGate(); } 
+            catch(e) { showToast("Login Failed: " + e.message, "error"); }
+        };
+
+        document.getElementById('btn-metamask').onclick = async () => {
+            if(window.ethereum) {
+                try {
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    const signer = provider.getSigner();
+                    const addr = await signer.getAddress();
+                    updateUI({ type: 'wallet', name: addr.substring(0,6)+"..."+addr.substring(38), fullAddr: addr });
+                    closeLoginGate();
+                    showToast("Wallet Connected!", "success");
+                } catch(e) { showToast("Wallet Connect Error", "error"); }
+            } else { showToast("Please Install Metamask", "error"); }
+        };
+
+        // 3. FIREBASE LISTENER
+        onAuthStateChanged(auth, (user) => {
+            if(user) {
+                updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
+                const ref = doc(db, "users", user.uid);
+                getDoc(ref).then(snap => {
+                    if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0 });
+                    else document.getElementById('dash-moka').innerText = snap.data().shards;
+                });
+            } else if(currentLoginType !== 'wallet') {
+                resetUI();
+            }
+        });
+
+        // 4. UI UPDATE
+        function updateUI(user) {
+            currentLoginType = user.type;
+            mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
+            mainLoginBtn.style.color = "#c8aa6d"; mainLoginBtn.style.borderColor = "#c8aa6d";
+            document.getElementById('user-display-name').innerText = user.name;
+            document.getElementById('input-name').value = user.name;
+            
+            if(user.type === 'google') {
+                document.getElementById('user-avatar').src = user.photo;
+                document.getElementById('user-avatar').style.display = 'block';
+                document.getElementById('input-email').value = user.email;
+                document.getElementById('edit-email-icon').classList.add('hidden'); 
+                document.getElementById('edit-wallet-icon').classList.remove('hidden'); 
+            } else {
+                document.getElementById('user-avatar').style.display = 'none';
+                document.getElementById('input-wallet').value = user.fullAddr;
+                document.getElementById('edit-wallet-icon').classList.add('hidden'); 
+                document.getElementById('edit-email-icon').classList.remove('hidden'); 
+                document.getElementById('input-email').value = "";
+            }
+        }
+
+        function resetUI() {
+            mainLoginBtn.innerHTML = "LOGIN";
+            mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666";
+            userDropdown.classList.remove('active');
+            currentLoginType = '';
+        }
+
+        // 5. PROFILE EDIT
+        window.enableEdit = (field) => {
+            const input = document.getElementById('input-' + field);
+            input.readOnly = false;
+            input.classList.add('editable');
+            input.focus();
+            document.getElementById('save-profile-btn').style.display = 'block';
+        };
+
+        window.saveProfile = () => {
+            const inputs = document.querySelectorAll('.p-input');
+            inputs.forEach(i => {
+                i.readOnly = true;
+                i.classList.remove('editable');
+            });
+            document.getElementById('save-profile-btn').style.display = 'none';
+            showToast("Profile Updated Successfully!", "success");
+        };
+
+        // 6. TOAST
+        window.showToast = (msg, type) => {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${msg}</span>`;
+            if(type === 'error') toast.innerHTML = `<i class="fas fa-exclamation-circle" style="color:red;"></i> <span>${msg}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
+        // 7. SETTINGS
+        window.connectSocial = (type) => {
+            const username = prompt("Enter username:");
+            if(username) {
+                document.getElementById(type+'-status').innerText = "Connected: @" + username;
+                document.getElementById(type+'-status').style.display = "inline";
+                document.querySelector(`#${type}-action .btn-connect`).innerText = "UNLINK";
+                showToast("Connected Successfully!", "success");
+            }
+        };
+
+        // 8. DASHBOARD NAV
+        window.openDashboard = (tab) => {
+            userDropdown.classList.remove('active');
+            dashOverlay.classList.add('active');
+            window.switchTab(tab);
+        };
+        window.closeDashboard = () => dashOverlay.classList.remove('active');
+        window.switchTab = (tab, btn) => {
+            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-'+tab).classList.add('active');
+            if(btn) {
+                document.querySelectorAll('.dash-menu-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+        };
+
+        document.getElementById('logout-btn').onclick = async () => {
+            await signOut(auth);
+            location.reload();
+        };
+
+        // 9. HERO SLIDER
+        const heroesData = [
+            { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies. I am destruction, and I am rebirth.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "100% 0%" },
+            { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is never in a hurry, yet everything is accomplished.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "100% 33.333%" },
+            { name: "OMEGA WEAPON", factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span> • TECH", quote: "\"Steel and Oil are eternal truths. Emotion is a weakness.\"", bgImage: "./assets/bg_omega.jpg?v=1", bgPos: "100% 66.666%" },
+            { name: "VOID EYE", factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span> • ABYSS", quote: "\"When you stare into the abyss, the abyss stares back at you.\"", bgImage: "./assets/bg_zarok.jpg?v=1", bgPos: "100% 100%" }
+        ];
+        let currentHeroIndex = 0;
+        window.changeHero = function(d) {
+            currentHeroIndex += d;
+            if(currentHeroIndex >= heroesData.length) currentHeroIndex = 0; else if(currentHeroIndex < 0) currentHeroIndex = 3;
+            const h = heroesData[currentHeroIndex];
+            const bg = document.getElementById('g-bg-img');
+            bg.style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('g-name').innerText = h.name;
+                document.getElementById('g-faction').innerHTML = h.factionHTML;
+                document.getElementById('g-quote').innerText = h.quote;
+                bg.src = h.bgImage;
+                document.getElementById('g-card-sprite').style.backgroundPosition = h.bgPos;
+                bg.style.opacity = 1;
+            }, 300);
+        };
+        window.showComingSoon = function(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
-            const originalHTML = btn.innerHTML;
-            const originalColor = btn.style.color;
-            const originalBorder = btn.style.borderColor;
-            btn.innerHTML = "<i class='fas fa-clock'></i> Coming Soon";
-            btn.style.color = "#c8aa6d"; 
-            btn.style.borderColor = "#c8aa6d";
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.color = originalColor;
-                btn.style.borderColor = originalBorder;
-                btn.dataset.clicking = "false"; 
-            }, 1500);
-        }
-
-        const heroesData = [
-            {
-                name: "IGNIS PRIME",
-                factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION",
-                quote: "\"The fire never dies. I am destruction, and I am rebirth.\"",
-                bgImage: "./assets/bg_ignis.jpg?v=1",
-                bgPos: "100% 0%"
-            },
-            {
-                name: "GAIA MOTHER",
-                factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE",
-                quote: "\"Nature is never in a hurry, yet everything is accomplished.\"",
-                bgImage: "./assets/bg_sylva.jpg?v=1",
-                bgPos: "100% 33.333%"
-            },
-            {
-                name: "OMEGA WEAPON",
-                factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span> • TECH",
-                quote: "\"Steel and Oil are eternal truths. Emotion is a weakness.\"",
-                bgImage: "./assets/bg_omega.jpg?v=1",
-                bgPos: "100% 66.666%"
-            },
-            {
-                name: "VOID EYE",
-                factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span> • ABYSS",
-                quote: "\"When you stare into the abyss, the abyss stares back at you.\"",
-                bgImage: "./assets/bg_zarok.jpg?v=1",
-                bgPos: "100% 100%"
-            }
-        ];
-
-        let currentHeroIndex = 0;
-
-        function changeHero(direction) {
-            currentHeroIndex += direction;
-            if (currentHeroIndex >= heroesData.length) currentHeroIndex = 0;
-            else if (currentHeroIndex < 0) currentHeroIndex = heroesData.length - 1;
-            updateHeroDisplay();
-        }
-
-        function updateHeroDisplay() {
-            const hero = heroesData[currentHeroIndex];
-            document.getElementById('g-bg-img').style.opacity = 0;
-            document.getElementById('g-overlay').style.opacity = 0;
-            
-            setTimeout(() => {
-                document.getElementById('g-name').innerText = hero.name;
-                document.getElementById('g-faction').innerHTML = hero.factionHTML;
-                document.getElementById('g-quote').innerText = hero.quote;
-                document.getElementById('g-bg-img').src = hero.bgImage;
-                document.getElementById('g-card-sprite').style.backgroundPosition = hero.bgPos;
-                document.getElementById('g-bg-img').style.opacity = 1;
-                document.getElementById('g-overlay').style.opacity = 1;
-            }, 300);
-        }
-        updateHeroDisplay();
+            showToast("Mobile version coming soon!", "success");
+        };
     </script>
-
 </body>
 </html>
