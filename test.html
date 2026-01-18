@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -18,7 +18,6 @@
             --gold: #c8aa6d;             
             --gold-bright: #f0e6d2;      
             --dark: #050505;             
-            --panel-bg: rgba(16, 18, 23, 0.95);
             --ingame-blue: #4a9eff;
             --web3-purple: #9b59b6;
         }
@@ -26,19 +25,18 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         
-        body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
+        /* Font Setup for English */
+        body { font-family: 'Rajdhani', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
 
-        h1, h2, h3, .logo, .f-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         
-        .btn-main, .btn-outline, .nav-links a, .phase-name, .eco-text h4 { font-family: 'Rajdhani', sans-serif; font-weight: bold; text-transform: uppercase; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
         /* BUTTONS */
         .btn-main {
             background: linear-gradient(to bottom, #c8aa6d, #8e733b);
-            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2;
+            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
             cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; display: inline-block;
         }
@@ -48,7 +46,7 @@
             background: transparent; border: 1px solid #666; color: #ccc;
             padding: 10px 25px; cursor: pointer; transition: 0.3s;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            font-size: 14px; text-decoration: none; display: inline-block;
+            font-size: 14px; text-decoration: none; display: inline-block; font-weight: 700;
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
@@ -56,7 +54,7 @@
             background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa;
             padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
             transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
-            min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
+            min-width: 120px; justify-content: center;
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
@@ -70,38 +68,36 @@
         .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
         .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-size: 13px; transition: 0.3s; letter-spacing: 1px; }
+        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
         .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; }
 
         /* --- 3. SECTIONS COMMON --- */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
-        .sec-desc { color: #666; font-size: 14px; margin-bottom: 50px; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; }
+        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- 4. HERO SECTION (ĐÃ SỬA LỖI CHE GÓC) --- */
+        /* --- 4. HERO SECTION --- */
         #hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
         }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
         
-        /* CẬP NHẬT: Tăng độ tối ở các góc để che logo/watermark */
+        /* Vignette Fix for Watermark */
         .hero-overlay {
-            position: absolute;
-            inset: 0;
-            /* Gradient này sẽ tối hơn ở viền, đặc biệt là các góc */
+            position: absolute; inset: 0;
             background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
             z-index: 1;
         }
         
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
-        .hero-subtitle { font-size: 14px; color: var(--gold); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; font-family: 'Rajdhani', sans-serif; }
+        .hero-subtitle { font-size: 16px; color: var(--gold); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; }
         .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; text-shadow: 0 10px 40px #000; color: #fff; letter-spacing: 2px; }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* --- 5. NFT SLIDER --- */
+        /* --- 5. NFT SLIDER (YASUO STYLE) --- */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper {
             position: relative; max-width: 1100px; height: 500px; margin: 0 auto;
@@ -125,9 +121,9 @@
         .genesis-panel::before { left: 20px; }
         .genesis-panel::after { right: 20px; }
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
-        .g-faction { color: #888; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-family: 'Rajdhani', sans-serif; font-weight: bold; }
+        .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
         .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .g-quote { font-size: 13px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
+        .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
         .genesis-card-container {
             position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10;
             transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -144,7 +140,7 @@
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* --- 6. FEATURES (GRID 6 MỤC) --- */
+        /* --- 6. FEATURES (GRID) --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .feature-card {
             background: #0f1012; border: 1px solid #222; padding: 50px 30px;
@@ -153,10 +149,10 @@
         }
         .feature-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; }
-        .f-title { font-size: 18px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; font-family: 'Cinzel', sans-serif; }
-        .f-desc { font-size: 14px; color: #888; line-height: 1.6; }
+        .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
+        .f-desc { font-size: 15px; color: #888; line-height: 1.6; }
 
-        /* --- 7. ECONOMY (SEMI-ONCHAIN MODEL) --- */
+        /* --- 7. ECONOMY (SEMI-ONCHAIN) --- */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone {
             flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8);
@@ -175,14 +171,14 @@
         }
         .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
         .eco-icon { font-size: 24px; width: 40px; text-align: center; }
-        .eco-text h4 { margin: 0; font-size: 15px; color: #fff; margin-bottom: 3px; }
+        .eco-text h4 { margin: 0; font-size: 16px; color: #fff; margin-bottom: 3px; font-weight: bold; }
         .eco-text p { margin: 0; font-size: 13px; color: #888; line-height: 1.3; }
         .swap-action {
             width: 100%; text-align: center; padding: 15px; background: #050505; border: 1px solid #333; border-radius: 8px;
             margin: 10px 0; position: relative;
         }
         .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
-        .swap-action span { font-size: 13px; font-weight: bold; color: #ccc; font-family: 'Rajdhani'; text-transform: uppercase; }
+        .swap-action span { font-size: 14px; font-weight: bold; color: #ccc; text-transform: uppercase; }
         .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
         .arr-left { left: -22px; color: var(--ingame-blue); }
         .arr-right { right: -22px; color: var(--gold); }
@@ -200,7 +196,7 @@
             position: absolute; inset: 60px; background: var(--dark); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
-        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-family: 'Roboto', sans-serif; }
+        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
         /* --- 9. ROADMAP --- */
@@ -212,7 +208,7 @@
         .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
         .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .phase-name { color: var(--gold); font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; }
         
@@ -220,7 +216,7 @@
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
-        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 13px; font-family: 'Roboto', sans-serif; }
+        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; }
         .f-links a:hover { color: var(--gold); }
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
@@ -248,17 +244,17 @@
     <nav>
         <a href="#" class="logo">MOKA<span>HERO</span></a>
         <ul class="nav-links">
-            <li><a href="#hero">Trang Chủ</a></li>
+            <li><a href="#hero">Home</a></li>
             <li><a href="#nft">NFTs</a></li>
-            <li><a href="#features">Tính Năng</a></li>
-            <li><a href="#economy">Kinh Tế</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#economy">Economy</a></li>
             <li><a href="#token">Token</a></li>
-            <li><a href="#roadmap">Lộ Trình</a></li>
-            <li><a href="whitepaper.html" target="_blank">Sách Trắng</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
         </ul>
         <div class="nav-actions">
-            <button class="btn-outline" onclick="alert('Tính năng đăng nhập đang bảo trì')">ĐĂNG NHẬP</button>
-            <button class="btn-outline" onclick="alert('Đang kết nối ví Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+            <button class="btn-outline" onclick="alert('Login currently under maintenance')">LOGIN</button>
+            <button class="btn-outline" onclick="alert('Connecting Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
         </div>
     </nav>
 
@@ -271,10 +267,10 @@
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
             <p style="color: #ccc; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Tập hợp đội quân, rèn đúc trang bị NFT và chinh phục thế giới MokaHero trong kỷ nguyên Blockchain mới.
+                Gather your army, forge NFT gear, and conquer the world of MokaHero in the new Blockchain era.
             </p>
             <div class="download-area">
-                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">TẢI MIỄN PHÍ</button>
+                <button class="btn-main" onclick="window.scrollTo(0, document.body.scrollHeight)">FREE DOWNLOAD</button>
                 <div class="platform-list">
                     <button class="btn-platform" onclick="showComingSoon(this)"><i class="fas fa-desktop"></i> PC Windows</button>
                     <button class="btn-platform" onclick="showComingSoon(this)"><i class="fab fa-android"></i> Android APK</button>
@@ -287,8 +283,8 @@
     <section id="nft">
         <div class="container">
             <div class="text-center">
-                <h2 class="sec-title">BỘ SƯU TẬP GENESIS</h2>
-                <p class="sec-desc">Chọn anh hùng của bạn. Ai sẽ cùng bạn bước vào trận chiến?</p>
+                <h2 class="sec-title">GENESIS COLLECTION</h2>
+                <p class="sec-desc">Choose your hero. Who will you bring into the battle?</p>
             </div>
             <div style="position: relative; max-width: 1100px; margin: 0 auto;">
                 <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
@@ -297,9 +293,9 @@
                     <img src="./assets/bg_ignis.jpg?v=1" class="genesis-bg-large" id="g-bg-img">
                     <div class="genesis-panel" id="g-overlay">
                         <div class="genesis-text">
-                            <span class="g-faction" id="g-faction">HỆ LỬA • <span style="color:#ff3b3b">IGNIS PRIME</span> • HỦY DIỆT</span>
+                            <span class="g-faction" id="g-faction">FACTION • <span style="color:#ff3b3b">IGNIS PRIME</span> • DESTRUCTION</span>
                             <h2 class="g-name" id="g-name">IGNIS PRIME</h2>
-                            <span class="g-quote" id="g-quote">"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."</span>
+                            <span class="g-quote" id="g-quote">"The fire never dies. I am destruction, and I am rebirth."</span>
                         </div>
                         <div class="genesis-card-container">
                             <div class="card-sprite" id="g-card-sprite"></div>
@@ -308,7 +304,7 @@
                 </div>
             </div>
             <div class="text-center" style="margin-top: 50px;">
-                <button class="btn-outline" onclick="alert('Chợ Marketplace sẽ mở vào Q2/2026')">XEM MARKETPLACE</button>
+                <button class="btn-outline" onclick="alert('Marketplace coming Q2/2026')">VIEW MARKETPLACE</button>
             </div>
         </div>
     </section>
@@ -316,39 +312,39 @@
     <section id="features">
         <div class="container">
             <div class="text-center">
-                <h2 class="sec-title">TÍNH NĂNG ĐẶC SẮC</h2>
-                <p class="sec-desc">Trải nghiệm chiến thuật đỉnh cao kết hợp nền kinh tế sở hữu thực.</p>
+                <h2 class="sec-title">GAMEPLAY FEATURES</h2>
+                <p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p>
             </div>
             <div class="feature-grid">
                 <div class="feature-card">
                     <i class="fas fa-chess-king f-icon"></i>
-                    <h3 class="f-title">CHIẾN THUẬT PVP</h3>
-                    <p class="f-desc">Xây dựng bộ bài khắc chế. Leo rank theo mùa giải để nhận phần thưởng Token giá trị.</p>
+                    <h3 class="f-title">STRATEGIC PVP</h3>
+                    <p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-dragon f-icon"></i>
-                    <h3 class="f-title">SĂN WORLD BOSS</h3>
-                    <p class="f-desc">Sự kiện toàn server. Hợp sức tiêu diệt Boss khổng lồ để chia sẻ kho báu hiếm có.</p>
+                    <h3 class="f-title">WORLD BOSS HUNT</h3>
+                    <p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-hammer f-icon"></i>
-                    <h3 class="f-title">RÈN & CƯỜNG HÓA</h3>
-                    <p class="f-desc">Thu thập tài nguyên để chế tạo trang bị NFT. Hệ thống cường hóa may rủi kịch tính.</p>
+                    <h3 class="f-title">FORGE & UPGRADE</h3>
+                    <p class="f-desc">Gather resources to craft NFT gear. Thrilling high-risk enhancement system.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-landmark f-icon"></i>
-                    <h3 class="f-title">SỞ HỮU ĐẤT ĐAI</h3>
-                    <p class="f-desc">Mua Land NFT để xây dựng căn cứ và khai thác tài nguyên thụ động.</p>
+                    <h3 class="f-title">LAND OWNERSHIP</h3>
+                    <p class="f-desc">Buy Land NFTs to build bases and harvest passive resources.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-scroll f-icon"></i>
-                    <h3 class="f-title">NHIỆM VỤ HÀNG NGÀY</h3>
-                    <p class="f-desc">Hoàn thành chuỗi nhiệm vụ và thành tựu mỗi ngày để nhận Mảnh Tướng và MOKA Shards.</p>
+                    <h3 class="f-title">DAILY QUESTS</h3>
+                    <p class="f-desc">Complete daily missions and achievements to earn Hero Shards and Moka Shards.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-users f-icon"></i>
-                    <h3 class="f-title">BANG HỘI CHIẾN</h3>
-                    <p class="f-desc">Tham gia Bang hội, công chiếm lãnh địa để nhận lợi tức Token $MOKA hàng tuần.</p>
+                    <h3 class="f-title">GUILD WARS</h3>
+                    <p class="f-desc">Join a Guild, conquer territories, and share weekly $MOKA Token profits.</p>
                 </div>
             </div>
         </div>
@@ -357,8 +353,8 @@
     <section id="economy">
         <div class="container">
             <div class="text-center">
-                <h2 class="sec-title">NỀN KINH TẾ (PLAY-TO-EARN)</h2>
-                <p class="sec-desc">Hệ thống kinh tế Semi-Onchain, cân bằng giữa Giải trí và Kiếm tiền.</p>
+                <h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2>
+                <p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p>
             </div>
             
             <div class="eco-layout">
@@ -369,21 +365,21 @@
                         <div class="eco-icon" style="color: #4a9eff;"><i class="fas fa-gem"></i></div>
                         <div class="eco-text">
                             <h4>MOKA SHARDS</h4>
-                            <p>Nhận khi thắng PvP, Rank, Boss.</p>
+                            <p>Earned from PvP, Rank, Boss.</p>
                         </div>
                     </div>
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: #a335ee;"><i class="fas fa-puzzle-piece"></i></div>
                         <div class="eco-text">
-                            <h4>MẢNH NFT (FRAGMENTS)</h4>
-                            <p>Rơi ra từ Hầm Ngục & Rương.</p>
+                            <h4>NFT FRAGMENTS</h4>
+                            <p>Drops from Dungeons & Chests.</p>
                         </div>
                     </div>
                     <div class="eco-item-box" style="border-color: #d63031;">
                         <div class="eco-icon" style="color: #d63031;"><i class="fas fa-mask"></i></div>
                         <div class="eco-text">
-                            <h4>CHỢ ĐEN (BLACK MARKET)</h4>
-                            <p>Giao dịch nội bộ Mảnh & Vật phẩm.</p>
+                            <h4>BLACK MARKET</h4>
+                            <p>Internal P2P trading for materials.</p>
                         </div>
                     </div>
                 </div>
@@ -402,7 +398,7 @@
                     <div class="swap-action">
                         <i class="fas fa-hammer main-icon"></i>
                         <span>MINT NFT</span>
-                        <p style="font-size: 10px; color:#666; margin:0;">Mảnh + $MOKA</p>
+                        <p style="font-size: 10px; color:#666; margin:0;">Fragments + $MOKA</p>
                         <i class="fas fa-chevron-right arrow-flow arr-right"></i>
                     </div>
                 </div>
@@ -413,22 +409,22 @@
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div>
                         <div class="eco-text">
-                            <h4>TOKEN $MOKA</h4>
-                            <p>Giao dịch trên CEX / DEX.</p>
+                            <h4>$MOKA TOKEN</h4>
+                            <p>Tradable on CEX / DEX.</p>
                         </div>
                     </div>
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: #ff9f43;"><i class="fas fa-store"></i></div>
                         <div class="eco-text">
                             <h4>NFT MARKETPLACE</h4>
-                            <p>Mua bán Tướng/Land hoàn chỉnh.</p>
+                            <p>Buy/Sell Heroes & Lands.</p>
                         </div>
                     </div>
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: #fff;"><i class="fas fa-shopping-cart"></i></div>
                         <div class="eco-text">
                             <h4>SPENDING</h4>
-                            <p>Nạp ngược $MOKA vào game.</p>
+                            <p>Deposit $MOKA back into game.</p>
                         </div>
                     </div>
                 </div>
@@ -441,17 +437,17 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="sec-title">TOKENOMICS</h2>
-                <p class="sec-desc">Phân bổ Token $MOKA - Tổng cung 1 Tỷ.</p>
+                <p class="sec-desc">Token Allocation - Total Supply 1 Billion.</p>
             </div>
             <div class="token-wrap">
                 <div class="pie-chart">
                     <div class="pie-hole">
                         <span style="font-size: 30px; font-weight: 900; color: var(--gold); font-family: 'Cinzel';">$MOKA</span>
-                        <span style="font-size: 12px; color: #666;">Total: 1 Tỷ</span>
+                        <span style="font-size: 12px; color: #666;">Total: 1B</span>
                     </div>
                 </div>
                 <ul class="token-list" style="list-style: none;">
-                    <li><span class="dot" style="background:var(--gold)"></span> 30% - Play to Earn (Thưởng Game)</li>
+                    <li><span class="dot" style="background:var(--gold)"></span> 30% - Play to Earn</li>
                     <li><span class="dot" style="background:#555"></span> 20% - Team & Advisors</li>
                     <li><span class="dot" style="background:#333"></span> 30% - Ecosystem & Marketing</li>
                     <li><span class="dot" style="background:#111"></span> 20% - Public Sale</li>
@@ -463,42 +459,42 @@
     <section id="roadmap">
         <div class="container">
             <div class="text-center">
-                <h2 class="sec-title">LỘ TRÌNH PHÁT TRIỂN</h2>
+                <h2 class="sec-title">ROADMAP</h2>
             </div>
             <div class="roadmap-container">
                 <div class="roadmap-line"></div>
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
-                    <span class="phase-name">GIAI ĐOẠN 1 (Q1-Q2 2026)</span>
+                    <span class="phase-name">PHASE 1 (Q1-Q2 2026)</span>
                     <div class="roadmap-content">
-                        <h3>KHỞI NGUYÊN</h3>
+                        <h3>GENESIS</h3>
                         <ul>
-                            <li>Ra mắt Website & Whitepaper</li>
-                            <li>Mở bán Genesis Chest (NFT Đời đầu)</li>
-                            <li>Phát hành bản Alpha Test trên Web</li>
+                            <li>Website & Whitepaper Launch</li>
+                            <li>Genesis Chest Sale (Early NFTs)</li>
+                            <li>Alpha Test on Web</li>
                         </ul>
                     </div>
                 </div>
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
-                    <span class="phase-name">GIAI ĐOẠN 2 (Q3-Q4 2026)</span>
+                    <span class="phase-name">PHASE 2 (Q3-Q4 2026)</span>
                     <div class="roadmap-content">
-                        <h3>BÙNG NỔ</h3>
+                        <h3>EXPLOSION</h3>
                         <ul>
-                            <li>Ra mắt phiên bản Mobile (iOS/Android)</li>
-                            <li>Mở tính năng Bang Hội Chiến</li>
-                            <li>Niêm yết Token $MOKA lên sàn CEX</li>
+                            <li>Mobile Launch (iOS/Android)</li>
+                            <li>Guild Wars Feature</li>
+                            <li>$MOKA CEX Listing</li>
                         </ul>
                     </div>
                 </div>
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
-                    <span class="phase-name">GIAI ĐOẠN 3 (2027)</span>
+                    <span class="phase-name">PHASE 3 (2027)</span>
                     <div class="roadmap-content">
-                        <h3>VŨ TRỤ MỞ RỘNG</h3>
+                        <h3>METAVERSE</h3>
                         <ul>
-                            <li>Giải đấu eSports toàn cầu</li>
-                            <li>Tích hợp Metaverse & Land 3D</li>
+                            <li>Global eSports Tournament</li>
+                            <li>Metaverse & 3D Land Integration</li>
                         </ul>
                     </div>
                 </div>
@@ -512,20 +508,20 @@
                 <div>
                     <a href="#" class="logo" style="font-size: 30px; display: block; margin-bottom: 20px;">MOKA<span>HERO</span></a>
                     <p style="color: #666; font-size: 13px; line-height: 1.8;">
-                        Tựa game chiến thuật thẻ bài thế hệ mới, trao quyền sở hữu thực sự cho người chơi.
+                        Next-generation tactical card game with true ownership economy.
                     </p>
                 </div>
                 <div>
-                    <h4 class="f-title">VỀ CHÚNG TÔI</h4>
+                    <h4 class="f-title">ABOUT US</h4>
                     <div class="f-links">
-                        <a href="#features">Tính Năng</a>
-                        <a href="#economy">Kinh Tế</a>
+                        <a href="#features">Features</a>
+                        <a href="#economy">Economy</a>
                         <a href="whitepaper.html">Whitepaper</a>
-                        <a href="#">Liên Hệ</a>
+                        <a href="#">Contact</a>
                     </div>
                 </div>
                 <div>
-                    <h4 class="f-title">CỘNG ĐỒNG</h4>
+                    <h4 class="f-title">COMMUNITY</h4>
                     <div class="socials">
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-discord"></i></a>
@@ -560,29 +556,29 @@
         const heroesData = [
             {
                 name: "IGNIS PRIME",
-                factionHTML: "HỆ LỬA • <span style='color:#ff3b3b'>IGNIS</span> • HỦY DIỆT",
-                quote: "\"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh.\"",
+                factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION",
+                quote: "\"The fire never dies. I am destruction, and I am rebirth.\"",
                 bgImage: "./assets/bg_ignis.jpg?v=1",
                 bgPos: "100% 0%"
             },
             {
                 name: "GAIA MOTHER",
-                factionHTML: "HỆ MỘC • <span style='color:#00ff88'>SYLVA</span> • SỰ SỐNG",
-                quote: "\"Sự sống sẽ trỗi dậy từ tro tàn. Thiên nhiên luôn tìm ra lối thoát.\"",
+                factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE",
+                quote: "\"Nature is never in a hurry, yet everything is accomplished.\"",
                 bgImage: "./assets/bg_sylva.jpg?v=1",
                 bgPos: "100% 33.333%"
             },
             {
                 name: "OMEGA WEAPON",
-                factionHTML: "HỆ MÁY • <span style='color:#00d9ff'>OMEGA</span> • CÔNG NGHỆ",
-                quote: "\"Thép và Dầu là chân lý vĩnh cửu. Cảm xúc chỉ là điểm yếu.\"",
+                factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span> • TECH",
+                quote: "\"Steel and Oil are eternal truths. Emotion is a weakness.\"",
                 bgImage: "./assets/bg_omega.jpg?v=1",
                 bgPos: "100% 66.666%"
             },
             {
                 name: "VOID EYE",
-                factionHTML: "HƯ KHÔNG • <span style='color:#9d00ff'>ZAROK</span> • VỰC THẲM",
-                quote: "\"Khi ngươi nhìn vào vực thẳm, vực thẳm cũng đang nhìn lại ngươi.\"",
+                factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span> • ABYSS",
+                quote: "\"When you stare into the abyss, the abyss stares back at you.\"",
                 bgImage: "./assets/bg_zarok.jpg?v=1",
                 bgPos: "100% 100%"
             }
