@@ -142,12 +142,11 @@
         .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
-        /* --- 8. TOKENOMICS (UPDATED 100M) --- */
+        /* --- 8. TOKENOMICS --- */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
         .pie-chart {
             width: 280px; height: 280px; border-radius: 50%;
-            /* 51% Gold, 20% Purple, 19% Grey, 10% Dark */
             background: conic-gradient(
                 var(--gold) 0% 51%, 
                 #9b59b6 51% 71%, 
@@ -163,7 +162,7 @@
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; font-family: 'Roboto', sans-serif; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-        /* --- 9. ROADMAP (4 PHASES) --- */
+        /* --- 9. ROADMAP --- */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
@@ -176,7 +175,19 @@
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
         
-        /* --- 10. FOOTER --- */
+        /* --- 10. PARTNERS (NEW) --- */
+        .partner-grid { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px;
+        }
+        .partner-item {
+            display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s;
+            border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111;
+        }
+        .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
+        .partner-item i { font-size: 24px; color: #fff; }
+        .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- 11. FOOTER --- */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
@@ -320,9 +331,7 @@
                 <h2 class="sec-title">PLAY-TO-EARN ECONOMY</h2>
                 <p class="sec-desc">Semi-Onchain economy balancing Entertainment and Earnings.</p>
             </div>
-            
             <div class="eco-layout">
-                
                 <div class="eco-zone zone-game">
                     <h3><i class="fas fa-gamepad"></i> IN-GAME WORLD</h3>
                     <div class="eco-item-box">
@@ -347,10 +356,8 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="eco-zone zone-gate">
                     <h3><i class="fas fa-torii-gate"></i> THE GATE</h3>
-                    
                     <div class="swap-action">
                         <i class="fas fa-sync-alt main-icon"></i>
                         <span>SWAP</span>
@@ -358,7 +365,6 @@
                         <i class="fas fa-chevron-right arrow-flow arr-right"></i>
                         <i class="fas fa-chevron-left arrow-flow arr-left"></i>
                     </div>
-
                     <div class="swap-action">
                         <i class="fas fa-hammer main-icon"></i>
                         <span>MINT NFT</span>
@@ -366,10 +372,8 @@
                         <i class="fas fa-chevron-right arrow-flow arr-right"></i>
                     </div>
                 </div>
-
                 <div class="eco-zone zone-web3">
                     <h3><i class="fas fa-globe"></i> WEB3 WORLD</h3>
-                    
                     <div class="eco-item-box">
                         <div class="eco-icon" style="color: var(--gold);"><i class="fas fa-coins"></i></div>
                         <div class="eco-text">
@@ -392,7 +396,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -475,6 +478,27 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="partners" style="padding: 60px 0; background: #080808; border-top: 1px solid #111;">
+        <div class="container">
+            <div class="text-center">
+                <p style="color: #666; letter-spacing: 3px; font-size: 14px; text-transform: uppercase; margin-bottom: 30px;">Backed By & Partners</p>
+            </div>
+            
+            <div class="partner-grid">
+                <div class="partner-item"><i class="fas fa-rocket"></i> <span>NEXUS CAPITAL</span></div>
+                <div class="partner-item"><i class="fas fa-shield-alt"></i> <span>TITAN VENTURES</span></div>
+                <div class="partner-item"><i class="fas fa-gem"></i> <span>DIAMOND HANDS</span></div>
+            </div>
+
+            <div class="partner-grid" style="margin-top: 20px;">
+                <div class="partner-item"><i class="fas fa-cube"></i> <span>BLOCKSTREAM</span></div>
+                <div class="partner-item"><i class="fas fa-gamepad"></i> <span>UNITY 3D</span></div>
+                <div class="partner-item"><i class="fas fa-users-cog"></i> <span>META GUILD</span></div>
+                <div class="partner-item"><i class="fas fa-search-dollar"></i> <span>QUANTUM AUDIT</span></div>
             </div>
         </div>
     </section>
