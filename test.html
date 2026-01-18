@@ -15,10 +15,10 @@
     <style>
         /* --- 1. CORE & VARIABLES --- */
         :root {
-            --gold: #c8aa6d;             /* Vàng trầm sang trọng giống ảnh 34 */
-            --gold-bright: #f0e6d2;      /* Vàng sáng cho text */
+            --gold: #c8aa6d;             
+            --gold-bright: #f0e6d2;      
             --dark: #050505;             
-            --panel-bg: rgba(16, 18, 23, 0.95); /* Màu nền thanh dưới tối thẫm */
+            --panel-bg: rgba(16, 18, 23, 0.95);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,118 +87,68 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* ========================================= */
-        /* --- 5. NFT SLIDER (YASUO STYLE REPLICA) --- */
-        /* ========================================= */
+        /* --- 5. NFT SLIDER --- */
         #nft { background: #0b0b0b; padding-top: 80px; }
-
-        /* Khung chính */
         .genesis-wrapper {
-            position: relative;
-            max-width: 1100px; height: 500px; 
-            margin: 0 auto;
-            border: 1px solid #333; /* Viền mờ bao quanh */
-            background: #000;
-            overflow: visible; /* Để thẻ bài chòi ra ngoài được */
+            position: relative; max-width: 1100px; height: 500px; margin: 0 auto;
+            border: 1px solid #333; background: #000; overflow: visible;
         }
-
-        /* 1. Ảnh nền lớn */
         .genesis-bg-large {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
             transition: opacity 0.4s ease-in-out;
-            mask-image: linear-gradient(to bottom, black 60%, transparent 100%); /* Làm mờ chân ảnh */
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
         }
-
-        /* 2. Thanh Panel Đen bên dưới (Giống ảnh 34) */
         .genesis-panel {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            height: 160px; /* Chiều cao cố định cho panel đen */
-            background: rgba(12, 12, 14, 0.9);
-            border-top: 1px solid var(--gold); /* Viền vàng mảnh bên trên */
-            display: flex; align-items: center; justify-content: center;
-            z-index: 2;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 160px;
+            background: rgba(12, 12, 14, 0.9); border-top: 1px solid var(--gold);
+            display: flex; align-items: center; justify-content: center; z-index: 2;
         }
-        /* Đường kẻ trang trí 2 bên panel */
         .genesis-panel::before, .genesis-panel::after {
             content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px);
             background: linear-gradient(to bottom, transparent, var(--gold), transparent);
         }
         .genesis-panel::before { left: 20px; }
         .genesis-panel::after { right: 20px; }
-
-        /* 3. Nội dung chữ (Căn giữa panel) */
-        .genesis-text {
-            text-align: center;
-            position: relative;
-            z-index: 3;
-            max-width: 50%; /* Giới hạn chiều rộng để không đè vào thẻ bài */
-            margin-right: 150px; /* Đẩy sang trái một chút để nhường chỗ cho thẻ */
-        }
+        .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
         .g-faction { color: #888; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        .g-faction span { color: var(--gold); font-weight: bold; } /* Màu tên tướng */
-        
-        .g-name { 
-            font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; 
-            line-height: 1; margin-bottom: 10px; text-transform: uppercase; 
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        
-        .g-quote { 
-            font-size: 13px; color: #999; font-style: italic; 
-            border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;
-            display: inline-block; width: 100%;
-        }
-
-        /* 4. Thẻ bài nhỏ (Căn phải và đè lên panel) */
+        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .g-quote { font-size: 13px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
         .genesis-card-container {
-            position: absolute;
-            bottom: 30px; /* Cách đáy 30px */
-            right: 100px; /* Cách phải 100px */
-            width: 200px; /* KÍCH THƯỚC NHỎ HƠN THEO YÊU CẦU */
-            height: 300px; /* Tỉ lệ 2:3 chuẩn */
-            z-index: 10;
-            transform-origin: bottom center;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            /* Hiệu ứng bóng đổ xịn */
+            position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10;
+            transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
         }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
-
-        /* Khung cắt ảnh Sprite */
-        .card-sprite {
-            width: 100%; height: 100%;
-            background-image: url('./assets/full_set.png'); 
-            background-size: 500% 400%; /* 5 Cột x 4 Hàng */
-            background-repeat: no-repeat;
-            border-radius: 10px;
-            box-shadow: 0 0 0 1px rgba(255,215,0,0.3); /* Viền vàng siêu mỏng */
-        }
-
-        /* 5. Nút điều hướng (Tròn, 2 bên mép) */
+        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); }
         .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 50px; height: 50px; 
+            position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; 
             background: transparent; border: 1px solid #444; border-radius: 50%;
             color: #666; font-size: 18px; cursor: pointer; z-index: 20;
-            display: flex; align-items: center; justify-content: center; 
-            transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; transition: 0.3s;
         }
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
-        .prev-btn { left: -70px; } /* Đẩy ra ngoài khung chính */
-        .next-btn { right: -70px; }
+        .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* --- 6. FEATURES --- */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .feature-card {
-            background: #0f1012; border: 1px solid #222; padding: 40px 20px;
-            border-radius: 4px; transition: 0.3s; text-align: center; position: relative; overflow: hidden;
+        /* ============================================== */
+        /* --- 6. FEATURES (GRID 6 MỤC - DARK STYLE) --- */
+        /* ============================================== */
+        .feature-grid { 
+            display: grid; 
+            /* Chỉnh minmax lên 300px để trên màn hình to nó sẽ chia 3 cột (1200/300 = 4, nhưng có gap nên thành 3) */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
         }
-        .feature-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 20px; display: inline-block; }
-        .f-title { font-size: 18px; margin-bottom: 10px; color: #fff; letter-spacing: 1px; }
-        .f-desc { font-size: 13px; color: #888; }
+        .feature-card {
+            background: #0f1012; border: 1px solid #222; padding: 50px 30px;
+            border-radius: 4px; transition: 0.3s; text-align: center; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .feature-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        
+        .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; }
+        .f-title { font-size: 18px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
+        .f-desc { font-size: 14px; color: #888; line-height: 1.6; }
 
         /* --- 7. ECONOMY --- */
         .eco-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 30px; }
@@ -229,14 +179,12 @@
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
         .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
         .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
-        
         .roadmap-point { 
             position: absolute; top: 0; width: 12px; height: 12px; 
             background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold);
         }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
         .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-
         .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; }
@@ -250,13 +198,12 @@
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
 
-        /* RESPONSIVE */
         @media (max-width: 992px) {
             .genesis-wrapper { height: auto; padding-bottom: 0; }
             .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
             .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
             .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
-            .prev-btn, .next-btn { display: none; } /* Ẩn nút trên mobile hoặc chỉnh lại vị trí */
+            .prev-btn, .next-btn { display: none; }
             .roadmap-line { left: 20px; }
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
@@ -264,7 +211,6 @@
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -290,7 +236,6 @@
         <video autoplay muted loop playsinline class="hero-bg" poster="./assets/bg_ignis.jpg?v=1">
             <source src="./assets/video.mp4" type="video/mp4">
         </video>
-        <div class="hero-overlay"></div>
         <div class="hero-content container">
             <p class="hero-subtitle">WEB3 STRATEGY CARD GAME</p>
             <h1 class="hero-title">GENESIS WARS</h1>
@@ -314,29 +259,23 @@
                 <h2 class="sec-title">BỘ SƯU TẬP GENESIS</h2>
                 <p class="sec-desc">Chọn anh hùng của bạn. Ai sẽ cùng bạn bước vào trận chiến?</p>
             </div>
-            
             <div style="position: relative; max-width: 1100px; margin: 0 auto;">
                 <button class="nav-arrow prev-btn" onclick="changeHero(-1)"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow next-btn" onclick="changeHero(1)"><i class="fas fa-chevron-right"></i></button>
-
                 <div class="genesis-wrapper">
                     <img src="./assets/bg_ignis.jpg?v=1" class="genesis-bg-large" id="g-bg-img">
-
                     <div class="genesis-panel" id="g-overlay">
-                        
                         <div class="genesis-text">
                             <span class="g-faction" id="g-faction">HỆ LỬA • <span style="color:#ff3b3b">IGNIS PRIME</span> • HỦY DIỆT</span>
                             <h2 class="g-name" id="g-name">IGNIS PRIME</h2>
                             <span class="g-quote" id="g-quote">"Ngọn lửa không bao giờ tắt. Ta là sự hủy diệt, và cũng là sự tái sinh."</span>
                         </div>
-
                         <div class="genesis-card-container">
                             <div class="card-sprite" id="g-card-sprite"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="text-center" style="margin-top: 50px;">
                 <button class="btn-outline" onclick="alert('Chợ Marketplace sẽ mở vào Q2/2026')">XEM MARKETPLACE</button>
             </div>
@@ -358,7 +297,7 @@
                 <div class="feature-card">
                     <i class="fas fa-dragon f-icon"></i>
                     <h3 class="f-title">SĂN WORLD BOSS</h3>
-                    <p class="f-desc">Sự kiện toàn server. Hợp sức tiêu diệt Boss khổng lồ để chia sẻ kho báu.</p>
+                    <p class="f-desc">Sự kiện toàn server. Hợp sức tiêu diệt Boss khổng lồ để chia sẻ kho báu hiếm có.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-hammer f-icon"></i>
@@ -369,6 +308,16 @@
                     <i class="fas fa-landmark f-icon"></i>
                     <h3 class="f-title">SỞ HỮU ĐẤT ĐAI</h3>
                     <p class="f-desc">Mua Land NFT để xây dựng căn cứ và khai thác tài nguyên thụ động.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-scroll f-icon"></i>
+                    <h3 class="f-title">NHIỆM VỤ HÀNG NGÀY</h3>
+                    <p class="f-desc">Hoàn thành chuỗi nhiệm vụ và thành tựu mỗi ngày để nhận Token $MOKA miễn phí.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users f-icon"></i>
+                    <h3 class="f-title">BANG HỘI CHIẾN</h3>
+                    <p class="f-desc">Tham gia Bang hội, công chiếm lãnh địa và chia sẻ lợi nhuận Token hàng tuần.</p>
                 </div>
             </div>
         </div>
@@ -507,7 +456,6 @@
     </footer>
 
     <script>
-        // 1. LOGIC NÚT COMING SOON
         function showComingSoon(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
@@ -525,9 +473,6 @@
             }, 1500);
         }
 
-        // 2. LOGIC SLIDER YASUO
-        // Dữ liệu: Cần chỉnh bgPos cho đúng cột 5 (Gold)
-        // Ignis (Row 1): 0% | Sylva (Row 2): 33.33% | Omega (Row 3): 66.66% | Zarok (Row 4): 100%
         const heroesData = [
             {
                 name: "IGNIS PRIME",
@@ -570,25 +515,19 @@
 
         function updateHeroDisplay() {
             const hero = heroesData[currentHeroIndex];
-            
-            // Fade out
             document.getElementById('g-bg-img').style.opacity = 0;
             document.getElementById('g-overlay').style.opacity = 0;
             
             setTimeout(() => {
-                // Update
                 document.getElementById('g-name').innerText = hero.name;
                 document.getElementById('g-faction').innerHTML = hero.factionHTML;
                 document.getElementById('g-quote').innerText = hero.quote;
                 document.getElementById('g-bg-img').src = hero.bgImage;
                 document.getElementById('g-card-sprite').style.backgroundPosition = hero.bgPos;
-
-                // Fade in
                 document.getElementById('g-bg-img').style.opacity = 1;
                 document.getElementById('g-overlay').style.opacity = 1;
             }, 300);
         }
-
         updateHeroDisplay();
     </script>
 
