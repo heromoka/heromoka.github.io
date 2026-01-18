@@ -16,24 +16,23 @@
         /* --- CORE VARIABLES --- */
         :root {
             --gold: #c8aa6d;             
-            --gold-bright: #f0e6d2;      
+            --gold-glow: rgba(200, 170, 109, 0.5);
             --cyan: #00f2ff; 
             --cyan-glow: rgba(0, 242, 255, 0.5);
             --dark: #050505;             
             --ingame-blue: #4a9eff;
-            --web3-purple: #9b59b6;
-            --card-glass: rgba(20, 20, 30, 0.7);
+            --card-glass: rgba(20, 20, 30, 0.85);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
 
-        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        h1, h2, h3, .logo, .f-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS */
+        /* --- GLOBAL UI --- */
         .btn-main {
             background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
@@ -54,7 +53,7 @@
         }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
-        /* NAV */
+        /* --- NAV --- */
         nav {
             display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px;
             background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000;
@@ -66,7 +65,7 @@
         .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* USER DROPDOWN */
+        /* --- USER DROPDOWN (Small Menu) --- */
         .user-dropdown {
             position: absolute; top: 60px; right: 0; width: 220px;
             background: rgba(15, 15, 20, 0.98); border: 1px solid var(--gold); border-radius: 4px;
@@ -80,93 +79,106 @@
         }
         .dropdown-item:hover { background: rgba(255,255,255,0.05); color: var(--gold); padding-left: 25px; }
 
-        /* ========================================= */
-        /* --- DASHBOARD OVERLAY (CIVITAS STYLE) --- */
-        /* ========================================= */
-        .dashboard-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000;
-            display: none; flex-direction: column; opacity: 0; transition: opacity 0.3s;
-            background-image: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: multiply;
+        /* ==================================================== */
+        /* --- DASHBOARD OVERLAY (CIVITAS STYLE - IMAGE 70) --- */
+        /* ==================================================== */
+        .dash-overlay {
+            position: fixed; inset: 0; z-index: 2000; display: none;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(5px);
+            align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s;
         }
-        .dashboard-overlay.active { display: flex; opacity: 1; }
+        .dash-overlay.active { display: flex; opacity: 1; }
 
-        .dash-header {
-            height: 80px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+        .dash-wrapper {
+            width: 95%; max-width: 1400px; height: 90vh;
+            background: #111; display: flex; border-radius: 10px; overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8); border: 1px solid #333;
         }
-        .dash-title { font-size: 24px; color: #fff; font-family: 'Cinzel'; }
-        .dash-close { font-size: 14px; color: #888; cursor: pointer; text-transform: uppercase; font-weight: bold; border: 1px solid #444; padding: 5px 15px; border-radius: 4px; transition: 0.3s; }
-        .dash-close:hover { border-color: var(--gold); color: var(--gold); background: rgba(0,0,0,0.5); }
 
-        .dash-container {
-            flex: 1; display: flex; padding: 40px; gap: 40px; overflow-y: auto;
-        }
-        
-        /* Sidebar in Dashboard */
+        /* Sidebar (Left) */
         .dash-sidebar {
-            width: 250px; flex-shrink: 0; display: flex; flex-direction: column; gap: 10px;
+            width: 250px; background: #0a0a0a; border-right: 1px solid #222;
+            display: flex; flex-direction: column; padding: 20px;
         }
-        .dash-nav-item {
-            padding: 15px 20px; background: rgba(255,255,255,0.05); border-radius: 8px; color: #aaa; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; gap: 10px; font-family: 'Rajdhani'; font-weight: bold; text-transform: uppercase;
+        .dash-logo { font-family: 'Cinzel'; font-size: 24px; color: #fff; margin-bottom: 40px; text-align: center; }
+        .dash-logo span { color: var(--gold); }
+        .dash-menu-item {
+            padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px;
+            cursor: pointer; display: flex; align-items: center; gap: 15px; border-radius: 6px; margin-bottom: 5px; transition: 0.2s;
         }
-        .dash-nav-item:hover, .dash-nav-item.active { background: linear-gradient(90deg, rgba(200,170,109,0.2), transparent); color: var(--gold); border-left: 3px solid var(--gold); }
+        .dash-menu-item:hover, .dash-menu-item.active { background: rgba(200,170,109,0.1); color: var(--gold); }
+        .dash-menu-item i { width: 20px; }
+        .dash-logout { margin-top: auto; color: #ff4757; }
+        .dash-logout:hover { background: rgba(255, 71, 87, 0.1); color: #ff6b81; }
 
-        /* Content Area in Dashboard */
-        .dash-content { flex: 1; position: relative; }
-        .dash-panel { display: none; animation: fadeIn 0.3s; }
-        .dash-panel.active { display: block; }
-
-        /* 1. PROFILE PANEL STYLE (CIVITAS LIKE) */
-        .profile-card-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-        .info-card {
-            background: rgba(20, 20, 25, 0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 30px;
-            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .info-header { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-bottom: 20px; }
-        .info-label { font-family: 'Rajdhani'; font-weight: bold; color: var(--ingame-blue); font-size: 18px; }
+        /* Main Content (Right) */
+        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('./assets/bg_ignis.jpg?v=1'); background-size: cover; background-blend-mode: overlay; background-color: rgba(10,10,15,0.95); }
         
-        .user-detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 14px; color: #ccc; }
-        .user-detail-row span:first-child { color: #666; font-weight: bold; }
-
-        .checkin-card {
-            background: linear-gradient(135deg, rgba(200, 170, 109, 0.1), rgba(0,0,0,0.8)); border: 1px solid var(--gold); border-radius: 8px; padding: 30px;
-            text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        .dash-topbar {
+            height: 70px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
         }
-        .checkin-btn {
-            margin-top: 20px; padding: 10px 30px; background: var(--gold); color: #000; border: none; font-weight: bold; cursor: pointer;
-            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); transition: 0.3s;
-        }
-        .checkin-btn:hover { background: #fff; }
+        .dash-user-chip { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; border: 1px solid #444; }
+        .dash-close-btn { cursor: pointer; color: #888; transition: 0.2s; }
+        .dash-close-btn:hover { color: #fff; }
 
-        /* 2. INVENTORY STYLE */
+        .dash-content-area { padding: 40px; overflow-y: auto; flex: 1; }
+        .dash-page-title { font-family: 'Cinzel'; font-size: 32px; color: #fff; margin-bottom: 30px; text-transform: uppercase; }
+
+        /* 1. DASHBOARD HOME (Copying Layout of Image 70) */
+        .dash-grid-top { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; margin-bottom: 30px; }
+        
+        /* Card Style */
+        .d-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+            padding: 0; overflow: hidden; position: relative;
+        }
+        .d-card-header {
+            background: rgba(255,255,255,0.05); padding: 15px 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Rajdhani'; font-weight: bold; color: var(--gold); text-transform: uppercase; font-size: 14px; letter-spacing: 1px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .d-card-body { padding: 25px; }
+
+        /* Profile Info */
+        .d-info-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #ccc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        .d-info-row span:first-child { font-weight: bold; color: #888; }
+        .d-info-row:last-child { border: none; margin: 0; padding: 0; }
+
+        /* Checkin Box */
+        .d-checkin-btn {
+            width: 100%; padding: 12px; background: linear-gradient(90deg, #444, #555); border: 1px solid #666; color: #fff; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s;
+        }
+        .d-checkin-btn:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+        /* Streak Bar */
+        .streak-container { display: flex; justify-content: space-between; margin-top: 20px; }
+        .streak-day { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; }
+        .streak-box {
+            width: 40px; height: 40px; border: 2px solid #444; background: rgba(0,0,0,0.5); border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; color: transparent; transition: 0.3s;
+        }
+        .streak-day.active .streak-box { border-color: var(--gold); background: rgba(200,170,109,0.2); color: var(--gold); }
+        .streak-label { font-size: 12px; color: #666; font-family: 'Rajdhani'; }
+
+        /* 2. INVENTORY GRID */
         .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        .inv-empty { 
-            text-align: center; padding: 100px; color: #666; border: 2px dashed #333; border-radius: 12px; width: 100%;
+        .inv-item { 
+            aspect-ratio: 2/3; background: #000; border: 1px solid #333; border-radius: 8px; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.3s; cursor: pointer;
         }
+        .inv-item:hover { border-color: var(--gold); transform: translateY(-5px); }
 
-        /* 3. SETTINGS STYLE */
-        .setting-row { 
-            display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 20px; margin-bottom: 15px; border-radius: 8px;
-        }
-        .social-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; margin-right: 15px; }
-        .toggle-switch {
-            width: 50px; height: 26px; background: #333; border-radius: 13px; position: relative; cursor: pointer; transition: 0.3s;
-        }
-        .toggle-switch::after {
-            content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: 0.3s;
-        }
-        .toggle-switch.on { background: var(--ingame-blue); }
-        .toggle-switch.on::after { left: 27px; }
+        /* 3. SETTINGS */
+        .set-row { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(255,255,255,0.02); margin-bottom: 10px; border-radius: 6px; }
+        .set-icon { font-size: 20px; width: 30px; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- SECTIONS COMMON (GIỮ NGUYÊN) --- */
+        /* --- SECTIONS ON MAIN PAGE (GIỮ NGUYÊN) --- */
         section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- 1. HERO (V14 STYLE) --- */
+        /* 1. HERO */
         #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border-bottom: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
         .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
@@ -176,7 +188,7 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* --- 2. NFT (V13 STYLE) --- */
+        /* 2. NFT */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
@@ -192,27 +204,15 @@
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* --- 3. FEATURES (V14 STYLE) --- */
+        /* 3. FEATURES */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .feature-card {
-            padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
-            display: flex; flex-direction: column; align-items: center;
-            background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box;
-        }
-        .feature-card::before {
-            content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; 
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); 
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s;
-        }
-        .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
-        .feature-card:hover { transform: translateY(-10px); }
+        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .feature-card:hover { transform: translateY(-10px); border-color: var(--gold); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
-        .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.1); }
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* --- 4. ECONOMY --- */
+        /* 4. ECONOMY */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
         .zone-game { border-top: 4px solid var(--ingame-blue); }
@@ -234,7 +234,7 @@
         .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
-        /* --- 5. TOKENOMICS --- */
+        /* 5. TOKENOMICS */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
         .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
@@ -242,7 +242,7 @@
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-        /* --- 6. ROADMAP --- */
+        /* 6. ROADMAP */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
@@ -255,14 +255,14 @@
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
         
-        /* --- 7. PARTNERS --- */
+        /* 7. PARTNERS */
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
         .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
         .partner-item i { font-size: 24px; color: #fff; }
         .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* --- FOOTER --- */
+        /* FOOTER */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
@@ -285,9 +285,11 @@
             .roadmap-line { left: 20px; }
             .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
             .roadmap-point { left: 14px !important; }
-            .dash-container { flex-direction: column; padding: 20px; }
-            .dash-sidebar { width: 100%; flex-direction: row; overflow-x: auto; padding-bottom: 10px; }
-            .profile-card-grid { grid-template-columns: 1fr; }
+            .dash-wrapper { width: 100%; height: 100%; border-radius: 0; flex-direction: column; }
+            .dash-sidebar { width: 100%; flex-direction: row; height: auto; padding: 10px; border-right: none; border-bottom: 1px solid #222; overflow-x: auto; }
+            .dash-logo, .dash-logout { display: none; }
+            .dash-menu-item { padding: 10px; font-size: 14px; }
+            .dash-grid-top { grid-template-columns: 1fr; }
         }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -295,91 +297,156 @@
 </head>
 <body>
 
-    <div id="dashboard-overlay" class="dashboard-overlay">
-        <div class="dash-header">
-            <div class="dash-title">COMMANDER DASHBOARD</div>
-            <div class="dash-close" onclick="closeDashboard()">Back to Home <i class="fas fa-times"></i></div>
-        </div>
-        
-        <div class="dash-container">
-            <div class="dash-sidebar">
-                <div class="dash-nav-item active" onclick="switchDashTab('profile', this)">
-                    <i class="fas fa-user-circle"></i> My Profile
+    <nav>
+        <a href="#" class="logo">MOKA<span>HERO</span></a>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#nft">NFTs</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#economy">Economy</a></li>
+            <li><a href="#token">Token</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="login-btn" class="btn-outline">LOGIN</button>
+            <button class="btn-main" onclick="alert('Connecting Metamask...')"><i class="fas fa-wallet"></i> CONNECT</button>
+            
+            <div id="user-dropdown" class="user-dropdown">
+                <div class="dropdown-header">
+                    <img id="user-avatar" src="" alt="Avatar">
+                    <div style="display:flex; flex-direction:column;">
+                        <span id="user-name" class="user-name-display">Commander</span>
+                        <span id="user-email" class="user-email-display">email@example.com</span>
+                    </div>
                 </div>
-                <div class="dash-nav-item" onclick="switchDashTab('inventory', this)">
+                <div class="dropdown-item" onclick="openDashboard('profile')">
+                    <i class="fas fa-user-circle"></i> Dashboard
+                </div>
+                <div class="dropdown-item" onclick="openDashboard('inventory')">
                     <i class="fas fa-box"></i> Inventory
                 </div>
-                <div class="dash-nav-item" onclick="switchDashTab('settings', this)">
+                <div class="dropdown-item" onclick="openDashboard('settings')">
                     <i class="fas fa-cog"></i> Settings
+                </div>
+                <div class="dropdown-item" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="dashboard-overlay" class="dash-overlay">
+        <div class="dash-wrapper">
+            <div class="dash-sidebar">
+                <div class="dash-logo">MOKA<span>HERO</span></div>
+                <div class="dash-menu-item active" onclick="switchDashTab('profile', this)">
+                    <i class="fas fa-chart-pie"></i> DASHBOARD
+                </div>
+                <div class="dash-menu-item" onclick="switchDashTab('inventory', this)">
+                    <i class="fas fa-box-open"></i> INVENTORY
+                </div>
+                <div class="dash-menu-item" onclick="switchDashTab('settings', this)">
+                    <i class="fas fa-cog"></i> SETTINGS
+                </div>
+                <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()">
+                    <i class="fas fa-sign-out-alt"></i> LOGOUT
                 </div>
             </div>
 
-            <div class="dash-content">
-                <div id="dash-profile" class="dash-panel active">
-                    <div class="profile-card-grid">
-                        <div class="info-card">
-                            <div class="info-header">
-                                <span class="info-label">PLAYER INFO</span>
-                                <i class="fas fa-pen" style="color:#666; cursor:pointer;"></i>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px;">
-                                <img id="dash-avatar" src="" style="width:60px; height:60px; border-radius:50%; border:2px solid var(--gold);">
-                                <div>
-                                    <h3 id="dash-name" style="margin:0; color:#fff;">Commander</h3>
-                                    <span style="color:#888; font-size:12px;">UID: #839201</span>
+            <div class="dash-main">
+                <div class="dash-topbar">
+                    <div class="dash-user-chip">
+                        <span style="color:#aaa; font-size:12px;">SERVER:</span> <span style="color:#0f0; font-weight:bold;">ASIA-1</span>
+                    </div>
+                    <div class="dash-close-btn" onclick="closeDashboard()">CLOSE <i class="fas fa-times"></i></div>
+                </div>
+
+                <div class="dash-content-area">
+                    <div id="dash-profile" class="dash-panel active" style="display:block;">
+                        <h2 class="dash-page-title">DASHBOARD</h2>
+                        <div class="dash-grid-top">
+                            <div class="d-card">
+                                <div class="d-card-header">
+                                    <span>vip0commander [LV.10]</span>
+                                    <i class="fas fa-pen" style="cursor:pointer; color:#666;"></i>
+                                </div>
+                                <div class="d-card-body">
+                                    <div class="d-info-row"><span>Player Name:</span> <span id="dash-display-name">Commander</span></div>
+                                    <div class="d-info-row"><span>Player ID:</span> <span>#39384</span></div>
+                                    <div class="d-info-row"><span>Wallet:</span> <span style="color:var(--gold);">0xa1b...97539</span></div>
+                                    <div class="d-info-row"><span>Email:</span> <span id="dash-display-email">email@test.com</span></div>
                                 </div>
                             </div>
-                            <div class="user-detail-row"><span>Email:</span> <span id="dash-email">user@email.com</span></div>
-                            <div class="user-detail-row"><span>Wallet:</span> <span style="color:var(--gold);">0x7A...3f9c</span></div>
-                            <div class="user-detail-row"><span>Level:</span> <span>10 (Veteran)</span></div>
+
+                            <div class="d-card">
+                                <div class="d-card-header">DAILY CHECK-IN</div>
+                                <div class="d-card-body" style="text-align:center;">
+                                    <p style="font-size:13px; color:#aaa; margin-bottom:10px;">Perform your daily check-in and obtain <b>5 Moka Shards</b> instantly.</p>
+                                    <button class="d-checkin-btn" onclick="alert('Checked in successfully! +5 Shards')">CHECK-IN</button>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="checkin-card">
-                            <i class="fas fa-calendar-check" style="font-size:40px; color:#fff; margin-bottom:10px;"></i>
-                            <h4 style="margin:0; color:#fff;">DAILY CHECK-IN</h4>
-                            <p style="font-size:12px; color:#ddd; margin:5px 0 0;">Login everyday to earn Runes</p>
-                            <button class="checkin-btn" onclick="alert('Checked in! +5 Runes')">CHECK IN</button>
+                        <div class="d-card">
+                            <div class="d-card-header">DAILY CHECK-IN STREAK</div>
+                            <div class="d-card-body">
+                                <p style="font-size:13px; color:#aaa; margin-bottom:15px;">Connect 7 days in a row for an extra <b>20 Shards</b>.</p>
+                                <div class="streak-container">
+                                    <div class="streak-day active"><div class="streak-box"><i class="fas fa-check"></i></div><span class="streak-label">Day 1</span></div>
+                                    <div class="streak-day active"><div class="streak-box"><i class="fas fa-check"></i></div><span class="streak-label">Day 2</span></div>
+                                    <div class="streak-day"><div class="streak-box"></div><span class="streak-label">Day 3</span></div>
+                                    <div class="streak-day"><div class="streak-box"></div><span class="streak-label">Day 4</span></div>
+                                    <div class="streak-day"><div class="streak-box"></div><span class="streak-label">Day 5</span></div>
+                                    <div class="streak-day"><div class="streak-box"></div><span class="streak-label">Day 6</span></div>
+                                    <div class="streak-day"><div class="streak-box"></div><span class="streak-label">Day 7</span></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div id="dash-inventory" class="dash-panel">
-                    <h3 style="color:#fff; margin-top:0; border-bottom:1px solid #333; padding-bottom:10px;">NFT COLLECTION</h3>
-                    <div class="inv-grid">
-                        <div class="inv-empty">
-                            <i class="fas fa-box-open" style="font-size:50px; margin-bottom:15px;"></i>
-                            <p>No Items Found</p>
-                            <button class="btn-outline" style="font-size:12px;" onclick="alert('Scanning Blockchain...')">REFRESH</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="dash-settings" class="dash-panel">
-                    <h3 style="color:#fff; margin-top:0; border-bottom:1px solid #333; padding-bottom:10px;">SOCIAL CONNECTIONS</h3>
-                    
-                    <div class="setting-row">
-                        <div style="display:flex; align-items:center;">
-                            <div class="social-icon" style="background:#1da1f2;"><i class="fab fa-twitter"></i></div>
-                            <span style="color:#fff; font-weight:bold;">Twitter (X)</span>
-                        </div>
-                        <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
                     </div>
 
-                    <div class="setting-row">
-                        <div style="display:flex; align-items:center;">
-                            <div class="social-icon" style="background:#7289da;"><i class="fab fa-discord"></i></div>
-                            <span style="color:#fff; font-weight:bold;">Discord</span>
+                    <div id="dash-inventory" class="dash-panel" style="display:none;">
+                        <h2 class="dash-page-title">INVENTORY</h2>
+                        <div class="inv-grid">
+                            <div class="inv-item" style="height:220px; background:#151515; display:flex; justify-content:center; align-items:center; color:#444;">
+                                <div><i class="fas fa-plus"></i> Empty Slot</div>
+                            </div>
+                            <div class="inv-item" style="height:220px; background:#151515; display:flex; justify-content:center; align-items:center; color:#444;">
+                                <div><i class="fas fa-plus"></i> Empty Slot</div>
+                            </div>
+                            <div class="inv-item" style="height:220px; background:#151515; display:flex; justify-content:center; align-items:center; color:#444;">
+                                <div><i class="fas fa-plus"></i> Empty Slot</div>
+                            </div>
+                            <div class="inv-item" style="height:220px; background:#151515; display:flex; justify-content:center; align-items:center; color:#444;">
+                                <div><i class="fas fa-plus"></i> Empty Slot</div>
+                            </div>
                         </div>
-                        <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
                     </div>
 
-                    <div class="setting-row">
-                        <div style="display:flex; align-items:center;">
-                            <div class="social-icon" style="background:#0088cc;"><i class="fab fa-telegram-plane"></i></div>
-                            <span style="color:#fff; font-weight:bold;">Telegram</span>
+                    <div id="dash-settings" class="dash-panel" style="display:none;">
+                        <h2 class="dash-page-title">SETTINGS</h2>
+                        <div class="d-card" style="padding:20px;">
+                            <div class="set-row">
+                                <div style="display:flex; align-items:center; gap:15px; color:#fff;">
+                                    <i class="fab fa-twitter set-icon" style="color:#1da1f2;"></i> <span>Twitter (X)</span>
+                                </div>
+                                <button class="btn-outline" style="padding:5px 15px; font-size:12px;">CONNECT</button>
+                            </div>
+                            <div class="set-row">
+                                <div style="display:flex; align-items:center; gap:15px; color:#fff;">
+                                    <i class="fab fa-discord set-icon" style="color:#7289da;"></i> <span>Discord</span>
+                                </div>
+                                <button class="btn-outline" style="padding:5px 15px; font-size:12px;">CONNECT</button>
+                            </div>
+                            <div class="set-row">
+                                <div style="display:flex; align-items:center; gap:15px; color:#fff;">
+                                    <i class="fab fa-telegram set-icon" style="color:#0088cc;"></i> <span>Telegram</span>
+                                </div>
+                                <button class="btn-outline" style="padding:5px 15px; font-size:12px;">CONNECT</button>
+                            </div>
                         </div>
-                        <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -707,14 +774,12 @@
         // DOM Elements
         const loginBtn = document.getElementById('login-btn');
         const userDropdown = document.getElementById('user-dropdown');
-        const dashboardOverlay = document.getElementById('dashboard-overlay');
-        const dashAvatar = document.getElementById('dash-avatar');
-        const dashName = document.getElementById('dash-name');
-        const dashEmail = document.getElementById('dash-email');
+        const dashOverlay = document.getElementById('dashboard-overlay');
+        const logoutBtn = document.getElementById('logout-btn');
         
         let currentUser = null;
 
-        // --- AUTH ---
+        // AUTH
         const handleLogin = async () => {
             try { await signInWithPopup(auth, provider); } 
             catch (error) { console.error(error); alert("Login Error"); }
@@ -734,11 +799,6 @@
                 loginBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; border-radius:50%; border:1px solid #c8aa6d; margin-right:5px;"> ${user.displayName.split(' ')[0]}`;
                 loginBtn.style.color = "#c8aa6d"; loginBtn.style.borderColor = "#c8aa6d";
                 loginBtn.onclick = (e) => { e.stopPropagation(); userDropdown.classList.toggle('active'); };
-                
-                // Update Dashboard Data
-                dashAvatar.src = user.photoURL;
-                dashName.innerText = user.displayName;
-                dashEmail.innerText = user.email;
                 document.getElementById('logout-btn').onclick = handleLogout;
             } else {
                 currentUser = null;
@@ -753,30 +813,33 @@
             if (!userDropdown.contains(e.target) && !loginBtn.contains(e.target)) userDropdown.classList.remove('active');
         });
 
-        // --- DASHBOARD LOGIC ---
-        window.closeDashboard = () => dashboardOverlay.classList.remove('active');
+        // DASHBOARD LOGIC
+        window.closeDashboard = () => dashOverlay.classList.remove('active');
         
-        window.openAppModal = (tabName) => {
+        window.openDashboard = (tabName) => {
             if (!currentUser) { alert("Please Login First!"); return; }
             userDropdown.classList.remove('active');
-            dashboardOverlay.classList.add('active');
-            // Simulate click on tab
-            const tabBtn = document.querySelector(`.dash-nav-item[onclick*='${tabName}']`);
+            dashOverlay.classList.add('active');
+            
+            // Populate Data
+            document.getElementById('dash-avatar').src = currentUser.photoURL;
+            document.getElementById('dash-display-name').innerText = currentUser.displayName;
+            document.getElementById('dash-display-email').innerText = currentUser.email;
+
+            // Switch to correct tab
+            const tabBtn = document.querySelector(`.dash-menu-item[onclick*='${tabName}']`);
             if(tabBtn) window.switchDashTab(tabName, tabBtn);
         };
 
         window.switchDashTab = (tabName, btn) => {
-            // Hide all panels
-            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
-            // Show target panel
-            document.getElementById('dash-' + tabName).classList.add('active');
+            document.querySelectorAll('.dash-panel').forEach(p => p.style.display = 'none');
+            document.getElementById('dash-' + tabName).style.display = 'block';
             
-            // Update sidebar active state
-            document.querySelectorAll('.dash-nav-item').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         };
 
-        // --- HELPERS ---
+        // HELPERS
         window.showComingSoon = function(btn) {
             if (btn.dataset.clicking === "true") return;
             btn.dataset.clicking = "true";
