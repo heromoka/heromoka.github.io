@@ -142,12 +142,12 @@
         .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
-        /* --- 8. TOKENOMICS (UPDATED) --- */
+        /* --- 8. TOKENOMICS (UPDATED 100M) --- */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
         .pie-chart {
             width: 280px; height: 280px; border-radius: 50%;
-            /* 51% Gold, 20% Purple (Marketing), 19% Grey (Eco), 10% Dark (Team) */
+            /* 51% Gold, 20% Purple, 19% Grey, 10% Dark */
             background: conic-gradient(
                 var(--gold) 0% 51%, 
                 #9b59b6 51% 71%, 
@@ -160,10 +160,10 @@
             position: absolute; inset: 60px; background: var(--dark); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
-        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
+        .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; font-family: 'Roboto', sans-serif; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-        /* --- 9. ROADMAP --- */
+        /* --- 9. ROADMAP (4 PHASES) --- */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
@@ -172,15 +172,15 @@
         .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
         .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
-        .phase-name { color: var(--gold); font-weight: bold; font-size: 14px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
-        .roadmap-content ul { list-style: none; color: #888; font-size: 14px; }
+        .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
         
         /* --- 10. FOOTER --- */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
-        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; }
+        .f-links a { display: block; color: #666; text-decoration: none; margin-bottom: 12px; transition: 0.2s; font-size: 14px; font-family: 'Roboto', sans-serif; }
         .f-links a:hover { color: var(--gold); }
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
@@ -401,13 +401,13 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="sec-title">TOKENOMICS</h2>
-                <p class="sec-desc">Token Allocation - Total Supply 1 Billion.</p>
+                <p class="sec-desc">Token Allocation - Total Supply 100 Million.</p>
             </div>
             <div class="token-wrap">
                 <div class="pie-chart">
                     <div class="pie-hole">
                         <span style="font-size: 30px; font-weight: 900; color: var(--gold); font-family: 'Cinzel';">$MOKA</span>
-                        <span style="font-size: 12px; color: #666;">Total: 1B</span>
+                        <span style="font-size: 12px; color: #666;">Total: 100M</span>
                     </div>
                 </div>
                 <ul class="token-list" style="list-style: none;">
@@ -429,7 +429,7 @@
                 <div class="roadmap-line"></div>
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 1 (Q1-Q2 2026)</span>
+                    <span class="phase-name">PHASE 1 (JAN - MAR 2026)</span>
                     <div class="roadmap-content">
                         <h3>GENESIS</h3>
                         <ul>
@@ -441,7 +441,7 @@
                 </div>
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 2 (Q3-Q4 2026)</span>
+                    <span class="phase-name">PHASE 2 (APR - JUN 2026)</span>
                     <div class="roadmap-content">
                         <h3>EXPLOSION</h3>
                         <ul>
@@ -453,12 +453,25 @@
                 </div>
                 <div class="roadmap-item">
                     <div class="roadmap-point"></div>
-                    <span class="phase-name">PHASE 3 (2027)</span>
+                    <span class="phase-name">PHASE 3 (JUL - SEP 2026)</span>
+                    <div class="roadmap-content">
+                        <h3>EXPANSION</h3>
+                        <ul>
+                            <li>Cross-chain Bridge Integration</li>
+                            <li>Staking System & DAO Governance</li>
+                            <li>"Leviathan" World Boss Raid</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="roadmap-item">
+                    <div class="roadmap-point"></div>
+                    <span class="phase-name">PHASE 4 (OCT - DEC 2026)</span>
                     <div class="roadmap-content">
                         <h3>METAVERSE</h3>
                         <ul>
-                            <li>Global eSports Tournament</li>
-                            <li>Metaverse & 3D Land Integration</li>
+                            <li>Moka Land Gameplay Launch</li>
+                            <li>Global Championship 2026</li>
+                            <li>Scholarship Program</li>
                         </ul>
                     </div>
                 </div>
