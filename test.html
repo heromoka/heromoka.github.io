@@ -16,7 +16,7 @@
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS V15 (FULL 100%) --- */
+        /* --- 1. CORE CSS V15 (RE-SPACED TO MATCH V43) --- */
         /* ================================================================= */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
@@ -46,6 +46,11 @@
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
+        /* --- [FIXED SPACING HERE] --- */
+        section { padding: 120px 0; border-bottom: 1px solid #111; position: relative; } /* Tăng từ 100px lên 120px */
+        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 15px; letter-spacing: 2px; }
+        .sec-desc { color: #666; font-size: 16px; margin-bottom: 70px; text-transform: uppercase; letter-spacing: 2px; } /* Tăng khoảng cách margin-bottom */
+
         /* HERO */
         #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
@@ -57,7 +62,7 @@
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
         /* NFT */
-        #nft { background: #0b0b0b; padding-top: 80px; }
+        #nft { background: #0b0b0b; padding-top: 100px; padding-bottom: 120px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
         .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
@@ -75,7 +80,7 @@
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
         /* FEATURES */
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 50px; }
         .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; }
         .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
         .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
@@ -86,7 +91,7 @@
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
         /* ECONOMY */
-        .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
+        .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 60px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
         .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
         .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); } .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
@@ -105,14 +110,14 @@
 
         /* TOKEN */
         #token { background: #050505; }
-        .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; }
+        .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; margin-top: 50px; }
         .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
         .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
         /* ROADMAP */
-        .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; }
+        .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; margin-top: 60px; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
         .roadmap-item:nth-child(odd) { left: 0; text-align: right; } .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
@@ -123,7 +128,7 @@
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
 
         /* PARTNERS */
-        .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 40px; }
+        .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 60px; }
         .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
         .partner-item i { font-size: 24px; color: #fff; }
@@ -221,6 +226,7 @@
         .nft-img { width: 100%; height: 200px; background-image: url('./assets/full_set.png'); background-size: 500% 400%; }
         .nft-id { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #fff; padding: 2px 8px; font-size: 10px; border-radius: 4px; }
 
+        /* BUTTON LINK WALLET */
         .btn-link-wallet { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 10px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
         .btn-link-wallet:hover { background: #fff; }
 
@@ -230,14 +236,10 @@
         .dropdown-item:hover { background: #222; color: var(--gold); }
 
         /* --- [V49 LOGIC: CONTEXTUAL SIDEBAR] --- */
-        /* Mặc định (Normal Mode): Ẩn Shop trong sidebar */
         .dash-overlay:not(.shop-mode) #menu-shop { display: none !important; }
-
-        /* Chế độ Shop (Shop Mode): Ẩn Profile, Inventory, Settings. Chỉ hiện Shop */
         .dash-overlay.shop-mode #menu-profile,
         .dash-overlay.shop-mode #menu-inventory,
         .dash-overlay.shop-mode #menu-settings { display: none !important; }
-
         .dash-overlay.shop-mode #menu-shop { display: flex !important; }
 
         @media (max-width: 768px) { .dash-wrapper { flex-direction: column; } .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; } .dash-content { padding: 20px; } }
@@ -672,7 +674,7 @@
             }
         }
 
-        // 7. WEB3 MINT & INVENTORY
+        // 7. WEB3 MINT & INVENTORY (WINDOW SCOPE FIX)
         window.mintNFT = async () => {
             if(!currentAccount) return alert("Please Connect/Link Wallet First!");
             await checkAndSwitchNetwork(); // Force BNB Chain
