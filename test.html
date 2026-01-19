@@ -11,15 +11,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS V15 (FULL 100%) --- */
+        /* --- 1. CORE CSS V15 (NGUYÊN BẢN 100%) --- */
         /* ================================================================= */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
-            --dark: #050505; --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
+            --cyan-glow: rgba(0, 242, 255, 0.5); --dark: #050505;
+            --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
             --card-glass: rgba(20, 20, 30, 0.7);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +31,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS */
+        /* BUTTONS V15 */
         .btn-main { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-size: 16px; display: inline-block; text-decoration: none; }
         .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
         .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
@@ -44,7 +46,10 @@
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* HERO */
+        /* HERO & SECTIONS */
+        section { padding: 100px 0; border-bottom: 1px solid #111; position: relative; }
+        .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 10px; letter-spacing: 2px; }
+        .sec-desc { color: #666; font-size: 16px; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 2px; }
         #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none; }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
         .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
@@ -54,7 +59,7 @@
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* NFT */
+        /* NFT - YASUO GOLD STYLE */
         #nft { background: #0b0b0b; padding-top: 80px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
@@ -72,18 +77,16 @@
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* FEATURES */
+        /* FEATURES, ECO, ETC */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
-        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; }
+        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; position: relative; display: flex; flex-direction: column; align-items: center; }
         .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
         .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
         .feature-card:hover { transform: translateY(-10px); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
-        .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.1); }
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* ECONOMY */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 40px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
         .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
@@ -153,11 +156,17 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ================================================================= */
-        /* --- 2. ADDED CSS: DASHBOARD & SHOP (V47) --- */
+        /* --- 2. ADDED CSS: DASHBOARD, WEB3, SHOP (V48 - SHOP ISOLATION) --- */
         /* ================================================================= */
         
         #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
-        .toast { background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px; border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'Rajdhani'; font-weight: bold; min-width: 250px; transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; gap: 10px; }
+        .toast {
+            background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px;
+            border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            font-family: 'Rajdhani'; font-weight: bold; min-width: 250px;
+            transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex; align-items: center; gap: 10px;
+        }
         .toast.show { transform: translateX(0); }
         .toast i { color: var(--gold); font-size: 18px; }
 
@@ -200,7 +209,7 @@
         .btn-connect:hover { border-color: #fff; color: #fff; }
         .connected-text { color: #00ff88; font-size: 13px; margin-right: 15px; font-weight: bold; display: none; }
 
-        /* SHOP & INVENTORY */
+        /* SHOP & INVENTORY STYLES */
         .shop-card { background: rgba(20, 20, 30, 0.8); border: 1px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; max-width: 350px; margin: 0 auto; box-shadow: 0 0 30px rgba(200, 170, 109, 0.1); }
         .shop-img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--gold)); }
         .btn-mint { background: var(--gold); color: #000; font-weight: 900; padding: 15px 40px; border: none; cursor: pointer; font-family: 'Cinzel'; font-size: 18px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: 0.2s; }
@@ -239,7 +248,7 @@
             <li><a href="#token">Token</a></li>
             <li><a href="#roadmap">Roadmap</a></li>
             <li><a href="whitepaper.html" target="_blank">Whitepaper</a></li>
-            <li><a href="#" onclick="openDashboard('shop'); return false;" style="color:var(--gold);">SHOP</a></li>
+            <li><a href="#" onclick="openShop(); return false;">SHOP</a></li>
         </ul>
         <div class="nav-actions">
             <button id="main-login-btn" class="btn-outline">LOGIN</button>
@@ -252,7 +261,6 @@
                     </div>
                 </div>
                 <div class="dropdown-item" onclick="openDashboard('profile')"><i class="fas fa-user-circle"></i> Profile</div>
-                <div class="dropdown-item" onclick="openDashboard('shop')"><i class="fas fa-store"></i> Shop</div>
                 <div class="dropdown-item" onclick="openDashboard('inventory')"><i class="fas fa-box-open"></i> Inventory</div>
                 <div class="dropdown-item" onclick="openDashboard('settings')"><i class="fas fa-cog"></i> Settings</div>
                 <div class="dropdown-item" id="logout-btn" style="color:#ff4757;"><i class="fas fa-sign-out-alt"></i> Logout</div>
@@ -274,7 +282,6 @@
             <div class="dash-sidebar">
                 <div style="color:#fff; font-family:'Cinzel'; font-size:22px; text-align:center; margin-bottom:40px;">MOKA<span>HERO</span></div>
                 <div class="dash-menu-item active" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> PROFILE</div>
-                <div class="dash-menu-item" onclick="switchTab('shop', this)"><i class="fas fa-store"></i> SHOP</div>
                 <div class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
                 <div class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
                 <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
@@ -345,21 +352,30 @@
                                 </div>
                                 <span>Twitter (X)</span>
                             </div>
-                            <button class="btn-connect" onclick="connectSocial('tw')">CONNECT</button>
+                            <div id="tw-action">
+                                <span class="connected-text" id="tw-status"></span>
+                                <button class="btn-connect" onclick="connectSocial('tw')">CONNECT</button>
+                            </div>
                         </div>
                         <div class="connect-row">
                             <div class="social-info">
                                 <div class="social-icon" style="background:#5865F2;"><i class="fab fa-discord" style="color:#fff;"></i></div>
                                 <span>Discord</span>
                             </div>
-                            <button class="btn-connect" onclick="connectSocial('dc')">CONNECT</button>
+                            <div id="dc-action">
+                                <span class="connected-text" id="dc-status"></span>
+                                <button class="btn-connect" onclick="connectSocial('dc')">CONNECT</button>
+                            </div>
                         </div>
                         <div class="connect-row">
                             <div class="social-info">
                                 <div class="social-icon" style="background:#229ED9;"><i class="fab fa-telegram-plane" style="color:#fff;"></i></div>
                                 <span>Telegram</span>
                             </div>
-                            <button class="btn-connect" onclick="connectSocial('tg')">CONNECT</button>
+                            <div id="tg-action">
+                                <span class="connected-text" id="tg-status"></span>
+                                <button class="btn-connect" onclick="connectSocial('tg')">CONNECT</button>
+                            </div>
                         </div>
                     </div>
 
@@ -547,7 +563,7 @@
                     updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
                     closeLoginGate();
                     showToast("Wallet Connected!", "success");
-                    openDashboard('shop');
+                    // Auto open Dashboard if coming from Shop Click (optional)
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
             } else { showToast("Please Install Metamask", "error"); }
         };
@@ -604,7 +620,7 @@
             localStorage.removeItem('isDashOpen'); 
         }
 
-        // 5. HYBRID WALLET LINK (V47 NEW)
+        // 5. HYBRID WALLET LINK
         window.linkWallet = async () => {
             if(window.ethereum) {
                 try {
@@ -620,13 +636,12 @@
             } else { alert("Install Metamask"); }
         };
 
-        // 6. AUTO SWITCH NETWORK (V47 NEW)
+        // 6. AUTO SWITCH NETWORK
         async function checkAndSwitchNetwork() {
             if(window.ethereum) {
                 try {
                     await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_ID_HEX }] });
                 } catch (error) {
-                    // This error code indicates that the chain has not been added to MetaMask.
                     if (error.code === 4902) {
                         try {
                             await window.ethereum.request({
@@ -643,7 +658,7 @@
             }
         }
 
-        // 7. WEB3 MINT & INVENTORY
+        // 7. WEB3 MINT & INVENTORY (WINDOW SCOPE FIX)
         window.mintNFT = async () => {
             if(!currentAccount) return alert("Please Connect/Link Wallet First!");
             await checkAndSwitchNetwork(); // Force BNB Chain
@@ -744,7 +759,10 @@
             
             container.appendChild(toast);
             setTimeout(() => toast.classList.add('show'), 100);
-            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         };
 
         window.connectSocial = (type) => {
@@ -757,12 +775,20 @@
             }
         };
 
+        // DASHBOARD NAV - FIX 4: Open Shop from Main Nav
+        window.openShop = () => {
+            userDropdown.classList.remove('active');
+            dashOverlay.classList.add('active');
+            localStorage.setItem('isDashOpen', 'true');
+            window.switchTab('shop'); // Direct switch
+        };
+
         window.openDashboard = (tab) => {
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
             localStorage.setItem('isDashOpen', 'true'); 
             window.switchTab(tab);
-            if(tab === 'inventory') window.loadInventory();
+            if(tab === 'inventory') window.loadInventory(); // Fix scope
         };
         window.closeDashboard = () => {
             dashOverlay.classList.remove('active');
@@ -772,10 +798,16 @@
             document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('tab-'+tab).classList.add('active');
             localStorage.setItem('dashTab', tab); 
+            
+            // Sidebar Active State Logic
+            document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
             if(btn) {
-                document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+            } else {
+                // If switchTab called without btn (e.g. from Open Shop), find matching sidebar item if exists
+                // Note: Shop has no sidebar item now, so no sidebar item will be lit. This is correct per design.
             }
+
             if(tab === 'inventory') window.loadInventory();
         };
 
