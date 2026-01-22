@@ -13,87 +13,195 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         /* ================================================================= */
-        /* --- 1. CORE CSS V15 (FULL 100% - SPACIOUS V50 STYLE) --- */
+        /* --- 1. CORE CSS SYSTEM (FULL V50 RESTORED) --- */
         /* ================================================================= */
         :root {
-            --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
-            --cyan-glow: rgba(0, 242, 255, 0.5); --dark: #050505;
-            --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
-            --card-glass: rgba(20, 20, 30, 0.7);
+            --gold: #c8aa6d;              
+            --gold-bright: #f0e6d2;       
+            --cyan: #00f2ff;
+            --cyan-glow: rgba(0, 242, 255, 0.5);
+            --dark: #050505;              
+            --ingame-blue: #4a9eff;
+            --web3-purple: #9b59b6;
+            --card-glass: rgba(20, 20, 30, 0.85);
         }
+        
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow-x: hidden; line-height: 1.6; }
-        h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
+        
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: var(--dark); 
+            color: #f0f0f0; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+        }
+
+        h1, h2, h3, .logo, .f-title, .eco-col-title { 
+            font-family: 'Cinzel', serif; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
-        /* BUTTONS */
-        .btn-main { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-size: 16px; display: inline-block; text-decoration: none; font-family: 'Rajdhani', sans-serif; }
+        /* --- BUTTON STYLES --- */
+        .btn-main {
+            background: linear-gradient(to bottom, #c8aa6d, #8e733b);
+            color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            cursor: pointer; transition: 0.3s; font-size: 16px; text-decoration: none; 
+            display: inline-block; font-family: 'Rajdhani', sans-serif;
+        }
         .btn-main:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); color: #000; }
-        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
+
+        .btn-outline {
+            background: transparent; border: 1px solid #666; color: #ccc;
+            padding: 10px 25px; cursor: pointer; transition: 0.3s;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700;
+        }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        .btn-platform { background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif; }
+
+        .btn-platform {
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa;
+            padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold;
+            min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
+        }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
-        /* NAV */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; } .logo span { color: var(--gold); }
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 40px; height: 80px;
+            background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; }
+        .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
+        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--gold); }
         .nav-actions { display: flex; gap: 15px; align-items: center; position: relative; }
 
-        /* HERO & SECTIONS (SPACIOUS V50) */
+        /* --- SECTIONS (SPACIOUS V50) --- */
         section { padding: 120px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 15px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 70px; text-transform: uppercase; letter-spacing: 2px; }
-        
-        #hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none; }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; text-align: center; overflow: hidden; padding: 0; border-bottom: none;
+        }
         .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
-        .hero-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%); z-index: 1; }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 70%, #000 100%);
+            z-index: 1;
+        }
         .hero-content { position: relative; z-index: 2; animation: fadeUp 1s ease-out; }
         .hero-subtitle { font-size: 16px; color: var(--cyan); letter-spacing: 6px; margin-bottom: 20px; font-weight: 700; text-transform: uppercase; text-shadow: 0 0 10px var(--cyan-glow); }
-        .hero-title { font-size: 80px; margin-bottom: 20px; line-height: 1; background: linear-gradient(to right, var(--gold), #fff, var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        .hero-title { 
+            font-size: 80px; margin-bottom: 20px; line-height: 1; 
+            background: linear-gradient(to right, var(--gold), #fff, var(--cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
         .download-area { margin-top: 60px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
-        /* NFT */
+        /* --- NFT SECTION (OLD DISPLAY) --- */
         #nft { background: #0b0b0b; padding-top: 100px; padding-bottom: 120px; }
-        .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        .genesis-bg-large { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: opacity 0.4s ease-in-out; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
-        .genesis-panel { position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .genesis-panel::before, .genesis-panel::after { content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
-        .genesis-panel::before { left: 20px; } .genesis-panel::after { right: 20px; }
+        .genesis-wrapper { 
+            position: relative; max-width: 1100px; height: 500px; margin: 0 auto; 
+            border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; 
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        .genesis-bg-large { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; 
+            transition: opacity 0.4s ease-in-out; opacity: 0.5;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); 
+        }
+        .genesis-panel { 
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 160px; 
+            background: rgba(12, 12, 14, 0.95); border-top: 1px solid var(--gold); 
+            display: flex; align-items: center; justify-content: center; z-index: 2; 
+        }
+        .genesis-panel::before, .genesis-panel::after { 
+            content: ''; position: absolute; top: 5px; width: 1px; height: calc(100% - 10px); 
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent); 
+        }
+        .genesis-panel::before { left: 20px; }
+        .genesis-panel::after { right: 20px; }
+        
         .genesis-text { text-align: center; position: relative; z-index: 3; max-width: 50%; margin-right: 150px; }
         .g-faction { color: #888; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 5px; font-weight: bold; }
-        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .g-name { font-family: 'Cinzel'; font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 10px; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
-        .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
+        
+        .genesis-card-container { 
+            position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; 
+            transform-origin: bottom center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); 
+        }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
-        .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); background-position: 100% 0%; }
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        
+        /* CARD SPRITE - FOR HERO DISPLAY SECTION */
+        .card-sprite { 
+            width: 100%; height: 100%; 
+            background-image: url('./assets/full_set.png'); 
+            background-size: 400% 400%; background-repeat: no-repeat; 
+            border-radius: 10px; 
+            box-shadow: 0 0 0 1px rgba(255,215,0,0.3); 
+            background-position: 0% 0%; 
+        }
+
+        .nav-arrow { 
+            position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; 
+            background: transparent; border: 1px solid #444; border-radius: 50%; 
+            color: #666; font-size: 18px; cursor: pointer; z-index: 20; 
+            display: flex; align-items: center; justify-content: center; transition: 0.3s; 
+        }
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
         .prev-btn { left: -70px; } .next-btn { right: -70px; }
 
-        /* FEATURES */
+        /* --- FEATURES SECTION --- */
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 50px; }
-        .feature-card { padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; background: var(--card-glass); backdrop-filter: blur(10px); border: 1px solid transparent; background-clip: padding-box; }
-        .feature-card::before { content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s; }
+        .feature-card {
+            padding: 50px 30px; border-radius: 12px; text-align: center; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            background: var(--card-glass); backdrop-filter: blur(10px);
+            border: 1px solid transparent; background-clip: padding-box;
+        }
+        .feature-card::before {
+            content: ''; position: absolute; inset: 0; padding: 1px; border-radius: 12px; 
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); 
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; transition: 0.3s;
+        }
         .feature-card:hover::before { background: linear-gradient(135deg, var(--gold), var(--cyan)); box-shadow: 0 0 20px var(--cyan-glow); }
         .feature-card:hover { transform: translateY(-10px); }
         .f-icon { font-size: 40px; color: var(--gold); margin-bottom: 25px; display: inline-block; transition: 0.3s; }
+        .feature-card:hover .f-icon { color: var(--cyan); text-shadow: 0 0 15px var(--cyan-glow); transform: scale(1.1); }
         .f-title { font-size: 20px; margin-bottom: 15px; color: #fff; letter-spacing: 1px; text-transform: uppercase; font-weight: bold; }
         .f-desc { font-size: 15px; color: #aaa; line-height: 1.6; }
 
-        /* ECONOMY */
+        /* --- ECONOMY SECTION --- */
         .eco-layout { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; margin-top: 60px; }
         .eco-zone { flex: 1; min-width: 320px; background: rgba(10, 10, 10, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px; position: relative; display: flex; flex-direction: column; gap: 20px; }
-        .zone-game { border-top: 4px solid var(--ingame-blue); } .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
-        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); } .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
-        .zone-web3 { border-top: 4px solid var(--gold); } .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
+        .zone-game { border-top: 4px solid var(--ingame-blue); }
+        .zone-game h3 { color: var(--ingame-blue); margin-bottom: 15px; text-align: center; }
+        .zone-gate { flex: 0 0 250px; border-top: 4px solid #fff; align-items: center; justify-content: center; background: rgba(255,255,255,0.02); }
+        .zone-gate h3 { color: #fff; margin-bottom: 20px; text-align: center; font-size: 16px; }
+        .zone-web3 { border-top: 4px solid var(--gold); }
+        .zone-web3 h3 { color: var(--gold); margin-bottom: 15px; text-align: center; }
         .eco-item-box { background: #151515; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 15px; border: 1px solid #222; transition: 0.3s; }
         .eco-item-box:hover { border-color: #555; transform: translateX(5px); }
         .eco-icon { font-size: 24px; width: 40px; text-align: center; }
@@ -103,35 +211,54 @@
         .swap-action i.main-icon { font-size: 24px; color: var(--gold); margin-bottom: 5px; display: block; }
         .swap-action span { font-size: 14px; font-weight: bold; color: #ccc; text-transform: uppercase; }
         .arrow-flow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 18px; color: #666; animation: flow 1.5s infinite; }
-        .arr-left { left: -22px; color: var(--ingame-blue); } .arr-right { right: -22px; color: var(--gold); }
+        .arr-left { left: -22px; color: var(--ingame-blue); }
+        .arr-right { right: -22px; color: var(--gold); }
         @keyframes flow { 0% { opacity: 0.2; transform: translateY(-50%) translateX(0); } 50% { opacity: 1; transform: translateY(-50%) translateX(3px); } 100% { opacity: 0.2; transform: translateY(-50%) translateX(0); } }
 
-        /* TOKEN */
+        /* --- TOKENOMICS --- */
         #token { background: #050505; }
         .token-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 80px; margin-top: 50px; }
-        .pie-chart { width: 280px; height: 280px; border-radius: 50%; background: conic-gradient(var(--gold) 0% 51%, #9b59b6 51% 71%, #555 71% 90%, #222 90% 100%); position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
-        .pie-hole { position: absolute; inset: 60px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .pie-chart {
+            width: 280px; height: 280px; border-radius: 50%;
+            background: conic-gradient(
+                var(--gold) 0% 51%, 
+                #9b59b6 51% 71%, 
+                #555 71% 90%, 
+                #222 90% 100%
+            );
+            position: relative; box-shadow: 0 0 60px rgba(0,0,0,0.5);
+        }
+        .pie-hole {
+            position: absolute; inset: 60px; background: var(--dark); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+        }
         .token-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-size: 16px; color: #aaa; font-weight: 500; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
 
-        /* ROADMAP */
+        /* --- ROADMAP --- */
         .roadmap-container { position: relative; max-width: 900px; margin: 0 auto; margin-top: 60px; }
         .roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #333; transform: translateX(-50%); }
         .roadmap-item { position: relative; width: 50%; margin-bottom: 60px; padding: 0 40px; }
-        .roadmap-item:nth-child(odd) { left: 0; text-align: right; } .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
+        .roadmap-item:nth-child(odd) { left: 0; text-align: right; }
+        .roadmap-item:nth-child(even) { left: 50%; text-align: left; }
         .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
-        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; } .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
+        .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; }
+        .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
         .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
-
-        /* PARTNERS */
+        
+        /* --- PARTNERS --- */
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 60px; }
-        .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
+        .partner-item {
+            display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s;
+            border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111;
+        }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
         .partner-item i { font-size: 24px; color: #fff; }
         .partner-item span { font-family: 'Rajdhani'; font-weight: 700; font-size: 18px; color: #ccc; text-transform: uppercase; letter-spacing: 1px; }
 
+        /* --- FOOTER --- */
         footer { background: #020202; padding: 80px 0 30px; border-top: 1px solid #111; }
         .footer-cols { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
         .f-title { color: #fff; font-size: 16px; margin-bottom: 25px; letter-spacing: 1px; }
@@ -140,27 +267,11 @@
         .socials a { width: 40px; height: 40px; background: #111; color: #888; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; text-decoration: none; transition: 0.3s; border: 1px solid #222; }
         .socials a:hover { border-color: var(--gold); color: var(--gold); }
 
-        @media (max-width: 992px) {
-            .nav-links { display: none; }
-            .hero-title { font-size: 50px; }
-            .genesis-wrapper { height: auto; padding-bottom: 0; }
-            .genesis-panel { position: relative; height: auto; flex-direction: column-reverse; padding: 40px 20px; text-align: center; }
-            .genesis-text { max-width: 100%; margin-right: 0; margin-top: 20px; }
-            .genesis-card-container { position: relative; right: auto; bottom: auto; width: 160px; height: 240px; margin: 0 auto; }
-            .prev-btn, .next-btn { display: none; }
-            .eco-layout { flex-direction: column; }
-            .zone-gate { flex: 1; border-top: none; border-left: 4px solid #fff; flex-direction: row; flex-wrap: wrap; }
-            .footer-cols { grid-template-columns: 1fr; }
-            .roadmap-line { left: 20px; }
-            .roadmap-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 50px; }
-            .roadmap-point { left: 14px !important; }
-        }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         /* ================================================================= */
-        /* --- 2. CSS V49: CONTEXTUAL SIDEBAR & SHOP LOGIC --- */
+        /* --- 2. ADVANCED SYSTEMS: DASHBOARD, GACHA, WEB3 (V53 INTEGRATED) --- */
         /* ================================================================= */
         
+        /* TOAST & NOTIFICATIONS */
         #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
         .toast {
             background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px;
@@ -172,6 +283,7 @@
         .toast.show { transform: translateX(0); }
         .toast i { color: var(--gold); font-size: 18px; }
 
+        /* LOGIN POPUP */
         .login-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .login-overlay.active { display: flex; }
         .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; }
@@ -179,6 +291,7 @@
         .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
 
+        /* DASHBOARD LAYOUT */
         .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #000; width: 100vw; height: 100vh; flex-direction: column; }
         .dash-overlay.active { display: flex; }
         .dash-wrapper { width: 100%; height: 100%; background: #111; display: flex; border: none; border-radius: 0; }
@@ -193,47 +306,67 @@
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
 
+        /* PROFILE STYLES */
         .profile-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 8px; width: 100%; max-width: 1200px; margin: 0 auto; }
         .p-row { display: flex; flex-direction: column; margin-bottom: 25px; position: relative; }
         .p-label { color: #666; font-size: 11px; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
         .p-input { background: transparent; border: 1px solid transparent; color: #fff; padding: 10px 0; font-family: 'Roboto'; font-size: 16px; width: 100%; transition: 0.3s; pointer-events: none; }
-        .p-input.editable { background: rgba(0,0,0,0.5); border: 1px solid #444; padding: 10px; pointer-events: auto; color: var(--gold); }
-        .p-input:focus { border-color: var(--gold); outline: none; }
-        .edit-icon { position: absolute; right: 0; bottom: 12px; color: #444; cursor: pointer; transition: 0.2s; font-size: 14px; }
-        .edit-icon:hover { color: var(--gold); }
-        .edit-icon.hidden { display: none; }
-        .save-btn { background: var(--gold); color: #000; border: none; padding: 10px 30px; font-weight: bold; cursor: pointer; float: right; margin-top: 10px; font-family: 'Rajdhani'; display: none; }
+        .btn-link-wallet { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 10px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
+        .btn-link-wallet:hover { background: #fff; }
 
-        .connect-row { display: flex; justify-content: space-between; align-items: center; padding: 25px; background: rgba(255,255,255,0.03); margin-bottom: 15px; border-radius: 6px; }
-        .social-info { display: flex; align-items: center; gap: 15px; color: #fff; font-weight: bold; font-size: 16px; }
-        .social-icon { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 22px; }
-        .btn-connect { background: transparent; border: 1px solid #555; color: #ccc; padding: 8px 20px; font-size: 13px; font-weight: bold; cursor: pointer; border-radius: 4px; }
-        .btn-connect:hover { border-color: #fff; color: #fff; }
-        .connected-text { color: #00ff88; font-size: 13px; margin-right: 15px; font-weight: bold; display: none; }
+        /* SHOP CARD V53 (ANIMATED CHEST) */
+        .shop-card { background: rgba(20, 20, 30, 0.8); border: 1px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 400px; margin: 0 auto; box-shadow: 0 0 50px rgba(200, 170, 109, 0.2); position: relative; }
+        .chest-container { width: 220px; height: 220px; margin: 0 auto 20px; position: relative; }
+        .chest-img { width: 100%; height: 100%; object-fit: contain; transition: 0.3s; }
+        
+        /* SHAKE ANIMATION */
+        @keyframes shake { 
+            0% { transform: translate(1px, 1px) rotate(0deg); } 
+            10% { transform: translate(-1px, -2px) rotate(-1deg); } 
+            20% { transform: translate(-3px, 0px) rotate(1deg); } 
+            30% { transform: translate(3px, 2px) rotate(0deg); } 
+            40% { transform: translate(1px, -1px) rotate(1deg); } 
+            50% { transform: translate(-1px, 2px) rotate(-1deg); } 
+            60% { transform: translate(-3px, 1px) rotate(0deg); } 
+            70% { transform: translate(3px, 1px) rotate(-1deg); } 
+            80% { transform: translate(-1px, -1px) rotate(1deg); } 
+            90% { transform: translate(1px, 2px) rotate(0deg); } 
+            100% { transform: translate(1px, -2px) rotate(-1deg); } 
+        }
+        .chest-shaking { animation: shake 0.5s infinite; }
 
-        /* SHOP & INVENTORY STYLES */
-        .shop-card { background: rgba(20, 20, 30, 0.8); border: 1px solid var(--gold); border-radius: 12px; padding: 30px; text-align: center; max-width: 350px; margin: 0 auto; box-shadow: 0 0 30px rgba(200, 170, 109, 0.1); }
-        .shop-img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--gold)); }
         .btn-mint { background: var(--gold); color: #000; font-weight: 900; padding: 15px 40px; border: none; cursor: pointer; font-family: 'Cinzel'; font-size: 18px; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); transition: 0.2s; }
         .btn-mint:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
         .btn-mint:disabled { filter: grayscale(1); cursor: not-allowed; }
 
+        /* INVENTORY GRID V53 (SPRITE 4x5) */
         .nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
-        .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; transition: 0.3s; }
-        .nft-item:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .nft-img { width: 100%; height: 200px; background-image: url('./assets/full_set.png'); background-size: 500% 400%; }
-        .nft-id { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #fff; padding: 2px 8px; font-size: 10px; border-radius: 4px; }
+        .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; transition: 0.3s; aspect-ratio: 2/3; }
+        .nft-item:hover { border-color: var(--gold); transform: translateY(-5px); z-index: 10; box-shadow: 0 0 15px rgba(200, 170, 109, 0.3); }
+        
+        /* THE SPRITE CLASS: Grid 4 cols x 5 rows -> 400% 500% */
+        .nft-sprite { width: 100%; height: 100%; background-image: url('./assets/heroes_sprite.png'); background-size: 400% 500%; background-repeat: no-repeat; }
+        
+        .nft-info { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); padding: 5px; text-align: center; border-top: 1px solid #333; }
+        .nft-name { font-size: 11px; color: #fff; font-weight: bold; display: block; font-family: 'Rajdhani'; }
+        .nft-tier { font-size: 10px; color: var(--gold); font-family: 'Cinzel'; }
 
-        /* BUTTON LINK WALLET */
-        .btn-link-wallet { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 10px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
-        .btn-link-wallet:hover { background: #fff; }
+        /* REWARD OVERLAY (RESULT SCREEN) */
+        .reward-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; flex-direction: column; }
+        .reward-overlay.active { display: flex; animation: fadeIn 0.5s; }
+        .reward-title { font-family: 'Cinzel'; font-size: 40px; color: var(--gold); margin-bottom: 30px; text-shadow: 0 0 20px var(--gold); letter-spacing: 2px; }
+        .reward-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; max-width: 900px; }
+        .reward-card { width: 180px; height: 270px; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: #000; position: relative; box-shadow: 0 0 30px rgba(200, 170, 109, 0.4); }
+        
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
         .user-dropdown.active { display: flex; }
         .dropdown-item { padding: 12px 15px; color: #ccc; text-decoration: none; font-size: 13px; border-bottom: 1px solid #222; transition: 0.2s; display: flex; gap: 10px; cursor: pointer; }
         .dropdown-item:hover { background: #222; color: var(--gold); }
 
-        /* --- [V49 LOGIC: CONTEXTUAL SIDEBAR] --- */
+        /* --- CONTEXTUAL SIDEBAR LOGIC (V49) --- */
         .dash-overlay:not(.shop-mode) #menu-shop { display: none !important; }
         .dash-overlay.shop-mode #menu-profile,
         .dash-overlay.shop-mode #menu-inventory,
@@ -246,6 +379,13 @@
 <body>
 
     <div id="toast-container"></div>
+
+    <div id="reward-overlay" class="reward-overlay">
+        <h1 class="reward-title">SUMMON COMPLETED!</h1>
+        <div id="reward-grid" class="reward-grid">
+            </div>
+        <button class="btn-main" onclick="closeReward()" style="margin-top: 40px;">COLLECT ALL</button>
+    </div>
 
     <nav>
         <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="logo">MOKA<span>HERO</span></a>
@@ -316,12 +456,10 @@
                             <div class="p-row">
                                 <span class="p-label">DISPLAY NAME</span>
                                 <input type="text" id="input-name" class="p-input" value="..." readonly>
-                                <i class="fas fa-pen edit-icon" onclick="enableEdit('name')"></i>
                             </div>
                             <div class="p-row">
                                 <span class="p-label">EMAIL ADDRESS</span>
                                 <input type="text" id="input-email" class="p-input" value="..." readonly>
-                                <i class="fas fa-pen edit-icon" id="edit-email-icon" onclick="enableEdit('email')"></i>
                             </div>
                             <div class="p-row">
                                 <span class="p-label">WALLET ADDRESS</span>
@@ -329,21 +467,21 @@
                                     <input type="text" id="input-wallet" class="p-input" value="..." readonly>
                                     <button id="btn-link-wallet" class="btn-link-wallet" style="display:none;" onclick="window.linkWallet()">LINK METAMASK</button>
                                 </div>
-                                <i class="fas fa-pen edit-icon" id="edit-wallet-icon" onclick="enableEdit('wallet')"></i>
                             </div>
-                            <button id="save-profile-btn" class="save-btn" onclick="saveProfile()">SAVE CHANGES</button>
                         </div>
                     </div>
 
                     <div id="tab-shop" class="dash-panel">
                         <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff; text-align:center;">SUMMON HEROES</h2>
                         <div class="shop-card">
-                            <h3 style="color:var(--gold); margin-bottom:10px;">GENESIS CHEST</h3>
-                            <img src="./assets/fire.png" class="shop-img"> 
-                            <p style="color:#ccc; margin-bottom:20px;">Contains 1 Random Genesis Hero NFT.</p>
-                            <p style="color:#fff; font-weight:bold; margin-bottom:20px; font-size:20px;">FREE (Gas Only)</p>
-                            <button id="btn-mint-real" class="btn-mint" onclick="window.mintNFT()">SUMMON NOW</button>
-                            <p id="tx-status" style="color:#888; font-size:12px; margin-top:10px;"></p>
+                            <h3 style="color:var(--gold); margin-bottom:20px;">GENESIS CHEST</h3>
+                            <div class="chest-container">
+                                <img id="chest-img" src="./assets/chest_closed.png" class="chest-img" onerror="this.src='https://via.placeholder.com/220x220?text=CHEST+IMG'">
+                            </div>
+                            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Contains 5 Random Heroes.<br>Chance: 50% Common, 30% Unc, 15% Rare, 4% Epic, 1% Legend.</p>
+                            <p style="color:#fff; font-weight:bold; font-size:24px; margin-bottom:20px;">0.0001 BNB</p>
+                            <button id="btn-buy" class="btn-mint" onclick="window.buyChest()">BUY NOW (5 CARDS)</button>
+                            <p id="shop-status" style="color:#888; font-size:12px; margin-top:10px;"></p>
                         </div>
                     </div>
 
@@ -353,7 +491,7 @@
                             <button class="btn-outline" onclick="window.loadInventory()" style="font-size:12px;"><i class="fas fa-sync"></i> REFRESH</button>
                         </div>
                         <div id="inventory-grid" class="nft-grid">
-                            <div style="color:#666; grid-column:1/-1; text-align:center;">Connect Wallet to view Items</div>
+                            <div style="color:#666; grid-column:1/-1; text-align:center;">Loading Inventory...</div>
                         </div>
                     </div>
 
@@ -361,35 +499,17 @@
                         <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">SOCIAL CONNECTIONS</h2>
                         <div class="connect-row">
                             <div class="social-info">
-                                <div class="social-icon" style="background:#000; border:1px solid #666;">
-                                    <i class="fa-brands fa-x-twitter" style="color:#ffffff !important;"></i>
-                                </div>
+                                <div class="social-icon" style="background:#000; border:1px solid #666;"><i class="fa-brands fa-x-twitter" style="color:#ffffff;"></i></div>
                                 <span>Twitter (X)</span>
                             </div>
-                            <div id="tw-action">
-                                <span class="connected-text" id="tw-status"></span>
-                                <button class="btn-connect" onclick="connectSocial('tw')">CONNECT</button>
-                            </div>
+                            <button class="btn-connect" onclick="connectSocial('tw')">CONNECT</button>
                         </div>
                         <div class="connect-row">
                             <div class="social-info">
                                 <div class="social-icon" style="background:#5865F2;"><i class="fab fa-discord" style="color:#fff;"></i></div>
                                 <span>Discord</span>
                             </div>
-                            <div id="dc-action">
-                                <span class="connected-text" id="dc-status"></span>
-                                <button class="btn-connect" onclick="connectSocial('dc')">CONNECT</button>
-                            </div>
-                        </div>
-                        <div class="connect-row">
-                            <div class="social-info">
-                                <div class="social-icon" style="background:#229ED9;"><i class="fab fa-telegram-plane" style="color:#fff;"></i></div>
-                                <span>Telegram</span>
-                            </div>
-                            <div id="tg-action">
-                                <span class="connected-text" id="tg-status"></span>
-                                <button class="btn-connect" onclick="connectSocial('tg')">CONNECT</button>
-                            </div>
+                            <button class="btn-connect" onclick="connectSocial('dc')">CONNECT</button>
                         </div>
                     </div>
 
@@ -440,7 +560,7 @@
 
     <section id="features">
         <div class="container">
-            <div class="text-center"><h2 class="sec-title">GAME FEATURES</h2><p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p></div>
+            <div class="text-center"><h2 class="sec-title">GAMEPLAY FEATURES</h2><p class="sec-desc">Top-tier tactical experience combined with true ownership economy.</p></div>
             <div class="feature-grid">
                 <div class="feature-card"><i class="fas fa-chess-king f-icon"></i><h3 class="f-title">STRATEGIC PVP</h3><p class="f-desc">Build counter decks. Climb seasonal ranks to earn valuable Token rewards.</p></div>
                 <div class="feature-card"><i class="fas fa-dragon f-icon"></i><h3 class="f-title">WORLD BOSS HUNT</h3><p class="f-desc">Server-wide events. Cooperate to defeat giant bosses and share rare treasures.</p></div>
@@ -525,7 +645,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         // FIREBASE CONFIG
         const firebaseConfig = {
@@ -542,29 +662,49 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
+        // --- CONFIG ---
+        const ADMIN_WALLET = "0xa1Bc7F4567e085E6A869a0725AaB77e8f4897539"; // YOUR WALLET
+        const CHEST_PRICE = "0.0001"; // TEST PRICE
+
+        // DATABASE 20 HEROES (GRID 4x5)
+        const HEROES_DB = [
+            { id: 1, name: "Lava Elemental", tier: "Common", pos: "0% 0%" },
+            { id: 2, name: "Molten Warrior", tier: "Rare", pos: "33.33% 0%" },
+            { id: 3, name: "Magma Rider", tier: "Epic", pos: "66.66% 0%" },
+            { id: 4, name: "Volcanic Dragon", tier: "Legendary", pos: "100% 0%" },
+            { id: 5, name: "Flower Pixie", tier: "Common", pos: "0% 25%" },
+            { id: 6, name: "Vine Sorceress", tier: "Rare", pos: "33.33% 25%" },
+            { id: 7, name: "Ent Guardian", tier: "Epic", pos: "66.66% 25%" },
+            { id: 8, name: "Gaia Avatar", tier: "Legendary", pos: "100% 25%" },
+            { id: 9, name: "Nano Bot", tier: "Common", pos: "0% 50%" },
+            { id: 10, name: "Plasma Trooper", tier: "Rare", pos: "33.33% 50%" },
+            { id: 11, name: "Hover Tank", tier: "Epic", pos: "66.66% 50%" },
+            { id: 12, name: "Quantum Mech", tier: "Legendary", pos: "100% 50%" },
+            { id: 13, name: "Shadow Wisp", tier: "Common", pos: "0% 75%" },
+            { id: 14, name: "Void Assassin", tier: "Rare", pos: "33.33% 75%" },
+            { id: 15, name: "Dark Wraith", tier: "Epic", pos: "66.66% 75%" },
+            { id: 16, name: "Chaos Lord", tier: "Legendary", pos: "100% 75%" },
+            { id: 17, name: "Light Spirit", tier: "Common", pos: "0% 100%" },
+            { id: 18, name: "Paladin", tier: "Rare", pos: "33.33% 100%" },
+            { id: 19, name: "Angel", tier: "Epic", pos: "66.66% 100%" },
+            { id: 20, name: "God King", tier: "Legendary", pos: "100% 100%" }
+        ];
+
+        let currentUser = null;
+        let currentWallet = null;
+
+        // AUTH
         const mainLoginBtn = document.getElementById('main-login-btn');
-        const loginGate = document.getElementById('login-gate');
         const userDropdown = document.getElementById('user-dropdown');
-        const dashOverlay = document.getElementById('dashboard-overlay');
-        let currentLoginType = ''; 
-        let currentAccount = null;
-
-        // CONTRACT & CHAIN ID (56 = BSC Mainnet)
-        const CONTRACT_ADDRESS = "0xd8594bB6E5cEBE2Ebc5fAd56771539042DfD8F45";
-        const CHAIN_ID_HEX = "0x38"; // 56 in Hex
-        const ABI = ["function mintHero(address recipient, string memory uri) public returns (uint256)", "function getTokensByOwner(address owner) public view returns (uint256[] memory)"];
-
-        // 1. LOGIN
+        
         mainLoginBtn.onclick = () => {
-            if(mainLoginBtn.innerText === "LOGIN") loginGate.classList.add('active');
-            else userDropdown.classList.toggle('active');
+            if(!currentUser && !currentWallet) document.getElementById('login-gate').classList.add('active');
+            else userDropdown.style.display = userDropdown.style.display === 'none' ? 'block' : 'none';
         };
-        window.closeLoginGate = () => loginGate.classList.remove('active');
+        window.closeLoginGate = () => document.getElementById('login-gate').classList.remove('active');
 
-        // 2. METHODS
         document.getElementById('btn-google').onclick = async () => {
-            try { await signInWithPopup(auth, provider); closeLoginGate(); } 
-            catch(e) { showToast("Login Failed: " + e.message, "error"); }
+            try { await signInWithPopup(auth, provider); closeLoginGate(); } catch(e) { alert(e.message); }
         };
 
         document.getElementById('btn-metamask').onclick = async () => {
@@ -573,277 +713,229 @@
                     const provider = new ethers.providers.Web3Provider(window.ethereum);
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
-                    currentAccount = await signer.getAddress();
-                    updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
+                    currentWallet = await signer.getAddress();
+                    updateUI({ type: 'wallet', name: currentWallet.substring(0,6)+"...", fullAddr: currentWallet });
                     closeLoginGate();
-                    showToast("Wallet Connected!", "success");
-                    // DO NOT AUTO OPEN SHOP HERE
-                } catch(e) { showToast("Wallet Connect Error", "error"); }
-            } else { showToast("Please Install Metamask", "error"); }
+                    window.showToast("Wallet Connected!", "success");
+                } catch(e) { alert(e.message); }
+            } else alert("Install Metamask!");
         };
 
-        // 3. FIREBASE LISTENER
-        onAuthStateChanged(auth, (user) => {
-            if(user) {
-                updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
-                const ref = doc(db, "users", user.uid);
-                getDoc(ref).then(snap => {
-                    if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0 });
-                    else document.getElementById('dash-moka').innerText = snap.data().shards;
-                });
-
-                if(localStorage.getItem('isDashOpen') === 'true') {
-                    const savedTab = localStorage.getItem('dashTab') || 'profile';
-                    
-                    // Restore logic: If saved tab is shop -> Open Shop Mode
-                    if (savedTab === 'shop') window.openShop();
-                    else window.openDashboard(savedTab);
-                }
-            } else if(currentLoginType !== 'wallet') {
-                resetUI();
-            }
-        });
-
-        // 4. UI UPDATE
-        function updateUI(user) {
-            currentLoginType = user.type;
-            mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
-            document.getElementById('user-display-name').innerText = user.name;
-            document.getElementById('input-name').value = user.name;
+        // --- BUY CHEST LOGIC (THE HEART OF V53) ---
+        window.buyChest = async () => {
+            if(!window.ethereum) return alert("Please install Metamask to pay!");
             
-            if(user.type === 'google') {
-                document.getElementById('user-avatar').src = user.photo;
-                document.getElementById('user-avatar').style.display = 'block';
-                document.getElementById('input-email').value = user.email;
-                document.getElementById('edit-email-icon').classList.add('hidden'); 
-                document.getElementById('edit-wallet-icon').classList.remove('hidden'); 
-                if(!currentAccount) document.getElementById('btn-link-wallet').style.display = 'inline-block';
-            } else {
-                document.getElementById('user-avatar').style.display = 'none';
-                document.getElementById('input-wallet').value = user.fullAddr;
-                document.getElementById('edit-wallet-icon').classList.add('hidden'); 
-                document.getElementById('edit-email-icon').classList.remove('hidden'); 
-                document.getElementById('input-email').value = "";
+            const btn = document.getElementById('btn-buy');
+            const status = document.getElementById('shop-status');
+            const chestImg = document.getElementById('chest-img');
+            
+            try {
+                // 1. START ANIMATION
+                btn.disabled = true;
+                btn.innerText = "WAITING PAYMENT...";
+                status.innerText = "Please confirm transaction in Metamask...";
+                chestImg.classList.add('chest-shaking'); 
+
+                // 2. PAYMENT
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                const signer = provider.getSigner();
+                
+                // Send Real BNB
+                const tx = await signer.sendTransaction({
+                    to: ADMIN_WALLET,
+                    value: ethers.utils.parseEther(CHEST_PRICE)
+                });
+                
+                status.innerText = "Payment Sent! Waiting for blockchain...";
+                await tx.wait(); // Wait for confirmation
+
+                // 3. SUCCESS & OPEN
+                status.innerText = "Payment Confirmed! Opening...";
+                chestImg.classList.remove('chest-shaking');
+                chestImg.src = "./assets/chest_open.png"; // Change image
+                
+                // Fire Confetti
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+                // 4. RANDOM LOGIC
+                const newHeroes = [];
+                for(let i=0; i<5; i++) {
+                    const rand = Math.floor(Math.random() * 20); // 0-19
+                    newHeroes.push(HEROES_DB[rand]);
+                }
+
+                // 5. SAVE TO FIREBASE
+                if(currentUser) {
+                    const userRef = doc(db, "users", currentUser.uid);
+                    const heroIds = newHeroes.map(h => h.id);
+                    await updateDoc(userRef, { inventory: arrayUnion(...heroIds) });
+                }
+
+                // 6. SHOW CARDS
+                setTimeout(() => {
+                    showRewards(newHeroes);
+                    btn.disabled = false;
+                    btn.innerText = "BUY AGAIN";
+                    status.innerText = "Success!";
+                    chestImg.src = "./assets/chest_closed.png"; // Reset
+                }, 1000);
+
+            } catch(e) {
+                console.error(e);
+                chestImg.classList.remove('chest-shaking');
+                btn.disabled = false;
+                btn.innerText = "BUY NOW";
+                status.innerText = "Transaction Failed or Cancelled.";
             }
-        }
+        };
 
-        function resetUI() {
-            mainLoginBtn.innerHTML = "LOGIN";
-            mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666";
-            userDropdown.classList.remove('active');
-            currentLoginType = '';
-            localStorage.removeItem('isDashOpen'); 
+        function showRewards(heroes) {
+            const overlay = document.getElementById('reward-overlay');
+            const grid = document.getElementById('reward-grid');
+            grid.innerHTML = "";
+            
+            heroes.forEach(h => {
+                const card = document.createElement('div');
+                card.className = 'reward-card';
+                card.innerHTML = `
+                    <div class="nft-sprite" style="background-position: ${h.pos};"></div>
+                    <div class="nft-info">
+                        <span class="nft-name" style="color:var(--gold);">${h.name}</span>
+                        <span class="nft-tier" style="color:#ccc;">${h.tier}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            overlay.classList.add('active');
         }
+        window.closeReward = () => {
+            document.getElementById('reward-overlay').classList.remove('active');
+            window.loadInventory(); // Refresh inventory
+        };
 
-        // 5. HYBRID WALLET LINK
+        // INVENTORY LOGIC
+        window.loadInventory = async () => {
+            if(!currentUser) return;
+            const grid = document.getElementById('inventory-grid');
+            grid.innerHTML = "<div style='color:#fff;'>Loading...</div>";
+            
+            const docRef = doc(db, "users", currentUser.uid);
+            const snap = await getDoc(docRef);
+            
+            if(snap.exists() && snap.data().inventory) {
+                grid.innerHTML = "";
+                const invIds = snap.data().inventory;
+                
+                invIds.forEach(id => {
+                    const hero = HEROES_DB.find(h => h.id === id);
+                    if(hero) {
+                        const item = document.createElement('div');
+                        item.className = 'nft-item';
+                        item.innerHTML = `
+                            <div class="nft-sprite" style="background-position: ${hero.pos};"></div>
+                            <div class="nft-info">
+                                <span class="nft-name">${hero.name}</span>
+                                <span class="nft-tier">${hero.tier}</span>
+                            </div>
+                        `;
+                        grid.appendChild(item);
+                    }
+                });
+            } else {
+                grid.innerHTML = "<div style='color:#666;'>Empty Inventory</div>";
+            }
+        };
+
+        // GLOBAL HELPERS
+        window.openShop = () => {
+            document.getElementById('dashboard-overlay').classList.add('active', 'shop-mode');
+            localStorage.setItem('isDashOpen', 'true');
+            window.switchTab('shop');
+        };
+        window.openDashboard = (tab) => {
+            document.getElementById('dashboard-overlay').classList.add('active');
+            document.getElementById('dashboard-overlay').classList.remove('shop-mode');
+            localStorage.setItem('isDashOpen', 'true');
+            window.switchTab(tab);
+        };
+        window.closeDashboard = () => {
+            document.getElementById('dashboard-overlay').classList.remove('active', 'shop-mode');
+            localStorage.setItem('isDashOpen', 'false');
+        };
+        window.switchTab = (tab, btn) => {
+            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-'+tab).classList.add('active');
+            localStorage.setItem('dashTab', tab);
+            
+            document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            if(tab === 'inventory') window.loadInventory();
+        };
+        window.showMsg = (msg) => {
+            const t = document.createElement('div'); t.className = 'toast show';
+            t.innerHTML = `<i>!</i> ${msg}`;
+            document.getElementById('toast-container').appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        };
+        window.showToast = (msg, type) => {
+            window.showMsg(msg);
+        };
+        
         window.linkWallet = async () => {
             if(window.ethereum) {
                 try {
                     const provider = new ethers.providers.Web3Provider(window.ethereum);
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
-                    currentAccount = await signer.getAddress();
-                    
-                    document.getElementById('input-wallet').value = currentAccount;
+                    currentWallet = await signer.getAddress();
+                    document.getElementById('input-wallet').value = currentWallet;
+                    document.getElementById('dash-wallet').innerText = currentWallet.substring(0,6)+"...";
                     document.getElementById('btn-link-wallet').style.display = 'none';
-                    showToast("Wallet Linked Successfully!", "success");
-                } catch(e) { showToast("Link Error", "error"); }
-            } else { alert("Install Metamask"); }
+                    window.showMsg("Wallet Linked!");
+                } catch(e) { window.showMsg("Link Error"); }
+            } else alert("Install Metamask");
         };
 
-        // 6. AUTO SWITCH NETWORK
-        async function checkAndSwitchNetwork() {
-            if(window.ethereum) {
-                try {
-                    await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: CHAIN_ID_HEX }] });
-                } catch (error) {
-                    if (error.code === 4902) {
-                        try {
-                            await window.ethereum.request({
-                                method: 'wallet_addEthereumChain',
-                                params: [{
-                                    chainId: CHAIN_ID_HEX,
-                                    chainName: 'BNB Smart Chain Mainnet',
-                                    rpcUrls: ['https://bsc-dataseed.binance.org/']
-                                }],
-                            });
-                        } catch (addError) { console.error(addError); }
-                    }
+        // AUTH STATE
+        onAuthStateChanged(auth, (user) => {
+            if(user) {
+                currentUser = user;
+                updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
+                const ref = doc(db, "users", user.uid);
+                getDoc(ref).then(snap => { if(!snap.exists()) setDoc(ref, { name: user.displayName, inventory: [] }); });
+                
+                if(localStorage.getItem('isDashOpen') === 'true') {
+                    const tab = localStorage.getItem('dashTab') || 'profile';
+                    if(tab === 'shop') window.openShop(); else window.openDashboard(tab);
                 }
+            } else {
+                currentUser = null;
+                resetUI();
+            }
+        });
+
+        function updateUI(user) {
+            mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
+            document.getElementById('dash-name').innerText = user.name;
+            document.getElementById('dd-username').innerText = user.name;
+            if(user.type === 'wallet') {
+                document.getElementById('dash-wallet').innerText = user.fullAddr;
             }
         }
 
-        // 7. WEB3 MINT & INVENTORY
-        window.mintNFT = async () => {
-            if(!currentAccount) return alert("Please Connect/Link Wallet First!");
-            await checkAndSwitchNetwork(); // Force BNB Chain
+        function resetUI() {
+            mainLoginBtn.innerText = "LOGIN";
+            localStorage.removeItem('isDashOpen');
+        }
 
-            const btn = document.getElementById('btn-mint-real');
-            const status = document.getElementById('tx-status');
-            
-            try {
-                btn.innerText = "CONFIRMING...";
-                btn.disabled = true;
-                
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const signer = provider.getSigner();
-                const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-                
-                const tx = await contract.mintHero(currentAccount, ""); 
-                status.innerText = "Transaction sent... Waiting...";
-                
-                await tx.wait(); 
-                
-                btn.innerText = "SUCCESS!";
-                status.innerText = "Hero Summoned! Check Inventory.";
-                showToast("Mint Successful!", "success");
-                
-                setTimeout(() => { btn.innerText = "SUMMON NOW"; btn.disabled = false; }, 3000);
-                
-            } catch(e) {
-                console.error(e);
-                btn.innerText = "FAILED";
-                status.innerText = "Error: " + (e.reason || e.message);
-                btn.disabled = false;
-            }
-        };
-
-        window.loadInventory = async () => {
-            const grid = document.getElementById('inventory-grid');
-            if(!currentAccount) {
-                grid.innerHTML = '<div style="color:#666; text-align:center; width:100%;">Connect Wallet to view items</div>';
-                return;
-            }
-            
-            grid.innerHTML = '<div style="color:#gold; text-align:center; width:100%;">Scanning Blockchain...</div>';
-            
-            try {
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
-                const tokenIds = await contract.getTokensByOwner(currentAccount);
-                
-                if(tokenIds.length === 0) {
-                    grid.innerHTML = '<div style="color:#666; text-align:center; width:100%;">No Heroes Found. Go to Shop!</div>';
-                    return;
-                }
-
-                grid.innerHTML = "";
-                tokenIds.forEach(id => {
-                    const heroIndex = id % 4; 
-                    let pos = "100% 0%";
-                    if(heroIndex == 1) pos = "100% 33%";
-                    if(heroIndex == 2) pos = "100% 66%";
-                    if(heroIndex == 3) pos = "100% 100%";
-
-                    const item = document.createElement('div');
-                    item.className = 'nft-item';
-                    item.innerHTML = `
-                        <div class="nft-img" style="background-position: ${pos};"></div>
-                        <div class="nft-id">#${id}</div>
-                    `;
-                    grid.appendChild(item);
-                });
-                
-            } catch(e) {
-                grid.innerHTML = '<div style="color:red; text-align:center; width:100%;">Error loading data</div>';
-            }
-        };
-
-        // 8. HELPERS & NAV (MODIFIED V49)
-        window.enableEdit = (field) => {
-            const input = document.getElementById('input-' + field);
-            input.readOnly = false;
-            input.classList.add('editable');
-            input.focus();
-            document.getElementById('save-profile-btn').style.display = 'block';
-        };
-
-        window.saveProfile = () => {
-            const inputs = document.querySelectorAll('.p-input');
-            inputs.forEach(i => { i.readOnly = true; i.classList.remove('editable'); });
-            document.getElementById('save-profile-btn').style.display = 'none';
-            showToast("Profile Updated Successfully!", "success");
-        };
-
-        window.showToast = (msg, type) => {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${msg}</span>`;
-            if(type === 'error') toast.innerHTML = `<i class="fas fa-exclamation-circle" style="color:red;"></i> <span>${msg}</span>`;
-            if(type === 'warning') toast.innerHTML = `<i class="fas fa-exclamation-triangle" style="color:orange;"></i> <span>${msg}</span>`;
-            
-            container.appendChild(toast);
-            setTimeout(() => toast.classList.add('show'), 100);
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        };
-
-        window.showMsg = (msg) => {
-            window.showToast(msg, 'warning');
-        };
-
-        window.connectSocial = (type) => {
-            const username = prompt("Enter username:");
-            if(username) {
-                document.getElementById(type+'-status').innerText = "Connected: @" + username;
-                document.getElementById(type+'-status').style.display = "inline";
-                document.querySelector(`#${type}-action .btn-connect`).innerText = "UNLINK";
-                showToast("Connected Successfully!", "success");
-            }
-        };
-
-        // --- SPECIAL NAV FOR V49 ---
-        window.openShop = () => {
-            userDropdown.classList.remove('active');
-            dashOverlay.classList.add('active');
-            localStorage.setItem('isDashOpen', 'true');
-            // Enable Shop Mode (hides other sidebar items)
-            dashOverlay.classList.add('shop-mode'); 
-            window.switchTab('shop');
-        };
-
-        window.openDashboard = (tab) => {
-            userDropdown.classList.remove('active');
-            dashOverlay.classList.add('active');
-            localStorage.setItem('isDashOpen', 'true'); 
-            // Disable Shop Mode (shows sidebar items)
-            dashOverlay.classList.remove('shop-mode'); 
-            window.switchTab(tab);
-            if(tab === 'inventory') window.loadInventory();
-        };
-
-        window.closeDashboard = () => {
-            dashOverlay.classList.remove('active');
-            dashOverlay.classList.remove('shop-mode');
-            localStorage.setItem('isDashOpen', 'false'); 
-        };
-
-        window.switchTab = (tab, btn) => {
-            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('tab-'+tab).classList.add('active');
-            localStorage.setItem('dashTab', tab); 
-            
-            document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            
-            if(tab === 'inventory') window.loadInventory();
-        };
-
-        document.getElementById('logout-btn').onclick = async () => {
-            await signOut(auth);
-            localStorage.clear();
-            location.reload();
-        };
-
-        // 9. HERO SLIDER
+        // HERO SLIDER (HOMEPAGE)
         const heroesData = [
-            { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies. I am destruction, and I am rebirth.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "100% 0%" },
-            { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is never in a hurry, yet everything is accomplished.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "100% 33.333%" },
-            { name: "OMEGA WEAPON", factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span> • TECH", quote: "\"Steel and Oil are eternal truths. Emotion is a weakness.\"", bgImage: "./assets/bg_omega.jpg?v=1", bgPos: "100% 66.666%" },
-            { name: "VOID EYE", factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span> • ABYSS", quote: "\"When you stare into the abyss, the abyss stares back at you.\"", bgImage: "./assets/bg_zarok.jpg?v=1", bgPos: "100% 100%" }
+            { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "0% 0%" },
+            { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is eternal.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "33.33% 0%" },
+            { name: "OMEGA WEAPON", factionHTML: "FACTION • <span style='color:#00d9ff'>OMEGA</span> • TECH", quote: "\"Steel is strong.\"", bgImage: "./assets/bg_omega.jpg?v=1", bgPos: "66.66% 0%" },
+            { name: "VOID EYE", factionHTML: "FACTION • <span style='color:#9d00ff'>ZAROK</span> • ABYSS", quote: "\"Abyss stares back.\"", bgImage: "./assets/bg_zarok.jpg?v=1", bgPos: "100% 0%" }
         ];
         let currentHeroIndex = 0;
         window.changeHero = function(d) {
@@ -860,11 +952,6 @@
                 document.getElementById('g-card-sprite').style.backgroundPosition = h.bgPos;
                 bg.style.opacity = 1;
             }, 300);
-        };
-        window.showComingSoon = function(btn) {
-            if (btn.dataset.clicking === "true") return;
-            btn.dataset.clicking = "true";
-            showToast("Mobile version coming soon!", "success");
         };
     </script>
 </body>
