@@ -28,7 +28,7 @@
         h1, h2, h3, .logo, .f-title, .eco-col-title { font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 1px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
-        section { padding: 120px 0; border-bottom: 1px solid #111; position: relative; } /* Spacing V50 */
+        section { padding: 120px 0; border-bottom: 1px solid #111; position: relative; }
         .sec-title { font-size: 36px; color: var(--gold-bright); margin-bottom: 15px; letter-spacing: 2px; }
         .sec-desc { color: #666; font-size: 16px; margin-bottom: 70px; text-transform: uppercase; letter-spacing: 2px; }
 
@@ -223,7 +223,7 @@
         .nft-img { width: 100%; height: 200px; background-image: url('./assets/full_set.png'); background-size: 500% 400%; }
         .nft-id { position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.8); color: #fff; padding: 2px 8px; font-size: 10px; border-radius: 4px; }
 
-        .btn-link-wallet { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 10px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
+        .btn-link-wallet { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; margin-left: 10px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); white-space: nowrap; }
         .btn-link-wallet:hover { background: #fff; }
 
         .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
@@ -409,17 +409,32 @@
         </div>
     </div>
 
+    <div id="link-wallet-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('wallet')"></i>
+            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">CONNECT WALLET</h3>
+            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Connect your Metamask to link it with this account.</p>
+            <button class="login-option" id="btn-connect-metamask-confirm"><i class="fas fa-wallet"></i> METAMASK</button>
+        </div>
+    </div>
+
+    <div id="link-google-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('google')"></i>
+            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">LINK GOOGLE</h3>
+            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Sign in with Google to link it to this wallet address.</p>
+            <button class="login-option" id="btn-connect-google-confirm"><i class="fab fa-google"></i> GOOGLE ACCOUNT</button>
+        </div>
+    </div>
+
     <div id="dashboard-overlay" class="dash-overlay">
         <div class="dash-wrapper">
             <div class="dash-sidebar">
                 <div style="color:#fff; font-family:'Cinzel'; font-size:22px; text-align:center; margin-bottom:40px;">MOKA<span>HERO</span></div>
-                
                 <div id="menu-profile" class="dash-menu-item active" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> PROFILE</div>
                 <div id="menu-inventory" class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
                 <div id="menu-settings" class="dash-menu-item" onclick="switchTab('settings', this)"><i class="fas fa-cog"></i> SETTINGS</div>
-                
                 <div id="menu-shop" class="dash-menu-item" onclick="switchTab('shop', this)"><i class="fas fa-store"></i> SHOP</div> 
-
                 <div class="dash-menu-item dash-logout" onclick="document.getElementById('logout-btn').click()"><i class="fas fa-sign-out-alt"></i> LOGOUT</div>
             </div>
             
@@ -443,14 +458,17 @@
                             </div>
                             <div class="p-row">
                                 <span class="p-label">EMAIL ADDRESS</span>
-                                <input type="text" id="input-email" class="p-input" value="..." readonly>
+                                <div style="display:flex; align-items:center; width: 100%;">
+                                    <input type="text" id="input-email" class="p-input" value="..." readonly>
+                                    <button id="btn-link-google" class="btn-link-wallet" style="display:none;" onclick="openLinkModal('google')">CONNECT TO GOOGLE</button>
+                                </div>
                                 <i class="fas fa-pen edit-icon" id="edit-email-icon" onclick="enableEdit('email')"></i>
                             </div>
                             <div class="p-row">
                                 <span class="p-label">WALLET ADDRESS</span>
-                                <div style="display:flex; align-items:center;">
+                                <div style="display:flex; align-items:center; width: 100%;">
                                     <input type="text" id="input-wallet" class="p-input" value="..." readonly>
-                                    <button id="btn-link-wallet" class="btn-link-wallet" style="display:none;" onclick="window.linkWallet()">LINK METAMASK</button>
+                                    <button id="btn-link-wallet" class="btn-link-wallet" style="display:none;" onclick="openLinkModal('wallet')">CONNECT WALLET</button>
                                 </div>
                                 <i class="fas fa-pen edit-icon" id="edit-wallet-icon" onclick="enableEdit('wallet')"></i>
                             </div>
@@ -484,9 +502,7 @@
                         <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">SOCIAL CONNECTIONS</h2>
                         <div class="connect-row">
                             <div class="social-info">
-                                <div class="social-icon" style="background:#000; border:1px solid #666;">
-                                    <i class="fa-brands fa-x-twitter" style="color:#ffffff !important;"></i>
-                                </div>
+                                <div class="social-icon" style="background:#000; border:1px solid #666;"><i class="fa-brands fa-x-twitter" style="color:#ffffff !important;"></i></div>
                                 <span>Twitter (X)</span>
                             </div>
                             <div id="tw-action">
@@ -526,7 +542,6 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // FIREBASE CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
             authDomain: "mokahero-8c560.firebaseapp.com",
@@ -548,19 +563,26 @@
         let currentLoginType = ''; 
         let currentAccount = null;
 
-        // CONTRACT & CHAIN ID (56 = BSC Mainnet)
         const CONTRACT_ADDRESS = "0xd8594bB6E5cEBE2Ebc5fAd56771539042DfD8F45";
-        const CHAIN_ID_HEX = "0x38"; // 56 in Hex
+        const CHAIN_ID_HEX = "0x38";
         const ABI = ["function mintHero(address recipient, string memory uri) public returns (uint256)", "function getTokensByOwner(address owner) public view returns (uint256[] memory)"];
 
-        // 1. LOGIN
+        // 1. LOGIN & MODALS
         mainLoginBtn.onclick = () => {
             if(mainLoginBtn.innerText === "LOGIN") loginGate.classList.add('active');
             else userDropdown.classList.toggle('active');
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // 2. METHODS
+        // --- NEW MODAL LOGIC ---
+        window.openLinkModal = (type) => {
+            document.getElementById(`link-${type}-modal`).classList.add('active');
+        }
+        window.closeLinkModal = (type) => {
+            document.getElementById(`link-${type}-modal`).classList.remove('active');
+        }
+        
+        // 2. METHODS (MAIN LOGIN)
         document.getElementById('btn-google').onclick = async () => {
             try { await signInWithPopup(auth, provider); closeLoginGate(); } 
             catch(e) { showToast("Login Failed: " + e.message, "error"); }
@@ -576,10 +598,23 @@
                     updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
                     closeLoginGate();
                     showToast("Wallet Connected!", "success");
-                    // DO NOT AUTO OPEN SHOP HERE
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
             } else { showToast("Please Install Metamask", "error"); }
         };
+
+        // --- NEW LINKING METHODS (TRIGGERED FROM MODALS) ---
+        document.getElementById('btn-connect-metamask-confirm').onclick = async () => {
+            // Close modal first
+            window.closeLinkModal('wallet');
+            // Call the actual linking function
+            await window.linkWallet();
+        };
+
+        document.getElementById('btn-connect-google-confirm').onclick = async () => {
+             window.closeLinkModal('google');
+             await window.linkGoogle();
+        };
+
 
         // 3. FIREBASE LISTENER
         onAuthStateChanged(auth, (user) => {
@@ -593,8 +628,6 @@
 
                 if(localStorage.getItem('isDashOpen') === 'true') {
                     const savedTab = localStorage.getItem('dashTab') || 'profile';
-                    
-                    // Restore logic: If saved tab is shop -> Open Shop Mode
                     if (savedTab === 'shop') window.openShop();
                     else window.openDashboard(savedTab);
                 }
@@ -603,7 +636,7 @@
             }
         });
 
-        // 4. UI UPDATE
+        // 4. UI UPDATE (CRITICAL UPDATES HERE)
         function updateUI(user) {
             currentLoginType = user.type;
             mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
@@ -611,18 +644,41 @@
             document.getElementById('input-name').value = user.name;
             
             if(user.type === 'google') {
+                // === LOGIN WITH GOOGLE ===
                 document.getElementById('user-avatar').src = user.photo;
                 document.getElementById('user-avatar').style.display = 'block';
                 document.getElementById('input-email').value = user.email;
-                document.getElementById('edit-email-icon').classList.add('hidden'); 
-                document.getElementById('edit-wallet-icon').classList.remove('hidden'); 
-                if(!currentAccount) document.getElementById('btn-link-wallet').style.display = 'inline-block';
+                
+                // Hide Email Edit & Google Link Button
+                document.getElementById('edit-email-icon').style.display = 'none';
+                document.getElementById('btn-link-google').style.display = 'none';
+
+                // Show Wallet Edit (if linked) OR Wallet Connect Button (if not)
+                document.getElementById('edit-wallet-icon').style.display = currentAccount ? 'block' : 'none';
+                const btnWallet = document.getElementById('btn-link-wallet');
+                if(!currentAccount) {
+                    btnWallet.style.display = 'inline-block';
+                    // onclick is set in HTML to openLinkModal('wallet')
+                } else {
+                     btnWallet.style.display = 'none';
+                }
+
             } else {
+                // === LOGIN WITH WALLET ===
                 document.getElementById('user-avatar').style.display = 'none';
                 document.getElementById('input-wallet').value = user.fullAddr;
-                document.getElementById('edit-wallet-icon').classList.add('hidden'); 
-                document.getElementById('edit-email-icon').classList.remove('hidden'); 
-                document.getElementById('input-email').value = "";
+                
+                // Hide Wallet Edit & Wallet Connect Button
+                document.getElementById('edit-wallet-icon').style.display = 'none';
+                document.getElementById('btn-link-wallet').style.display = 'none';
+
+                // Show Google Link Button & Hide Email Edit icon
+                document.getElementById('edit-email-icon').style.display = 'none';
+                const btnGoogle = document.getElementById('btn-link-google');
+                btnGoogle.style.display = 'inline-block';
+                // onclick is set in HTML to openLinkModal('google')
+
+                document.getElementById('input-email').value = "Not Linked";
             }
         }
 
@@ -631,10 +687,11 @@
             mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666";
             userDropdown.classList.remove('active');
             currentLoginType = '';
+            currentAccount = null; // Reset wallet too
             localStorage.removeItem('isDashOpen'); 
         }
 
-        // 5. HYBRID WALLET LINK
+        // 5. HYBRID WALLET LINKING
         window.linkWallet = async () => {
             if(window.ethereum) {
                 try {
@@ -644,10 +701,28 @@
                     currentAccount = await signer.getAddress();
                     
                     document.getElementById('input-wallet').value = currentAccount;
+                    // Hide button and show edit icon
                     document.getElementById('btn-link-wallet').style.display = 'none';
+                    document.getElementById('edit-wallet-icon').style.display = 'block';
+
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
+        };
+
+        // NEW: GOOGLE LINKING FUNCTION
+        window.linkGoogle = async () => {
+             try {
+                await signInWithPopup(auth, provider);
+                // In a real app, you'd handle merging accounts here.
+                // For this demo, we assume success and update UI.
+                
+                // Hide button
+                document.getElementById('btn-link-google').style.display = 'none';
+                showToast("Google Account Linked!", "success");
+             } catch (e) {
+                 showToast("Link Error: " + e.message, "error");
+             }
         };
 
         // 6. AUTO SWITCH NETWORK
@@ -675,7 +750,7 @@
         // 7. WEB3 MINT & INVENTORY
         window.mintNFT = async () => {
             if(!currentAccount) return alert("Please Connect/Link Wallet First!");
-            await checkAndSwitchNetwork(); // Force BNB Chain
+            await checkAndSwitchNetwork(); 
 
             const btn = document.getElementById('btn-mint-real');
             const status = document.getElementById('tx-status');
@@ -683,22 +758,16 @@
             try {
                 btn.innerText = "CONFIRMING...";
                 btn.disabled = true;
-                
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const signer = provider.getSigner();
                 const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
-                
                 const tx = await contract.mintHero(currentAccount, ""); 
                 status.innerText = "Transaction sent... Waiting...";
-                
                 await tx.wait(); 
-                
                 btn.innerText = "SUCCESS!";
                 status.innerText = "Hero Summoned! Check Inventory.";
                 showToast("Mint Successful!", "success");
-                
                 setTimeout(() => { btn.innerText = "SUMMON NOW"; btn.disabled = false; }, 3000);
-                
             } catch(e) {
                 console.error(e);
                 btn.innerText = "FAILED";
@@ -713,19 +782,15 @@
                 grid.innerHTML = '<div style="color:#666; text-align:center; width:100%;">Connect Wallet to view items</div>';
                 return;
             }
-            
             grid.innerHTML = '<div style="color:#gold; text-align:center; width:100%;">Scanning Blockchain...</div>';
-            
             try {
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
                 const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
                 const tokenIds = await contract.getTokensByOwner(currentAccount);
-                
                 if(tokenIds.length === 0) {
                     grid.innerHTML = '<div style="color:#666; text-align:center; width:100%;">No Heroes Found. Go to Shop!</div>';
                     return;
                 }
-
                 grid.innerHTML = "";
                 tokenIds.forEach(id => {
                     const heroIndex = id % 4; 
@@ -733,22 +798,17 @@
                     if(heroIndex == 1) pos = "100% 33%";
                     if(heroIndex == 2) pos = "100% 66%";
                     if(heroIndex == 3) pos = "100% 100%";
-
                     const item = document.createElement('div');
                     item.className = 'nft-item';
-                    item.innerHTML = `
-                        <div class="nft-img" style="background-position: ${pos};"></div>
-                        <div class="nft-id">#${id}</div>
-                    `;
+                    item.innerHTML = `<div class="nft-img" style="background-position: ${pos};"></div><div class="nft-id">#${id}</div>`;
                     grid.appendChild(item);
                 });
-                
             } catch(e) {
                 grid.innerHTML = '<div style="color:red; text-align:center; width:100%;">Error loading data</div>';
             }
         };
 
-        // 8. HELPERS & NAV (MODIFIED V49)
+        // 8. HELPERS & NAV
         window.enableEdit = (field) => {
             const input = document.getElementById('input-' + field);
             input.readOnly = false;
@@ -771,7 +831,6 @@
             toast.innerHTML = `<i class="fas fa-check-circle"></i> <span>${msg}</span>`;
             if(type === 'error') toast.innerHTML = `<i class="fas fa-exclamation-circle" style="color:red;"></i> <span>${msg}</span>`;
             if(type === 'warning') toast.innerHTML = `<i class="fas fa-exclamation-triangle" style="color:orange;"></i> <span>${msg}</span>`;
-            
             container.appendChild(toast);
             setTimeout(() => toast.classList.add('show'), 100);
             setTimeout(() => {
@@ -799,7 +858,6 @@
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
             localStorage.setItem('isDashOpen', 'true');
-            // Enable Shop Mode (hides other sidebar items)
             dashOverlay.classList.add('shop-mode'); 
             window.switchTab('shop');
         };
@@ -808,7 +866,6 @@
             userDropdown.classList.remove('active');
             dashOverlay.classList.add('active');
             localStorage.setItem('isDashOpen', 'true'); 
-            // Disable Shop Mode (shows sidebar items)
             dashOverlay.classList.remove('shop-mode'); 
             window.switchTab(tab);
             if(tab === 'inventory') window.loadInventory();
@@ -824,10 +881,8 @@
             document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('tab-'+tab).classList.add('active');
             localStorage.setItem('dashTab', tab); 
-            
             document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
-            
             if(tab === 'inventory') window.loadInventory();
         };
 
