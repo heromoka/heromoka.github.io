@@ -29,6 +29,7 @@
             --ingame-blue: #4a9eff;
             --web3-purple: #9b59b6;
             --card-glass: rgba(20, 20, 30, 0.85);
+            --danger: #ff4757; /* New Red Color */
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -202,7 +203,7 @@
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
 
         /* [8.1a] LINK MODALS (Z-INDEX 3000 to be above Dashboard) */
-        #link-wallet-modal, #link-google-modal { z-index: 3000 !important; }
+        #link-wallet-modal, #link-google-modal, #unlink-wallet-modal, #unlink-google-modal { z-index: 3000 !important; }
 
         /* [8.2] DASHBOARD LAYOUT */
         .dash-overlay { position: fixed; inset: 0; z-index: 2000; display: none; background: #000; width: 100vw; height: 100vh; flex-direction: column; }
@@ -232,9 +233,11 @@
         .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; display: block; }
         .info-value { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ccc; padding: 12px 15px; font-size: 14px; width: 100%; border-radius: 4px; font-family: 'Roboto'; display: flex; justify-content: space-between; align-items: center; }
         .info-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; }
-        /* NEW: BUTTON STYLES FOR PROFILE LINKING */
+        /* BUTTON STYLES FOR PROFILE LINKING */
         .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block !important; }
         .btn-link-action:hover { background: #fff; }
+        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; }
+        .btn-unlink:hover { background: var(--danger); color: #fff; }
 
         /* [8.4] SETTINGS UI */
         .social-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; transition: 0.3s; }
@@ -353,6 +356,26 @@
         </div>
     </div>
 
+    <div id="unlink-wallet-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('unlink-wallet')"></i>
+            <h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT WALLET?</h3>
+            <p style="color:#ccc; margin-bottom:30px; font-size:14px;">Are you sure you want to disconnect this wallet?</p>
+            <button class="login-option" onclick="confirmUnlink('wallet')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button>
+            <button class="login-option" onclick="closeLinkModal('unlink-wallet')">CANCEL</button>
+        </div>
+    </div>
+
+    <div id="unlink-google-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('unlink-google')"></i>
+            <h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT GOOGLE?</h3>
+            <p style="color:#ccc; margin-bottom:30px; font-size:14px;">Are you sure you want to disconnect this Google account?</p>
+            <button class="login-option" onclick="confirmUnlink('google')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button>
+            <button class="login-option" onclick="closeLinkModal('unlink-google')">CANCEL</button>
+        </div>
+    </div>
+
     <div id="dashboard-overlay" class="dash-overlay">
         <div class="dash-wrapper">
             <div class="dash-sidebar">
@@ -402,6 +425,7 @@
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
                                         <button id="btn-link-google" class="btn-link-action" style="display:none;" onclick="openLinkModal('google')">CONNECT GOOGLE</button>
+                                        <button id="btn-unlink-google" class="btn-unlink" style="display:none;" onclick="openLinkModal('unlink-google')">DISCONNECT</button>
                                     </div>
                                 </div>
 
@@ -410,6 +434,7 @@
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
                                         <button id="btn-link-wallet" class="btn-link-action" style="display:none;" onclick="openLinkModal('wallet')">CONNECT WALLET</button>
+                                        <button id="btn-unlink-wallet" class="btn-unlink" style="display:none;" onclick="openLinkModal('unlink-wallet')">DISCONNECT</button>
                                     </div>
                                 </div>
                                 
@@ -440,38 +465,17 @@
 
                     <div id="tab-settings" class="dash-panel">
                         <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">SOCIAL CONNECTIONS</h2>
-                        
                         <div class="social-card">
-                            <div class="social-left">
-                                <div class="icon-circle" style="background:#000; border:1px solid #444;"><i class="fa-brands fa-x-twitter"></i></div>
-                                <span class="social-name">Twitter (X)</span>
-                            </div>
-                            <div class="social-right">
-                                <span class="social-status" id="tw-status">Not Connected</span>
-                                <button class="btn-social" onclick="connectSocial('tw')">CONNECT</button>
-                            </div>
+                            <div class="social-left"><div class="icon-circle" style="background:#000; border:1px solid #444;"><i class="fa-brands fa-x-twitter"></i></div><span class="social-name">Twitter (X)</span></div>
+                            <div class="social-right"><span class="social-status" id="tw-status">Not Connected</span><button class="btn-social" onclick="connectSocial('tw')">CONNECT</button></div>
                         </div>
-
                         <div class="social-card">
-                            <div class="social-left">
-                                <div class="icon-circle" style="background:#5865F2;"><i class="fab fa-discord"></i></div>
-                                <span class="social-name">Discord</span>
-                            </div>
-                            <div class="social-right">
-                                <span class="social-status" id="dc-status">Not Connected</span>
-                                <button class="btn-social" onclick="connectSocial('dc')">CONNECT</button>
-                            </div>
+                            <div class="social-left"><div class="icon-circle" style="background:#5865F2;"><i class="fab fa-discord"></i></div><span class="social-name">Discord</span></div>
+                            <div class="social-right"><span class="social-status" id="dc-status">Not Connected</span><button class="btn-social" onclick="connectSocial('dc')">CONNECT</button></div>
                         </div>
-
                         <div class="social-card">
-                            <div class="social-left">
-                                <div class="icon-circle" style="background:#229ED9;"><i class="fab fa-telegram-plane"></i></div>
-                                <span class="social-name">Telegram</span>
-                            </div>
-                            <div class="social-right">
-                                <span class="social-status" id="tg-status">Not Connected</span>
-                                <button class="btn-social" onclick="connectSocial('tg')">CONNECT</button>
-                            </div>
+                            <div class="social-left"><div class="icon-circle" style="background:#229ED9;"><i class="fab fa-telegram-plane"></i></div><span class="social-name">Telegram</span></div>
+                            <div class="social-right"><span class="social-status" id="tg-status">Not Connected</span><button class="btn-social" onclick="connectSocial('tg')">CONNECT</button></div>
                         </div>
                     </div>
 
@@ -634,30 +638,22 @@
         const CHEST_PRICE = "0.0001";
 
         // DATABASE 20 HEROES (GRID 5x4 => 500% x 400%)
-        // FIX: The Last Column is the Legendary (Gold). So Position X = 100%
         const HEROES_DB = [
-            // ROW 1: FIRE (IGNIS)
             { id: 1, name: "Ignis Novice", tier: "Common", pos: "0% 0%" },
             { id: 2, name: "Ember Knight", tier: "Uncommon", pos: "25% 0%" },
             { id: 3, name: "Blaze Rider", tier: "Rare", pos: "50% 0%" },
             { id: 4, name: "Phoenix Lord", tier: "Epic", pos: "75% 0%" },
             { id: 5, name: "IGNIS PRIME", tier: "Legendary", pos: "100% 0%" }, 
-
-            // ROW 2: NATURE (SYLVA)
             { id: 6, name: "Sylva Sprout", tier: "Common", pos: "0% 33.33%" },
             { id: 7, name: "Grove Warden", tier: "Uncommon", pos: "25% 33.33%" },
             { id: 8, name: "Forest Guardian", tier: "Rare", pos: "50% 33.33%" },
             { id: 9, name: "Nature's Wrath", tier: "Epic", pos: "75% 33.33%" },
             { id: 10, name: "GAIA MOTHER", tier: "Legendary", pos: "100% 33.33%" },
-
-            // ROW 3: TECH (OMEGA)
             { id: 11, name: "Omega Drone", tier: "Common", pos: "0% 66.66%" },
             { id: 12, name: "Cyber Sentinel", tier: "Uncommon", pos: "25% 66.66%" },
             { id: 13, name: "Mech Warrior", tier: "Rare", pos: "50% 66.66%" },
             { id: 14, name: "Titan Prime", tier: "Epic", pos: "75% 66.66%" },
             { id: 15, name: "OMEGA WEAPON", tier: "Legendary", pos: "100% 66.66%" },
-
-            // ROW 4: DARK (ZAROK)
             { id: 16, name: "Void Imp", tier: "Common", pos: "0% 100%" },
             { id: 17, name: "Shadow Fiend", tier: "Uncommon", pos: "25% 100%" },
             { id: 18, name: "Abyss Walker", tier: "Rare", pos: "50% 100%" },
@@ -672,9 +668,9 @@
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // NEW MODAL LOGIC
-        window.openLinkModal = (type) => document.getElementById(`link-${type}-modal`).classList.add('active');
-        window.closeLinkModal = (type) => document.getElementById(`link-${type}-modal`).classList.remove('active');
+        // NEW MODAL LOGIC (V63)
+        window.openLinkModal = (type) => document.getElementById(`${type}-modal`).classList.add('active');
+        window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
         
         // 2. METHODS (MAIN LOGIN)
         document.getElementById('btn-google').onclick = async () => {
@@ -689,10 +685,7 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
-                    
-                    // FIX: CLOSE LOGIN GATE IMMEDIATELY
                     closeLoginGate(); 
-                    
                     updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
                     showToast("Wallet Connected!", "success");
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
@@ -701,12 +694,12 @@
 
         // NEW LINKING METHODS
         document.getElementById('btn-connect-metamask-confirm').onclick = async () => {
-            window.closeLinkModal('wallet');
+            window.closeLinkModal('link-wallet');
             await window.linkWallet();
         };
 
         document.getElementById('btn-connect-google-confirm').onclick = async () => {
-             window.closeLinkModal('google');
+             window.closeLinkModal('link-google');
              await window.linkGoogle();
         };
 
@@ -730,7 +723,7 @@
             }
         });
 
-        // 4. UI UPDATE (FIXED BUTTON VISIBILITY)
+        // 4. UI UPDATE (V63 LOGIC: TOGGLE BUTTONS)
         function updateUI(user) {
             currentLoginType = user.type;
             mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
@@ -742,27 +735,42 @@
                 document.getElementById('profile-avatar-big').src = user.photo;
                 document.getElementById('user-avatar').style.display = 'block';
                 document.getElementById('input-email').value = user.email;
-                document.getElementById('btn-link-google').style.display = 'none';
                 
-                // Show Wallet Connect Button if not connected
-                const btnWallet = document.getElementById('btn-link-wallet');
+                // Google is Primary: Hide Connect, Show Disconnect (Logout) logic handled later
+                document.getElementById('btn-link-google').style.display = 'none';
+                document.getElementById('btn-unlink-google').style.display = 'none'; // Can't unlink primary
+
+                // Wallet Logic
                 if(!currentAccount) {
-                    btnWallet.style.display = 'inline-block';
                     document.getElementById('input-wallet').value = "Not Connected";
+                    document.getElementById('btn-link-wallet').style.display = 'inline-block';
+                    document.getElementById('btn-unlink-wallet').style.display = 'none';
                 } else {
-                    btnWallet.style.display = 'none';
                     document.getElementById('input-wallet').value = currentAccount;
+                    document.getElementById('btn-link-wallet').style.display = 'none';
+                    document.getElementById('btn-unlink-wallet').style.display = 'inline-block';
                 }
 
             } else {
                 document.getElementById('user-avatar').style.display = 'none';
                 document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
                 document.getElementById('input-wallet').value = user.fullAddr;
-                document.getElementById('btn-link-wallet').style.display = 'none';
                 
-                // Show Google Connect Button
-                document.getElementById('btn-link-google').style.display = 'inline-block';
-                document.getElementById('input-email').value = "Not Linked";
+                // Wallet is Primary
+                document.getElementById('btn-link-wallet').style.display = 'none';
+                document.getElementById('btn-unlink-wallet').style.display = 'none'; // Can't unlink primary
+
+                // Google Logic
+                const googleUser = auth.currentUser;
+                if(!googleUser) {
+                    document.getElementById('input-email').value = "Not Linked";
+                    document.getElementById('btn-link-google').style.display = 'inline-block';
+                    document.getElementById('btn-unlink-google').style.display = 'none';
+                } else {
+                    document.getElementById('input-email').value = googleUser.email;
+                    document.getElementById('btn-link-google').style.display = 'none';
+                    document.getElementById('btn-unlink-google').style.display = 'inline-block';
+                }
             }
         }
 
@@ -775,7 +783,7 @@
             localStorage.removeItem('isDashOpen'); 
         }
 
-        // 5. HYBRID LINKING
+        // 5. HYBRID LINKING & UNLINKING
         window.linkWallet = async () => {
             if(window.ethereum) {
                 try {
@@ -783,8 +791,11 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
-                    document.getElementById('input-wallet').value = currentAccount;
-                    document.getElementById('btn-link-wallet').style.display = 'none';
+                    
+                    // RE-RUN UPDATE UI TO FLIP BUTTONS
+                    if(auth.currentUser) updateUI({ type: 'google', name: auth.currentUser.displayName, photo: auth.currentUser.photoURL, email: auth.currentUser.email });
+                    else updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
+
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
@@ -793,9 +804,35 @@
         window.linkGoogle = async () => {
              try {
                 await signInWithPopup(auth, provider);
-                document.getElementById('btn-link-google').style.display = 'none';
+                // RE-RUN UPDATE UI
+                if(currentAccount) updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
                 showToast("Google Account Linked!", "success");
              } catch (e) { showToast("Link Error: " + e.message, "error"); }
+        };
+
+        window.confirmUnlink = async (type) => {
+            window.closeLinkModal(`unlink-${type}`);
+            
+            if (type === 'wallet') {
+                currentAccount = null; // Clear Wallet State
+                document.getElementById('input-wallet').value = "Not Connected";
+                document.getElementById('btn-link-wallet').style.display = 'inline-block';
+                document.getElementById('btn-unlink-wallet').style.display = 'none';
+                showToast("Wallet Disconnected", "warning");
+            } 
+            else if (type === 'google') {
+                await signOut(auth); // Sign out Firebase
+                // If wallet was primary, just refresh UI
+                if (currentAccount) {
+                    document.getElementById('input-email').value = "Not Linked";
+                    document.getElementById('btn-link-google').style.display = 'inline-block';
+                    document.getElementById('btn-unlink-google').style.display = 'none';
+                    showToast("Google Disconnected", "warning");
+                } else {
+                    // If Google was primary, this is a logout
+                    location.reload();
+                }
+            }
         };
 
         // 6. BUY CHEST LOGIC
