@@ -192,10 +192,10 @@
         .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; display: block; }
         .info-value { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ccc; padding: 12px 15px; font-size: 14px; width: 100%; border-radius: 4px; font-family: 'Roboto'; display: flex; justify-content: space-between; align-items: center; }
         .info-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; }
-        /* BUTTON STYLES FOR PROFILE LINKING - FIX: REMOVED !important */
+        /* BUTTON STYLES FOR PROFILE LINKING - FIXED */
         .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
         .btn-link-action:hover { background: #fff; }
-        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: none; }
+        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
         .btn-unlink:hover { background: var(--danger); color: #fff; }
 
         /* [8.4] SETTINGS UI */
@@ -384,9 +384,9 @@
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
                                         
-                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
+                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')" style="display:none;">CONNECT GOOGLE</button>
                                         
-                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')">DISCONNECT</button>
+                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')" style="display:none;">DISCONNECT</button>
                                     </div>
                                 </div>
 
@@ -395,9 +395,9 @@
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
                                         
-                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
+                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')" style="display:none;">CONNECT WALLET</button>
                                         
-                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')">DISCONNECT</button>
+                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')" style="display:none;">DISCONNECT</button>
                                     </div>
                                 </div>
                                 
@@ -411,7 +411,7 @@
                         <div class="shop-card">
                             <h3 style="color:var(--gold); margin-bottom:20px;">GENESIS CHEST</h3>
                             <div class="chest-container"><div id="chest-box" class="chest-box"></div></div>
-                            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Contains 5 Random Heroes.<br>Chance: 50% Common, 30% Unc, 15% Rare, 4% Epic, 1% Legend.</p>
+                            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Contains 5 Random Heroes.<br>Chance: 40% Common, 30% Unc, 15% Rare, 10% Epic, 5% Legend.</p>
                             <p style="color:#fff; font-weight:bold; font-size:24px; margin-bottom:20px;">0.0001 BNB</p>
                             <button id="btn-buy" class="btn-mint" onclick="window.buyChest()">BUY NOW (5 CARDS)</button>
                             <p id="shop-status" style="color:#888; font-size:12px; margin-top:10px;"></p>
@@ -601,6 +601,7 @@
         const CHEST_PRICE = "0.0001";
 
         // DATABASE 20 HEROES (GRID 5x4 => 500% x 400%)
+        // RATES: 40% Common, 30% Uncommon, 15% Rare, 10% Epic, 5% Legendary
         const HEROES_DB = [
             { id: 1, name: "Ignis Novice", tier: "Common", pos: "0% 0%" },
             { id: 2, name: "Ember Knight", tier: "Uncommon", pos: "25% 0%" },
@@ -631,7 +632,7 @@
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // NEW MODAL LOGIC (V66)
+        // NEW MODAL LOGIC (V67)
         window.openLinkModal = (type) => document.getElementById(`${type}-modal`).classList.add('active');
         window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
         
@@ -649,7 +650,7 @@
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
                     closeLoginGate(); 
-                    updateUI(); // Trigger UI Refresh
+                    updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
                     showToast("Wallet Connected!", "success");
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
             } else { showToast("Please Install Metamask", "error"); }
@@ -669,51 +670,42 @@
         // 3. FIREBASE LISTENER
         onAuthStateChanged(auth, (user) => {
             if(user) {
+                updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
                 const ref = doc(db, "users", user.uid);
                 getDoc(ref).then(snap => {
                     if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0 });
                     else document.getElementById('profile-balance').innerText = snap.data().shards || 0;
                 });
-                updateUI(); // Refresh UI on Auth Change
 
                 if(localStorage.getItem('isDashOpen') === 'true') {
                     const savedTab = localStorage.getItem('dashTab') || 'profile';
                     if (savedTab === 'shop') window.openShop();
                     else window.openDashboard(savedTab);
                 }
-            } else {
-                updateUI(); // Refresh UI on Logout
+            } else if(currentLoginType !== 'wallet') {
+                resetUI();
             }
         });
 
-        // 4. UI UPDATE (V66: STRICT TOGGLE LOGIC)
-        function updateUI() {
-            const googleUser = auth.currentUser;
-            const walletUser = currentAccount;
-
+        // 4. UI UPDATE (V67: STRICT TOGGLE LOGIC)
+        function updateUI(user) {
+            currentLoginType = user.type;
+            mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
+            document.getElementById('user-display-name').innerText = user.name;
+            document.getElementById('input-name').value = user.name;
+            
             // --- HEADER ---
-            if (googleUser || walletUser) {
-                const name = googleUser ? googleUser.displayName : (walletUser.substring(0,6)+"...");
-                mainLoginBtn.innerHTML = name + ' <i class="fas fa-caret-down"></i>';
-                document.getElementById('user-display-name').innerText = name;
-                document.getElementById('input-name').value = name;
-                
-                // Avatar Priority: Google > Placeholder
-                if(googleUser) {
-                    document.getElementById('user-avatar').src = googleUser.photoURL;
-                    document.getElementById('profile-avatar-big').src = googleUser.photoURL;
-                    document.getElementById('user-avatar').style.display = 'block';
-                } else {
-                    document.getElementById('user-avatar').style.display = 'none';
-                    document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
-                }
+            if(user.type === 'google') {
+                document.getElementById('user-avatar').src = user.photo;
+                document.getElementById('profile-avatar-big').src = user.photo;
+                document.getElementById('user-avatar').style.display = 'block';
             } else {
-                // GUEST MODE
-                resetUI();
-                return;
+                document.getElementById('user-avatar').style.display = 'none';
+                document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
             }
 
             // --- GOOGLE SECTION (STRICT CHECK) ---
+            const googleUser = auth.currentUser;
             if(googleUser) {
                 document.getElementById('input-email').value = googleUser.email;
                 document.getElementById('btn-link-google').style.display = 'none'; // Hide Connect
@@ -725,8 +717,8 @@
             }
 
             // --- WALLET SECTION (STRICT CHECK) ---
-            if(walletUser) {
-                document.getElementById('input-wallet').value = walletUser;
+            if(currentAccount) {
+                document.getElementById('input-wallet').value = currentAccount;
                 document.getElementById('btn-link-wallet').style.display = 'none'; // Hide Connect
                 document.getElementById('btn-unlink-wallet').style.display = 'inline-block'; // Show Disconnect
             } else {
@@ -741,7 +733,7 @@
             mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666";
             userDropdown.classList.remove('active');
             currentLoginType = '';
-            // Don't clear currentAccount here, just UI reset
+            currentAccount = null;
             localStorage.removeItem('isDashOpen'); 
         }
 
@@ -754,7 +746,10 @@
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
                     
-                    updateUI(); // Refresh UI
+                    // RE-RUN UPDATE UI
+                    if(auth.currentUser) updateUI({ type: 'google', name: auth.currentUser.displayName, photo: auth.currentUser.photoURL, email: auth.currentUser.email });
+                    else updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
+
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
@@ -763,7 +758,8 @@
         window.linkGoogle = async () => {
              try {
                 await signInWithPopup(auth, provider);
-                updateUI(); // Refresh UI
+                // RE-RUN UPDATE UI
+                if(currentAccount) updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
                 showToast("Google Account Linked!", "success");
              } catch (e) { showToast("Link Error: " + e.message, "error"); }
         };
@@ -773,21 +769,25 @@
             
             if (type === 'wallet') {
                 currentAccount = null; // Disconnect Wallet Variable
-                updateUI(); // Refresh UI
+                // Force UI Update
+                if(auth.currentUser) updateUI({ type: 'google', name: auth.currentUser.displayName, photo: auth.currentUser.photoURL, email: auth.currentUser.email });
+                else location.reload(); // If only wallet was connected, logout
+                
                 showToast("Wallet Disconnected", "warning");
-                // If both disconnected, reload
-                if(!auth.currentUser) location.reload();
             } 
             else if (type === 'google') {
                 await signOut(auth); // Disconnect Firebase
-                updateUI(); // Refresh UI
-                showToast("Google Disconnected", "warning");
-                // If both disconnected, reload
-                if(!currentAccount) location.reload();
+                // Force UI Update
+                if (currentAccount) {
+                    updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
+                    showToast("Google Disconnected", "warning");
+                } else {
+                    location.reload(); // Logout if primary
+                }
             }
         };
 
-        // 6. BUY CHEST LOGIC
+        // 6. BUY CHEST LOGIC (V67: WEIGHTED RANDOM 40/30/15/10/5)
         window.buyChest = async () => {
             if(!window.ethereum) return alert("Please install Metamask to pay!");
             const btn = document.getElementById('btn-buy');
@@ -818,8 +818,18 @@
 
                 const newHeroes = [];
                 for(let i=0; i<5; i++) {
-                    const rand = Math.floor(Math.random() * 20); 
-                    newHeroes.push(HEROES_DB[rand]);
+                    const rand = Math.random() * 100;
+                    let tier = "";
+                    if (rand < 40) tier = "Common";
+                    else if (rand < 70) tier = "Uncommon";
+                    else if (rand < 85) tier = "Rare";
+                    else if (rand < 95) tier = "Epic";
+                    else tier = "Legendary";
+
+                    // Pick random hero from that Tier
+                    const pool = HEROES_DB.filter(h => h.tier === tier);
+                    const hero = pool[Math.floor(Math.random() * pool.length)];
+                    newHeroes.push(hero);
                 }
 
                 if(currentUser) {
