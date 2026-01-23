@@ -437,7 +437,7 @@
                             <div class="shop-item tier-solo">
                                 <h3 class="pack-title">SOLO PACK</h3>
                                 <p class="pack-count">1 CARD</p>
-                                <div class="chest-img-container"><img id="chest-img-1" src="./assets/rương1.png" alt="White Chest" class="chest-img"></div>
+                                <div class="chest-img-container"><img id="chest-img-1" src="./assets/chest_common.png" alt="White Chest" class="chest-img"></div>
                                 <p class="pack-price">0.00001 BNB</p>
                                 <button id="btn-buy-1" class="btn-mint" onclick="buyChest(1, 'btn-buy-1', 'chest-img-1')">SUMMON x1</button>
                             </div>
@@ -445,7 +445,7 @@
                              <div class="shop-item tier-elite">
                                 <h3 class="pack-title" style="color:var(--gold);">ELITE PACK</h3>
                                 <p class="pack-count">5 CARDS</p>
-                                <div class="chest-img-container"><img id="chest-img-5" src="./assets/rương2.png" alt="Green Chest" class="chest-img"></div>
+                                <div class="chest-img-container"><img id="chest-img-5" src="./assets/chest_rare.png" alt="Green Chest" class="chest-img"></div>
                                 <p class="pack-price">0.00001 BNB</p>
                                 <button id="btn-buy-5" class="btn-main" onclick="buyChest(5, 'btn-buy-5', 'chest-img-5')">SUMMON x5</button>
                             </div>
@@ -453,7 +453,7 @@
                              <div class="shop-item tier-legend">
                                 <h3 class="pack-title">LEGEND PACK</h3>
                                 <p class="pack-count">10 CARDS</p>
-                                <div class="chest-img-container"><img id="chest-img-10" src="./assets/rương3.png" alt="Gold Chest" class="chest-img"></div>
+                                <div class="chest-img-container"><img id="chest-img-10" src="./assets/chest_legend.png" alt="Gold Chest" class="chest-img"></div>
                                 <p class="pack-price">0.00001 BNB</p>
                                 <button id="btn-buy-10" class="btn-mint" onclick="buyChest(10, 'btn-buy-10', 'chest-img-10')">SUMMON x10</button>
                             </div>
@@ -713,7 +713,10 @@
             if(user) {
                 const ref = doc(db, "users", user.uid);
                 getDoc(ref).then(snap => {
-                    if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0 });
+                    if(!snap.exists()) {
+                        // Create basic profile if new
+                        setDoc(ref, { name: user.displayName, email: user.email, shards: 0, inventory: [] }, { merge: true });
+                    }
                     else document.getElementById('profile-balance').innerText = snap.data().shards || 0;
                 });
                 updateUI(); 
