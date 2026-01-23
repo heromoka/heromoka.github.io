@@ -87,7 +87,7 @@
         .platform-list { display: flex; gap: 15px; justify-content: center; }
 
         /* ================================================================= */
-        /* === PART 4: NFT & FEATURES (FIXED SPRITE LOGIC) === */
+        /* === PART 4: NFT & FEATURES === */
         /* ================================================================= */
         #nft { background: #0b0b0b; padding-top: 100px; padding-bottom: 120px; }
         .genesis-wrapper { position: relative; max-width: 1100px; height: 500px; margin: 0 auto; border: 1px solid rgba(200, 170, 109, 0.3); background: #000; overflow: visible; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
@@ -107,15 +107,14 @@
         }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
         
-        /* FIX: Full Set is 5 Cols x 4 Rows => 500% 400% */
         .card-sprite { 
             width: 100%; height: 100%; 
             background-image: url('./assets/full_set.png'); 
-            background-size: 500% 400%; /* FIXED SIZE */
+            background-size: 500% 400%; /* 5 Columns x 4 Rows */
             background-repeat: no-repeat; 
             border-radius: 10px; 
             box-shadow: 0 0 0 1px rgba(255,215,0,0.3); 
-            background-position: 100% 0%; /* Default to Gold Ignis */
+            background-position: 100% 0%; 
         }
 
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
@@ -202,7 +201,7 @@
         .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
 
-        /* [8.1a] FIX: LINK MODALS MUST BE HIGHER THAN DASHBOARD */
+        /* [8.1a] LINK MODALS (Z-INDEX 3000 to be above Dashboard) */
         #link-wallet-modal, #link-google-modal { z-index: 3000 !important; }
 
         /* [8.2] DASHBOARD LAYOUT */
@@ -218,7 +217,7 @@
         .dash-menu-item { padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; cursor: pointer; display: flex; gap: 15px; align-items: center; transition: 0.2s; }
         .dash-menu-item.active, .dash-menu-item:hover { color: var(--gold); background: rgba(200,170,109,0.1); }
         
-        /* [8.3] NEW PROFESSIONAL PROFILE CARD CSS */
+        /* [8.3] PROFILE UI */
         .profile-container { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
         .profile-left { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
         .profile-right { display: flex; flex-direction: column; gap: 20px; }
@@ -233,8 +232,23 @@
         .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; display: block; }
         .info-value { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ccc; padding: 12px 15px; font-size: 14px; width: 100%; border-radius: 4px; font-family: 'Roboto'; display: flex; justify-content: space-between; align-items: center; }
         .info-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; }
-        
-        /* [8.4] SHOP CARD (CSS CHEST) */
+        /* NEW: BUTTON STYLES FOR PROFILE LINKING */
+        .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block !important; }
+        .btn-link-action:hover { background: #fff; }
+
+        /* [8.4] SETTINGS UI */
+        .social-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; transition: 0.3s; }
+        .social-card:hover { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+        .social-left { display: flex; align-items: center; gap: 15px; }
+        .icon-circle { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; }
+        .social-name { color: #fff; font-weight: bold; font-family: 'Rajdhani'; font-size: 16px; }
+        .social-right { display: flex; align-items: center; gap: 15px; }
+        .social-status { color: #666; font-size: 12px; font-weight: bold; }
+        .social-status.connected { color: #00ff88; }
+        .btn-social { background: transparent; border: 1px solid #555; color: #ccc; padding: 5px 15px; font-size: 11px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
+        .btn-social:hover { border-color: #fff; color: #fff; }
+
+        /* [8.5] SHOP CARD */
         .shop-card { background: rgba(20, 20, 30, 0.8); border: 1px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 400px; margin: 0 auto; box-shadow: 0 0 50px rgba(200, 170, 109, 0.2); position: relative; }
         .chest-container { width: 200px; height: 200px; margin: 0 auto 30px; position: relative; perspective: 1000px; }
         .chest-box { width: 100%; height: 100%; background: linear-gradient(135deg, #8e733b, #c8aa6d); border: 4px solid #f0e6d2; border-radius: 12px; box-shadow: 0 0 30px rgba(200,170,109,0.5), inset 0 0 20px rgba(0,0,0,0.5); position: relative; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
@@ -244,7 +258,7 @@
         @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
         .chest-shaking { animation: shake 0.5s infinite; box-shadow: 0 0 50px red !important; }
 
-        /* [8.5] INVENTORY GRID & SPRITE (4x5) */
+        /* [8.6] INVENTORY GRID & SPRITE */
         .nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
         .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 2/3; transition: 0.3s; }
         .nft-item:hover { border-color: var(--gold); transform: translateY(-5px); z-index: 10; box-shadow: 0 0 15px rgba(200, 170, 109, 0.3); }
@@ -253,18 +267,15 @@
         .nft-name { font-size: 11px; color: #fff; font-weight: bold; display: block; font-family: 'Rajdhani'; }
         .nft-tier { font-size: 10px; color: var(--gold); font-family: 'Cinzel'; }
 
-        /* [8.6] REWARD OVERLAY */
+        /* [8.7] REWARD OVERLAY */
         .reward-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; flex-direction: column; }
         .reward-overlay.active { display: flex; animation: fadeIn 0.5s; }
-        .reward-title { font-family: 'Cinzel'; font-size: 40px; color: var(--gold); margin-bottom: 30px; text-shadow: 0 0 20px var(--gold); }
-        .reward-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; max-width: 900px; }
         .reward-card { width: 180px; height: 270px; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; animation: popIn 0.5s; background: #000; position: relative; box-shadow: 0 0 30px rgba(200, 170, 109, 0.4); }
         
         .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
         .user-dropdown.active { display: flex; }
         .dropdown-item { padding: 12px 15px; color: #ccc; text-decoration: none; font-size: 13px; border-bottom: 1px solid #222; transition: 0.2s; display: flex; gap: 10px; cursor: pointer; }
         .dropdown-item:hover { background: #222; color: var(--gold); }
-        .btn-link-wallet { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px); }
 
         .dash-overlay:not(.shop-mode) #menu-shop { display: none !important; }
         .dash-overlay.shop-mode #menu-profile, .dash-overlay.shop-mode #menu-inventory, .dash-overlay.shop-mode #menu-settings { display: none !important; }
@@ -390,7 +401,7 @@
                                     <span class="info-label">EMAIL LINKED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
-                                        <button id="btn-link-google" class="btn-link-wallet" style="display:none;" onclick="openLinkModal('google')">CONNECT GOOGLE</button>
+                                        <button id="btn-link-google" class="btn-link-action" style="display:none;" onclick="openLinkModal('google')">CONNECT GOOGLE</button>
                                     </div>
                                 </div>
 
@@ -398,7 +409,7 @@
                                     <span class="info-label">WALLET CONNECTED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
-                                        <button id="btn-link-wallet" class="btn-link-wallet" style="display:none;" onclick="openLinkModal('wallet')">CONNECT WALLET</button>
+                                        <button id="btn-link-wallet" class="btn-link-action" style="display:none;" onclick="openLinkModal('wallet')">CONNECT WALLET</button>
                                     </div>
                                 </div>
                                 
@@ -429,13 +440,38 @@
 
                     <div id="tab-settings" class="dash-panel">
                         <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff;">SOCIAL CONNECTIONS</h2>
-                        <div class="connect-row">
-                            <div class="social-info"><div class="social-icon" style="background:#000; border:1px solid #666;"><i class="fa-brands fa-x-twitter" style="color:#ffffff;"></i></div><span>Twitter (X)</span></div>
-                            <button class="btn-connect" onclick="connectSocial('tw')">CONNECT</button>
+                        
+                        <div class="social-card">
+                            <div class="social-left">
+                                <div class="icon-circle" style="background:#000; border:1px solid #444;"><i class="fa-brands fa-x-twitter"></i></div>
+                                <span class="social-name">Twitter (X)</span>
+                            </div>
+                            <div class="social-right">
+                                <span class="social-status" id="tw-status">Not Connected</span>
+                                <button class="btn-social" onclick="connectSocial('tw')">CONNECT</button>
+                            </div>
                         </div>
-                        <div class="connect-row">
-                            <div class="social-info"><div class="social-icon" style="background:#5865F2;"><i class="fab fa-discord" style="color:#fff;"></i></div><span>Discord</span></div>
-                            <button class="btn-connect" onclick="connectSocial('dc')">CONNECT</button>
+
+                        <div class="social-card">
+                            <div class="social-left">
+                                <div class="icon-circle" style="background:#5865F2;"><i class="fab fa-discord"></i></div>
+                                <span class="social-name">Discord</span>
+                            </div>
+                            <div class="social-right">
+                                <span class="social-status" id="dc-status">Not Connected</span>
+                                <button class="btn-social" onclick="connectSocial('dc')">CONNECT</button>
+                            </div>
+                        </div>
+
+                        <div class="social-card">
+                            <div class="social-left">
+                                <div class="icon-circle" style="background:#229ED9;"><i class="fab fa-telegram-plane"></i></div>
+                                <span class="social-name">Telegram</span>
+                            </div>
+                            <div class="social-right">
+                                <span class="social-status" id="tg-status">Not Connected</span>
+                                <button class="btn-social" onclick="connectSocial('tg')">CONNECT</button>
+                            </div>
                         </div>
                     </div>
 
@@ -653,8 +689,11 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
+                    
+                    // FIX: CLOSE LOGIN GATE IMMEDIATELY
+                    closeLoginGate(); 
+                    
                     updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
-                    closeLoginGate();
                     showToast("Wallet Connected!", "success");
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
             } else { showToast("Please Install Metamask", "error"); }
@@ -691,7 +730,7 @@
             }
         });
 
-        // 4. UI UPDATE
+        // 4. UI UPDATE (FIXED BUTTON VISIBILITY)
         function updateUI(user) {
             currentLoginType = user.type;
             mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
@@ -704,16 +743,24 @@
                 document.getElementById('user-avatar').style.display = 'block';
                 document.getElementById('input-email').value = user.email;
                 document.getElementById('btn-link-google').style.display = 'none';
-                document.getElementById('edit-wallet-icon').style.display = currentAccount ? 'block' : 'none';
+                
+                // Show Wallet Connect Button if not connected
                 const btnWallet = document.getElementById('btn-link-wallet');
-                if(!currentAccount) btnWallet.style.display = 'inline-block';
-                else btnWallet.style.display = 'none';
+                if(!currentAccount) {
+                    btnWallet.style.display = 'inline-block';
+                    document.getElementById('input-wallet').value = "Not Connected";
+                } else {
+                    btnWallet.style.display = 'none';
+                    document.getElementById('input-wallet').value = currentAccount;
+                }
+
             } else {
                 document.getElementById('user-avatar').style.display = 'none';
                 document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
                 document.getElementById('input-wallet').value = user.fullAddr;
-                document.getElementById('edit-wallet-icon').style.display = 'none';
                 document.getElementById('btn-link-wallet').style.display = 'none';
+                
+                // Show Google Connect Button
                 document.getElementById('btn-link-google').style.display = 'inline-block';
                 document.getElementById('input-email').value = "Not Linked";
             }
@@ -738,7 +785,6 @@
                     currentAccount = await signer.getAddress();
                     document.getElementById('input-wallet').value = currentAccount;
                     document.getElementById('btn-link-wallet').style.display = 'none';
-                    document.getElementById('edit-wallet-icon').style.display = 'block';
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
@@ -877,7 +923,7 @@
         window.showToast = (msg, type) => { window.showMsg(msg); };
         window.enableEdit = (field) => { const input = document.getElementById('input-' + field); input.readOnly = false; input.classList.add('editable'); input.focus(); document.getElementById('save-profile-btn').style.display = 'block'; };
         window.saveProfile = () => { const inputs = document.querySelectorAll('.p-input'); inputs.forEach(i => { i.readOnly = true; i.classList.remove('editable'); }); document.getElementById('save-profile-btn').style.display = 'none'; showToast("Profile Updated Successfully!", "success"); };
-        window.connectSocial = (type) => { const username = prompt("Enter username:"); if(username) { document.getElementById(type+'-status').innerText = "Connected: @" + username; document.getElementById(type+'-status').style.display = "inline"; document.querySelector(`#${type}-action .btn-connect`).innerText = "UNLINK"; showToast("Connected Successfully!", "success"); } };
+        window.connectSocial = (type) => { const username = prompt("Enter username:"); if(username) { document.getElementById(type+'-status').innerText = "Connected: @" + username; document.getElementById(type+'-status').classList.add('connected'); document.getElementById(type+'-status').style.color = "#00ff88"; showToast("Connected Successfully!", "success"); } };
 
         document.getElementById('logout-btn').onclick = async () => { await signOut(auth); localStorage.clear(); location.reload(); };
 
