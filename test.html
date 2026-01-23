@@ -383,8 +383,8 @@
                                     <span class="info-label">EMAIL LINKED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
-                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
-                                        <button id="btn-unlink-google" class="btn-unlink" style="display:none;" onclick="openLinkModal('unlink-google')">DISCONNECT</button>
+                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')" style="display:none;">CONNECT GOOGLE</button>
+                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')" style="display:none;">DISCONNECT</button>
                                     </div>
                                 </div>
 
@@ -392,8 +392,8 @@
                                     <span class="info-label">WALLET CONNECTED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
-                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
-                                        <button id="btn-unlink-wallet" class="btn-unlink" style="display:none;" onclick="openLinkModal('unlink-wallet')">DISCONNECT</button>
+                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')" style="display:none;">CONNECT WALLET</button>
+                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')" style="display:none;">DISCONNECT</button>
                                     </div>
                                 </div>
                                 
@@ -645,7 +645,7 @@
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
                     closeLoginGate(); 
-                    updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"..."+currentAccount.substring(38), fullAddr: currentAccount });
+                    updateUI(); // Trigger UI Refresh
                     showToast("Wallet Connected!", "success");
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
             } else { showToast("Please Install Metamask", "error"); }
@@ -665,61 +665,67 @@
         // 3. FIREBASE LISTENER
         onAuthStateChanged(auth, (user) => {
             if(user) {
-                updateUI({ type: 'google', name: user.displayName, photo: user.photoURL, email: user.email });
                 const ref = doc(db, "users", user.uid);
                 getDoc(ref).then(snap => {
                     if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0 });
                     else document.getElementById('profile-balance').innerText = snap.data().shards || 0;
                 });
+                updateUI(); // Refresh UI on Auth Change
 
                 if(localStorage.getItem('isDashOpen') === 'true') {
                     const savedTab = localStorage.getItem('dashTab') || 'profile';
                     if (savedTab === 'shop') window.openShop();
                     else window.openDashboard(savedTab);
                 }
-            } else if(currentLoginType !== 'wallet') {
-                resetUI();
+            } else {
+                updateUI(); // Refresh UI on Logout
             }
         });
 
-        // 4. UI UPDATE (V65 LOGIC: SMART TOGGLE BUTTONS)
-        function updateUI(user) {
-            currentLoginType = user.type;
-            mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
-            document.getElementById('user-display-name').innerText = user.name;
-            document.getElementById('input-name').value = user.name;
-            
-            // --- AVATAR & NAME LOGIC ---
-            if(user.type === 'google') {
-                document.getElementById('user-avatar').src = user.photo;
-                document.getElementById('profile-avatar-big').src = user.photo;
-                document.getElementById('user-avatar').style.display = 'block';
+        // 4. UI UPDATE (V65: INDEPENDENT CHECK LOGIC)
+        function updateUI() {
+            const googleUser = auth.currentUser;
+            const walletUser = currentAccount;
+
+            // --- HEADER ---
+            if (googleUser || walletUser) {
+                const name = googleUser ? googleUser.displayName : (walletUser.substring(0,6)+"...");
+                mainLoginBtn.innerHTML = name + ' <i class="fas fa-caret-down"></i>';
+                document.getElementById('user-display-name').innerText = name;
+                document.getElementById('input-name').value = name;
+                
+                // Avatar Priority: Google > Placeholder
+                if(googleUser) {
+                    document.getElementById('user-avatar').src = googleUser.photoURL;
+                    document.getElementById('profile-avatar-big').src = googleUser.photoURL;
+                    document.getElementById('user-avatar').style.display = 'block';
+                } else {
+                    document.getElementById('user-avatar').style.display = 'none';
+                    document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
+                }
             } else {
-                document.getElementById('user-avatar').style.display = 'none';
-                document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
+                // GUEST MODE
+                resetUI();
+                return;
             }
 
-            // --- GOOGLE STATUS LOGIC ---
-            if(auth.currentUser) {
-                // Connected
-                document.getElementById('input-email').value = auth.currentUser.email;
+            // --- GOOGLE SECTION ---
+            if(googleUser) {
+                document.getElementById('input-email').value = googleUser.email;
                 document.getElementById('btn-link-google').style.display = 'none';
                 document.getElementById('btn-unlink-google').style.display = 'inline-block';
             } else {
-                // Not Connected
                 document.getElementById('input-email').value = "Not Linked";
                 document.getElementById('btn-link-google').style.display = 'inline-block';
                 document.getElementById('btn-unlink-google').style.display = 'none';
             }
 
-            // --- WALLET STATUS LOGIC ---
-            if(currentAccount) {
-                // Connected
-                document.getElementById('input-wallet').value = currentAccount;
+            // --- WALLET SECTION ---
+            if(walletUser) {
+                document.getElementById('input-wallet').value = walletUser;
                 document.getElementById('btn-link-wallet').style.display = 'none';
                 document.getElementById('btn-unlink-wallet').style.display = 'inline-block';
             } else {
-                // Not Connected
                 document.getElementById('input-wallet').value = "Not Connected";
                 document.getElementById('btn-link-wallet').style.display = 'inline-block';
                 document.getElementById('btn-unlink-wallet').style.display = 'none';
@@ -731,7 +737,7 @@
             mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666";
             userDropdown.classList.remove('active');
             currentLoginType = '';
-            currentAccount = null;
+            // Don't clear currentAccount here, just UI reset
             localStorage.removeItem('isDashOpen'); 
         }
 
@@ -743,7 +749,8 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
-                    updateUI(currentLoginType === 'google' ? {type:'google', name:auth.currentUser.displayName, photo:auth.currentUser.photoURL, email:auth.currentUser.email} : {type:'wallet', name:currentAccount});
+                    
+                    updateUI(); // Refresh UI
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
@@ -752,7 +759,7 @@
         window.linkGoogle = async () => {
              try {
                 await signInWithPopup(auth, provider);
-                updateUI({type:'google', name:auth.currentUser.displayName, photo:auth.currentUser.photoURL, email:auth.currentUser.email});
+                updateUI(); // Refresh UI
                 showToast("Google Account Linked!", "success");
              } catch (e) { showToast("Link Error: " + e.message, "error"); }
         };
@@ -762,15 +769,17 @@
             
             if (type === 'wallet') {
                 currentAccount = null; // Disconnect Wallet Variable
-                if(auth.currentUser) updateUI({type:'google', name:auth.currentUser.displayName, photo:auth.currentUser.photoURL, email:auth.currentUser.email});
-                else location.reload(); // If only wallet was connected, logout
+                updateUI(); // Refresh UI
                 showToast("Wallet Disconnected", "warning");
+                // If both disconnected, reload
+                if(!auth.currentUser) location.reload();
             } 
             else if (type === 'google') {
                 await signOut(auth); // Disconnect Firebase
-                if(currentAccount) updateUI({type:'wallet', name:currentAccount.substring(0,6)+"...", fullAddr:currentAccount}); // Revert to Wallet UI
-                else location.reload(); // If only google was connected, logout
+                updateUI(); // Refresh UI
                 showToast("Google Disconnected", "warning");
+                // If both disconnected, reload
+                if(!currentAccount) location.reload();
             }
         };
 
