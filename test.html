@@ -31,12 +31,25 @@
         .text-center { text-align: center; }
 
         /* BUTTONS */
-        .btn-main, .btn-mint { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; font-family: 'Rajdhani', sans-serif; font-size: 16px; }
+        .btn-main, .btn-mint {
+            background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; font-family: 'Rajdhani', sans-serif; font-size: 16px;
+        }
         .btn-main:hover, .btn-mint:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); }
         .btn-mint:disabled { filter: grayscale(1); cursor: not-allowed; }
-        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
+
+        .btn-outline {
+            background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            font-size: 14px; text-decoration: none; display: inline-block; font-family: 'Rajdhani', sans-serif; font-weight: 700;
+        }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        .btn-platform { background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif; }
+
+        .btn-platform {
+            background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px;
+            transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; min-width: 120px; justify-content: center; font-family: 'Roboto', sans-serif;
+        }
         .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
 
         /* ================================================================= */
@@ -115,6 +128,9 @@
         .roadmap-point { position: absolute; top: 0; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
         .roadmap-item:nth-child(odd) .roadmap-point { right: -6px; } .roadmap-item:nth-child(even) .roadmap-point { left: -6px; }
         .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
+        .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
+        .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
+
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 60px; }
         .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
@@ -179,7 +195,7 @@
         /* BUTTON STYLES FOR PROFILE LINKING */
         .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block !important; }
         .btn-link-action:hover { background: #fff; }
-        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; }
+        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block !important; }
         .btn-unlink:hover { background: var(--danger); color: #fff; }
 
         /* [8.4] SETTINGS UI */
@@ -367,9 +383,7 @@
                                     <span class="info-label">EMAIL LINKED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
-                                        
-                                        <button id="btn-link-google" class="btn-link-action" style="display:none;" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
-                                        
+                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
                                         <button id="btn-unlink-google" class="btn-unlink" style="display:none;" onclick="openLinkModal('unlink-google')">DISCONNECT</button>
                                     </div>
                                 </div>
@@ -378,9 +392,7 @@
                                     <span class="info-label">WALLET CONNECTED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
-                                        
-                                        <button id="btn-link-wallet" class="btn-link-action" style="display:none;" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
-                                        
+                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
                                         <button id="btn-unlink-wallet" class="btn-unlink" style="display:none;" onclick="openLinkModal('unlink-wallet')">DISCONNECT</button>
                                     </div>
                                 </div>
@@ -615,7 +627,7 @@
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // NEW MODAL LOGIC (V63)
+        // NEW MODAL LOGIC (V65)
         window.openLinkModal = (type) => document.getElementById(`${type}-modal`).classList.add('active');
         window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
         
@@ -670,61 +682,47 @@
             }
         });
 
-        // 4. UI UPDATE (V64 LOGIC: SMART TOGGLE BUTTONS)
+        // 4. UI UPDATE (V65 LOGIC: SMART TOGGLE BUTTONS)
         function updateUI(user) {
             currentLoginType = user.type;
             mainLoginBtn.innerHTML = user.name + ' <i class="fas fa-caret-down"></i>';
             document.getElementById('user-display-name').innerText = user.name;
             document.getElementById('input-name').value = user.name;
             
-            // --- GOOGLE SECTION LOGIC ---
+            // --- AVATAR & NAME LOGIC ---
             if(user.type === 'google') {
-                // If logged in via Google
                 document.getElementById('user-avatar').src = user.photo;
                 document.getElementById('profile-avatar-big').src = user.photo;
                 document.getElementById('user-avatar').style.display = 'block';
-                document.getElementById('input-email').value = user.email;
-                
-                // Show Disconnect for Google
-                document.getElementById('btn-link-google').style.display = 'none';
-                document.getElementById('btn-unlink-google').style.display = 'none'; // Cannot unlink primary login yet (simplification)
-
-                // Check Wallet Status
-                if(!currentAccount) {
-                    // Wallet NOT connected
-                    document.getElementById('input-wallet').value = "Not Connected";
-                    document.getElementById('btn-link-wallet').style.display = 'inline-block';
-                    document.getElementById('btn-unlink-wallet').style.display = 'none';
-                } else {
-                    // Wallet CONNECTED
-                    document.getElementById('input-wallet').value = currentAccount;
-                    document.getElementById('btn-link-wallet').style.display = 'none';
-                    document.getElementById('btn-unlink-wallet').style.display = 'inline-block';
-                }
-
             } else {
-                // If logged in via Wallet
                 document.getElementById('user-avatar').style.display = 'none';
                 document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
-                document.getElementById('input-wallet').value = user.fullAddr;
-                
-                // Show Disconnect for Wallet (Cannot unlink primary)
-                document.getElementById('btn-link-wallet').style.display = 'none';
-                document.getElementById('btn-unlink-wallet').style.display = 'none'; 
+            }
 
-                // Check Google Status
-                const googleUser = auth.currentUser;
-                if(!googleUser) {
-                    // Google NOT connected
-                    document.getElementById('input-email').value = "Not Linked";
-                    document.getElementById('btn-link-google').style.display = 'inline-block';
-                    document.getElementById('btn-unlink-google').style.display = 'none';
-                } else {
-                    // Google CONNECTED
-                    document.getElementById('input-email').value = googleUser.email;
-                    document.getElementById('btn-link-google').style.display = 'none';
-                    document.getElementById('btn-unlink-google').style.display = 'inline-block';
-                }
+            // --- GOOGLE STATUS LOGIC ---
+            if(auth.currentUser) {
+                // Connected
+                document.getElementById('input-email').value = auth.currentUser.email;
+                document.getElementById('btn-link-google').style.display = 'none';
+                document.getElementById('btn-unlink-google').style.display = 'inline-block';
+            } else {
+                // Not Connected
+                document.getElementById('input-email').value = "Not Linked";
+                document.getElementById('btn-link-google').style.display = 'inline-block';
+                document.getElementById('btn-unlink-google').style.display = 'none';
+            }
+
+            // --- WALLET STATUS LOGIC ---
+            if(currentAccount) {
+                // Connected
+                document.getElementById('input-wallet').value = currentAccount;
+                document.getElementById('btn-link-wallet').style.display = 'none';
+                document.getElementById('btn-unlink-wallet').style.display = 'inline-block';
+            } else {
+                // Not Connected
+                document.getElementById('input-wallet').value = "Not Connected";
+                document.getElementById('btn-link-wallet').style.display = 'inline-block';
+                document.getElementById('btn-unlink-wallet').style.display = 'none';
             }
         }
 
@@ -745,11 +743,7 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
-                    
-                    // RE-RUN UPDATE UI
-                    if(auth.currentUser) updateUI({ type: 'google', name: auth.currentUser.displayName, photo: auth.currentUser.photoURL, email: auth.currentUser.email });
-                    else updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
-
+                    updateUI(currentLoginType === 'google' ? {type:'google', name:auth.currentUser.displayName, photo:auth.currentUser.photoURL, email:auth.currentUser.email} : {type:'wallet', name:currentAccount});
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
@@ -758,8 +752,7 @@
         window.linkGoogle = async () => {
              try {
                 await signInWithPopup(auth, provider);
-                // RE-RUN UPDATE UI
-                if(currentAccount) updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
+                updateUI({type:'google', name:auth.currentUser.displayName, photo:auth.currentUser.photoURL, email:auth.currentUser.email});
                 showToast("Google Account Linked!", "success");
              } catch (e) { showToast("Link Error: " + e.message, "error"); }
         };
@@ -768,22 +761,16 @@
             window.closeLinkModal(`unlink-${type}`);
             
             if (type === 'wallet') {
-                currentAccount = null; // Clear Wallet State
-                // Force UI Update
-                if(auth.currentUser) updateUI({ type: 'google', name: auth.currentUser.displayName, photo: auth.currentUser.photoURL, email: auth.currentUser.email });
-                else location.reload(); // Logout if it was primary
-                
+                currentAccount = null; // Disconnect Wallet Variable
+                if(auth.currentUser) updateUI({type:'google', name:auth.currentUser.displayName, photo:auth.currentUser.photoURL, email:auth.currentUser.email});
+                else location.reload(); // If only wallet was connected, logout
                 showToast("Wallet Disconnected", "warning");
             } 
             else if (type === 'google') {
-                await signOut(auth); // Sign out Firebase
-                // Force UI Update
-                if (currentAccount) {
-                    updateUI({ type: 'wallet', name: currentAccount.substring(0,6)+"...", fullAddr: currentAccount });
-                    showToast("Google Disconnected", "warning");
-                } else {
-                    location.reload(); // Logout if primary
-                }
+                await signOut(auth); // Disconnect Firebase
+                if(currentAccount) updateUI({type:'wallet', name:currentAccount.substring(0,6)+"...", fullAddr:currentAccount}); // Revert to Wallet UI
+                else location.reload(); // If only google was connected, logout
+                showToast("Google Disconnected", "warning");
             }
         };
 
