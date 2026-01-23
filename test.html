@@ -192,10 +192,10 @@
         .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; display: block; }
         .info-value { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ccc; padding: 12px 15px; font-size: 14px; width: 100%; border-radius: 4px; font-family: 'Roboto'; display: flex; justify-content: space-between; align-items: center; }
         .info-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; }
-        /* BUTTON STYLES FOR PROFILE LINKING */
-        .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block !important; }
+        /* BUTTON STYLES FOR PROFILE LINKING - FIX: REMOVED !important */
+        .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
         .btn-link-action:hover { background: #fff; }
-        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block !important; }
+        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: none; }
         .btn-unlink:hover { background: var(--danger); color: #fff; }
 
         /* [8.4] SETTINGS UI */
@@ -383,8 +383,10 @@
                                     <span class="info-label">EMAIL LINKED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
-                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')" style="display:none;">CONNECT GOOGLE</button>
-                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')" style="display:none;">DISCONNECT</button>
+                                        
+                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
+                                        
+                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')">DISCONNECT</button>
                                     </div>
                                 </div>
 
@@ -392,8 +394,10 @@
                                     <span class="info-label">WALLET CONNECTED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
-                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')" style="display:none;">CONNECT WALLET</button>
-                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')" style="display:none;">DISCONNECT</button>
+                                        
+                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
+                                        
+                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')">DISCONNECT</button>
                                     </div>
                                 </div>
                                 
@@ -627,7 +631,7 @@
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // NEW MODAL LOGIC (V65)
+        // NEW MODAL LOGIC (V66)
         window.openLinkModal = (type) => document.getElementById(`${type}-modal`).classList.add('active');
         window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
         
@@ -682,7 +686,7 @@
             }
         });
 
-        // 4. UI UPDATE (V65: INDEPENDENT CHECK LOGIC)
+        // 4. UI UPDATE (V66: STRICT TOGGLE LOGIC)
         function updateUI() {
             const googleUser = auth.currentUser;
             const walletUser = currentAccount;
@@ -709,26 +713,26 @@
                 return;
             }
 
-            // --- GOOGLE SECTION ---
+            // --- GOOGLE SECTION (STRICT CHECK) ---
             if(googleUser) {
                 document.getElementById('input-email').value = googleUser.email;
-                document.getElementById('btn-link-google').style.display = 'none';
-                document.getElementById('btn-unlink-google').style.display = 'inline-block';
+                document.getElementById('btn-link-google').style.display = 'none'; // Hide Connect
+                document.getElementById('btn-unlink-google').style.display = 'inline-block'; // Show Disconnect
             } else {
                 document.getElementById('input-email').value = "Not Linked";
-                document.getElementById('btn-link-google').style.display = 'inline-block';
-                document.getElementById('btn-unlink-google').style.display = 'none';
+                document.getElementById('btn-link-google').style.display = 'inline-block'; // Show Connect
+                document.getElementById('btn-unlink-google').style.display = 'none'; // Hide Disconnect
             }
 
-            // --- WALLET SECTION ---
+            // --- WALLET SECTION (STRICT CHECK) ---
             if(walletUser) {
                 document.getElementById('input-wallet').value = walletUser;
-                document.getElementById('btn-link-wallet').style.display = 'none';
-                document.getElementById('btn-unlink-wallet').style.display = 'inline-block';
+                document.getElementById('btn-link-wallet').style.display = 'none'; // Hide Connect
+                document.getElementById('btn-unlink-wallet').style.display = 'inline-block'; // Show Disconnect
             } else {
                 document.getElementById('input-wallet').value = "Not Connected";
-                document.getElementById('btn-link-wallet').style.display = 'inline-block';
-                document.getElementById('btn-unlink-wallet').style.display = 'none';
+                document.getElementById('btn-link-wallet').style.display = 'inline-block'; // Show Connect
+                document.getElementById('btn-unlink-wallet').style.display = 'none'; // Hide Disconnect
             }
         }
 
