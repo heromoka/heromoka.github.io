@@ -22,6 +22,11 @@
             --cyan-glow: rgba(0, 242, 255, 0.5); --dark: #050505;
             --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
             --card-glass: rgba(20, 20, 30, 0.85); --danger: #ff4757;
+            
+            /* GLOW COLORS FOR CHESTS */
+            --glow-white: rgba(255, 255, 255, 0.4);
+            --glow-green: rgba(0, 255, 100, 0.4);
+            --glow-gold: rgba(255, 215, 0, 0.5);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -37,7 +42,7 @@
             cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; font-family: 'Rajdhani', sans-serif; font-size: 16px;
         }
         .btn-main:hover, .btn-mint:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); }
-        .btn-mint:disabled { filter: grayscale(1); cursor: not-allowed; }
+        .btn-mint:disabled, .btn-main:disabled { filter: grayscale(1); cursor: not-allowed; opacity: 0.5; }
 
         .btn-outline {
             background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s;
@@ -86,6 +91,7 @@
         .g-quote { font-size: 14px; color: #999; font-style: italic; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; display: inline-block; width: 100%; }
         .genesis-card-container { position: absolute; bottom: 30px; right: 100px; width: 200px; height: 300px; z-index: 10; transition: transform 0.3s; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8)); }
         .genesis-card-container:hover { transform: scale(1.05) translateY(-10px); }
+        /* FIXED SPRITE RATIO: 5 Cols x 4 Rows */
         .card-sprite { width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; border-radius: 10px; box-shadow: 0 0 0 1px rgba(255,215,0,0.3); background-position: 100% 0%; }
         .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: transparent; border: 1px solid #444; border-radius: 50%; color: #666; font-size: 18px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
         .nav-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
@@ -130,7 +136,6 @@
         .phase-name { color: var(--gold); font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; letter-spacing: 1px; }
         .roadmap-content h3 { font-size: 20px; margin-bottom: 10px; color: #fff; }
         .roadmap-content ul { list-style: none; color: #888; font-size: 14px; font-family: 'Roboto', sans-serif; }
-
         .partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 60px; }
         .partner-item { display: flex; align-items: center; gap: 10px; opacity: 0.6; transition: 0.3s; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; background: #111; }
         .partner-item:hover { opacity: 1; border-color: var(--gold); transform: translateY(-5px); }
@@ -150,7 +155,7 @@
         
         /* [8.1] OVERLAY STYLES */
         #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
-        .toast { background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px; border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'Rajdhani'; font-weight: bold; min-width: 250px; transform: translateX(120%); transition: transform 0.3s; display: flex; align-items: center; gap: 10px; }
+        .toast { background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px; border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'Rajdhani'; font-weight: bold; min-width: 250px; transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; gap: 10px; }
         .toast.show { transform: translateX(0); }
         .toast i { color: var(--gold); font-size: 18px; }
 
@@ -161,7 +166,7 @@
         .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
 
-        /* [8.1a] LINK MODALS (Z-INDEX 3000 to be above Dashboard) */
+        /* [8.1a] LINK MODALS (Z-INDEX 3000) */
         #link-wallet-modal, #link-google-modal, #unlink-wallet-modal, #unlink-google-modal { z-index: 3000 !important; }
 
         /* [8.2] DASHBOARD LAYOUT */
@@ -192,10 +197,9 @@
         .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; display: block; }
         .info-value { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ccc; padding: 12px 15px; font-size: 14px; width: 100%; border-radius: 4px; font-family: 'Roboto'; display: flex; justify-content: space-between; align-items: center; }
         .info-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; }
-        /* BUTTON STYLES FOR PROFILE LINKING - FIX: REMOVED !important */
         .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
         .btn-link-action:hover { background: #fff; }
-        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: none; }
+        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
         .btn-unlink:hover { background: var(--danger); color: #fff; }
 
         /* [8.4] SETTINGS UI */
@@ -210,29 +214,67 @@
         .btn-social { background: transparent; border: 1px solid #555; color: #ccc; padding: 5px 15px; font-size: 11px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
         .btn-social:hover { border-color: #fff; color: #fff; }
 
-        /* [8.5] SHOP CARD */
-        .shop-card { background: rgba(20, 20, 30, 0.8); border: 1px solid var(--gold); border-radius: 12px; padding: 40px; text-align: center; max-width: 400px; margin: 0 auto; box-shadow: 0 0 50px rgba(200, 170, 109, 0.2); position: relative; }
-        .chest-container { width: 200px; height: 200px; margin: 0 auto 30px; position: relative; perspective: 1000px; }
-        .chest-box { width: 100%; height: 100%; background: linear-gradient(135deg, #8e733b, #c8aa6d); border: 4px solid #f0e6d2; border-radius: 12px; box-shadow: 0 0 30px rgba(200,170,109,0.5), inset 0 0 20px rgba(0,0,0,0.5); position: relative; transition: 0.5s; display: flex; align-items: center; justify-content: center; }
-        .chest-box::after { content: '?'; font-family: 'Cinzel'; font-size: 80px; color: rgba(0,0,0,0.3); font-weight: 900; }
-        .chest-box.open { background: linear-gradient(135deg, var(--cyan), #fff); border-color: var(--cyan); box-shadow: 0 0 60px var(--cyan-glow), inset 0 0 30px rgba(255,255,255,0.8); transform: scale(1.1); }
-        .chest-box.open::after { content: ''; }
-        @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
-        .chest-shaking { animation: shake 0.5s infinite; box-shadow: 0 0 50px red !important; }
+        /* [8.5] SHOP GRID & NEW CHEST DESIGN (V74 VISUAL UPDATE WITH CSS MASK) */
+        .shop-grid { display: flex; gap: 20px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+        .shop-item { background: rgba(20, 20, 30, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px 20px; text-align: center; flex: 1; min-width: 220px; max-width: 300px; position: relative; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
+        .shop-item:hover { transform: translateY(-5px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.2); }
+        .pack-title { font-family: 'Cinzel'; font-size: 18px; margin-bottom: 5px; }
+        .pack-count { color: #888; font-size: 12px; margin-bottom: 20px; font-weight: bold; }
+        .pack-price { color: #fff; font-weight: bold; font-size: 16px; margin-bottom: 15px; }
+        
+        /* MAGICAL PEDESTAL FOR CHESTS */
+        .chest-img-container { 
+            width: 160px; height: 160px; margin: 0 auto 20px; 
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 70%); /* Subtle base glow */
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden; /* Ensure nothing spills out of the circle */
+        }
+        
+        /* MAGICAL ROTATING RING BEHIND CHEST */
+        .chest-img-container::before {
+            content: ''; position: absolute; inset: -5px; border-radius: 50%;
+            border: 1px dashed rgba(255,255,255,0.2);
+            animation: spin 10s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* [8.6] INVENTORY GRID & SPRITE */
-        .nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
-        .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 2/3; transition: 0.3s; }
+        /* Specific Glow Colors for Tiers */
+        .tier-solo .chest-img-container { box-shadow: 0 0 15px var(--glow-white), inset 0 0 10px var(--glow-white); border-color: rgba(200,200,200,0.3); }
+        .tier-elite .chest-img-container { box-shadow: 0 0 20px var(--glow-green), inset 0 0 15px var(--glow-green); border-color: rgba(0,255,100,0.3); }
+        .tier-legend .chest-img-container { box-shadow: 0 0 25px var(--glow-gold), inset 0 0 20px var(--glow-gold); border-color: rgba(255,215,0,0.3); }
+
+        .chest-img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transition: transform 0.3s; z-index: 2;
+            /* THE MAGIC MASK: Cắt ảnh hình vuông thành hình tròn */
+            -webkit-mask-image: radial-gradient(circle, white 55%, transparent 71%);
+            mask-image: radial-gradient(circle, white 55%, transparent 71%);
+        }
+        
+        /* Hover Effect */
+        .shop-item:hover .chest-img { transform: scale(1.1); }
+
+        /* Shaking Animation */
+        @keyframes shakeHard { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+        .chest-shaking { animation: shakeHard 0.2s infinite; }
+
+        /* [8.6] INVENTORY GRID & SPRITE (FIXED 5x4) */
+        .nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; width: 100%; padding: 10px; }
+        .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 2.5/3.5; transition: 0.3s; }
         .nft-item:hover { border-color: var(--gold); transform: translateY(-5px); z-index: 10; box-shadow: 0 0 15px rgba(200, 170, 109, 0.3); }
-        .nft-sprite { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('./assets/heroes_sprite.png'); background-size: 400% 500%; background-repeat: no-repeat; }
+        .nft-sprite { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('./assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; }
         .nft-info { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); padding: 5px; text-align: center; border-top: 1px solid #333; }
-        .nft-name { font-size: 11px; color: #fff; font-weight: bold; display: block; font-family: 'Rajdhani'; }
-        .nft-tier { font-size: 10px; color: var(--gold); font-family: 'Cinzel'; }
+        .nft-name { font-size: 10px; color: #fff; font-weight: bold; display: block; font-family: 'Rajdhani'; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .nft-tier { font-size: 9px; color: var(--gold); font-family: 'Cinzel'; }
 
-        /* [8.7] REWARD OVERLAY */
+        /* [8.7] REWARD OVERLAY (CARD FLIP & GRID) */
         .reward-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; flex-direction: column; }
         .reward-overlay.active { display: flex; animation: fadeIn 0.5s; }
-        .reward-card { width: 180px; height: 270px; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; animation: popIn 0.5s; background: #000; position: relative; box-shadow: 0 0 30px rgba(200, 170, 109, 0.4); }
+        .reward-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 900px; padding: 20px; max-height: 70vh; overflow-y: auto; }
+        .reward-card { width: 140px; aspect-ratio: 2.5/3.5; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; animation: popIn 0.5s; background: #000; position: relative; box-shadow: 0 0 30px rgba(200, 170, 109, 0.4); transform-origin: center; }
         
         .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
         .user-dropdown.active { display: flex; }
@@ -253,9 +295,9 @@
     <div id="toast-container"></div>
     
     <div id="reward-overlay" class="reward-overlay">
-        <h1 class="reward-title">SUMMON COMPLETED!</h1>
+        <h1 class="reward-title" style="color:var(--gold); font-family:'Cinzel';">SUMMON COMPLETED!</h1>
         <div id="reward-grid" class="reward-grid"></div>
-        <button class="btn-main" onclick="closeReward()" style="margin-top: 40px;">COLLECT ALL</button>
+        <button class="btn-main" onclick="closeReward()" style="margin-top: 30px;">COLLECT ALL</button>
     </div>
 
     <nav>
@@ -383,10 +425,8 @@
                                     <span class="info-label">EMAIL LINKED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-email" class="info-input" value="..." readonly>
-                                        
                                         <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
-                                        
-                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')">DISCONNECT</button>
+                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')" style="display:none;">DISCONNECT</button>
                                     </div>
                                 </div>
 
@@ -394,10 +434,8 @@
                                     <span class="info-label">WALLET CONNECTED</span>
                                     <div class="info-value">
                                         <input type="text" id="input-wallet" class="info-input" value="..." readonly>
-                                        
                                         <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
-                                        
-                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')">DISCONNECT</button>
+                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')" style="display:none;">DISCONNECT</button>
                                     </div>
                                 </div>
                                 
@@ -408,14 +446,34 @@
 
                     <div id="tab-shop" class="dash-panel">
                         <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff; text-align:center;">SUMMON HEROES</h2>
-                        <div class="shop-card">
-                            <h3 style="color:var(--gold); margin-bottom:20px;">GENESIS CHEST</h3>
-                            <div class="chest-container"><div id="chest-box" class="chest-box"></div></div>
-                            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Contains 5 Random Heroes.<br>Chance: 50% Common, 30% Unc, 15% Rare, 4% Epic, 1% Legend.</p>
-                            <p style="color:#fff; font-weight:bold; font-size:24px; margin-bottom:20px;">0.0001 BNB</p>
-                            <button id="btn-buy" class="btn-mint" onclick="window.buyChest()">BUY NOW (5 CARDS)</button>
-                            <p id="shop-status" style="color:#888; font-size:12px; margin-top:10px;"></p>
+                        
+                        <div class="shop-grid">
+                            <div class="shop-item tier-solo">
+                                <h3 class="pack-title">SOLO PACK</h3>
+                                <p class="pack-count">1 CARD</p>
+                                <div class="chest-img-container"><img id="chest-img-1" src="./assets/rương1.png" alt="White Chest" class="chest-img"></div>
+                                <p class="pack-price">0.00001 BNB</p>
+                                <button id="btn-buy-1" class="btn-mint" onclick="buyChest(1, 'btn-buy-1', 'chest-img-1')">SUMMON x1</button>
+                            </div>
+
+                             <div class="shop-item tier-elite">
+                                <h3 class="pack-title" style="color:var(--gold);">ELITE PACK</h3>
+                                <p class="pack-count">5 CARDS</p>
+                                <div class="chest-img-container"><img id="chest-img-5" src="./assets/rương2.png" alt="Green Chest" class="chest-img"></div>
+                                <p class="pack-price">0.00001 BNB</p>
+                                <button id="btn-buy-5" class="btn-main" onclick="buyChest(5, 'btn-buy-5', 'chest-img-5')">SUMMON x5</button>
+                            </div>
+
+                             <div class="shop-item tier-legend">
+                                <h3 class="pack-title" style="color:#ff4757;">LEGEND PACK</h3>
+                                <p class="pack-count">10 CARDS</p>
+                                <div class="chest-img-container"><img id="chest-img-10" src="./assets/rương3.png" alt="Gold Chest" class="chest-img"></div>
+                                <p class="pack-price">0.00001 BNB</p>
+                                <button id="btn-buy-10" class="btn-mint" onclick="buyChest(10, 'btn-buy-10', 'chest-img-10')">SUMMON x10</button>
+                            </div>
                         </div>
+
+                        <p id="shop-status" style="color:#888; font-size:12px; margin-top:30px; text-align:center; font-family:'Roboto';">Rates: 40% Common, 30% Unc, 15% Rare, 10% Epic, 5% Legend. Test Price: All packs 0.00001 BNB.</p>
                     </div>
 
                     <div id="tab-inventory" class="dash-panel">
@@ -594,11 +652,10 @@
         const loginGate = document.getElementById('login-gate');
         const userDropdown = document.getElementById('user-dropdown');
         const dashOverlay = document.getElementById('dashboard-overlay');
-        let currentLoginType = ''; 
         let currentAccount = null;
 
         const ADMIN_WALLET = "0xa1Bc7F4567e085E6A869a0725AaB77e8f4897539"; 
-        const CHEST_PRICE = "0.0001";
+        const CHEST_PRICE = "0.0001"; // TEST PRICE
 
         // DATABASE 20 HEROES (GRID 5x4 => 500% x 400%)
         const HEROES_DB = [
@@ -631,7 +688,6 @@
         };
         window.closeLoginGate = () => loginGate.classList.remove('active');
 
-        // NEW MODAL LOGIC (V66)
         window.openLinkModal = (type) => document.getElementById(`${type}-modal`).classList.add('active');
         window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
         
@@ -649,7 +705,7 @@
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
                     closeLoginGate(); 
-                    updateUI(); // Trigger UI Refresh
+                    updateUI(); 
                     showToast("Wallet Connected!", "success");
                 } catch(e) { showToast("Wallet Connect Error", "error"); }
             } else { showToast("Please Install Metamask", "error"); }
@@ -671,10 +727,12 @@
             if(user) {
                 const ref = doc(db, "users", user.uid);
                 getDoc(ref).then(snap => {
-                    if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0 });
+                    if(!snap.exists()) {
+                        setDoc(ref, { name: user.displayName, email: user.email, shards: 0, inventory: [] }, { merge: true });
+                    }
                     else document.getElementById('profile-balance').innerText = snap.data().shards || 0;
                 });
-                updateUI(); // Refresh UI on Auth Change
+                updateUI(); 
 
                 if(localStorage.getItem('isDashOpen') === 'true') {
                     const savedTab = localStorage.getItem('dashTab') || 'profile';
@@ -682,23 +740,21 @@
                     else window.openDashboard(savedTab);
                 }
             } else {
-                updateUI(); // Refresh UI on Logout
+                updateUI(); 
             }
         });
 
-        // 4. UI UPDATE (V66: STRICT TOGGLE LOGIC)
+        // 4. UI UPDATE
         function updateUI() {
             const googleUser = auth.currentUser;
             const walletUser = currentAccount;
 
-            // --- HEADER ---
             if (googleUser || walletUser) {
                 const name = googleUser ? googleUser.displayName : (walletUser.substring(0,6)+"...");
                 mainLoginBtn.innerHTML = name + ' <i class="fas fa-caret-down"></i>';
                 document.getElementById('user-display-name').innerText = name;
                 document.getElementById('input-name').value = name;
                 
-                // Avatar Priority: Google > Placeholder
                 if(googleUser) {
                     document.getElementById('user-avatar').src = googleUser.photoURL;
                     document.getElementById('profile-avatar-big').src = googleUser.photoURL;
@@ -708,31 +764,28 @@
                     document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150";
                 }
             } else {
-                // GUEST MODE
                 resetUI();
                 return;
             }
 
-            // --- GOOGLE SECTION (STRICT CHECK) ---
             if(googleUser) {
                 document.getElementById('input-email').value = googleUser.email;
-                document.getElementById('btn-link-google').style.display = 'none'; // Hide Connect
-                document.getElementById('btn-unlink-google').style.display = 'inline-block'; // Show Disconnect
+                document.getElementById('btn-link-google').style.display = 'none';
+                document.getElementById('btn-unlink-google').style.display = 'inline-block';
             } else {
                 document.getElementById('input-email').value = "Not Linked";
-                document.getElementById('btn-link-google').style.display = 'inline-block'; // Show Connect
-                document.getElementById('btn-unlink-google').style.display = 'none'; // Hide Disconnect
+                document.getElementById('btn-link-google').style.display = 'inline-block';
+                document.getElementById('btn-unlink-google').style.display = 'none';
             }
 
-            // --- WALLET SECTION (STRICT CHECK) ---
             if(walletUser) {
                 document.getElementById('input-wallet').value = walletUser;
-                document.getElementById('btn-link-wallet').style.display = 'none'; // Hide Connect
-                document.getElementById('btn-unlink-wallet').style.display = 'inline-block'; // Show Disconnect
+                document.getElementById('btn-link-wallet').style.display = 'none';
+                document.getElementById('btn-unlink-wallet').style.display = 'inline-block';
             } else {
                 document.getElementById('input-wallet').value = "Not Connected";
-                document.getElementById('btn-link-wallet').style.display = 'inline-block'; // Show Connect
-                document.getElementById('btn-unlink-wallet').style.display = 'none'; // Hide Disconnect
+                document.getElementById('btn-link-wallet').style.display = 'inline-block';
+                document.getElementById('btn-unlink-wallet').style.display = 'none';
             }
         }
 
@@ -740,8 +793,7 @@
             mainLoginBtn.innerHTML = "LOGIN";
             mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666";
             userDropdown.classList.remove('active');
-            currentLoginType = '';
-            // Don't clear currentAccount here, just UI reset
+            currentAccount = null;
             localStorage.removeItem('isDashOpen'); 
         }
 
@@ -753,8 +805,7 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     currentAccount = await signer.getAddress();
-                    
-                    updateUI(); // Refresh UI
+                    updateUI(); 
                     showToast("Wallet Linked Successfully!", "success");
                 } catch(e) { showToast("Link Error", "error"); }
             } else { alert("Install Metamask"); }
@@ -763,7 +814,7 @@
         window.linkGoogle = async () => {
              try {
                 await signInWithPopup(auth, provider);
-                updateUI(); // Refresh UI
+                updateUI(); 
                 showToast("Google Account Linked!", "success");
              } catch (e) { showToast("Link Error: " + e.message, "error"); }
         };
@@ -772,76 +823,93 @@
             window.closeLinkModal(`unlink-${type}`);
             
             if (type === 'wallet') {
-                currentAccount = null; // Disconnect Wallet Variable
-                updateUI(); // Refresh UI
+                currentAccount = null; 
+                updateUI(); 
                 showToast("Wallet Disconnected", "warning");
-                // If both disconnected, reload
                 if(!auth.currentUser) location.reload();
             } 
             else if (type === 'google') {
-                await signOut(auth); // Disconnect Firebase
-                updateUI(); // Refresh UI
+                await signOut(auth); 
+                updateUI(); 
                 showToast("Google Disconnected", "warning");
-                // If both disconnected, reload
                 if(!currentAccount) location.reload();
             }
         };
 
-        // 6. BUY CHEST LOGIC
-        window.buyChest = async () => {
-            if(!window.ethereum) return alert("Please install Metamask to pay!");
-            const btn = document.getElementById('btn-buy');
+        // 6. BUY CHEST LOGIC (V73: DUAL CHECK & SAVE)
+        window.buyChest = async (amount, btnId, chestImgId) => {
+            // A. Check Wallet
+            if (!currentAccount) {
+                if(!window.ethereum) return alert("Please install Metamask!");
+                window.openLinkModal('link-wallet');
+                return;
+            }
+
+            // B. Check Google
+            if (!auth.currentUser) {
+                window.openLinkModal('link-google');
+                showToast("Login Google to Save Items!", "warning");
+                return;
+            }
+
+            const btn = document.getElementById(btnId);
+            const chestImg = document.getElementById(chestImgId);
             const status = document.getElementById('shop-status');
-            const chestBox = document.getElementById('chest-box');
-            
+            const originalText = btn.innerText;
+
             try {
-                btn.disabled = true;
-                btn.innerText = "WAITING PAYMENT...";
-                status.innerText = "Please confirm transaction in Metamask...";
-                chestBox.classList.add('chest-shaking'); 
+                document.querySelectorAll('.btn-mint, .btn-main').forEach(b => b.disabled = true);
+                btn.innerText = "WAITING...";
+                chestImg.classList.add('chest-shaking'); 
+                status.innerText = `Summoning ${amount} Heroes... Confirm in Metamask.`;
 
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                await provider.send("eth_requestAccounts", []);
                 const signer = provider.getSigner();
                 const tx = await signer.sendTransaction({
                     to: ADMIN_WALLET,
-                    value: ethers.utils.parseEther(CHEST_PRICE)
+                    value: ethers.utils.parseEther(CHEST_PRICE) 
                 });
                 
-                status.innerText = "Payment Sent! Waiting for blockchain...";
+                status.innerText = "Payment Sent! Confirming...";
                 await tx.wait(); 
 
                 status.innerText = "Payment Confirmed! Opening...";
-                chestBox.classList.remove('chest-shaking');
-                chestBox.classList.add('open'); 
-                confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 }, colors: ['#c8aa6d', '#00f2ff', '#ffffff'] });
+                chestImg.classList.remove('chest-shaking');
+                confetti({ particleCount: 100 * amount, spread: 120, origin: { y: 0.6 }, colors: ['#c8aa6d', '#00f2ff', '#ffffff'] });
 
                 const newHeroes = [];
-                for(let i=0; i<5; i++) {
-                    const rand = Math.floor(Math.random() * 20); 
-                    newHeroes.push(HEROES_DB[rand]);
+                for(let i=0; i < amount; i++) {
+                    const rand = Math.random() * 100;
+                    let tier = "";
+                    if (rand < 40) tier = "Common";
+                    else if (rand < 70) tier = "Uncommon";
+                    else if (rand < 85) tier = "Rare";
+                    else if (rand < 95) tier = "Epic";
+                    else tier = "Legendary";
+
+                    const pool = HEROES_DB.filter(h => h.tier === tier);
+                    const hero = pool[Math.floor(Math.random() * pool.length)];
+                    newHeroes.push(hero);
                 }
 
-                if(currentUser) {
-                    const userRef = doc(db, "users", currentUser.uid);
-                    const heroIds = newHeroes.map(h => h.id);
-                    await updateDoc(userRef, { inventory: arrayUnion(...heroIds) });
-                }
+                // SAVE TO FIREBASE (INVENTORY PERSISTENCE)
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                const heroIds = newHeroes.map(h => h.id);
+                await setDoc(userRef, { inventory: arrayUnion(...heroIds) }, { merge: true });
 
                 setTimeout(() => {
                     showRewards(newHeroes);
-                    btn.disabled = false;
-                    btn.innerText = "BUY AGAIN";
-                    status.innerText = "Success!";
-                    chestBox.classList.remove('open');
+                    document.querySelectorAll('.btn-mint, .btn-main').forEach(b => b.disabled = false);
+                    btn.innerText = originalText;
+                    status.innerText = "Ready to summon.";
                 }, 1500);
 
             } catch(e) {
                 console.error(e);
-                chestBox.classList.remove('chest-shaking');
-                btn.disabled = false;
-                btn.innerText = "BUY NOW";
-                status.innerText = "Transaction Failed or Cancelled.";
+                chestImg.classList.remove('chest-shaking');
+                document.querySelectorAll('.btn-mint, .btn-main').forEach(b => b.disabled = false);
+                btn.innerText = originalText;
+                status.innerText = "Failed: " + e.message;
             }
         };
 
@@ -866,17 +934,28 @@
         }
         window.closeReward = () => {
             document.getElementById('reward-overlay').classList.remove('active');
-            window.loadInventory(); 
+            window.loadInventory(); // Refresh Immediately
         };
 
-        // 7. INVENTORY (FIXED SPRITE LOGIC 5x4)
+        // 7. INVENTORY (V73: GOOGLE CHECK)
         window.loadInventory = async () => {
-            if(!currentUser) return;
             const grid = document.getElementById('inventory-grid');
-            grid.innerHTML = "<div style='color:#fff;'>Loading...</div>";
-            const docRef = doc(db, "users", currentUser.uid);
+            
+            if(!auth.currentUser) {
+                 grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align:center; padding: 40px;">
+                        <p style="color:#666; margin-bottom: 20px;">Connect Google Account to save & view inventory.</p>
+                        <button class="btn-main" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
+                    </div>`;
+                 return;
+            }
+
+            grid.innerHTML = "<div style='color:#fff; text-align:center; grid-column:1/-1;'>Loading Army...</div>";
+            
+            const docRef = doc(db, "users", auth.currentUser.uid);
             const snap = await getDoc(docRef);
-            if(snap.exists() && snap.data().inventory) {
+            
+            if(snap.exists() && snap.data().inventory && snap.data().inventory.length > 0) {
                 grid.innerHTML = "";
                 const invIds = snap.data().inventory;
                 invIds.forEach(id => {
@@ -893,7 +972,9 @@
                         grid.appendChild(item);
                     }
                 });
-            } else { grid.innerHTML = "<div style='color:#666;'>Empty Inventory</div>"; }
+            } else { 
+                grid.innerHTML = "<div style='color:#666; text-align:center; grid-column:1/-1;'>Inventory Empty. Go Summon!</div>"; 
+            }
         };
 
         // 8. HELPERS
@@ -916,8 +997,7 @@
 
         document.getElementById('logout-btn').onclick = async () => { await signOut(auth); localStorage.clear(); location.reload(); };
 
-        // 9. HERO SLIDER LOGIC
-        // Using "100% 0%" for Ignis to show the Gold version in the slider too
+        // 9. HERO SLIDER
         const heroesData = [
             { name: "IGNIS PRIME", factionHTML: "FACTION • <span style='color:#ff3b3b'>IGNIS</span> • DESTRUCTION", quote: "\"The fire never dies. I am destruction, and I am rebirth.\"", bgImage: "./assets/bg_ignis.jpg?v=1", bgPos: "100% 0%" },
             { name: "GAIA MOTHER", factionHTML: "FACTION • <span style='color:#00ff88'>SYLVA</span> • NATURE", quote: "\"Nature is never in a hurry, yet everything is accomplished.\"", bgImage: "./assets/bg_sylva.jpg?v=1", bgPos: "100% 33.33%" },
