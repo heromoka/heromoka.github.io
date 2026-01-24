@@ -1,1 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOKAHERO: SHOP | OFFICIAL SITE</title>
+    
+    <link rel="icon" type="image/png" href="../assets/fire.png?v=999">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+    <style>
+        /* GIỮ NGUYÊN CSS V74 NHƯNG CÓ CHỈNH SỬA NHỎ CHO TRANG SHOP */
+        :root {
+            --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
+            --cyan-glow: rgba(0, 242, 255, 0.5); --dark: #050505;
+            --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
+            --card-glass: rgba(20, 20, 30, 0.85); --danger: #ff4757;
+            --glow-white: rgba(255, 255, 255, 0.4);
+            --glow-green: rgba(0, 255, 100, 0.4);
+            --glow-gold: rgba(255, 215, 0, 0.5);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--dark); color: #f0f0f0; overflow: hidden; /* Khóa cuộn trang shop */ }
+
+        /* BUTTONS */
+        .btn-main, .btn-mint { background: linear-gradient(to bottom, #c8aa6d, #8e733b); color: #000; padding: 12px 35px; border: 1px solid #f0e6d2; font-weight: 700; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); cursor: pointer; transition: 0.3s; font-family: 'Rajdhani', sans-serif; }
+        .btn-main:hover, .btn-mint:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); }
+        .btn-mint:disabled { filter: grayscale(1); cursor: not-allowed; opacity: 0.6; }
+        .btn-outline { background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); font-family: 'Rajdhani', sans-serif; font-weight: 700; text-decoration: none; display: inline-block; }
+        .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+        .btn-platform { background: rgba(0,0,0,0.6); border: 1px solid #444; color: #aaa; padding: 8px 20px; font-size: 12px; cursor: pointer; border-radius: 4px; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-weight: bold; }
+        .btn-platform:hover { border-color: var(--gold); color: var(--gold); background: rgba(200, 170, 109, 0.1); }
+
+        /* NAV */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; font-family: 'Cinzel'; } .logo span { color: var(--gold); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        /* Link về trang chủ dùng / hoặc ../ */
+        .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
+        .nav-actions { display: flex; gap: 15px; align-items: center; }
+
+        /* MAIN DASHBOARD (FULL SCREEN) */
+        .dash-overlay { position: fixed; inset: 0; z-index: 500; display: flex; background: #111; width: 100vw; height: 100vh; flex-direction: column; top: 80px; /* Trừ height nav */ height: calc(100vh - 80px); }
+        .dash-wrapper { width: 100%; height: 100%; background: #111; display: flex; }
+        .dash-sidebar { width: 260px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 30px 20px; }
+        .dash-main { flex: 1; display: flex; flex-direction: column; background: url('../assets/bg_ignis.jpg?v=1'); background-size: cover; background-position: center; background-blend-mode: multiply; background-color: rgba(10,10,15,0.95); position: relative; }
+        .dash-content { flex: 1; padding: 40px 60px; overflow-y: auto; }
+        
+        .dash-menu-item { padding: 15px 20px; color: #888; font-family: 'Rajdhani'; font-weight: bold; cursor: pointer; display: flex; gap: 15px; align-items: center; transition: 0.2s; border-radius: 4px; margin-bottom: 5px; }
+        .dash-menu-item.active, .dash-menu-item:hover { color: var(--gold); background: rgba(200,170,109,0.1); }
+        .dash-panel { display: none; animation: fadeIn 0.3s; }
+        .dash-panel.active { display: block; }
+
+        /* SHOP & CHEST STYLES */
+        .shop-grid { display: flex; gap: 20px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+        .shop-item { background: rgba(20, 20, 30, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px 20px; text-align: center; flex: 1; min-width: 220px; max-width: 300px; position: relative; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
+        .shop-item:hover { transform: translateY(-5px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.2); }
+        .pack-title { font-family: 'Cinzel'; font-size: 18px; margin-bottom: 5px; color: #fff; }
+        .pack-count { color: #888; font-size: 12px; margin-bottom: 20px; font-weight: bold; }
+        .pack-price { color: #fff; font-weight: bold; font-size: 16px; margin-bottom: 15px; }
+
+        .chest-img-container { 
+            width: 160px; height: 160px; margin: 0 auto 20px; 
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; position: relative;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 70%);
+            border: 1px solid rgba(255,255,255,0.1); overflow: hidden;
+        }
+        .chest-img-container::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.2); animation: spin 10s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .tier-solo .chest-img-container { box-shadow: 0 0 15px var(--glow-white), inset 0 0 10px var(--glow-white); border-color: rgba(200,200,200,0.3); }
+        .tier-elite .chest-img-container { box-shadow: 0 0 20px var(--glow-green), inset 0 0 15px var(--glow-green); border-color: rgba(0,255,100,0.3); }
+        .tier-legend .chest-img-container { box-shadow: 0 0 25px var(--glow-gold), inset 0 0 20px var(--glow-gold); border-color: rgba(255,215,0,0.3); }
+
+        .chest-img { 
+            width: 85%; height: 85%; object-fit: contain; z-index: 2; transition: 0.3s;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8)); 
+            /* MASK ĐỂ CẮT HÌNH TRÒN CHO RƯƠNG CÓ NỀN TRẮNG */
+            -webkit-mask-image: radial-gradient(circle, white 55%, transparent 71%);
+            mask-image: radial-gradient(circle, white 55%, transparent 71%);
+        }
+        .shop-item:hover .chest-img { transform: scale(1.15) translateY(-5px); }
+        @keyframes shakeHard { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+        .chest-shaking { animation: shakeHard 0.2s infinite; }
+
+        /* OVERLAYS (LOGIN, REWARD) */
+        .login-overlay { position: fixed; inset: 0; z-index: 3000; display: none; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .login-overlay.active { display: flex; }
+        .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; }
+        .login-option { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #ccc; font-family: 'Rajdhani'; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
+        .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
+        
+        #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
+        .toast { background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px; border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'Rajdhani'; font-weight: bold; min-width: 250px; transform: translateX(120%); transition: transform 0.3s; display: flex; align-items: center; gap: 10px; }
+        .toast.show { transform: translateX(0); }
+        .toast i { color: var(--gold); font-size: 18px; }
+
+        /* REWARD */
+        .reward-overlay { position: fixed; inset: 0; z-index: 4000; background: rgba(0,0,0,0.95); display: none; align-items: center; justify-content: center; flex-direction: column; }
+        .reward-overlay.active { display: flex; animation: fadeIn 0.5s; }
+        .reward-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 900px; padding: 20px; max-height: 70vh; overflow-y: auto; }
+        .reward-card { width: 140px; aspect-ratio: 2.5/3.5; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; animation: popIn 0.5s; background: #000; position: relative; box-shadow: 0 0 30px rgba(200, 170, 109, 0.4); }
+        
+        /* INVENTORY GRID */
+        .nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; width: 100%; padding: 10px; }
+        .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 2.5/3.5; transition: 0.3s; }
+        .nft-item:hover { border-color: var(--gold); transform: translateY(-5px); z-index: 10; box-shadow: 0 0 15px rgba(200, 170, 109, 0.3); }
+        .nft-sprite { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('../assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; }
+        .nft-info { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); padding: 5px; text-align: center; border-top: 1px solid #333; }
+        .nft-name { font-size: 10px; color: #fff; font-weight: bold; display: block; font-family: 'Rajdhani'; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .nft-tier { font-size: 9px; color: var(--gold); font-family: 'Cinzel'; }
+
+        /* USER DROPDOWN */
+        .user-dropdown { position: absolute; top: 60px; right: 0; width: 220px; background: #111; border: 1px solid var(--gold); display: none; flex-direction: column; z-index: 1001; }
+        .user-dropdown.active { display: flex; }
+        .dropdown-item { padding: 12px 15px; color: #ccc; text-decoration: none; font-size: 13px; border-bottom: 1px solid #222; transition: 0.2s; display: flex; gap: 10px; cursor: pointer; }
+        .dropdown-item:hover { background: #222; color: var(--gold); }
+
+        /* PROFILE STYLES */
+        .profile-container { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+        .profile-left { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 30px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .profile-right { display: flex; flex-direction: column; gap: 20px; }
+        .avatar-circle { width: 120px; height: 120px; margin: 0 auto 20px; border-radius: 50%; border: 3px solid var(--gold); padding: 5px; box-shadow: 0 0 20px rgba(200,170,109,0.3); }
+        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #222; }
+        .rank-badge { display: inline-block; padding: 5px 15px; background: linear-gradient(90deg, #c8aa6d, #8e733b); color: #000; font-weight: bold; font-family: 'Rajdhani'; font-size: 12px; border-radius: 4px; margin-bottom: 15px; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; border-top: 1px solid #333; padding-top: 20px; }
+        .stat-box { background: #151515; padding: 10px; border-radius: 4px; text-align: center; }
+        .stat-val { color: #fff; font-weight: bold; font-size: 18px; display: block; font-family: 'Cinzel'; }
+        .stat-lbl { color: #666; font-size: 10px; text-transform: uppercase; }
+        .info-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 25px; position: relative; }
+        .info-label { color: var(--gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        .info-value { background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ccc; padding: 12px 15px; font-size: 14px; width: 100%; border-radius: 4px; font-family: 'Roboto'; display: flex; justify-content: space-between; align-items: center; }
+        .info-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; }
+        .btn-link-action { background: var(--gold); color: #000; border: none; padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
+        .btn-link-action:hover { background: #fff; }
+        .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
+        .btn-unlink:hover { background: var(--danger); color: #fff; }
+
+        @media (max-width: 768px) { .dash-wrapper { flex-direction: column; } .dash-sidebar { width: 100%; height: auto; flex-direction: row; overflow-x: auto; } .dash-content { padding: 20px; } .profile-container { grid-template-columns: 1fr; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <div id="toast-container"></div>
+    
+    <div id="reward-overlay" class="reward-overlay">
+        <h1 class="reward-title" style="color:var(--gold); font-family:'Cinzel';">SUMMON COMPLETED!</h1>
+        <div id="reward-grid" class="reward-grid"></div>
+        <button class="btn-main" onclick="closeReward()" style="margin-top: 30px;">COLLECT ALL</button>
+    </div>
+
+    <nav>
+        <a href="/" class="logo">MOKA<span>HERO</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#" class="active" style="color:var(--gold)">SHOP</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button id="main-login-btn" class="btn-outline">LOGIN</button>
+            <div id="user-dropdown" class="user-dropdown">
+                <div class="dropdown-header" style="padding:15px; border-bottom:1px solid #333; display:flex; gap:10px; align-items:center;">
+                    <img id="user-avatar" src="" alt="" style="width:30px; height:30px; border-radius:50%; display:none;">
+                    <div style="display:flex; flex-direction:column;">
+                        <span id="user-display-name" style="color:#fff; font-size:13px; font-weight:bold;">...</span>
+                        <span style="color:#666; font-size:10px;">Commander</span>
+                    </div>
+                </div>
+                <div class="dropdown-item" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> Profile</div>
+                <div class="dropdown-item" id="logout-btn" style="color:#ff4757;"><i class="fas fa-sign-out-alt"></i> Logout</div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="login-gate" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLoginGate()"></i>
+            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">CHOOSE METHOD</h3>
+            <button class="login-option" id="btn-google"><i class="fab fa-google"></i> LOGIN WITH GOOGLE</button>
+            <button class="login-option" id="btn-metamask"><i class="fas fa-wallet"></i> CONNECT METAMASK</button>
+        </div>
+    </div>
+    
+    <div id="link-wallet-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('link-wallet')"></i>
+            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">CONNECT WALLET</h3>
+            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Connect your Metamask to pay.</p>
+            <button class="login-option" id="btn-connect-metamask-confirm"><i class="fas fa-wallet"></i> METAMASK</button>
+        </div>
+    </div>
+    
+    <div id="link-google-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('link-google')"></i>
+            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">LINK GOOGLE</h3>
+            <p style="color:#ccc; margin-bottom:20px; font-size:14px;">Sign in with Google to save your inventory.</p>
+            <button class="login-option" id="btn-connect-google-confirm"><i class="fab fa-google"></i> GOOGLE ACCOUNT</button>
+        </div>
+    </div>
+
+    <div id="unlink-wallet-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('unlink-wallet')"></i>
+            <h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT?</h3>
+            <button class="login-option" onclick="confirmUnlink('wallet')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button>
+            <button class="login-option" onclick="closeLinkModal('unlink-wallet')">CANCEL</button>
+        </div>
+    </div>
+    
+    <div id="unlink-google-modal" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-times login-close" onclick="closeLinkModal('unlink-google')"></i>
+            <h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT?</h3>
+            <button class="login-option" onclick="confirmUnlink('google')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button>
+            <button class="login-option" onclick="closeLinkModal('unlink-google')">CANCEL</button>
+        </div>
+    </div>
+
+    <div class="dash-overlay" style="display:flex;">
+        <div class="dash-wrapper">
+            <div class="dash-sidebar">
+                <div style="color:#fff; font-family:'Cinzel'; font-size:22px; text-align:center; margin-bottom:40px;">MOKA<span>HERO</span></div>
+                <div id="menu-shop" class="dash-menu-item active" onclick="switchTab('shop', this)"><i class="fas fa-store"></i> SHOP</div> 
+                <div id="menu-inventory" class="dash-menu-item" onclick="switchTab('inventory', this)"><i class="fas fa-box-open"></i> INVENTORY</div>
+                <div id="menu-profile" class="dash-menu-item" onclick="switchTab('profile', this)"><i class="fas fa-user-circle"></i> PROFILE</div>
+            </div>
+            
+            <div class="dash-main">
+                <div class="dash-content">
+                    
+                    <div id="tab-shop" class="dash-panel active">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:30px; color:#fff; text-align:center;">SUMMON HEROES</h2>
+                        <div class="shop-grid">
+                            <div class="shop-item tier-solo">
+                                <h3 class="pack-title">SOLO PACK</h3>
+                                <p class="pack-count">1 CARD</p>
+                                <div class="chest-img-container"><img id="chest-img-1" src="../assets/rương1.png" alt="White Chest" class="chest-img"></div>
+                                <p class="pack-price">0.00001 BNB</p>
+                                <button id="btn-buy-1" class="btn-mint" onclick="buyChest(1, 'btn-buy-1', 'chest-img-1')">SUMMON x1</button>
+                            </div>
+                             <div class="shop-item tier-elite">
+                                <h3 class="pack-title" style="color:var(--gold);">ELITE PACK</h3>
+                                <p class="pack-count">5 CARDS</p>
+                                <div class="chest-img-container"><img id="chest-img-5" src="../assets/rương2.png" alt="Green Chest" class="chest-img"></div>
+                                <p class="pack-price">0.00001 BNB</p>
+                                <button id="btn-buy-5" class="btn-main" onclick="buyChest(5, 'btn-buy-5', 'chest-img-5')">SUMMON x5</button>
+                            </div>
+                             <div class="shop-item tier-legend">
+                                <h3 class="pack-title" style="color:#ff4757;">LEGEND PACK</h3>
+                                <p class="pack-count">10 CARDS</p>
+                                <div class="chest-img-container"><img id="chest-img-10" src="../assets/rương3.png" alt="Gold Chest" class="chest-img"></div>
+                                <p class="pack-price">0.00001 BNB</p>
+                                <button id="btn-buy-10" class="btn-mint" onclick="buyChest(10, 'btn-buy-10', 'chest-img-10')">SUMMON x10</button>
+                            </div>
+                        </div>
+                        <p id="shop-status" style="color:#888; font-size:12px; margin-top:30px; text-align:center;">Rates: 40% Common, 30% Unc, 15% Rare, 10% Epic, 5% Legend. Test Price: All packs 0.00001 BNB.</p>
+                    </div>
+
+                    <div id="tab-inventory" class="dash-panel">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                            <h2 style="font-family:'Cinzel'; margin:0; color:#fff;">MY ARMY</h2>
+                            <button class="btn-outline" onclick="window.loadInventory()" style="font-size:12px;"><i class="fas fa-sync"></i> REFRESH</button>
+                        </div>
+                        <div id="inventory-grid" class="nft-grid"></div>
+                    </div>
+
+                    <div id="tab-profile" class="dash-panel">
+                        <h2 style="font-family:'Cinzel'; margin-bottom:40px; color:#fff;">COMMANDER PROFILE</h2>
+                        <div class="profile-container">
+                            <div class="profile-left">
+                                <div class="avatar-circle"><img id="profile-avatar-big" src="https://via.placeholder.com/150" class="avatar-img"></div>
+                                <span class="rank-badge">NOVICE COMMANDER</span>
+                                <div class="stat-grid">
+                                    <div class="stat-box"><span class="stat-val" style="color:var(--gold);" id="profile-balance">0</span><span class="stat-lbl">MOKA</span></div>
+                                    <div class="stat-box"><span class="stat-val" style="color:var(--cyan);">0</span><span class="stat-lbl">NFTs</span></div>
+                                </div>
+                            </div>
+                            <div class="profile-right">
+                                <div class="info-card"><span class="info-label">DISPLAY NAME</span><div class="info-value"><input type="text" id="input-name" class="info-input" value="..." readonly><i class="fas fa-pen" style="cursor:pointer; color:#666;" onclick="enableEdit('name')"></i></div></div>
+                                <div class="info-card">
+                                    <span class="info-label">EMAIL LINKED</span>
+                                    <div class="info-value">
+                                        <input type="text" id="input-email" class="info-input" value="..." readonly>
+                                        <button id="btn-link-google" class="btn-link-action" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button>
+                                        <button id="btn-unlink-google" class="btn-unlink" onclick="openLinkModal('unlink-google')" style="display:none;">DISCONNECT</button>
+                                    </div>
+                                </div>
+                                <div class="info-card">
+                                    <span class="info-label">WALLET CONNECTED</span>
+                                    <div class="info-value">
+                                        <input type="text" id="input-wallet" class="info-input" value="..." readonly>
+                                        <button id="btn-link-wallet" class="btn-link-action" onclick="openLinkModal('link-wallet')">CONNECT WALLET</button>
+                                        <button id="btn-unlink-wallet" class="btn-unlink" onclick="openLinkModal('unlink-wallet')" style="display:none;">DISCONNECT</button>
+                                    </div>
+                                </div>
+                                <button id="save-profile-btn" class="save-btn" onclick="saveProfile()" style="align-self:flex-end; display:none;">SAVE CHANGES</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPwd9LJ_o6ZLymLduEvwrjQbNuGK-Hvyo",
+            authDomain: "mokahero-8c560.firebaseapp.com",
+            projectId: "mokahero-8c560",
+            storageBucket: "mokahero-8c560.firebasestorage.app",
+            messagingSenderId: "307285112101",
+            appId: "1:307285112101:web:7ac30091baac32c85796cc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        const mainLoginBtn = document.getElementById('main-login-btn');
+        const loginGate = document.getElementById('login-gate');
+        const userDropdown = document.getElementById('user-dropdown');
+        let currentAccount = null;
+        const ADMIN_WALLET = "0xa1Bc7F4567e085E6A869a0725AaB77e8f4897539"; 
+        const CHEST_PRICE = "0.00001";
+
+        // DATABASE 20 HEROES
+        const HEROES_DB = [
+            { id: 1, name: "Ignis Novice", tier: "Common", pos: "0% 0%" },
+            { id: 2, name: "Ember Knight", tier: "Uncommon", pos: "25% 0%" },
+            { id: 3, name: "Blaze Rider", tier: "Rare", pos: "50% 0%" },
+            { id: 4, name: "Phoenix Lord", tier: "Epic", pos: "75% 0%" },
+            { id: 5, name: "IGNIS PRIME", tier: "Legendary", pos: "100% 0%" }, 
+            { id: 6, name: "Sylva Sprout", tier: "Common", pos: "0% 33.33%" },
+            { id: 7, name: "Grove Warden", tier: "Uncommon", pos: "25% 33.33%" },
+            { id: 8, name: "Forest Guardian", tier: "Rare", pos: "50% 33.33%" },
+            { id: 9, name: "Nature's Wrath", tier: "Epic", pos: "75% 33.33%" },
+            { id: 10, name: "GAIA MOTHER", tier: "Legendary", pos: "100% 33.33%" },
+            { id: 11, name: "Omega Drone", tier: "Common", pos: "0% 66.66%" },
+            { id: 12, name: "Cyber Sentinel", tier: "Uncommon", pos: "25% 66.66%" },
+            { id: 13, name: "Mech Warrior", tier: "Rare", pos: "50% 66.66%" },
+            { id: 14, name: "Titan Prime", tier: "Epic", pos: "75% 66.66%" },
+            { id: 15, name: "OMEGA WEAPON", tier: "Legendary", pos: "100% 66.66%" },
+            { id: 16, name: "Void Imp", tier: "Common", pos: "0% 100%" },
+            { id: 17, name: "Shadow Fiend", tier: "Uncommon", pos: "25% 100%" },
+            { id: 18, name: "Abyss Walker", tier: "Rare", pos: "50% 100%" },
+            { id: 19, name: "Dark Lord", tier: "Epic", pos: "75% 100%" },
+            { id: 20, name: "VOID EYE", tier: "Legendary", pos: "100% 100%" }
+        ];
+
+        // 1. LOGIN & MODALS
+        mainLoginBtn.onclick = () => { if(mainLoginBtn.innerText === "LOGIN") loginGate.classList.add('active'); else userDropdown.classList.toggle('active'); };
+        window.closeLoginGate = () => loginGate.classList.remove('active');
+        window.openLinkModal = (type) => document.getElementById(`link-${type}-modal`).classList.add('active');
+        window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
+        
+        // 2. METHODS
+        document.getElementById('btn-google').onclick = async () => { try { await signInWithPopup(auth, provider); closeLoginGate(); } catch(e) { showToast("Error: " + e.message, "error"); } };
+        document.getElementById('btn-metamask').onclick = async () => { if(window.ethereum) { try { const provider = new ethers.providers.Web3Provider(window.ethereum); await provider.send("eth_requestAccounts", []); const signer = provider.getSigner(); currentAccount = await signer.getAddress(); closeLoginGate(); updateUI(); showToast("Wallet Connected!", "success"); } catch(e) { showToast("Connect Error", "error"); } } else { showToast("Install Metamask", "error"); } };
+        
+        document.getElementById('btn-connect-metamask-confirm').onclick = async () => { window.closeLinkModal('link-wallet'); await window.linkWallet(); };
+        document.getElementById('btn-connect-google-confirm').onclick = async () => { window.closeLinkModal('link-google'); await window.linkGoogle(); };
+
+        // 3. FIREBASE LISTENER
+        onAuthStateChanged(auth, (user) => {
+            if(user) {
+                const ref = doc(db, "users", user.uid);
+                getDoc(ref).then(snap => { if(!snap.exists()) setDoc(ref, { name: user.displayName, email: user.email, shards: 0, inventory: [] }, { merge: true }); else document.getElementById('profile-balance').innerText = snap.data().shards || 0; });
+                updateUI();
+            } else { updateUI(); }
+        });
+
+        // 4. UI UPDATE
+        function updateUI() {
+            const googleUser = auth.currentUser;
+            const walletUser = currentAccount;
+            if (googleUser || walletUser) {
+                const name = googleUser ? googleUser.displayName : (walletUser.substring(0,6)+"...");
+                mainLoginBtn.innerHTML = name + ' <i class="fas fa-caret-down"></i>';
+                document.getElementById('user-display-name').innerText = name;
+                document.getElementById('input-name').value = name;
+                if(googleUser) { document.getElementById('user-avatar').src = googleUser.photoURL; document.getElementById('profile-avatar-big').src = googleUser.photoURL; document.getElementById('user-avatar').style.display = 'block'; }
+                else { document.getElementById('user-avatar').style.display = 'none'; document.getElementById('profile-avatar-big').src = "https://via.placeholder.com/150"; }
+            } else { resetUI(); return; }
+
+            if(googleUser) { document.getElementById('input-email').value = googleUser.email; document.getElementById('btn-link-google').style.display = 'none'; document.getElementById('btn-unlink-google').style.display = 'inline-block'; }
+            else { document.getElementById('input-email').value = "Not Linked"; document.getElementById('btn-link-google').style.display = 'inline-block'; document.getElementById('btn-unlink-google').style.display = 'none'; }
+
+            if(walletUser) { document.getElementById('input-wallet').value = walletUser; document.getElementById('btn-link-wallet').style.display = 'none'; document.getElementById('btn-unlink-wallet').style.display = 'inline-block'; }
+            else { document.getElementById('input-wallet').value = "Not Connected"; document.getElementById('btn-link-wallet').style.display = 'inline-block'; document.getElementById('btn-unlink-wallet').style.display = 'none'; }
+        }
+
+        function resetUI() { mainLoginBtn.innerHTML = "LOGIN"; mainLoginBtn.style.color = "#ccc"; mainLoginBtn.style.borderColor = "#666"; userDropdown.classList.remove('active'); currentAccount = null; }
+
+        // 5. HYBRID LINKING
+        window.linkWallet = async () => { if(window.ethereum) { try { const provider = new ethers.providers.Web3Provider(window.ethereum); await provider.send("eth_requestAccounts", []); const signer = provider.getSigner(); currentAccount = await signer.getAddress(); updateUI(); showToast("Linked!", "success"); } catch(e) {} } };
+        window.linkGoogle = async () => { try { await signInWithPopup(auth, provider); updateUI(); showToast("Linked!", "success"); } catch(e) {} };
+        window.confirmUnlink = async (type) => { window.closeLinkModal(`unlink-${type}`); if (type === 'wallet') { currentAccount = null; updateUI(); showToast("Wallet Disconnected", "warning"); if(!auth.currentUser) location.href = '/'; } else if (type === 'google') { await signOut(auth); updateUI(); showToast("Google Disconnected", "warning"); if(!currentAccount) location.href = '/'; } };
+
+        // 6. BUY CHEST (CORE LOGIC)
+        window.buyChest = async (amount, btnId, chestImgId) => {
+            if (!currentAccount) { window.openLinkModal('link-wallet'); return; }
+            if (!auth.currentUser) { window.openLinkModal('link-google'); showToast("Login Google to Save Items!", "warning"); return; }
+
+            const btn = document.getElementById(btnId);
+            const chestImg = document.getElementById(chestImgId);
+            const status = document.getElementById('shop-status');
+            const originalText = btn.innerText;
+
+            try {
+                document.querySelectorAll('.btn-mint, .btn-main').forEach(b => b.disabled = true);
+                btn.innerText = "WAITING...";
+                chestImg.classList.add('chest-shaking'); 
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const signer = provider.getSigner();
+                const tx = await signer.sendTransaction({ to: ADMIN_WALLET, value: ethers.utils.parseEther(CHEST_PRICE) });
+                await tx.wait(); 
+                
+                chestImg.classList.remove('chest-shaking');
+                confetti({ particleCount: 100 * amount, spread: 120, origin: { y: 0.6 }, colors: ['#c8aa6d', '#00f2ff', '#ffffff'] });
+
+                const newHeroes = [];
+                for(let i=0; i < amount; i++) {
+                    const rand = Math.random() * 100;
+                    let tier = (rand < 40) ? "Common" : (rand < 70) ? "Uncommon" : (rand < 85) ? "Rare" : (rand < 95) ? "Epic" : "Legendary";
+                    const pool = HEROES_DB.filter(h => h.tier === tier);
+                    newHeroes.push(pool[Math.floor(Math.random() * pool.length)]);
+                }
+
+                const userRef = doc(db, "users", auth.currentUser.uid);
+                await setDoc(userRef, { inventory: arrayUnion(...newHeroes.map(h => h.id)) }, { merge: true });
+
+                setTimeout(() => { showRewards(newHeroes); document.querySelectorAll('.btn-mint, .btn-main').forEach(b => b.disabled = false); btn.innerText = originalText; }, 1500);
+
+            } catch(e) { console.error(e); chestImg.classList.remove('chest-shaking'); document.querySelectorAll('.btn-mint, .btn-main').forEach(b => b.disabled = false); btn.innerText = originalText; }
+        };
+
+        function showRewards(heroes) {
+            const grid = document.getElementById('reward-grid');
+            grid.innerHTML = "";
+            heroes.forEach(h => {
+                const card = document.createElement('div'); card.className = 'reward-card';
+                card.innerHTML = `<div class="nft-item" style="border:none; background:transparent;"><div class="nft-sprite" style="background-position: ${h.pos};"></div><div class="nft-info"><span class="nft-name" style="color:var(--gold);">${h.name}</span><span class="nft-tier" style="color:#ccc;">${h.tier}</span></div></div>`;
+                grid.appendChild(card);
+            });
+            document.getElementById('reward-overlay').classList.add('active');
+        }
+        window.closeReward = () => { document.getElementById('reward-overlay').classList.remove('active'); window.loadInventory(); };
+
+        // 7. INVENTORY
+        window.loadInventory = async () => {
+            const grid = document.getElementById('inventory-grid');
+            if(!auth.currentUser) { grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px;"><p style="color:#666; margin-bottom: 20px;">Connect Google to view inventory.</p><button class="btn-main" onclick="openLinkModal('link-google')">CONNECT GOOGLE</button></div>`; return; }
+            grid.innerHTML = "<div style='color:#fff; text-align:center; grid-column:1/-1;'>Loading...</div>";
+            const snap = await getDoc(doc(db, "users", auth.currentUser.uid));
+            if(snap.exists() && snap.data().inventory && snap.data().inventory.length > 0) {
+                grid.innerHTML = "";
+                snap.data().inventory.forEach(id => {
+                    const hero = HEROES_DB.find(h => h.id === id);
+                    if(hero) {
+                        const item = document.createElement('div'); item.className = 'nft-item';
+                        item.innerHTML = `<div class="nft-sprite" style="background-position: ${hero.pos};"></div><div class="nft-info"><span class="nft-name">${hero.name}</span><span class="nft-tier">${hero.tier}</span></div>`;
+                        grid.appendChild(item);
+                    }
+                });
+            } else { grid.innerHTML = "<div style='color:#666; text-align:center; grid-column:1/-1;'>Inventory Empty. Go Summon!</div>"; }
+        };
+
+        // HELPERS
+        window.switchTab = (tab, btn) => {
+            document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-'+tab).classList.add('active');
+            document.querySelectorAll('.dash-menu-item').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            if(tab === 'inventory') window.loadInventory();
+        };
+        window.showToast = (msg, type) => { const t = document.createElement('div'); t.className = 'toast show'; t.innerHTML = `<i>!</i> ${msg}`; document.getElementById('toast-container').appendChild(t); setTimeout(() => t.remove(), 3000); };
+        window.enableEdit = (field) => { const input = document.getElementById('input-' + field); input.readOnly = false; input.classList.add('editable'); input.focus(); document.getElementById('save-profile-btn').style.display = 'block'; };
+        window.saveProfile = () => { const inputs = document.querySelectorAll('.p-input'); inputs.forEach(i => { i.readOnly = true; i.classList.remove('editable'); }); document.getElementById('save-profile-btn').style.display = 'none'; showToast("Profile Updated!", "success"); };
+        window.connectSocial = (type) => { const u = prompt("Enter username:"); if(u) { document.getElementById(type+'-status').innerText = "Connected: @" + u; document.getElementById(type+'-status').classList.add('connected'); document.getElementById(type+'-status').style.color = "#00ff88"; showToast("Connected!", "success"); } };
+        document.getElementById('logout-btn').onclick = async () => { await signOut(auth); localStorage.clear(); location.href = '/'; };
+    </script>
+</body>
+</html>
