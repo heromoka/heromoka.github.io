@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOKAHERO: SHOP | OFFICIAL SITE</title>
+    <title>MOKAHERO: SHOP & DASHBOARD</title>
     
     <link rel="icon" type="image/png" href="../assets/fire.png?v=999">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        /* ================================================================= */
-        /* === GLOBAL STYLES (COPY TỪ V74) === */
-        /* ================================================================= */
+        /* === GIỮ NGUYÊN CSS V74 (CHỈNH PATH ẢNH) === */
         :root {
             --gold: #c8aa6d; --gold-bright: #f0e6d2; --cyan: #00f2ff;
-            --cyan-glow: rgba(0, 242, 255, 0.5); --dark: #050505;
+            --cyan-glow: rgba(0, 242, 255, 0.6); --dark: #050505;
             --ingame-blue: #4a9eff; --web3-purple: #9b59b6;
             --card-glass: rgba(20, 20, 30, 0.85); --danger: #ff4757;
-            
-            /* GLOW COLORS FOR CHESTS */
             --glow-white: rgba(255, 255, 255, 0.4);
             --glow-green: rgba(0, 255, 100, 0.4);
             --glow-gold: rgba(255, 215, 0, 0.5);
@@ -41,7 +36,7 @@
             cursor: pointer; transition: 0.3s; display: inline-block; text-decoration: none; font-family: 'Rajdhani', sans-serif; font-size: 16px;
         }
         .btn-main:hover, .btn-mint:hover { filter: brightness(1.2); transform: translateY(-2px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.4); }
-        .btn-mint:disabled, .btn-main:disabled { filter: grayscale(1); cursor: not-allowed; opacity: 0.5; }
+        .btn-mint:disabled, .btn-main:disabled { filter: grayscale(1); cursor: not-allowed; opacity: 0.6; }
 
         .btn-outline {
             background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 25px; cursor: pointer; transition: 0.3s;
@@ -50,9 +45,8 @@
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-        /* NAV (Dành riêng cho trang Shop) */
+        /* NAV */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 0 40px; height: 80px; background: rgba(5, 5, 5, 0.95); border-bottom: 1px solid #222; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        /* Link quay về trang test */
         .logo { font-size: 24px; font-weight: 900; color: #fff; cursor: pointer; text-decoration: none; font-family: 'Cinzel'; } .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 30px; list-style: none; }
         .nav-links a { text-decoration: none; color: #888; font-size: 14px; transition: 0.3s; letter-spacing: 1px; font-weight: 600; text-transform: uppercase; } .nav-links a:hover { color: var(--gold); }
@@ -61,7 +55,8 @@
         /* DASHBOARD LAYOUT */
         .dash-container { display: flex; height: calc(100vh - 80px); margin-top: 80px; }
         .dash-sidebar { width: 260px; background: #0e0e0e; border-right: 1px solid #222; display: flex; flex-direction: column; padding: 30px 20px; flex-shrink: 0; }
-        /* Background dùng ../ để lấy từ root */
+        
+        /* FIX PATH ẢNH NỀN */
         .dash-main { flex: 1; display: flex; flex-direction: column; background: url('../assets/bg_ignis.jpg?v=1'); background-size: cover; background-position: center; background-blend-mode: multiply; background-color: rgba(10,10,15,0.95); position: relative; }
         .dash-content { flex: 1; padding: 40px 60px; overflow-y: auto; }
         
@@ -70,54 +65,42 @@
         .dash-panel { display: none; animation: fadeIn 0.3s; }
         .dash-panel.active { display: block; }
 
-        /* === SHOP STYLES (THE MAGIC PART) === */
+        /* SHOP ITEMS V74 (WITH MASKING) */
         .shop-grid { display: flex; gap: 20px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
         .shop-item { background: rgba(20, 20, 30, 0.8); border: 1px solid #333; border-radius: 12px; padding: 30px 20px; text-align: center; flex: 1; min-width: 220px; max-width: 300px; position: relative; transition: 0.3s; display: flex; flex-direction: column; align-items: center; }
         .shop-item:hover { transform: translateY(-5px); box-shadow: 0 0 20px rgba(200, 170, 109, 0.2); }
         .pack-title { font-family: 'Cinzel'; font-size: 18px; margin-bottom: 5px; color: #fff; }
         .pack-count { color: #888; font-size: 12px; margin-bottom: 20px; font-weight: bold; }
         .pack-price { color: #fff; font-weight: bold; font-size: 16px; margin-bottom: 15px; }
-
-        /* PEDESTAL (Bệ đỡ rương) */
+        
+        /* PEDESTAL & MASKING */
         .chest-img-container { 
             width: 160px; height: 160px; margin: 0 auto 20px; 
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
             position: relative;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 70%); /* Nền mờ */
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 70%);
             border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden; 
         }
-        
-        /* Vòng xoay ma thuật */
-        .chest-img-container::before {
-            content: ''; position: absolute; inset: -5px; border-radius: 50%;
-            border: 1px dashed rgba(255,255,255,0.2);
-            animation: spin 10s linear infinite;
-        }
+        .chest-img-container::before { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.2); animation: spin 10s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Màu phát sáng từng loại rương */
         .tier-solo .chest-img-container { box-shadow: 0 0 15px var(--glow-white), inset 0 0 10px var(--glow-white); border-color: rgba(200,200,200,0.3); }
         .tier-elite .chest-img-container { box-shadow: 0 0 20px var(--glow-green), inset 0 0 15px var(--glow-green); border-color: rgba(0,255,100,0.3); }
         .tier-legend .chest-img-container { box-shadow: 0 0 25px var(--glow-gold), inset 0 0 20px var(--glow-gold); border-color: rgba(255,215,0,0.3); }
 
-        /* === QUAN TRỌNG: CẮT BỎ NỀN TRẮNG CỦA ẢNH === */
         .chest-img { 
-            width: 85%; height: 85%; object-fit: contain; 
+            width: 85%; height: 85%; object-fit: contain; z-index: 2; transition: 0.3s;
             filter: drop-shadow(0 10px 10px rgba(0,0,0,0.8)); 
-            transition: transform 0.3s; 
-            z-index: 2;
-            /* Masking: Chỉ hiện phần hình tròn, cắt bỏ 4 góc vuông màu trắng */
             -webkit-mask-image: radial-gradient(circle, white 55%, transparent 71%);
             mask-image: radial-gradient(circle, white 55%, transparent 71%);
         }
         .shop-item:hover .chest-img { transform: scale(1.15) translateY(-5px); }
-
-        /* Rung lắc */
         @keyframes shakeHard { 0% { transform: translate(1px, 1px) rotate(0deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
         .chest-shaking { animation: shakeHard 0.2s infinite; }
 
-        /* MODALS & OVERLAYS */
+        /* MODALS */
         .login-overlay { position: fixed; inset: 0; z-index: 3000; display: none; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .login-overlay.active { display: flex; }
         .login-box { width: 400px; padding: 40px; background: #111; border: 1px solid var(--gold); border-radius: 8px; text-align: center; position: relative; }
@@ -125,8 +108,9 @@
         .login-option:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,170,109,0.1); }
         .login-close { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 20px; }
         
+        /* TOAST */
         #toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; }
-        .toast { background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px; border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'Rajdhani'; font-weight: bold; min-width: 250px; transform: translateX(120%); transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; gap: 10px; }
+        .toast { background: rgba(10, 10, 15, 0.95); color: #fff; padding: 15px 25px; margin-bottom: 10px; border-left: 4px solid var(--gold); border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); font-family: 'Rajdhani'; font-weight: bold; min-width: 250px; transform: translateX(120%); transition: transform 0.3s; display: flex; align-items: center; gap: 10px; }
         .toast.show { transform: translateX(0); }
         .toast i { color: var(--gold); font-size: 18px; }
 
@@ -140,6 +124,7 @@
         .nft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; width: 100%; padding: 10px; }
         .nft-item { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; position: relative; aspect-ratio: 2.5/3.5; transition: 0.3s; }
         .nft-item:hover { border-color: var(--gold); transform: translateY(-5px); z-index: 10; box-shadow: 0 0 15px rgba(200, 170, 109, 0.3); }
+        /* FIX PATH SPRITE */
         .nft-sprite { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('../assets/full_set.png'); background-size: 500% 400%; background-repeat: no-repeat; }
         .nft-info { position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.8); padding: 5px; text-align: center; border-top: 1px solid #333; }
         .nft-name { font-size: 10px; color: #fff; font-weight: bold; display: block; font-family: 'Rajdhani'; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -169,8 +154,7 @@
         .btn-link-action:hover { background: #fff; }
         .btn-unlink { background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 5px 15px; font-weight: bold; cursor: pointer; font-size: 12px; border-radius: 4px; transition: 0.3s; margin-left: 10px; min-width: 130px; display: inline-block; }
         .btn-unlink:hover { background: var(--danger); color: #fff; }
-
-        /* SETTINGS */
+        
         .social-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 8px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; transition: 0.3s; }
         .social-card:hover { border-color: var(--gold); background: rgba(255,255,255,0.05); }
         .social-left { display: flex; align-items: center; gap: 15px; }
@@ -178,6 +162,7 @@
         .social-name { color: #fff; font-weight: bold; font-family: 'Rajdhani'; font-size: 16px; }
         .social-right { display: flex; align-items: center; gap: 15px; }
         .social-status { color: #666; font-size: 12px; font-weight: bold; }
+        .social-status.connected { color: #00ff88; }
         .btn-social { background: transparent; border: 1px solid #555; color: #ccc; padding: 5px 15px; font-size: 11px; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.2s; }
         .btn-social:hover { border-color: #fff; color: #fff; }
 
@@ -197,9 +182,9 @@
     </div>
 
     <nav>
-        <a href="/test" class="logo">MOKA<span>HERO</span></a>
+        <a href="/" class="logo">MOKA<span>HERO</span></a>
         <ul class="nav-links">
-            <li><a href="/test">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#" class="active" style="color:var(--gold)">SHOP</a></li>
         </ul>
         <div class="nav-actions">
@@ -229,41 +214,10 @@
         </div>
     </div>
     
-    <div id="link-wallet-modal" class="login-overlay">
-        <div class="login-box">
-            <i class="fas fa-times login-close" onclick="window.closeLinkModal('link-wallet')"></i>
-            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">CONNECT WALLET</h3>
-            <p style="color:#ccc; margin-bottom:20px;">Connect Metamask to pay.</p>
-            <button class="login-option" id="btn-connect-metamask-confirm"><i class="fas fa-wallet"></i> METAMASK</button>
-        </div>
-    </div>
-    
-    <div id="link-google-modal" class="login-overlay">
-        <div class="login-box">
-            <i class="fas fa-times login-close" onclick="window.closeLinkModal('link-google')"></i>
-            <h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">LINK GOOGLE</h3>
-            <p style="color:#ccc; margin-bottom:20px;">Sign in with Google to save items.</p>
-            <button class="login-option" id="btn-connect-google-confirm"><i class="fab fa-google"></i> GOOGLE ACCOUNT</button>
-        </div>
-    </div>
-
-    <div id="unlink-wallet-modal" class="login-overlay">
-        <div class="login-box">
-            <i class="fas fa-times login-close" onclick="window.closeLinkModal('unlink-wallet')"></i>
-            <h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT?</h3>
-            <button class="login-option" onclick="window.confirmUnlink('wallet')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button>
-            <button class="login-option" onclick="window.closeLinkModal('unlink-wallet')">CANCEL</button>
-        </div>
-    </div>
-    
-    <div id="unlink-google-modal" class="login-overlay">
-        <div class="login-box">
-            <i class="fas fa-times login-close" onclick="window.closeLinkModal('unlink-google')"></i>
-            <h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT?</h3>
-            <button class="login-option" onclick="window.confirmUnlink('google')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button>
-            <button class="login-option" onclick="window.closeLinkModal('unlink-google')">CANCEL</button>
-        </div>
-    </div>
+    <div id="link-wallet-modal" class="login-overlay"><div class="login-box"><i class="fas fa-times login-close" onclick="window.closeLinkModal('link-wallet')"></i><h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">CONNECT WALLET</h3><p style="color:#ccc; margin-bottom:20px;">Connect Metamask to pay.</p><button class="login-option" id="btn-connect-metamask-confirm"><i class="fas fa-wallet"></i> METAMASK</button></div></div>
+    <div id="link-google-modal" class="login-overlay"><div class="login-box"><i class="fas fa-times login-close" onclick="window.closeLinkModal('link-google')"></i><h3 style="color:#fff; font-family:'Cinzel'; margin-bottom:30px;">LINK GOOGLE</h3><p style="color:#ccc; margin-bottom:20px;">Sign in with Google to save items.</p><button class="login-option" id="btn-connect-google-confirm"><i class="fab fa-google"></i> GOOGLE ACCOUNT</button></div></div>
+    <div id="unlink-wallet-modal" class="login-overlay"><div class="login-box"><i class="fas fa-times login-close" onclick="window.closeLinkModal('unlink-wallet')"></i><h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT?</h3><button class="login-option" onclick="window.confirmUnlink('wallet')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button><button class="login-option" onclick="window.closeLinkModal('unlink-wallet')">CANCEL</button></div></div>
+    <div id="unlink-google-modal" class="login-overlay"><div class="login-box"><i class="fas fa-times login-close" onclick="window.closeLinkModal('unlink-google')"></i><h3 style="color:var(--danger); font-family:'Cinzel'; margin-bottom:20px;">DISCONNECT?</h3><button class="login-option" onclick="window.confirmUnlink('google')" style="border-color:var(--danger); color:var(--danger);">YES, DISCONNECT</button><button class="login-option" onclick="window.closeLinkModal('unlink-google')">CANCEL</button></div></div>
 
     <div class="dash-container">
         <div class="dash-sidebar">
@@ -404,7 +358,7 @@
             { id: 20, name: "VOID EYE", tier: "Legendary", pos: "100% 100%" }
         ];
 
-        // GLOBAL HELPERS FOR HTML ONCLICK
+        // GLOBAL HELPERS
         window.closeLoginGate = () => loginGate.classList.remove('active');
         window.openLinkModal = (type) => document.getElementById(`link-${type}-modal`).classList.add('active');
         window.closeLinkModal = (type) => document.getElementById(`${type}-modal`).classList.remove('active');
