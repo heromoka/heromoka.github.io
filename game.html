@@ -1,1 +1,328 @@
-```html <!DOCTYPE html> <html lang="vi"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> <title>Record of Ragnarok: Divine Battle</title> <script src="https://cdn.tailwindcss.com"></script> <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> <style> @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap'); :root { --bg-deep: #0a0a12; --panel-navy: #1e1b2e; --god-purple: #a855f7; --human-cyan: #06b6d4; --gold-accent: #fbbf24; } body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: white; overflow: hidden; height: 100vh; margin: 0; } .cinzel { font-family: 'Cinzel', serif; } .glossy { background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 100%); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); } .divine-glow-god { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); } .divine-glow-human { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); } @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } } .animate-float { animation: floating 4s ease-in-out infinite; } .screen { display: none; height: calc(100vh - 140px); overflow-y: auto; overflow-x: hidden; } .screen.active { display: block; } ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; } .nav-active { color: var(--gold-accent); opacity: 1 !important; transform: scale(1.1); } </style> </head> <body class="flex flex-col"> <header class="h-16 bg-[#161625] border-b border-white/5 flex items-center justify-between px-4 z-50 shrink-0"> <div class="flex items-center gap-2"> <div class="w-10 h-10 rounded-full border-2 border-yellow-500 overflow-hidden shadow-lg bg-gray-800"> <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Zeus" alt="AVT"> </div> <div class="leading-tight"> <p class="text-[10px] font-black cinzel">ZEUS OLYMPUS</p> <p class="text-[10px] text-yellow-500 font-bold">LV. 99</p> </div> </div> <div class="flex gap-2"> <div class="bg-black/40 px-2 py-1 rounded-full border border-white/10 flex items-center gap-1"> <span class="text-xs">🥟</span><span class="text-[9px] font-bold">120</span> </div> <div class="bg-black/40 px-2 py-1 rounded-full border border-white/10 flex items-center gap-1"> <span class="text-xs">🪙</span><span class="text-[9px] font-bold">1.5M</span> </div> <div class="bg-black/40 px-2 py-1 rounded-full border border-white/10 flex items-center gap-1"> <span class="text-xs text-purple-400">💎</span><span class="text-[9px] font-bold">3,500</span> </div> </div> </header> <main class="flex-1 relative overflow-hidden bg-[#0f172a]"> <section id="screen-castle" class="screen active relative p-4"> <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000')] bg-cover opacity-20"></div> <div class="relative z-10 flex flex-col h-full"> <div class="flex justify-between w-full"> <div class="flex flex-col gap-3"> <button class="w-10 h-10 rounded-full bg-gray-800/80 glossy flex items-center justify-center">🛒</button> <button class="w-10 h-10 rounded-full bg-gray-800/80 glossy flex items-center justify-center">🎁</button> </div> <div class="flex flex-col gap-3"> <button class="w-10 h-10 rounded-full bg-gray-800/80 glossy flex items-center justify-center">📧</button> <button class="w-10 h-10 rounded-full bg-gray-800/80 glossy flex items-center justify-center">⚙️</button> </div> </div> <div class="flex-1 flex flex-col items-center justify-center gap-6 animate-float"> <div class="bg-[#1e1b2e]/90 border-2 border-yellow-600/50 p-6 rounded-t-[50px] shadow-[0_0_50px_rgba(251,191,36,0.2)] text-center relative"> <h2 class="cinzel text-xl font-black tracking-widest">VALHALLA ARENA</h2> <p class="text-[10px] text-red-500 font-bold mt-1">LIVE EVENT</p> </div> <div class="flex gap-4"> <div class="w-24 h-24 bg-[#1e1b2e] rounded-xl border border-blue-500/30 flex flex-col items-center justify-center gap-2 shadow-lg"> <span class="text-3xl">⚔️</span><span class="text-[10px] font-bold cinzel">CHALLENGE</span> </div> <div class="w-24 h-24 bg-[#1e1b2e] rounded-xl border border-red-500/30 flex flex-col items-center justify-center gap-2 shadow-lg"> <span class="text-3xl">🗺️</span><span class="text-[10px] font-bold cinzel">ADVENTURE</span> </div> </div> </div> </div> </section> <section id="screen-general" class="screen p-4 bg-[#1e1b2e]"> <div class="flex justify-between items-center mb-4"><h2 class="cinzel text-lg font-bold">Divine Warriors</h2></div> <div id="hero-grid" class="grid grid-cols-2 gap-3 pb-20"></div> </section> <section id="screen-summon" class="screen p-6 bg-gradient-to-b from-[#1e1b2e] to-black"> <div class="h-full flex flex-col justify-center items-center text-center gap-8"> <div class="relative"><div class="absolute inset-0 bg-yellow-500/20 blur-[80px] rounded-full animate-pulse"></div><div class="text-8xl">🏺</div></div> <div><h2 class="cinzel text-2xl text-yellow-500 font-black">DIVINE GATE</h2><p class="text-xs text-gray-400 mt-2">Summon legendary fighters</p></div> <div class="flex flex-col gap-4 w-full"> <button class="w-full bg-yellow-600 py-4 rounded-xl glossy font-black cinzel text-sm">SUMMON 1X (300 💎)</button> <button class="w-full border-2 border-yellow-600/50 py-4 rounded-xl font-black cinzel text-sm">SUMMON 10X (3000 💎)</button> </div> </div> </section> <section id="screen-bag" class="screen p-4 bg-[#0a0a12]"><div class="grid grid-cols-4 gap-2" id="bag-items"></div></section> </main> <footer class="h-[74px] bg-[#161625] border-t border-white/5 flex items-center justify-around px-2 z-50 shrink-0"> <button onclick="nav('general')" class="nav-btn flex flex-col items-center gap-1 opacity-40 transition-all"><i class="fa-solid fa-users-rays text-xl"></i><span class="text-[9px] font-black">GENERAL</span></button> <button onclick="nav('bag')" class="nav-btn flex flex-col items-center gap-1 opacity-40 transition-all"><i class="fa-solid fa-box-open text-xl"></i><span class="text-[9px] font-black">BAG</span></button> <button onclick="nav('castle')" class="nav-btn nav-active flex flex-col items-center gap-1 transition-all"><i class="fa-solid fa-fort-awesome text-2xl"></i><span class="text-[9px] font-black">CASTLE</span></button> <button onclick="nav('summon')" class="nav-btn flex flex-col items-center gap-1 opacity-40 transition-all"><i class="fa-solid fa-bolt-lightning text-xl"></i><span class="text-[9px] font-black">SUMMON</span></button> <button class="nav-btn flex flex-col items-center gap-1 opacity-40 transition-all"><i class="fa-solid fa-shield-cat text-xl"></i><span class="text-[9px] font-black">GUILD</span></button> </footer> <div id="hero-modal" class="fixed inset-0 z-[100] bg-black/95 hidden flex flex-col p-6 overflow-y-auto"> <button onclick="closeHero()" class="absolute top-6 right-6 text-3xl opacity-50">✕</button> <div class="flex-1 flex flex-col items-center pt-10"> <h2 id="m-name" class="cinzel text-4xl font-black tracking-tighter">THOR</h2> <div class="flex text-yellow-500 gap-1 my-2">★★★★★</div> <div class="relative my-10 group"><div id="m-glow" class="absolute inset-0 blur-[60px] rounded-full"></div><img id="m-img" src="" class="w-64 relative z-10 animate-float"></div> <div class="w-full bg-white/5 rounded-3xl p-6 border border-white/10 mt-auto shadow-2xl"> <div class="flex justify-between mb-4"> <div class="text-center flex-1 border-r border-white/10"><p class="text-[10px] text-gray-400">ATK</p><p class="font-black text-lg">12,450</p></div> <div class="text-center flex-1 border-r border-white/10"><p class="text-[10px] text-gray-400">DEF</p><p class="font-black text-lg">8,900</p></div> <div class="text-center flex-1"><p class="text-[10px] text-gray-400">HP</p><p class="font-black text-lg">95K</p></div> </div> <div class="mb-6"><div class="flex justify-between text-[10px] font-bold mb-1"><span>LV PROGRESS</span><span class="text-cyan-400">50/100</span></div><div class="h-2 bg-gray-800 rounded-full overflow-hidden"><div class="h-full bg-cyan-500 w-[50%] shadow-[0_0_10px_cyan]"></div></div></div> <div class="flex gap-3"><button class="flex-1 bg-yellow-600/20 text-yellow-500 border border-yellow-600 py-3 rounded-xl font-black text-xs glossy">EQUIP</button><button onclick="levelUpAnim()" id="btn-lvl" class="flex-[2] bg-cyan-500 py-3 rounded-xl font-black text-xs glossy text-black shadow-[0_0_20px_rgba(6,182,212,0.5)]">LEVEL UP</button></div> </div> </div> </div> <script> const data = [ { n: 'THOR', f: 'GOD', s: 5, l: 85, i: 'Thor', r: 'P' }, { n: 'LU BU', f: 'HUMAN', s: 5, l: 90, i: 'LuBu', r: 'H' }, { n: 'ZEUS', f: 'GOD', s: 6, l: 99, i: 'Zeus', r: 'P' }, { n: 'ADAM', f: 'HUMAN', s: 6, l: 95, i: 'Adam', r: 'H' }, { n: 'POSEIDON', f: 'GOD', s: 5, l: 82, i: 'Poseidon', r: 'P' }, { n: 'SASAKI', f: 'HUMAN', s: 4, l: 75, i: 'Sasaki', r: 'H' } ]; function render() { document.getElementById('hero-grid').innerHTML = data.map(h => ` <div onclick="openHero('${h.n}', '${h.i}', '${h.r}')" class="bg-[#2d2d44] border-2 ${h.r==='P'?'border-purple-500/50 divine-glow-god':'border-cyan-500/50 divine-glow-human'} rounded-2xl overflow-hidden active:scale-95 transition"> <div class="h-36 bg-gradient-to-b from-gray-800 to-transparent flex items-center justify-center relative"><img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=${h.i}" class="w-20"><span class="absolute top-2 left-2 text-[8px] font-bold bg-black/60 px-1.5 py-0.5 rounded-full border border-white/10">${h.f}</span></div> <div class="p-3"><p class="cinzel text-[10px] font-black truncate">${h.n}</p><div class="flex justify-between items-center mt-1"><span class="text-yellow-500 text-[8px]">${'★'.repeat(h.s)}</span><span class="text-cyan-400 text-[10px] font-black italic">Lv.${h.l}</span></div></div> </div>`).join(''); document.getElementById('bag-items').innerHTML = Array(20).fill(0).map(() => `<div class="aspect-square bg-[#1e1b2e] border border-white/5 rounded-lg flex items-center justify-center text-2xl relative">📦<span class="absolute bottom-1 right-1 text-[8px] font-bold text-gray-500">x99</span></div>`).join(''); } function nav(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(`screen-${id}`).classList.add('active'); document.querySelectorAll('.nav-btn').forEach(b => { b.classList.remove('nav-active'); b.classList.add('opacity-40'); }); event.currentTarget.classList.add('nav-active'); event.currentTarget.classList.remove('opacity-40'); } function openHero(n, i, r) { const m = document.getElementById('hero-modal'); const mn = document.getElementById('m-name'); const mg = document.getElementById('m-glow'); mn.innerText = n; document.getElementById('m-img').src = `https://api.dicebear.com/7.x/pixel-art/svg?seed=${i}`; if(r === 'P') { mn.style.color = '#a855f7'; mg.style.backgroundColor = 'rgba(168, 85, 247, 0.2)'; } else { mn.style.color = '#06b6d4'; mg.style.backgroundColor = 'rgba(6, 182, 212, 0.2)'; } m.classList.remove('hidden'); } function closeHero() { document.getElementById('hero-modal').classList.add('hidden'); } function levelUpAnim() { const b = document.getElementById('btn-lvl'); b.innerText = "SUCCESS!"; b.style.backgroundColor = "#fbbf24"; setTimeout(() => { b.innerText = "LEVEL UP"; b.style.backgroundColor = "#06b6d4"; }, 1000); } render(); </script> </body> </html> ```
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dragon Flight Clone</title>
+    <style>
+        /* Thiết lập giao diện cơ bản */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e; /* Màu nền tối */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        /* Khung Game */
+        #gameCanvas {
+            background-color: #16213e;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            cursor: none; /* Ẩn con trỏ chuột khi chơi */
+        }
+
+        /* Giao diện điểm số và thông báo */
+        #uiContainer {
+            position: absolute;
+            top: 20px;
+            text-align: center;
+            pointer-events: none; /* Không cản trở thao tác chuột */
+            z-index: 10;
+        }
+
+        h1 { margin: 0; font-size: 24px; text-shadow: 2px 2px 4px #000; }
+        #gameOverText { display: none; margin-top: 200px; font-size: 30px; color: #e94560; font-weight: bold; text-shadow: 2px 2px 4px #000; }
+        #restartHint { display: none; font-size: 16px; margin-top: 10px; color: #a2a2bd; }
+    </style>
+</head>
+<body>
+
+    <div id="uiContainer">
+        <h1 id="scoreEl">Điểm: 0</h1>
+        <div id="gameOverText">GAME OVER</div>
+        <div id="restartHint">Click để chơi lại</div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // Cài đặt Canvas
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('scoreEl');
+        const gameOverText = document.getElementById('gameOverText');
+        const restartHint = document.getElementById('restartHint');
+
+        // Kích thước game (tỷ lệ màn hình dọc)
+        canvas.width = 400;
+        canvas.height = 700;
+
+        // Biến toàn cục
+        let score = 0;
+        let gameActive = true;
+        let frameCount = 0;
+
+        // Mảng chứa các đối tượng
+        let bullets = [];
+        let enemies = [];
+        let particles = [];
+
+        // --- LỚP NHÂN VẬT CHÍNH ---
+        class Player {
+            constructor() {
+                this.width = 40;
+                this.height = 40;
+                this.x = canvas.width / 2 - this.width / 2;
+                this.y = canvas.height - 80;
+                this.color = '#0f3460'; // Bạn sẽ thay bằng hình ảnh sau
+            }
+
+            draw() {
+                // Vẽ thân nhân vật (Tạm thời là hình chữ nhật)
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+                
+                // Vẽ phần đầu cho ra dáng phi thuyền/nhân vật
+                ctx.fillStyle = '#e94560';
+                ctx.beginPath();
+                ctx.moveTo(this.x + this.width / 2, this.y - 15);
+                ctx.lineTo(this.x + this.width, this.y);
+                ctx.lineTo(this.x, this.y);
+                ctx.fill();
+            }
+
+            update(mouseX) {
+                // Nhân vật di chuyển theo trục X của chuột/cảm ứng
+                this.x = mouseX - this.width / 2;
+
+                // Giới hạn không cho bay ra ngoài màn hình
+                if (this.x < 0) this.x = 0;
+                if (this.x + this.width > canvas.width) this.x = canvas.width - this.width;
+                
+                this.draw();
+            }
+        }
+
+        // --- LỚP ĐẠN ---
+        class Bullet {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 5;
+                this.color = '#00d2ff';
+                this.speed = 10; // Tốc độ đạn bay lên
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.draw();
+            }
+        }
+
+        // --- LỚP KẺ ĐỊCH ---
+        class Enemy {
+            constructor() {
+                this.width = 50;
+                this.height = 50;
+                this.x = Math.random() * (canvas.width - this.width);
+                this.y = -this.height; // Rơi từ trên cùng ngoài màn hình
+                this.color = `hsl(${Math.random() * 360}, 70%, 50%)`; // Màu ngẫu nhiên
+                this.speed = Math.random() * 2 + 2; // Tốc độ rơi từ 2 đến 4
+                this.hp = 2; // Máu của quái
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+            }
+
+            update() {
+                this.y += this.speed;
+                this.draw();
+            }
+        }
+
+        // --- LỚP HIỆU ỨNG NỔ (PARTICLES) ---
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = Math.random() * 3 + 1;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 6,
+                    y: (Math.random() - 0.5) * 6
+                };
+                this.alpha = 1; // Độ mờ
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.02; // Mờ dần
+                this.draw();
+            }
+        }
+
+        // Khởi tạo nhân vật
+        const player = new Player();
+        let mouseX = canvas.width / 2;
+
+        // Lắng nghe sự kiện di chuột & cảm ứng
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.touches[0].clientX - rect.left;
+        });
+
+        // Click để chơi lại khi Game Over
+        canvas.addEventListener('click', () => {
+            if (!gameActive) restartGame();
+        });
+
+        // Hàm sinh kẻ địch
+        function spawnEnemies() {
+            // Tốc độ sinh quái tăng dần theo thời gian
+            let spawnRate = Math.max(30, 100 - Math.floor(score / 50)); 
+            if (frameCount % spawnRate === 0) {
+                enemies.push(new Enemy());
+            }
+        }
+
+        // Hàm tạo hiệu ứng nổ
+        function createExplosion(x, y, color) {
+            for (let i = 0; i < 15; i++) {
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        // Khởi động lại game
+        function restartGame() {
+            score = 0;
+            scoreEl.innerText = `Điểm: ${score}`;
+            bullets = [];
+            enemies = [];
+            particles = [];
+            gameActive = true;
+            gameOverText.style.display = 'none';
+            restartHint.style.display = 'none';
+            animate();
+        }
+
+        // --- VÒNG LẶP GAME CHÍNH ---
+        function animate() {
+            if (!gameActive) return;
+
+            // Xóa khung hình cũ để vẽ khung hình mới
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            frameCount++;
+
+            // Nhân vật tự động bắn đạn (mỗi 10 khung hình)
+            if (frameCount % 10 === 0) {
+                bullets.push(new Bullet(player.x + player.width / 2, player.y));
+            }
+
+            // Cập nhật nhân vật
+            player.update(mouseX);
+
+            // Cập nhật hiệu ứng hạt (xóa hạt đã mờ)
+            particles.forEach((particle, index) => {
+                if (particle.alpha <= 0) {
+                    particles.splice(index, 1);
+                } else {
+                    particle.update();
+                }
+            });
+
+            // Cập nhật đạn (xóa đạn bay ra khỏi màn hình)
+            bullets.forEach((bullet, bIndex) => {
+                bullet.update();
+                if (bullet.y + bullet.radius < 0) {
+                    bullets.splice(bIndex, 1);
+                }
+            });
+
+            spawnEnemies();
+
+            // Cập nhật kẻ địch & Xử lý va chạm
+            enemies.forEach((enemy, eIndex) => {
+                enemy.update();
+
+                // 1. Va chạm giữa Kẻ địch và Đáy màn hình (Trừ điểm hoặc bỏ qua)
+                if (enemy.y > canvas.height) {
+                    enemies.splice(eIndex, 1);
+                }
+
+                // 2. Va chạm giữa Kẻ địch và Đạn
+                bullets.forEach((bullet, bIndex) => {
+                    if (
+                        bullet.x > enemy.x &&
+                        bullet.x < enemy.x + enemy.width &&
+                        bullet.y > enemy.y &&
+                        bullet.y < enemy.y + enemy.height
+                    ) {
+                        // Xóa đạn
+                        bullets.splice(bIndex, 1);
+                        // Trừ máu quái
+                        enemy.hp -= 1;
+
+                        if (enemy.hp <= 0) {
+                            createExplosion(enemy.x + enemy.width/2, enemy.y + enemy.height/2, enemy.color);
+                            enemies.splice(eIndex, 1);
+                            score += 10;
+                            scoreEl.innerText = `Điểm: ${score}`;
+                        }
+                    }
+                });
+
+                // 3. Va chạm giữa Kẻ địch và Nhân vật (Game Over)
+                if (
+                    player.x < enemy.x + enemy.width &&
+                    player.x + player.width > enemy.x &&
+                    player.y < enemy.y + enemy.height &&
+                    player.y + player.height > enemy.y
+                ) {
+                    gameActive = false;
+                    createExplosion(player.x + player.width/2, player.y + player.height/2, player.color);
+                    gameOverText.style.display = 'block';
+                    restartHint.style.display = 'block';
+                }
+            });
+
+            // Yêu cầu trình duyệt vẽ khung hình tiếp theo
+            requestAnimationFrame(animate);
+        }
+
+        // Bắt đầu game
+        animate();
+    </script>
+</body>
+</html>
