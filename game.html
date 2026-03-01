@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web3 Dragon Flight</title>
     <style>
-        /* Nền của toàn bộ trang web (phần viền đen hai bên) */
+        /* --- GIAO DIỆN CHUNG --- */
         body {
             margin: 0;
             padding: 0;
@@ -17,87 +17,91 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             overflow: hidden;
+            user-select: none;
         }
 
         /* Khung Game chính - Giữ tỷ lệ 9:16 mọi lúc */
         #gameWrapper {
             position: relative;
             height: 100vh;
-            aspect-ratio: 9 / 16; /* Tỷ lệ vàng màn hình dọc */
+            aspect-ratio: 9 / 16;
             background-color: #1a1a2e;
             box-shadow: 0 0 30px rgba(0, 0, 0, 1);
             overflow: hidden;
         }
 
-        /* Canvas vẽ game */
         #gameCanvas {
             width: 100%;
             height: 100%;
             display: block;
         }
 
-        /* Lớp phủ Giao diện (UI Overlays) */
+        /* Lớp phủ UI */
         .screen {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(26, 26, 46, 0.85); /* Nền mờ */
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            background: rgba(26, 26, 46, 0.9);
             z-index: 10;
         }
 
-        /* Ẩn giao diện */
         .hidden { display: none !important; }
 
-        /* Tiêu đề Game */
         h1.title {
-            font-size: 40px;
-            color: #fca311;
+            font-size: 36px; color: #fca311;
             text-shadow: 0 0 15px #fca311, 2px 2px 4px #000;
-            margin-bottom: 50px;
-            text-align: center;
+            margin-bottom: 30px; text-align: center;
         }
 
-        /* Nút bấm UI */
         .btn {
             background: linear-gradient(45deg, #e94560, #d90429);
-            color: white;
-            border: 2px solid #fff;
-            padding: 15px 40px;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 30px;
-            margin: 10px;
-            cursor: pointer;
-            width: 60%;
-            transition: transform 0.2s, box-shadow 0.2s;
+            color: white; border: 2px solid #fff;
+            padding: 15px 40px; font-size: 20px; font-weight: bold;
+            border-radius: 30px; margin: 10px; cursor: pointer;
+            width: 60%; transition: transform 0.2s, box-shadow 0.2s;
             text-transform: uppercase;
         }
 
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #e94560;
-        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px #e94560; }
+        .btn-back { background: #4a4e69; margin-top: auto; margin-bottom: 30px; }
 
-        /* Giao diện tính điểm khi đang chơi */
         #hud {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px #000;
-            z-index: 5;
-            pointer-events: none;
+            position: absolute; top: 15px; left: 20px;
+            font-size: 24px; font-weight: bold;
+            text-shadow: 2px 2px 4px #000; z-index: 5; pointer-events: none;
         }
 
-        /* Nút quay lại từ Shop/Túi đồ */
-        .btn-back { background: #4a4e69; margin-top: auto; margin-bottom: 40px; }
+        /* --- LƯỚI CHỌN TƯỚNG (TÚI ĐỒ) --- */
+        #characterGrid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 15px;
+            width: 85%;
+            background: rgba(0,0,0,0.6);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .hero-btn {
+            width: 100%;
+            aspect-ratio: 3/4; /* Tỷ lệ thẻ bài */
+            background-color: #333;
+            border: 3px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            background-image: url('assets/full_set.jpg');
+            background-size: 500% 400%; /* Vì ảnh có 5 cột, 4 hàng */
+            transition: transform 0.1s;
+        }
+
+        .hero-btn:hover { transform: scale(1.05); }
+        .hero-btn.selected { border-color: #fca311; box-shadow: 0 0 15px #fca311; }
+
     </style>
 </head>
 <body>
@@ -113,14 +117,15 @@
         </div>
 
         <div id="inventoryScreen" class="screen hidden">
-            <h1 class="title" style="font-size: 30px;">TÚI ĐỒ</h1>
-            <p>Trang bị vũ khí & nhân vật (Coming soon...)</p>
-            <button class="btn btn-back" id="btnBackInv">Quay Lại</button>
+            <h1 class="title" style="font-size: 28px; margin-top: 20px;">CHỌN TƯỚNG CỦA BẠN</h1>
+            <div id="characterGrid">
+                </div>
+            <button class="btn btn-back" id="btnBackInv">Lưu & Quay Lại</button>
         </div>
 
         <div id="shopScreen" class="screen hidden">
             <h1 class="title" style="font-size: 30px;">CỬA HÀNG</h1>
-            <p>Nâng cấp sức mạnh (Coming soon...)</p>
+            <p>Tính năng đang phát triển...</p>
             <button class="btn btn-back" id="btnBackShop">Quay Lại</button>
         </div>
 
@@ -149,180 +154,164 @@
             finalScore: document.getElementById('finalScore')
         };
 
-        // Kích thước chuẩn nội bộ (540x960 - Tỷ lệ 9:16)
+        // Kích thước chuẩn nội bộ
         canvas.width = 540;
         canvas.height = 960;
 
-        let score = 0;
-        let gameActive = false;
-        let frameCount = 0;
-        let animationId;
+        // TẢI ẢNH THỂ TƯỚNG TỪ GITHUB
+        const heroImage = new Image();
+        heroImage.src = 'assets/full_set.jpg';
+        let selectedHeroIndex = 0; // Tướng mặc định
 
-        let bullets = [];
-        let enemies = [];
-        let particles = [];
+        let score = 0, gameActive = false, frameCount = 0, animationId;
+        let bullets = [], enemies = [], particles = [];
         let mouseX = canvas.width / 2;
 
-        // --- LỚP NHÂN VẬT CHÍNH ---
+        // --- HỆ THỐNG CHỌN TƯỚNG (TÚI ĐỒ) ---
+        function initInventory() {
+            const grid = document.getElementById('characterGrid');
+            grid.innerHTML = ''; // Xóa sạch để tạo mới
+            
+            for (let i = 0; i < 20; i++) {
+                const btn = document.createElement('div');
+                btn.className = 'hero-btn';
+                
+                // Tính toán vị trí background để hiển thị đúng 1 tướng
+                const col = i % 5;
+                const row = Math.floor(i / 5);
+                btn.style.backgroundPosition = `${col * 25}% ${row * 33.333}%`;
+
+                if (i === selectedHeroIndex) btn.classList.add('selected');
+
+                btn.onclick = () => {
+                    document.querySelectorAll('.hero-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedHeroIndex = i; // Lưu tướng được chọn
+                };
+                grid.appendChild(btn);
+            }
+        }
+        initInventory(); // Gọi hàm tạo lưới ngay khi tải trang
+
+        // --- LỚP NHÂN VẬT ---
         class Player {
             constructor() {
-                this.width = 60;
-                this.height = 60;
+                this.width = 75; // Kích thước hiển thị trên game
+                this.height = 100;
                 this.x = canvas.width / 2 - this.width / 2;
-                this.y = canvas.height - 120;
-                this.color = '#4ea8de';
+                this.y = canvas.height - 150;
             }
 
             draw() {
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                
-                // Mũi tàu
-                ctx.fillStyle = '#fca311';
-                ctx.beginPath();
-                ctx.moveTo(this.x + this.width / 2, this.y - 20);
-                ctx.lineTo(this.x + this.width, this.y);
-                ctx.lineTo(this.x, this.y);
-                ctx.fill();
+                if (heroImage.complete && heroImage.naturalWidth > 0) {
+                    const cols = 5; const rows = 4;
+                    const spriteWidth = heroImage.naturalWidth / cols;
+                    const spriteHeight = heroImage.naturalHeight / rows;
+
+                    const col = selectedHeroIndex % cols;
+                    const row = Math.floor(selectedHeroIndex / cols);
+                    const sourceX = col * spriteWidth;
+                    const sourceY = row * spriteHeight;
+
+                    // Vẽ phần ảnh đã cắt lên canvas
+                    ctx.drawImage(
+                        heroImage, 
+                        sourceX, sourceY, spriteWidth, spriteHeight, 
+                        this.x, this.y, this.width, this.height      
+                    );
+                } else {
+                    // Dự phòng nếu ảnh lỗi
+                    ctx.fillStyle = '#4ea8de';
+                    ctx.fillRect(this.x, this.y, this.width, this.height);
+                }
             }
 
             update(targetX) {
-                // Di chuyển mượt (Lerp)
-                this.x += (targetX - this.width / 2 - this.x) * 0.2;
-
+                this.x += (targetX - this.width / 2 - this.x) * 0.2; // Di chuyển mượt
                 if (this.x < 0) this.x = 0;
                 if (this.x + this.width > canvas.width) this.x = canvas.width - this.width;
-                
                 this.draw();
             }
         }
 
-        // --- LỚP ĐẠN (ÁNH SÁNG RỰC RỠ) ---
+        // --- LỚP ĐẠN TIA LASER ---
         class Bullet {
             constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.width = 6;
-                this.height = 25;
-                this.color = '#00f5d4';
-                this.speed = 18;
+                this.x = x; this.y = y;
+                this.width = 6; this.height = 30;
+                this.color = '#00f5d4'; this.speed = 20;
             }
-
             draw() {
                 ctx.save();
-                ctx.shadowBlur = 15; // Hiệu ứng phát sáng
-                ctx.shadowColor = this.color;
-                ctx.fillStyle = '#ffffff'; // Lõi đạn màu trắng
-                
-                // Vẽ đạn hình elip dọc
+                ctx.shadowBlur = 15; ctx.shadowColor = this.color;
+                ctx.fillStyle = '#ffffff';
                 ctx.beginPath();
                 ctx.ellipse(this.x, this.y, this.width/2, this.height/2, 0, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.restore();
             }
-
-            update() {
-                this.y -= this.speed;
-                this.draw();
-            }
+            update() { this.y -= this.speed; this.draw(); }
         }
 
-        // --- LỚP KẺ ĐỊCH (ĐA DẠNG HÌNH THỂ) ---
+        // --- LỚP KẺ ĐỊCH ---
         class Enemy {
             constructor() {
-                this.size = Math.random() * 30 + 40; // Kích thước ngẫu nhiên 40-70
+                this.size = Math.random() * 30 + 40;
                 this.x = Math.random() * (canvas.width - this.size);
                 this.y = -this.size;
-                
-                const hues = [340, 20, 280]; // Đỏ hồng, Cam, Tím
+                const hues = [340, 20, 280]; 
                 this.color = `hsl(${hues[Math.floor(Math.random() * hues.length)]}, 100%, 60%)`;
-                
                 this.speed = Math.random() * 3 + 3;
-                this.hp = Math.floor(this.size / 20); // Quái to máu trâu hơn
-                this.type = Math.floor(Math.random() * 3); // 0: Vuông, 1: Tròn, 2: Tam giác
+                this.hp = Math.floor(this.size / 20);
+                this.type = Math.floor(Math.random() * 3);
             }
-
             draw() {
                 ctx.save();
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-                ctx.fillStyle = this.color;
-
-                if (this.type === 0) {
-                    ctx.fillRect(this.x, this.y, this.size, this.size);
-                } else if (this.type === 1) {
-                    ctx.beginPath();
-                    ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size/2, 0, Math.PI * 2);
-                    ctx.fill();
-                } else {
-                    ctx.beginPath();
-                    ctx.moveTo(this.x + this.size/2, this.y);
-                    ctx.lineTo(this.x + this.size, this.y + this.size);
-                    ctx.lineTo(this.x, this.y + this.size);
-                    ctx.fill();
-                }
+                ctx.shadowBlur = 10; ctx.shadowColor = this.color; ctx.fillStyle = this.color;
+                if (this.type === 0) ctx.fillRect(this.x, this.y, this.size, this.size);
+                else if (this.type === 1) { ctx.beginPath(); ctx.arc(this.x + this.size/2, this.y + this.size/2, this.size/2, 0, Math.PI * 2); ctx.fill(); }
+                else { ctx.beginPath(); ctx.moveTo(this.x + this.size/2, this.y); ctx.lineTo(this.x + this.size, this.y + this.size); ctx.lineTo(this.x, this.y + this.size); ctx.fill(); }
                 ctx.restore();
             }
-
-            update() {
-                this.y += this.speed;
-                this.draw();
-            }
+            update() { this.y += this.speed; this.draw(); }
         }
 
-        // --- HIỆU ỨNG NỔ ---
+        // --- LỚP HIỆU ỨNG NỔ ---
         class Particle {
-            // (Giữ nguyên logic particle như trước)
             constructor(x, y, color) {
                 this.x = x; this.y = y;
-                this.radius = Math.random() * 4 + 2;
-                this.color = color;
+                this.radius = Math.random() * 4 + 2; this.color = color;
                 this.velocity = { x: (Math.random() - 0.5) * 10, y: (Math.random() - 0.5) * 10 };
                 this.alpha = 1;
             }
             draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
+                ctx.save(); ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color;
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fill(); ctx.restore();
             }
-            update() {
-                this.x += this.velocity.x; this.y += this.velocity.y;
-                this.alpha -= 0.03;
-                this.draw();
-            }
+            update() { this.x += this.velocity.x; this.y += this.velocity.y; this.alpha -= 0.03; this.draw(); }
         }
 
         const player = new Player();
 
-        // Xử lý di chuột / cảm ứng (Cần tính tỷ lệ scale của wrapper)
+        // Xử lý Input
         function updateMousePos(clientX) {
             const rect = canvas.getBoundingClientRect();
-            // Tính toán tọa độ thực tế trên canvas 540x960 so với kích thước hiển thị
             const scaleX = canvas.width / rect.width; 
             mouseX = (clientX - rect.left) * scaleX;
         }
 
         window.addEventListener('mousemove', (e) => { if(gameActive) updateMousePos(e.clientX); });
         window.addEventListener('touchmove', (e) => { 
-            if(gameActive) {
-                e.preventDefault(); // Chống cuộn trang trên mobile khi chơi
-                updateMousePos(e.touches[0].clientX); 
-            }
+            if(gameActive) { e.preventDefault(); updateMousePos(e.touches[0].clientX); }
         }, {passive: false});
 
-        // Hàm chuyển đổi giao diện
+        // Điều hướng Menu
         function switchScreen(screenElement) {
-            Object.values(ui).forEach(el => {
-                if(el !== ui.hud) el.classList.add('hidden'); // Ẩn hết trừ hud
-            });
+            Object.values(ui).forEach(el => { if(el !== ui.hud) el.classList.add('hidden'); });
             screenElement.classList.remove('hidden');
         }
 
-        // --- LOGIC GAME ---
+        // Logic Game
         function spawnEnemies() {
             let spawnRate = Math.max(20, 80 - Math.floor(score / 50)); 
             if (frameCount % spawnRate === 0) enemies.push(new Enemy());
@@ -333,45 +322,37 @@
         }
 
         function startGame() {
-            score = 0;
-            ui.scoreVal.innerText = score;
+            score = 0; ui.scoreVal.innerText = score;
             bullets = []; enemies = []; particles = [];
-            gameActive = true;
-            mouseX = canvas.width / 2;
+            gameActive = true; mouseX = canvas.width / 2;
             player.x = canvas.width / 2 - player.width / 2;
             
-            switchScreen(ui.hud); // Ẩn menu, hiện điểm
+            switchScreen(ui.hud);
             ui.hud.classList.remove('hidden');
-            
             animate();
         }
 
         function gameOver() {
-            gameActive = false;
-            cancelAnimationFrame(animationId);
+            gameActive = false; cancelAnimationFrame(animationId);
             ui.finalScore.innerText = score;
             ui.hud.classList.add('hidden');
             switchScreen(ui.gameOver);
         }
 
-        // --- VÒNG LẶP CHÍNH ---
+        // Vòng lặp vẽ khung hình
         function animate() {
             if (!gameActive) return;
             animationId = requestAnimationFrame(animate);
 
-            // Xóa màn hình với hiệu ứng làm mờ nhẹ để tạo motion blur (tùy chọn)
             ctx.fillStyle = '#1a1a2e';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             frameCount++;
 
-            // Bắn đạn
-            if (frameCount % 8 === 0) {
-                bullets.push(new Bullet(player.x + player.width / 2, player.y - 10));
-            }
+            // Nhân vật bắn từ mũi tàu
+            if (frameCount % 8 === 0) bullets.push(new Bullet(player.x + player.width / 2, player.y));
 
             player.update(mouseX);
 
-            // Cập nhật mảng
             particles.forEach((p, i) => { p.alpha <= 0 ? particles.splice(i, 1) : p.update(); });
             bullets.forEach((b, i) => { b.update(); if (b.y + b.height < 0) bullets.splice(i, 1); });
 
@@ -381,7 +362,7 @@
                 enemy.update();
                 if (enemy.y > canvas.height) enemies.splice(eIndex, 1);
 
-                // Va chạm đạn & địch
+                // Va chạm đạn
                 bullets.forEach((bullet, bIndex) => {
                     if (bullet.x > enemy.x && bullet.x < enemy.x + enemy.size &&
                         bullet.y > enemy.y && bullet.y < enemy.y + enemy.size) {
@@ -390,8 +371,7 @@
                         if (enemy.hp <= 0) {
                             createExplosion(enemy.x + enemy.size/2, enemy.y + enemy.size/2, enemy.color);
                             enemies.splice(eIndex, 1);
-                            score += 10;
-                            ui.scoreVal.innerText = score;
+                            score += 10; ui.scoreVal.innerText = score;
                         }
                     }
                 });
@@ -399,13 +379,13 @@
                 // Va chạm người chơi
                 if (player.x < enemy.x + enemy.size && player.x + player.width > enemy.x &&
                     player.y < enemy.y + enemy.size && player.y + player.height > enemy.y) {
-                    createExplosion(player.x + player.width/2, player.y + player.height/2, player.color);
+                    createExplosion(player.x + player.width/2, player.y + player.height/2, '#fca311');
                     gameOver();
                 }
             });
         }
 
-        // --- SỰ KIỆN NÚT BẤM ---
+        // Gán sự kiện nút bấm
         document.getElementById('btnPlay').onclick = startGame;
         document.getElementById('btnRestart').onclick = startGame;
         document.getElementById('btnInventory').onclick = () => switchScreen(ui.inventory);
