@@ -64,8 +64,8 @@
         .hero-btn {
             width: 100%; aspect-ratio: 3/4; background-color: #333;
             border: 3px solid transparent; border-radius: 6px; cursor: pointer;
-            /* Đảm bảo đường dẫn này khớp 100% với cấu trúc thư mục GitHub của bạn */
-            background-image: url('./assets/full_set.jpg'); 
+            /* ĐÃ SỬA: Đổi đuôi thành .png */
+            background-image: url('./assets/full_set.png'); 
             background-size: 500% 400%; transition: transform 0.1s;
         }
 
@@ -126,17 +126,18 @@
 
         // --- TẢI ẢNH ASSETS ---
         const heroImage = new Image();
-        heroImage.src = './assets/full_set.jpg'; // Ảnh tướng của người chơi
+        // ĐÃ SỬA: Đổi đuôi thành .png
+        heroImage.src = './assets/full_set.png'; 
         
         const enemyImage = new Image();
-        enemyImage.src = './assets/heroes_sprite1.jpg'; // Ảnh quái vật rơi xuống
+        // ĐÃ SỬA: Đổi tên file và đuôi thành heroes_sprite.png
+        enemyImage.src = './assets/heroes_sprite.png'; 
 
         let selectedHeroIndex = 0;
         let score = 0, gameActive = false, frameCount = 0, animationId;
         let bullets = [], enemies = [], particles = [];
         let mouseX = canvas.width / 2;
 
-        // --- TẠO LƯỚI TÚI ĐỒ ---
         function initInventory() {
             const grid = document.getElementById('characterGrid');
             grid.innerHTML = ''; 
@@ -159,11 +160,10 @@
         }
         initInventory();
 
-        // --- LỚP NHÂN VẬT ---
         class Player {
             constructor() {
-                this.width = 90; // Rộng hơn một chút để thấy rõ tướng
-                this.height = 120; // Cao hơn theo tỷ lệ 3:4
+                this.width = 90; 
+                this.height = 120; 
                 this.x = canvas.width / 2 - this.width / 2;
                 this.y = canvas.height - 150;
             }
@@ -192,16 +192,15 @@
             }
         }
 
-        // --- LỚP QUÁI VẬT (MỚI) ---
         class Enemy {
             constructor() {
-                this.width = 75; // Kích thước thẻ quái
+                this.width = 75; 
                 this.height = 100;
                 this.x = Math.random() * (canvas.width - this.width);
                 this.y = -this.height;
                 this.speed = Math.random() * 2 + 3;
-                this.hp = 2; // Máu quái
-                this.spriteIndex = Math.floor(Math.random() * 20); // Chọn ngẫu nhiên 1 trong 20 con quái
+                this.hp = 2; 
+                this.spriteIndex = Math.floor(Math.random() * 20); 
             }
             draw() {
                 if (enemyImage.complete && enemyImage.naturalWidth > 0) {
@@ -223,7 +222,6 @@
             update() { this.y += this.speed; this.draw(); }
         }
 
-        // --- LỚP ĐẠN & HIỆU ỨNG (Giữ nguyên) ---
         class Bullet {
             constructor(x, y) {
                 this.x = x; this.y = y; this.width = 6; this.height = 30;
